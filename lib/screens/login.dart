@@ -23,19 +23,20 @@ class Login extends StatelessWidget {
               ),
               const Button("Entrar"),
               Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'ou registre-se',
-                      style: const TextStyle(fontSize: 18, color: Colors.white),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: ' aqui',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, color: primary)),
-                      ],
-                    ),
-                  )),
+                margin: const EdgeInsets.only(top: 20),
+                child: RichText(
+                  text: TextSpan(
+                    text: 'ou registre-se',
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: ' aqui',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, color: primary)),
+                    ],
+                  ),
+                ),
+              ),
               Container(
                 margin: const EdgeInsets.only(top: 10),
                 child: Row(
