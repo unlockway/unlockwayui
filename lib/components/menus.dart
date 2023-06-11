@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/screens/home.dart';
+import 'package:unlockway/screens/config.dart';
+import 'package:unlockway/screens/exercises.dart';
+import 'package:unlockway/screens/meals.dart';
+import 'package:unlockway/screens/routine.dart';
+
+void navigatePage(BuildContext context, page) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) {
+        return page;
+      },
+    ),
+  );
+}
 
 class Navbar extends StatelessWidget {
   const Navbar({super.key});
@@ -19,19 +34,44 @@ class Navbar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    navigatePage(
+                      context,
+                      const Home(),
+                    );
+                  },
                   icon: SvgPicture.asset("assets/icon/Home.svg")),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    navigatePage(
+                      context,
+                      const Meals(),
+                    );
+                  },
                   icon: SvgPicture.asset("assets/icon/Meal.svg")),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    navigatePage(
+                      context,
+                      const Exercise(),
+                    );
+                  },
                   icon: SvgPicture.asset("assets/icon/exercise.svg")),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    navigatePage(
+                      context,
+                      const Routine(),
+                    );
+                  },
                   icon: SvgPicture.asset("assets/icon/time.svg")),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    navigatePage(
+                      context,
+                      const Settings(),
+                    );
+                  },
                   icon: SvgPicture.asset("assets/icon/Settings.svg")),
             ],
           ),

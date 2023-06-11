@@ -25,7 +25,7 @@ class InfoCard extends StatelessWidget {
               ),
               Container(
                 color: primary,
-                child: Row(
+                child: const Row(
                   children: [],
                 ),
               )
