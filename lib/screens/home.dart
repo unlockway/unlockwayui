@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            Navbar(),
+            Navbar("Home"),
           ],
         ),
       ),

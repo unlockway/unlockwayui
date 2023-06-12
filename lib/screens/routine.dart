@@ -16,7 +16,7 @@ class Routine extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Routine"),
-            Navbar(),
+            Navbar("Routine"),
           ],
         ),
       ),

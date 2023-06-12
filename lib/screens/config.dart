@@ -16,7 +16,7 @@ class Settings extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Config"),
-            Navbar(),
+            Navbar("Settings"),
           ],
         ),
       ),

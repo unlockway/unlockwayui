@@ -16,7 +16,7 @@ class Meals extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Meals"),
-            Navbar(),
+            Navbar("Meal"),
           ],
         ),
       ),

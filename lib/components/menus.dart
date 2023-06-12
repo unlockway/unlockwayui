@@ -18,10 +18,30 @@ void navigatePage(BuildContext context, page) {
 }
 
 class Navbar extends StatelessWidget {
-  const Navbar({super.key});
+  const Navbar(this.atual, {super.key});
+
+  final String atual;
 
   @override
   Widget build(BuildContext context) {
+    Color home = Colors.white;
+    Color meal = Colors.white;
+    Color exercise = Colors.white;
+    Color routine = Colors.white;
+    Color settings = Colors.white;
+
+    if (atual == "Home") {
+      home = primary;
+    } else if (atual == "Meal") {
+      meal = primary;
+    } else if (atual == "Exercise") {
+      exercise = primary;
+    } else if (atual == "Routine") {
+      routine = primary;
+    } else if (atual == "Settings") {
+      settings = primary;
+    }
+
     return SizedBox(
       width: double.infinity,
       child: ClipRRect(
@@ -34,21 +54,25 @@ class Navbar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                  onPressed: () {
-                    navigatePage(
-                      context,
-                      const Home(),
-                    );
-                  },
-                  icon: SvgPicture.asset("assets/icon/Home.svg")),
+                onPressed: () {
+                  navigatePage(
+                    context,
+                    const Home(),
+                  );
+                },
+                icon: SvgPicture.asset("assets/icon/Home.svg",
+                    colorFilter: ColorFilter.mode(home, BlendMode.srcIn)),
+              ),
               IconButton(
-                  onPressed: () {
-                    navigatePage(
-                      context,
-                      const Meals(),
-                    );
-                  },
-                  icon: SvgPicture.asset("assets/icon/Meal.svg")),
+                onPressed: () {
+                  navigatePage(
+                    context,
+                    const Meals(),
+                  );
+                },
+                icon: SvgPicture.asset("assets/icon/Meal.svg",
+                    colorFilter: ColorFilter.mode(meal, BlendMode.srcIn)),
+              ),
               IconButton(
                   onPressed: () {
                     navigatePage(
@@ -56,7 +80,9 @@ class Navbar extends StatelessWidget {
                       const Exercise(),
                     );
                   },
-                  icon: SvgPicture.asset("assets/icon/exercise.svg")),
+                  icon: SvgPicture.asset("assets/icon/exercise.svg",
+                      colorFilter:
+                          ColorFilter.mode(exercise, BlendMode.srcIn))),
               IconButton(
                   onPressed: () {
                     navigatePage(
@@ -64,7 +90,8 @@ class Navbar extends StatelessWidget {
                       const Routine(),
                     );
                   },
-                  icon: SvgPicture.asset("assets/icon/time.svg")),
+                  icon: SvgPicture.asset("assets/icon/time.svg",
+                      colorFilter: ColorFilter.mode(routine, BlendMode.srcIn))),
               IconButton(
                   onPressed: () {
                     navigatePage(
@@ -72,7 +99,9 @@ class Navbar extends StatelessWidget {
                       const Settings(),
                     );
                   },
-                  icon: SvgPicture.asset("assets/icon/Settings.svg")),
+                  icon: SvgPicture.asset("assets/icon/Settings.svg",
+                      colorFilter:
+                          ColorFilter.mode(settings, BlendMode.srcIn))),
             ],
           ),
         ),

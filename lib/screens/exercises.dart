@@ -16,7 +16,7 @@ class Exercise extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Exercise"),
-            Navbar(),
+            Navbar("Exercise"),
           ],
         ),
       ),
