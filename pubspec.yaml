@@ -61,18 +61,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/icon/Google.png
-   - assets/icon/Microsoft.png
-   - assets/icon/Logo.svg
-   - assets/icon/Vector.png
-   - assets/icon/Vectortwo.png
-   - assets/icon/Home.svg
-   - assets/icon/Meal.svg
-   - assets/icon/hamburguer.svg
-   - assets/icon/exercise.svg
-   - assets/icon/time.svg
-   - assets/icon/Settings.svg
-   - assets/img/image.png
+   - assets/icon/
+   - assets/img/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -86,24 +76,24 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  #fonts:
-  #  - family: Inter
-  #    fonts:
-  #      - asset: fonts/inter/Inter-Black.ttf
-  #      - asset: fonts/inter/Inter-Bold.ttf
-  #      - asset: fonts/inter/Inter-ExtraBold.ttf
-  #      - asset: fonts/inter/Inter-ExtraLight.ttf
-  #      - asset: fonts/inter/Inter-Light.ttf
-  #      - asset: fonts/inter/Inter-Medium.ttf
-  #      - asset: fonts/inter/Inter-Regular.ttf
-  #      - asset: fonts/inter/Inter-SemiBold.ttf
-  #      - asset: fonts/inter/Inter-Thin.ttf
-  #  - family: Signika
-  #    fonts:
-  #      - asset: fonts/signika/Signika-Bold.ttf
-  #      - asset: fonts/signika/Signika-Light.ttf
-  #      - asset: fonts/signika/Signika-Medium.ttf
-  #      - asset: fonts/signika/Signika-Regular.ttf
-  #      - asset: fonts/signika/Signika-SemiBold.ttf
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: fonts/inter/Inter-Black.ttf
+        - asset: fonts/inter/Inter-Bold.ttf
+        - asset: fonts/inter/Inter-ExtraBold.ttf
+        - asset: fonts/inter/Inter-ExtraLight.ttf
+        - asset: fonts/inter/Inter-Light.ttf
+        - asset: fonts/inter/Inter-Medium.ttf
+        - asset: fonts/inter/Inter-Regular.ttf
+        - asset: fonts/inter/Inter-SemiBold.ttf
+        - asset: fonts/inter/Inter-Thin.ttf
+    - family: Signika
+      fonts:
+        - asset: fonts/signika/Signika-Bold.ttf
+        - asset: fonts/signika/Signika-Light.ttf
+        - asset: fonts/signika/Signika-Medium.ttf
+        - asset: fonts/signika/Signika-Regular.ttf
+        - asset: fonts/signika/Signika-SemiBold.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
