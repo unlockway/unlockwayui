@@ -20,11 +20,11 @@ class InfoCard extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                color: darkBglight,
+                color: Color(darkBglight),
                 child: Text(text, style: const TextStyle(color: Colors.white)),
               ),
               Container(
-                color: primary,
+                color: Color(primary),
                 child: const Row(
                   children: [],
                 ),

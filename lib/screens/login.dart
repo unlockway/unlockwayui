@@ -8,66 +8,71 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: <Widget>[
-      Scaffold(
-        backgroundColor: darkBgdark,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 70),
-                child: SvgPicture.asset(
-                  "assets/icon/Logo.svg",
-                ),
-              ),
-              const Button("Entrar"),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: RichText(
-                  text: TextSpan(
-                    text: 'ou registre-se',
-                    style: const TextStyle(fontSize: 18, color: Colors.white),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: ' aqui',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, color: primary)),
-                    ],
+    return Stack(
+      children: <Widget>[
+        Scaffold(
+          backgroundColor: Color(darkBgdark),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 70),
+                  child: SvgPicture.asset(
+                    "assets/icon/Logo.svg",
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Image.asset("assets/icon/Google.png"),
-                      iconSize: 45,
+                const Button("Entrar"),
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'ou registre-se',
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: ' aqui',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Color(primary),
+                          ),
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Image.asset("assets/icon/Microsoft.png"),
-                      iconSize: 45,
-                    ),
-                  ],
+                  ),
                 ),
-              )
-            ],
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Image.asset("assets/icon/Google.png"),
+                        iconSize: 45,
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Image.asset("assets/icon/Microsoft.png"),
+                        iconSize: 45,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-      Positioned(
-        top: 0,
-        child: Image.asset("assets/icon/Vector.png"),
-      ),
-      Positioned(
-        bottom: 0,
-        right: 0,
-        child: Image.asset("assets/icon/Vectortwo.png"),
-      ),
-    ]);
+        Positioned(
+          top: 0,
+          child: Image.asset("assets/icon/Vector.png"),
+        ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Image.asset("assets/icon/Vectortwo.png"),
+        ),
+      ],
+    );
   }
 }

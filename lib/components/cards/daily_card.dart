@@ -21,7 +21,7 @@ class UDailyCard extends StatelessWidget {
       width: double.infinity,
       height: 180,
       decoration: BoxDecoration(
-        color: darkBglight,
+        color: Color(darkBglight),
         borderRadius: const BorderRadius.all(
           Radius.circular(6),
         ),

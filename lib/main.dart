@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/screens/login.dart';
 
+import 'constants.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -8,12 +10,18 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Unlockway',
-      home: Login(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.from(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color(primary),
+        ),
+      ),
+      home: const Login(),
     );
   }
 }

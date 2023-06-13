@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/components/menus.dart';
-import 'package:unlockway/components/daily_card.dart';
-import 'package:unlockway/components/info_card.dart';
+import 'package:unlockway/components/cards/daily_card.dart';
+import 'package:unlockway/components/cards/info_card.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkBgdark,
+      backgroundColor: Color(darkBgdark),
       body: Container(
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.all(13),

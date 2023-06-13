@@ -1,25 +1,21 @@
-import 'package:flutter/material.dart';
-
 // Primary Color
-var primary = const Color.fromARGB(255, 215, 255, 130);
-var primarylight = const Color.fromARGB(255, 209, 248, 127);
-var primarydark = const Color.fromARGB(255, 16, 148, 63);
+var primary = 0xFFD7FF82;
+var primarylight = 0xFFD1F87F;
+var primarydark = 0xFFABD84D;
 
 // Dark Bgcolor
 
-var darkBg = const Color.fromARGB(255, 39, 47, 63);
-var darkBglight = const Color.fromARGB(255, 54, 65, 86);
-var darkBgdark = const Color.fromARGB(255, 36, 46, 57);
+var darkBg = 0xFF272F3F;
+var darkBglight = 0xFF364156;
+var darkBgdark = 0xFF242E39;
 
 // Light Bgcolor
-
-var lightBg = const Color.fromARGB(255, 243, 243, 243);
-var lightBglight = const Color.fromARGB(255, 255, 255, 255);
-var lightBgdark = const Color.fromARGB(255, 212, 212, 212);
+var lightBg = 0xFFF3F3F3;
+var lightBglight = 0xFFFFFFFF;
+var lightBgdark = 0xD4D4D4;
 
 // Extras
-
-var darkExtra = const Color.fromARGB(255, 33, 33, 33);
-var darkExtra2 = const Color.fromARGB(255, 89, 89, 89);
-var danger = const Color.fromARGB(255, 195, 52, 52);
-var success = const Color.fromARGB(255, 82, 204, 131);
+var darker = 0xFF212121;
+var dark = 0xFF595959;
+var danger = 0xFFC33434;
+var success = 0xFF52CC83;

@@ -21,7 +21,7 @@ class UCard extends StatelessWidget {
       width: 177,
       height: 288,
       decoration: BoxDecoration(
-        color: darkBglight,
+        color: Color(darkBglight),
         borderRadius: const BorderRadius.all(
           Radius.circular(6),
         ),

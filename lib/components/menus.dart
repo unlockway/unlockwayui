@@ -31,15 +31,15 @@ class Navbar extends StatelessWidget {
     Color settings = Colors.white;
 
     if (atual == "Home") {
-      home = primary;
+      home = Color(primary);
     } else if (atual == "Meal") {
-      meal = primary;
+      meal = Color(primary);
     } else if (atual == "Exercise") {
-      exercise = primary;
+      exercise = Color(primary);
     } else if (atual == "Routine") {
-      routine = primary;
+      routine = Color(primary);
     } else if (atual == "Settings") {
-      settings = primary;
+      settings = Color(primary);
     }
 
     return SizedBox(
@@ -48,7 +48,7 @@ class Navbar extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: Container(
           width: double.infinity,
-          color: darkBglight,
+          color: Color(darkBglight),
           height: 60,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -60,8 +60,10 @@ class Navbar extends StatelessWidget {
                     const Home(),
                   );
                 },
-                icon: SvgPicture.asset("assets/icon/Home.svg",
-                    colorFilter: ColorFilter.mode(home, BlendMode.srcIn)),
+                icon: SvgPicture.asset(
+                  "assets/icon/Home.svg",
+                  colorFilter: ColorFilter.mode(home, BlendMode.srcIn),
+                ),
               ),
               IconButton(
                 onPressed: () {
@@ -70,38 +72,47 @@ class Navbar extends StatelessWidget {
                     const Meals(),
                   );
                 },
-                icon: SvgPicture.asset("assets/icon/Meal.svg",
-                    colorFilter: ColorFilter.mode(meal, BlendMode.srcIn)),
+                icon: SvgPicture.asset(
+                  "assets/icon/Meal.svg",
+                  colorFilter: ColorFilter.mode(meal, BlendMode.srcIn),
+                ),
               ),
               IconButton(
-                  onPressed: () {
-                    navigatePage(
-                      context,
-                      const Exercise(),
-                    );
-                  },
-                  icon: SvgPicture.asset("assets/icon/exercise.svg",
-                      colorFilter:
-                          ColorFilter.mode(exercise, BlendMode.srcIn))),
+                onPressed: () {
+                  navigatePage(
+                    context,
+                    const Exercise(),
+                  );
+                },
+                icon: SvgPicture.asset(
+                  "assets/icon/exercise.svg",
+                  colorFilter: ColorFilter.mode(exercise, BlendMode.srcIn),
+                ),
+              ),
               IconButton(
-                  onPressed: () {
-                    navigatePage(
-                      context,
-                      const Routine(),
-                    );
-                  },
-                  icon: SvgPicture.asset("assets/icon/time.svg",
-                      colorFilter: ColorFilter.mode(routine, BlendMode.srcIn))),
+                onPressed: () {
+                  navigatePage(
+                    context,
+                    const Routine(),
+                  );
+                },
+                icon: SvgPicture.asset(
+                  "assets/icon/time.svg",
+                  colorFilter: ColorFilter.mode(routine, BlendMode.srcIn),
+                ),
+              ),
               IconButton(
-                  onPressed: () {
-                    navigatePage(
-                      context,
-                      const Settings(),
-                    );
-                  },
-                  icon: SvgPicture.asset("assets/icon/Settings.svg",
-                      colorFilter:
-                          ColorFilter.mode(settings, BlendMode.srcIn))),
+                onPressed: () {
+                  navigatePage(
+                    context,
+                    const Settings(),
+                  );
+                },
+                icon: SvgPicture.asset(
+                  "assets/icon/Settings.svg",
+                  colorFilter: ColorFilter.mode(settings, BlendMode.srcIn),
+                ),
+              ),
             ],
           ),
         ),
