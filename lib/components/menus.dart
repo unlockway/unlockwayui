@@ -8,14 +8,18 @@ import 'package:unlockway/screens/meals.dart';
 import 'package:unlockway/screens/routine.dart';
 
 void navigatePage(BuildContext context, page) {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (_) {
-        return page;
-      },
-    ),
+    Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return child;
+    },
   );
 }
+Navigator.of(context).push(_createRoute());
+}
+
+
 
 class Navbar extends StatelessWidget {
   const Navbar(this.atual, {super.key});
