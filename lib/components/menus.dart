@@ -6,20 +6,7 @@ import 'package:unlockway/screens/config.dart';
 import 'package:unlockway/screens/exercises.dart';
 import 'package:unlockway/screens/meals.dart';
 import 'package:unlockway/screens/routine.dart';
-
-void navigatePage(BuildContext context, page) {
-    Route _createRoute() {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => page,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      return child;
-    },
-  );
-}
-Navigator.of(context).push(_createRoute());
-}
-
-
+import 'package:unlockway/utils/navigation.dart';
 
 class Navbar extends StatelessWidget {
   const Navbar(this.atual, {super.key});
