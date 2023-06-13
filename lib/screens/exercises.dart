@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/menus.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
 
 class Exercise extends StatelessWidget {
   const Exercise({super.key});
@@ -16,7 +16,7 @@ class Exercise extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Exercise"),
-            Navbar("Exercise"),
+            UBottomNavigator("Exercise"),
           ],
         ),
       ),

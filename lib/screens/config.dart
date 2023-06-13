@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/menus.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -16,7 +16,7 @@ class Settings extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Config"),
-            Navbar("Settings"),
+            UBottomNavigator("Settings"),
           ],
         ),
       ),

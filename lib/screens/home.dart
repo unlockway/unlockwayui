@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/drawer.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/menus.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/cards/daily_card.dart';
 import 'package:unlockway/components/cards/info_card.dart';
 
@@ -11,13 +12,29 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(darkBgdark),
+      bottomNavigationBar: const UBottomNavigator("Home"),
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: RichText(
+          text: const TextSpan(
+            text: 'Olá,',
+            style: TextStyle(fontSize: 16, color: Colors.white),
+            children: <TextSpan>[
+              TextSpan(
+                text: ' Daniel',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Color(darkBgdark),
+      ),
+      drawer: const UDrawer(),
       body: Container(
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.all(13),
         child: const Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            LayoutMenu(),
             SizedBox(
               child: Column(
                 children: [
@@ -38,7 +55,6 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            Navbar("Home"),
           ],
         ),
       ),

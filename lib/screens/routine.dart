@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/menus.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
 
 class Routine extends StatelessWidget {
   const Routine({super.key});
@@ -16,7 +16,7 @@ class Routine extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Routine"),
-            Navbar("Routine"),
+            UBottomNavigator("Routine"),
           ],
         ),
       ),
