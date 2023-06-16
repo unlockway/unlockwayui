@@ -33,28 +33,36 @@ class Home extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.all(13),
-        child: const Column(
+        child: Column(
           children: [
-            SizedBox(
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      InfoCard(text: "Próxima Refeição", hour: "12:00"),
-                      InfoCard(text: "Próximo Exercício", hour: "18:00"),
-                    ],
-                  ),
-                  UDailyCard(
+            Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,        
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            
+  child: GridView.count( 
+  primary: false,
+  padding: const EdgeInsets.all(5),
+  shrinkWrap: true,
+  crossAxisSpacing: 5,
+  mainAxisSpacing: 5,
+  crossAxisCount: 2, children: const[
+              InfoCard(text: "Próxima Refeição", hour: "12:00"),
+              InfoCard(text: "Próximo Exercicio", hour: "12:00"),
+            ],),
+          ),
+        ),
+      ],
+    ),
+            const UDailyCard(
                     description:
                         "Aquela receita simples e fácil, o strogonoff de carne é a escolha certa.",
                     flag: "Prato do dia",
                     imageUrl:
                         "https://img.cybercook.com.br/receitas/955/estrogonofe-de-carne-de-sol-com-leite-de-coco-e-mandioca-palha-840x480.jpeg?q=75",
                     title: "Strogonoff de carne",
-                  )
-                ],
-              ),
-            ),
+                  ),
           ],
         ),
       ),

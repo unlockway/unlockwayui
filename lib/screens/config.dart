@@ -9,6 +9,7 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(darkBgdark),
+      bottomNavigationBar: const UBottomNavigator("Settings"),
       body: Container(
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.all(13),
@@ -16,7 +17,6 @@ class Settings extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Config"),
-            UBottomNavigator("Settings"),
           ],
         ),
       ),

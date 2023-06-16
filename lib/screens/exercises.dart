@@ -9,6 +9,7 @@ class Exercise extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(darkBgdark),
+      bottomNavigationBar: const UBottomNavigator("Exercise"),
       body: Container(
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.all(13),
@@ -16,7 +17,6 @@ class Exercise extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Exercise"),
-            UBottomNavigator("Exercise"),
           ],
         ),
       ),

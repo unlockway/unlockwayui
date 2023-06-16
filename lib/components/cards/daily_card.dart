@@ -19,6 +19,7 @@ class UDailyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      margin: const EdgeInsets.only(left: 5, right: 5),
       height: 180,
       decoration: BoxDecoration(
         color: Color(darkBglight),
