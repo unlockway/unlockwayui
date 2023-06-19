@@ -48,8 +48,8 @@ class Home extends StatelessWidget {
   crossAxisSpacing: 5,
   mainAxisSpacing: 5,
   crossAxisCount: 2, children: const[
-              InfoCard(text: "Próxima Refeição", hour: "12:00"),
-              InfoCard(text: "Próximo Exercicio", hour: "12:00"),
+              InfoCard(text: "Próxima Refeição", hour: "12:00", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eget ante condimentum mattis ac in lectus. Pellentesque scelerisque", actiontitle: "Almoço"),
+              InfoCard(text: "Próximo Exercicio", hour: "12:00", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eget ante condimentum mattis ac in lectus. Pellentesque scelerisque", actiontitle: "Dia de Perna"),
             ],),
           ),
         ),
