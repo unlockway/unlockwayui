@@ -34,7 +34,7 @@ class UCard extends StatelessWidget {
               imageUrl,
               fit: BoxFit.cover,
               width: double.infinity,
-              height: 175,
+              height: 150,
             ),
           ),
           Container(
