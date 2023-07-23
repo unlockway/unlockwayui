@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/buttons.dart';
+import 'package:unlockway/screens/cellphone/components/loginButtons.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -22,7 +22,9 @@ class Login extends StatelessWidget {
                     "assets/icon/Logo.svg",
                   ),
                 ),
-                const Button("Entrar"),
+                const LoginButton("Entrar"),
+                const SizedBox(height: 15),
+                const RegisterButton(),
                 Container(
                   margin: const EdgeInsets.only(top: 20),
                   child: RichText(

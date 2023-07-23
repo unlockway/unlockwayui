@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/bottom_navigator.dart';
-import 'package:unlockway/components/cards/card.dart';
+import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
+import 'package:unlockway/screens/cellphone/components/cards/card.dart';
+import 'package:unlockway/screens/cellphone/components/button_new.dart';
 
-class Meals extends StatelessWidget {
-  const Meals({super.key});
+class Exercise extends StatelessWidget {
+  const Exercise({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(darkBgdark),
-      bottomNavigationBar: const UBottomNavigator("Meal"),
+      bottomNavigationBar: const UBottomNavigator("Exercise"),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
         child: AppBar(
@@ -19,7 +20,7 @@ class Meals extends StatelessWidget {
           flexibleSpace: Container(
             margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
             height: 60,
-            padding: const EdgeInsets.all(5),
+            padding: const EdgeInsets.only(left: 5, right: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Color(darkBglight),
@@ -70,30 +71,30 @@ class Meals extends StatelessWidget {
                         UCard(
                           description:
                               "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur",
-                          title: "Estrogonoff de Frango",
+                          title: "Peito",
                           imageUrl:
-                              "https://cdn0.tudoreceitas.com/pt/posts/6/8/8/strogonoff_de_frango_simples_9886_600.webp",
+                              "https://img.championat.com/s/735x490/news/big/e/p/pochemu-u-vas-ne-poluchaetsya-otzhimatsya_1664801277205252492.jpg",
                         ),
                         UCard(
                           description:
                               "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur",
-                          title: "Estrogonoff de Frango",
+                          title: "Peito",
                           imageUrl:
-                              "https://cdn0.tudoreceitas.com/pt/posts/6/8/8/strogonoff_de_frango_simples_9886_600.webp",
+                              "https://img.championat.com/s/735x490/news/big/e/p/pochemu-u-vas-ne-poluchaetsya-otzhimatsya_1664801277205252492.jpg",
                         ),
                         UCard(
                           description:
                               "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur",
-                          title: "Estrogonoff de Frango",
+                          title: "Peito",
                           imageUrl:
-                              "https://cdn0.tudoreceitas.com/pt/posts/6/8/8/strogonoff_de_frango_simples_9886_600.webp",
+                              "https://img.championat.com/s/735x490/news/big/e/p/pochemu-u-vas-ne-poluchaetsya-otzhimatsya_1664801277205252492.jpg",
                         ),
                         UCard(
                           description:
                               "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur",
-                          title: "Estrogonoff de Frango",
+                          title: "Peito",
                           imageUrl:
-                              "https://cdn0.tudoreceitas.com/pt/posts/6/8/8/strogonoff_de_frango_simples_9886_600.webp",
+                              "https://img.championat.com/s/735x490/news/big/e/p/pochemu-u-vas-ne-poluchaetsya-otzhimatsya_1664801277205252492.jpg",
                         )
                       ],
                     ),
@@ -101,29 +102,8 @@ class Meals extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: Ink(
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 4, color: Color(primarydark)),
-                    color: Color.fromARGB(26, 215, 255, 130),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: InkWell(
-                    //borderRadius: BorderRadius.circular(100.0),
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Icon(
-                        Icons.add,
-                        size: 30.0,
-                        color: Color(primarydark),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+            const Expanded(
+              child: ButtonNew(),
             ),
           ],
         ),

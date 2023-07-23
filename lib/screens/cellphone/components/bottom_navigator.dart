@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/home.dart';
-import 'package:unlockway/screens/config.dart';
-import 'package:unlockway/screens/exercises.dart';
-import 'package:unlockway/screens/meals.dart';
-import 'package:unlockway/screens/routine.dart';
+import 'package:unlockway/screens/cellphone/pages/home.dart';
+import 'package:unlockway/screens/cellphone/pages/config.dart';
+import 'package:unlockway/screens/cellphone/pages/exercises.dart';
+import 'package:unlockway/screens/cellphone/pages/meals.dart';
+import 'package:unlockway/screens/cellphone/pages/routine.dart';
 import 'package:unlockway/utils/navigation.dart';
 
 class UBottomNavigator extends StatelessWidget {

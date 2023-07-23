@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/components/drawer.dart';
+import 'package:unlockway/screens/cellphone/components/drawer.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/bottom_navigator.dart';
-import 'package:unlockway/components/cards/daily_card.dart';
-import 'package:unlockway/components/cards/info_card.dart';
-import 'package:unlockway/components/cards/goalprogress.dart';
+import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
+import 'package:unlockway/screens/cellphone/components/cards/daily_card.dart';
+import 'package:unlockway/screens/cellphone/components/cards/info_card.dart';
+import 'package:unlockway/screens/cellphone/components/cards/goalprogress.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
