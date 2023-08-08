@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:unlockway/responsive_screen.dart';
 import 'constants.dart';
 
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Unlockway',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.from(
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+            systemOverlayStyle:
+                SystemUiOverlayStyle(statusBarColor: Colors.transparent)),
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Color(primary),

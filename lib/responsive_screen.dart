@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/screens/cellphone/phoneScaffold.dart';
-import 'package:unlockway/screens/tablet/tabletScaffold.dart';
+import 'package:unlockway/screens/cellphone/phone_scaffold.dart';
+import 'package:unlockway/screens/tablet/tablet_scaffold.dart';
 
 class ResponsiveScreen extends StatelessWidget {
   const ResponsiveScreen({super.key});
@@ -10,7 +10,7 @@ class ResponsiveScreen extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       final bool isPhone = constraints.maxWidth < 800;
       final Widget screen =
-          isPhone ? const PhoneScaffold() : const tabletScaffold();
+          isPhone ? const PhoneScaffold() : const TabletScaffold();
       return screen;
     });
   }

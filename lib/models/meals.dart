@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Meals {
-  const Meals(this.title, this.ingredients, this.description, this.img);
+class MealsModel {
+  const MealsModel(this.title, this.ingredients, this.description, this.img);
 
   final String title;
   final String description;
