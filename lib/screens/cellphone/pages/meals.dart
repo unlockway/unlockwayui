@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
-import 'package:unlockway/screens/cellphone/components/cards/card.dart';
 import 'package:unlockway/screens/cellphone/components/button_new.dart';
+import 'package:unlockway/screens/cellphone/components/cards/card.dart';
 
 class Meals extends StatelessWidget {
   const Meals({super.key});
@@ -11,12 +11,7 @@ class Meals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        shape: const CircleBorder(),
-        backgroundColor: Color(primary),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: const ButtonNew(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       backgroundColor: Color(darkBgdark),
       bottomNavigationBar: const UBottomNavigator("Meal"),
