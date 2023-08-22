@@ -46,33 +46,35 @@ class GoalCard extends StatelessWidget {
               circularStrokeCap: CircularStrokeCap.round,
             ),
           ),
-          Container(
-            width: 275,
-            margin: const EdgeInsets.only(top: 5, bottom: 15, right: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  goal,
-                  textAlign: TextAlign.start,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                    fontFamily: "Signika",
-                    fontSize: 19,
+          Flexible(
+            child: Container(
+              width: 275,
+              margin: const EdgeInsets.only(top: 5, bottom: 15, right: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    goal,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                      fontFamily: "Signika",
+                      fontSize: 19,
+                    ),
                   ),
-                ),
-                Text(
-                  description,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    overflow: TextOverflow.ellipsis,
-                    color: Colors.white,
+                  Text(
+                    description,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      overflow: TextOverflow.ellipsis,
+                      color: Colors.white,
+                    ),
+                    maxLines: 3,
                   ),
-                  maxLines: 3,
-                ),
-              ],
+                ],
+              ),
             ),
           )
         ],

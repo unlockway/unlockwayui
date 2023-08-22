@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
 import 'package:unlockway/screens/cellphone/components/cards/card.dart';
 import 'package:unlockway/screens/cellphone/components/button_new.dart';
@@ -10,6 +11,13 @@ class Meals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        shape: const CircleBorder(),
+        backgroundColor: Color(primary),
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       backgroundColor: Color(darkBgdark),
       bottomNavigationBar: const UBottomNavigator("Meal"),
       appBar: PreferredSize(
@@ -51,61 +59,41 @@ class Meals extends StatelessWidget {
         ),
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        margin: const EdgeInsets.all(13),
-        child: Column(
-          children: [
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: SizedBox(
-                    child: GridView.count(
-                      childAspectRatio: 0.850,
-                      primary: false,
-                      padding: const EdgeInsets.all(5),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(maxHeight: constraints.maxHeight),
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.850,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
                       shrinkWrap: true,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      crossAxisCount: 2,
-                      children: const [
-                        UCard(
-                          description:
-                              "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur",
-                          title: "Estrogonoff de Frango",
-                          imageUrl:
-                              "https://cdn0.tudoreceitas.com/pt/posts/6/8/8/strogonoff_de_frango_simples_9886_600.webp",
-                        ),
-                        UCard(
-                          description:
-                              "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur",
-                          title: "Estrogonoff de Frango",
-                          imageUrl:
-                              "https://cdn0.tudoreceitas.com/pt/posts/6/8/8/strogonoff_de_frango_simples_9886_600.webp",
-                        ),
-                        UCard(
-                          description:
-                              "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur",
-                          title: "Estrogonoff de Frango",
-                          imageUrl:
-                              "https://cdn0.tudoreceitas.com/pt/posts/6/8/8/strogonoff_de_frango_simples_9886_600.webp",
-                        ),
-                        UCard(
-                          description:
-                              "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur",
-                          title: "Estrogonoff de Frango",
-                          imageUrl:
-                              "https://cdn0.tudoreceitas.com/pt/posts/6/8/8/strogonoff_de_frango_simples_9886_600.webp",
-                        )
-                      ],
+                      itemCount: meals.length,
+                      itemBuilder: (context, index) {
+                        for (var index in meals) {
+                          return UCard(
+                            description: index.description,
+                            title: index.title,
+                            imageUrl: index.img,
+                          );
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ),
               ],
-            ),
-            const Expanded(
-              child: ButtonNew(),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

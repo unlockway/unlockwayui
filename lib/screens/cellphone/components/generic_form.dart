@@ -3,10 +3,14 @@ import 'package:unlockway/constants.dart';
 
 class GenericForm extends StatelessWidget {
   const GenericForm(
-      {super.key, required this.title, required this.placeholder});
+      {super.key,
+      required this.title,
+      required this.placeholder,
+      required this.width});
 
   final String title;
   final String placeholder;
+  final double width;
 
   @override
   Widget build(BuildContext context) {

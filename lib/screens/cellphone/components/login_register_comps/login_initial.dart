@@ -56,9 +56,14 @@ class _InitialLoginState extends State<InitialLogin> {
                 child: Column(children: [
                   const SizedBox(height: 30),
                   const GenericForm(
-                      title: "E-mail", placeholder: "Insira seu E-mail"),
+                      title: "E-mail",
+                      placeholder: "Insira seu E-mail",
+                      width: double.infinity),
                   const SizedBox(height: 20),
-                  const GenericForm(title: "Senha", placeholder: "********"),
+                  const GenericForm(
+                      title: "Senha",
+                      placeholder: "********",
+                      width: double.infinity),
                   const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/cellphone/pages/home.dart';
 import 'package:unlockway/screens/cellphone/pages/config.dart';
-import 'package:unlockway/screens/cellphone/pages/exercises.dart';
 import 'package:unlockway/screens/cellphone/pages/meals.dart';
 import 'package:unlockway/screens/cellphone/pages/routine.dart';
 import 'package:unlockway/utils/navigation.dart';
@@ -17,7 +16,7 @@ class UBottomNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     Color home = Colors.white;
     Color meal = Colors.white;
-    Color exercise = Colors.white;
+
     Color routine = Colors.white;
     Color settings = Colors.white;
 
@@ -25,8 +24,6 @@ class UBottomNavigator extends StatelessWidget {
       home = Color(primary);
     } else if (atual == "Meal") {
       meal = Color(primary);
-    } else if (atual == "Exercise") {
-      exercise = Color(primary);
     } else if (atual == "Routine") {
       routine = Color(primary);
     } else if (atual == "Settings") {
@@ -38,7 +35,11 @@ class UBottomNavigator extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 60,
-        margin: const EdgeInsets.all(16),
+        margin: const EdgeInsets.only(
+          bottom: 16,
+          left: 16,
+          right: 16,
+        ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Color(darkBglight),
@@ -72,20 +73,6 @@ class UBottomNavigator extends StatelessWidget {
                 width: 28,
                 height: 28,
                 colorFilter: ColorFilter.mode(meal, BlendMode.srcIn),
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                navigatePage(
-                  context,
-                  const Exercise(),
-                );
-              },
-              icon: SvgPicture.asset(
-                "assets/icon/exercise.svg",
-                width: 28,
-                height: 28,
-                colorFilter: ColorFilter.mode(exercise, BlendMode.srcIn),
               ),
             ),
             IconButton(

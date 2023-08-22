@@ -63,16 +63,18 @@ class UCard extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 8.0),
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Text(
-              description,
-              style: const TextStyle(
-                overflow: TextOverflow.ellipsis,
-                color: Colors.white,
+          Flexible(
+            child: Container(
+              margin: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Text(
+                description,
+                style: const TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  color: Colors.white,
+                ),
+                maxLines: 3,
               ),
-              maxLines: 3,
             ),
           ),
         ],

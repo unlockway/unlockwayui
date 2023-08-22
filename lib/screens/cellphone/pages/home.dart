@@ -31,56 +31,58 @@ class Home extends StatelessWidget {
         backgroundColor: Color(darkBgdark),
       ),
       drawer: const UDrawer(),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        margin: const EdgeInsets.all(13),
-        child: Column(
-          children: [
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: SizedBox(
-                    child: GridView.count(
-                      primary: false,
-                      padding: const EdgeInsets.all(5),
-                      shrinkWrap: true,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                      crossAxisCount: 2,
-                      children: const [
-                        InfoCard(
-                            text: "Próxima Refeição",
-                            hour: "12:00",
-                            description:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eget ante condimentum mattis ac in lectus. Pellentesque scelerisque",
-                            actiontitle: "Almoço"),
-                        InfoCard(
-                            text: "Próximo Exercicio",
-                            hour: "12:00",
-                            description:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eget ante condimentum mattis ac in lectus. Pellentesque scelerisque",
-                            actiontitle: "Dia de Perna"),
-                      ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          margin: const EdgeInsets.all(13),
+          child: Column(
+            children: [
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: SizedBox(
+                      child: GridView.count(
+                        primary: false,
+                        padding: const EdgeInsets.all(5),
+                        shrinkWrap: true,
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 5,
+                        crossAxisCount: 2,
+                        children: const [
+                          InfoCard(
+                              text: "Próxima Refeição",
+                              hour: "12:00",
+                              description:
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eget ante condimentum mattis ac in lectus. Pellentesque scelerisque",
+                              actiontitle: "Almoço"),
+                          InfoCard(
+                              text: "Próximo Exercicio",
+                              hour: "12:00",
+                              description:
+                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eget ante condimentum mattis ac in lectus. Pellentesque scelerisque",
+                              actiontitle: "Dia de Perna"),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const UDailyCard(
-              description:
-                  "Aquela receita simples e fácil, o strogonoff de carne é a escolha certa.",
-              flag: "Prato do dia",
-              imageUrl:
-                  "https://img.cybercook.com.br/receitas/955/estrogonofe-de-carne-de-sol-com-leite-de-coco-e-mandioca-palha-840x480.jpeg?q=75",
-              title: "Strogonoff de carne",
-            ),
-            const GoalCard(
+                ],
+              ),
+              const UDailyCard(
                 description:
-                    "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur consequat nibh eu nisi accumsan consectetur",
-                goal: "Progresso",
-                progressporcentage: "25%",
-                progressvalue: 0.25),
-          ],
+                    "Aquela receita simples e fácil, o strogonoff de carne é a escolha certa.",
+                flag: "Prato do dia",
+                imageUrl:
+                    "https://img.cybercook.com.br/receitas/955/estrogonofe-de-carne-de-sol-com-leite-de-coco-e-mandioca-palha-840x480.jpeg?q=75",
+                title: "Strogonoff de carne",
+              ),
+              const GoalCard(
+                  description:
+                      "elit. Proin tristique eu nunc eu ultricies. Curabitur lorem elit, condimentum at lacus eu, ornare ultricies sem. Curabitur consequat nibh eu nisi accumsan consectetur",
+                  goal: "Progresso",
+                  progressporcentage: "25%",
+                  progressvalue: 0.25),
+            ],
+          ),
         ),
       ),
     );
