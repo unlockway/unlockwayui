@@ -75,6 +75,31 @@ class UBottomNavigator extends StatelessWidget {
                 colorFilter: ColorFilter.mode(meal, BlendMode.srcIn),
               ),
             ),
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(primarydark),
+                      Color(primarylight),
+                    ],
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.5),
+                      blurRadius: 1.5,
+                    ),
+                  ]),
+              child: InkWell(
+                onTap: () {},
+                child: Center(
+                  child: Icon(Icons.add, color: Color(darkBgdark)),
+                ),
+              ),
+            ),
             IconButton(
               onPressed: () {
                 navigatePage(

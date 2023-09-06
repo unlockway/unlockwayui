@@ -53,40 +53,45 @@ class _InitialLoginState extends State<InitialLogin> {
             child: Container(
               margin: const EdgeInsets.only(right: 20, left: 20),
               child: Form(
-                child: Column(children: [
-                  const SizedBox(height: 30),
-                  const GenericForm(
-                      title: "E-mail",
-                      placeholder: "Insira seu E-mail",
-                      width: double.infinity),
-                  const SizedBox(height: 20),
-                  const GenericForm(
-                      title: "Senha",
-                      placeholder: "********",
-                      width: double.infinity),
-                  const SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ButtonOutlined(
-                          text: "Cancelar",
+                child: Column(
+                  children: [
+                    const SizedBox(height: 30),
+                    const GenericForm(
+                        title: "E-mail",
+                        placeholder: "Insira seu E-mail",
+                        width: double.infinity),
+                    const SizedBox(height: 20),
+                    const GenericForm(
+                        title: "Senha",
+                        placeholder: "********",
+                        width: double.infinity),
+                    const SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ButtonOutlined(
+                            text: "Cancelar",
+                            height: 48.0,
+                            width: 600.0,
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            }),
+                        const SizedBox(width: 10),
+                        ButtonFilled(
+                          text: "Entrar",
                           height: 48.0,
                           width: 600.0,
                           onTap: () {
-                            Navigator.of(context).pop();
-                          }),
-                      const SizedBox(width: 10),
-                      ButtonFilled(
-                        text: "Entrar",
-                        height: 48.0,
-                        width: 600.0,
-                        onTap: () {
-                          navigatePage(context, const Home());
-                        },
-                      ),
-                    ],
-                  )
-                ]),
+                            navigatePage(
+                              context,
+                              const Home(),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

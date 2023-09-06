@@ -33,29 +33,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
         flexibleSpace: Container(
           color: Colors.transparent,
           margin: const EdgeInsets.only(top: 13),
-          child: Row(children: [
-            SizedBox(
-              child: Row(children: [
-                TextButton.icon(
-                  // <-- TextButton
-                  onPressed: () {
-                    navigate(context);
-                  },
-                  icon: Icon(Icons.arrow_back,
-                      size: 26.0, color: Color(primarydark)),
-                  label: Text(
-                    'VOLTAR',
-                    style: TextStyle(
-                      color: Color(primarydark),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
+          child: Row(
+            children: [
+              SizedBox(
+                child: Row(
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {
+                        navigate(context);
+                      },
+                      icon: Icon(Icons.arrow_back,
+                          size: 26.0, color: Color(primarydark)),
+                      label: Text(
+                        'VOLTAR',
+                        style: TextStyle(
+                          color: Color(primarydark),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ]),
-            ),
-            SvgPicture.asset("assets/icon/mini.svg")
-          ]),
+              ),
+              SvgPicture.asset("assets/icon/mini.svg"),
+            ],
+          ),
         ),
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -95,18 +98,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    setState(() {
-                      if (phase == 1) {
-                        phase++;
-                        registerPhase = const RegisterSecond();
-                        buttonText = "Finalizar";
-                      }
-                      if (phase == 2) {
-                        phase--;
-                        registerPhase = const RegisterInitial();
-                        buttonText = "Seguir";
-                      }
-                    });
+                    setState(
+                      () {
+                        if (phase == 1) {
+                          phase++;
+                          registerPhase = const RegisterSecond();
+                          buttonText = "Finalizar";
+                        }
+                        if (phase == 2) {
+                          phase--;
+                          registerPhase = const RegisterInitial();
+                          buttonText = "Seguir";
+                        }
+                      },
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -74,6 +74,7 @@ class UCard extends StatelessWidget {
                   color: Colors.white,
                 ),
                 maxLines: 3,
+                textScaler: const TextScaler.linear(1),
               ),
             ),
           ),
