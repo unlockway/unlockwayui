@@ -22,6 +22,7 @@ class GenericForm extends StatelessWidget {
             title,
             style: const TextStyle(
               color: Colors.white,
+              fontFamily: "Inter",
             ),
           ),
         ),
@@ -35,6 +36,9 @@ class GenericForm extends StatelessWidget {
             filled: true,
             fillColor: Color(darkBglight),
             focusColor: Color(darkBglight),
+          ),
+          style: const TextStyle(
+            fontFamily: "Inter",
           ),
         )
       ],

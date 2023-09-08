@@ -12,6 +12,103 @@ class UBottomNavigator extends StatelessWidget {
 
   final String atual;
 
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          alignment: Alignment.topCenter,
+          insetPadding: const EdgeInsets.all(0),
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+          child: Container(
+            margin: const EdgeInsets.only(top: 40),
+            width: 300,
+            child: Column(
+              children: [
+                Container(
+                  width: 250,
+                  height: 250,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Color(darkBglight),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0.0, 1.5),
+                          blurRadius: 1.5,
+                        ),
+                      ]),
+                  child: InkWell(
+                    onTap: () {},
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.restaurant,
+                            color: Color(primary), size: 100),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Text(
+                          "Nova Refeição",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Inter",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Container(
+                  width: 250,
+                  height: 250,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Color(darkBglight),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0.0, 1.5),
+                          blurRadius: 1.5,
+                        ),
+                      ]),
+                  child: InkWell(
+                    onTap: () {},
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.close),
+                        ),
+                        Icon(Icons.alarm_add, color: Color(primary), size: 100),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Text(
+                          "Nova Rotina",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Inter",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Color home = Colors.white;
@@ -94,7 +191,7 @@ class UBottomNavigator extends StatelessWidget {
                     ),
                   ]),
               child: InkWell(
-                onTap: () {},
+                onTap: () => _dialogBuilder(context),
                 child: Center(
                   child: Icon(Icons.add, color: Color(darkBgdark)),
                 ),

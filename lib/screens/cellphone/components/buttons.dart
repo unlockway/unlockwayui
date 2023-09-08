@@ -45,7 +45,7 @@ class ButtonFilled extends StatelessWidget {
                 style: const TextStyle(
                     fontSize: 23.04,
                     fontWeight: FontWeight.w500,
-                    fontFamily: "Poppins"),
+                    fontFamily: "Inter"),
               ),
             ),
           ),
@@ -91,10 +91,10 @@ class ButtonOutlined extends StatelessWidget {
               child: Text(
                 text,
                 style: TextStyle(
-                  fontSize: 23.04,
-                  fontWeight: FontWeight.w500,
-                  color: Color(primary),
-                ),
+                    fontSize: 23.04,
+                    fontWeight: FontWeight.w500,
+                    color: Color(primary),
+                    fontFamily: "Inter"),
               ),
             ),
           ),
