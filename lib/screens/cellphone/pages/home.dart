@@ -3,7 +3,9 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  const Home({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
