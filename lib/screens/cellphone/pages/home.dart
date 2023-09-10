@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
+import 'package:unlockway/screens/cellphone/pages/notifypage.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -47,13 +48,26 @@ class Home extends StatelessWidget {
                   )
                 ],
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(darkBglight),
-                  borderRadius: BorderRadius.circular(8),
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    _createRoute(),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                    Color(darkBglight),
+                  ),
+                  padding: const MaterialStatePropertyAll(
+                    EdgeInsets.all(8),
+                  ),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                 ),
-                padding: const EdgeInsets.all(8),
-                child: const Icon(
+                icon: const Icon(
                   Icons.notifications_none_outlined,
                   color: Colors.white,
                 ),
@@ -73,4 +87,25 @@ class Home extends StatelessWidget {
       ),
     );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => const NotifyPage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(
+        1.0,
+        0.0,
+      );
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
