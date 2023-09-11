@@ -92,64 +92,86 @@ class _MealsState extends State<Meals> {
       backgroundColor: Color(darkBgdark),
       bottomNavigationBar: const UBottomNavigator("Meal"),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100),
+        preferredSize: const Size.fromHeight(150),
         child: Container(
           margin:
               const EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Flexible(
-                child: TextField(
-                  cursorColor: const Color.fromARGB(255, 155, 155, 155),
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
-                  decoration: InputDecoration(
-                    enabled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.transparent),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    filled: true,
-                    fillColor: Color(darkBglight),
-                    contentPadding: const EdgeInsets.all(10.0),
-                    hintText: "Buscar",
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: Color(lightBglight),
-                    ),
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(
-                      color: Color(lightBg),
-                      fontWeight: FontWeight.w100,
-                    ),
-                  ),
+              const SizedBox(
+                height: 5,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "REFEIÇÕES",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Inter",
+                      color: Colors.white),
                 ),
               ),
               const SizedBox(
-                width: 10,
+                height: 10,
               ),
-              Material(
-                type: MaterialType.transparency,
-                child: Ink(
-                  decoration: BoxDecoration(
-                    color: Color(darkBglight),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: InkWell(
-                    //borderRadius: BorderRadius.circular(100.0),
-                    onTap: () => _dialogBuilder(context),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Icon(
-                        Icons.filter_list,
-                        size: 25.0,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: TextField(
+                      cursorColor: const Color.fromARGB(255, 155, 155, 155),
+                      style: const TextStyle(
                         color: Colors.white,
+                      ),
+                      decoration: InputDecoration(
+                        enabled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        filled: true,
+                        fillColor: Color(darkBglight),
+                        contentPadding: const EdgeInsets.all(10.0),
+                        hintText: "Buscar",
+                        suffixIcon: Icon(
+                          Icons.search,
+                          color: Color(lightBglight),
+                        ),
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(
+                          color: Color(lightBg),
+                          fontWeight: FontWeight.w100,
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Material(
+                    type: MaterialType.transparency,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: Color(darkBglight),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: InkWell(
+                        //borderRadius: BorderRadius.circular(100.0),
+                        onTap: () => _dialogBuilder(context),
+                        child: const Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Icon(
+                            Icons.filter_list,
+                            size: 25.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

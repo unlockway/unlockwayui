@@ -83,7 +83,7 @@ class UBottomNavigator extends StatelessWidget {
                 );
               },
               icon: SvgPicture.asset(
-                "assets/icon/History.svg",
+                "assets/icon/time.svg",
                 width: 28,
                 height: 28,
                 colorFilter: ColorFilter.mode(routine, BlendMode.srcIn),
@@ -93,14 +93,14 @@ class UBottomNavigator extends StatelessWidget {
               onPressed: () {
                 navigatePage(
                   context,
-                  const Routine(),
+                  const Meals(),
                 );
               },
               icon: SvgPicture.asset(
-                "assets/icon/time.svg",
+                "assets/icon/History.svg",
                 width: 28,
                 height: 28,
-                colorFilter: ColorFilter.mode(routine, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(meal, BlendMode.srcIn),
               ),
             ),
             IconButton(

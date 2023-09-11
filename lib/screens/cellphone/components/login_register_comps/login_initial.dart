@@ -14,6 +14,28 @@ class InitialLogin extends StatefulWidget {
 }
 
 class _InitialLoginState extends State<InitialLogin> {
+  Route _createRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(
+          1.0,
+          0.0,
+        );
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
   void navigatePage(BuildContext context, Widget page) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -25,10 +47,27 @@ class _InitialLoginState extends State<InitialLogin> {
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
-    return showDialog<void>(
+    return showGeneralDialog<void>(
       barrierColor: const Color.fromARGB(0, 255, 255, 255),
       context: context,
-      builder: (BuildContext context) {
+      transitionDuration: const Duration(milliseconds: 200),
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(
+          0.0,
+          1.0,
+        );
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+      pageBuilder: (context, animation, secondaryAnimation) {
         return Dialog(
           alignment: Alignment.bottomCenter,
           insetPadding: const EdgeInsets.all(0),
@@ -128,7 +167,11 @@ class _InitialLoginState extends State<InitialLogin> {
                     height: 48.0,
                     width: 240.0,
                     onTap: () {
-                      navigatePage(context, const RegisterScreen());
+                      Navigator.of(context).push(
+                        _createRoute(
+                          const RegisterScreen(),
+                        ),
+                      );
                     }),
                 Row(children: <Widget>[
                   Expanded(

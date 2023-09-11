@@ -100,16 +100,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onTap: () {
                     setState(
                       () {
-                        if (phase == 1) {
-                          phase++;
-                          registerPhase = const RegisterSecond();
-                          buttonText = "Finalizar";
-                        }
-                        if (phase == 2) {
-                          phase--;
-                          registerPhase = const RegisterInitial();
-                          buttonText = "Seguir";
-                        }
+                        phase++;
+                        registerPhase = const RegisterSecond();
+                        buttonText = "Finalizar";
                       },
                     );
                   },
