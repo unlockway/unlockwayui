@@ -5,6 +5,7 @@ import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
 import 'package:unlockway/screens/cellphone/components/buttons.dart';
 import 'package:unlockway/screens/cellphone/components/cards/card.dart';
 import 'package:unlockway/screens/cellphone/components/generic_form.dart';
+import 'package:unlockway/screens/cellphone/components/button_new.dart';
 
 class Meals extends StatefulWidget {
   const Meals({super.key});
@@ -89,6 +90,8 @@ class _MealsState extends State<Meals> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: NewBTN(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color(darkBgdark),
       bottomNavigationBar: const UBottomNavigator("Meal"),
       appBar: PreferredSize(

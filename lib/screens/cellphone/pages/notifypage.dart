@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/cellphone/components/cards/notify_card.dart';
+import 'package:unlockway/screens/cellphone/components/notifydetails.dart';
 import 'package:unlockway/screens/cellphone/pages/home.dart';
 import 'package:unlockway/data/notify.dart';
 
@@ -30,16 +31,16 @@ class _NotifyPageState extends State<NotifyPage> {
         title: const Text(
           "NOTIFICAÇÕES(6)",
           style: TextStyle(
-            color: Colors.white,
-            fontFamily: "Inter",
-            fontSize: 16,
-          ),
+              color: Colors.white,
+              fontFamily: "Inter",
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             height: 50,
             width: double.infinity,
             child: Align(
@@ -63,9 +64,15 @@ class _NotifyPageState extends State<NotifyPage> {
               itemBuilder: (context, index) {
                 for (var index in notify) {
                   return NotifyCard(
-                      icon: index.icon,
-                      description: index.description,
-                      date: index.date);
+                    icon: index.icon,
+                    description: index.description,
+                    date: index.date,
+                    func: () {
+                      Navigator.of(context).push(
+                        _createRouteTwo(index.description, index.title),
+                      );
+                    },
+                  );
                 }
               },
             ),
@@ -82,6 +89,28 @@ Route _createRoute() {
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(
         -1.0,
+        0.0,
+      );
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
+Route _createRouteTwo(String text, String title) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        NotifyDetails(text: text, title: title),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(
+        1.0,
         0.0,
       );
       const end = Offset.zero;
