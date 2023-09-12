@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/meals.dart';
-import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
-import 'package:unlockway/screens/cellphone/components/buttons.dart';
-import 'package:unlockway/screens/cellphone/components/cards/card.dart';
-import 'package:unlockway/screens/cellphone/components/generic_form.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/buttons.dart';
+import 'package:unlockway/components/cards/card.dart';
+import 'package:unlockway/components/generic_form.dart';
 
 class Meals extends StatefulWidget {
   const Meals({super.key});
@@ -14,9 +15,11 @@ class Meals extends StatefulWidget {
 }
 
 class _MealsState extends State<Meals> {
+  
   Future<void> _dialogBuilder(BuildContext context) {
     return showDialog<void>(
       context: context,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return Dialog(
           alignment: Alignment.topCenter,
@@ -86,9 +89,162 @@ class _MealsState extends State<Meals> {
     );
   }
 
+  Future<void> _dialogBuilderNew(BuildContext context) {
+    return showGeneralDialog<void>(
+      context: context,
+      transitionDuration: const Duration(milliseconds: 200),
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(
+          0.0,
+          1.0,
+        );
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Dialog(
+          alignment: Alignment.bottomCenter,
+          insetPadding: const EdgeInsets.all(0),
+          child: Container(
+            height: 300,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              color: Color(darkBgdark),
+            ),
+            child: Container(
+              margin: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.close),
+                      color: Color(primary),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(
+                          Color(darkBglight),
+                        ),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        width: double.infinity,
+                        height: 95,
+                        decoration: BoxDecoration(
+                          color: Color(darkBglight),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset("assets/icon/IA.svg"),
+                            const FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                "usar inteligência artifical",
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        width: double.infinity,
+                        height: 95,
+                        decoration: BoxDecoration(
+                          color: Color(darkBglight),
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset("assets/icon/Manually.svg"),
+                            const FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                "Criar Manualmente",
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: IconButton(
+        onPressed: () => _dialogBuilderNew(context),
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(
+            Color(primarydark),
+          ),
+          iconColor: const MaterialStatePropertyAll(Colors.white),
+        ),
+        iconSize: 24,
+        icon: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       backgroundColor: Color(darkBgdark),
       bottomNavigationBar: const UBottomNavigator("Meal"),
       appBar: PreferredSize(

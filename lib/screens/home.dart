@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
-import 'package:unlockway/screens/cellphone/pages/notifypage.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/notifypage.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -24,10 +24,13 @@ class Home extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(
-                    "assets/img/Generic-Profile-Image.png",
-                    width: 50,
-                    height: 50,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset(
+                      "assets/img/generic_profile.png",
+                      width: 50,
+                      height: 50,
+                    ),
                   ),
                   const SizedBox(
                     width: 20,

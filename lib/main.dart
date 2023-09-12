@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:unlockway/responsive_screen.dart';
+import 'package:unlockway/screens/login.dart';
+
 import 'constants.dart';
 
 void main() {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           seedColor: Color(primary),
         ),
       ),
-      home: const ResponsiveScreen(),
+      home: const Login(),
     );
   }
 }
