@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/cellphone/components/notifypage.dart';
+import 'package:unlockway/screens/cellphone/pages/routine.dart';
 
-class NotifyDetails extends StatelessWidget {
-  const NotifyDetails({super.key, required this.text, required this.title});
+class NewRoutine extends StatefulWidget {
+  const NewRoutine({super.key});
 
-  final String text;
-  final String title;
+  @override
+  State<NewRoutine> createState() => _NewRoutineState();
+}
 
+class _NewRoutineState extends State<NewRoutine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +24,9 @@ class NotifyDetails extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
           color: Colors.white,
         ),
-        backgroundColor: Color(darkBgdark),
+        backgroundColor: Color(darkBglight),
         title: const Text(
-          "NOTIFICAÇÃO",
+          "NOTIFICAÇÕES(6)",
           style: TextStyle(
               color: Colors.white,
               fontFamily: "Inter",
@@ -33,34 +35,26 @@ class NotifyDetails extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        margin: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
+      body: Column(
+        children: [
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                onPressed: () {},
                 child: Text(
-                  title,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
+                  "Marcar todas como lidas",
+                  style: TextStyle(
+                    color: Color(primary),
+                  ),
                 ),
               ),
             ),
-            Flexible(
-              child: Text(
-                text,
-                style: const TextStyle(
-                    color: Colors.white, fontFamily: "Inter", fontSize: 16),
-              ),
-            ),
-          ],
-        ),
+          ),
+          const SingleChildScrollView(),
+        ],
       ),
     );
   }
@@ -68,7 +62,7 @@ class NotifyDetails extends StatelessWidget {
 
 Route _createRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => const NotifyPage(),
+    pageBuilder: (context, animation, secondaryAnimation) => const Routine(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(
         -1.0,

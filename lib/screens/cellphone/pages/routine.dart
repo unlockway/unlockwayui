@@ -87,6 +87,18 @@ class _RoutineState extends State<Routine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: IconButton(
+        onPressed: () {},
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(
+            Color(primarydark),
+          ),
+          iconColor: const MaterialStatePropertyAll(Colors.white),
+        ),
+        iconSize: 24,
+        icon: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(150),
         child: Container(
