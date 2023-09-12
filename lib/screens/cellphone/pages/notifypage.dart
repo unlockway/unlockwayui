@@ -74,6 +74,7 @@ class _NotifyPageState extends State<NotifyPage> {
                     },
                   );
                 }
+                return null;
               },
             ),
           ),
