@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/cellphone/components/login_register_comps/register_initial.dart';
-import 'package:unlockway/screens/cellphone/components/login_register_comps/register_second.dart';
-import 'package:unlockway/screens/cellphone/pages/login.dart';
+import 'package:unlockway/components/login_register_comps/register_initial.dart';
+import 'package:unlockway/components/login_register_comps/register_second.dart';
+import 'package:unlockway/screens/login.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

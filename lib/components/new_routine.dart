@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/cellphone/pages/routine.dart';
+import 'package:unlockway/screens/routine.dart';
 
 class NewRoutine extends StatefulWidget {
   const NewRoutine({super.key});

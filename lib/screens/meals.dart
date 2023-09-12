@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/meals.dart';
-import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
-import 'package:unlockway/screens/cellphone/components/buttons.dart';
-import 'package:unlockway/screens/cellphone/components/cards/card.dart';
-import 'package:unlockway/screens/cellphone/components/generic_form.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/buttons.dart';
+import 'package:unlockway/components/cards/card.dart';
+import 'package:unlockway/components/generic_form.dart';
 
 class Meals extends StatefulWidget {
   const Meals({super.key});
@@ -15,9 +15,11 @@ class Meals extends StatefulWidget {
 }
 
 class _MealsState extends State<Meals> {
+  
   Future<void> _dialogBuilder(BuildContext context) {
     return showDialog<void>(
       context: context,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return Dialog(
           alignment: Alignment.topCenter,

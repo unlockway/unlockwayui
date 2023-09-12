@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/cellphone/components/bottom_navigator.dart';
-import 'package:unlockway/screens/cellphone/components/buttons.dart';
-import 'package:unlockway/screens/cellphone/components/generic_form.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/buttons.dart';
+import 'package:unlockway/components/generic_form.dart';
+import 'package:unlockway/components/new_routine.dart';
 
 class Routine extends StatefulWidget {
   const Routine({super.key});
@@ -84,11 +85,39 @@ class _RoutineState extends State<Routine> {
     );
   }
 
+  Route _createRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(
+          1.0,
+          0.0,
+        );
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            _createRoute(
+              const NewRoutine(),
+            ),
+          );
+        },
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(
             Color(primarydark),

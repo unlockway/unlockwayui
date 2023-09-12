@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/cellphone/components/notifypage.dart';
+import 'package:unlockway/components/notifypage.dart';
 
 class NotifyDetails extends StatelessWidget {
   const NotifyDetails({super.key, required this.text, required this.title});

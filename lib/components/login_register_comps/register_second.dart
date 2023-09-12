@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/screens/cellphone/components/form_progress.dart';
-import 'package:unlockway/screens/cellphone/components/generic_form.dart';
+import 'package:unlockway/components/form_progress.dart';
+import 'package:unlockway/components/generic_form.dart';
 
 class RegisterSecond extends StatelessWidget {
   const RegisterSecond({super.key});
