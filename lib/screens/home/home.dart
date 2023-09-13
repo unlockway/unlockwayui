@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/components/utils/bottom_navigator.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
+import 'package:unlockway/components/utils/navigation.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -54,7 +55,9 @@ class Home extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   Navigator.of(context).push(
-                    _createRoute(),
+                    navigationPageRightAnimation(
+                      const NotifyPage(),
+                    ),
                   );
                 },
                 style: ButtonStyle(
@@ -90,25 +93,4 @@ class Home extends StatelessWidget {
       ),
     );
   }
-}
-
-Route _createRoute() {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => const NotifyPage(),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(
-        1.0,
-        0.0,
-      );
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
 }

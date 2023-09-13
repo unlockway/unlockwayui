@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/utils/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/notify/components/notify_card.dart';
 import 'package:unlockway/screens/notify/components/notifydetails.dart';
@@ -21,7 +22,9 @@ class _NotifyPageState extends State<NotifyPage> {
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).push(
-              _createRoute(),
+              navigationPageLeftAnimation(
+                const Home(),
+              ),
             );
           },
           icon: const Icon(Icons.arrow_back_ios),
@@ -38,26 +41,26 @@ class _NotifyPageState extends State<NotifyPage> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Marcar todas como lidas",
-                  style: TextStyle(
-                    color: Color(primary),
+      body: Container(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Marcar todas como lidas",
+                    style: TextStyle(
+                      color: Color(primary),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          SingleChildScrollView(
-            child: ListView.builder(
+            ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: notify.length,
@@ -77,32 +80,11 @@ class _NotifyPageState extends State<NotifyPage> {
                 return null;
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
-}
-
-Route _createRoute() {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => const Home(),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(
-        -1.0,
-        0.0,
-      );
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
 }
 
 Route _createRouteTwo(String text, String title) {

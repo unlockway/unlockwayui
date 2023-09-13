@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void navigatePage(BuildContext context, page) {
+void navigatePage(BuildContext context, Widget page) {
   Route createRoute() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
@@ -13,7 +13,7 @@ void navigatePage(BuildContext context, page) {
   Navigator.of(context).push(createRoute());
 }
 
-Route _navigationPageLtoR(Widget page) {
+Route navigationPageRightAnimation(Widget page) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -34,7 +34,7 @@ Route _navigationPageLtoR(Widget page) {
   );
 }
 
-Route _navigationPageRtL(Widget page) {
+Route navigationPageLeftAnimation(Widget page) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {

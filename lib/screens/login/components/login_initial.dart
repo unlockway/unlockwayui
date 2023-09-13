@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/utils/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:unlockway/components/generic_form.dart';
+import 'package:unlockway/screens/login/components/login_popup.dart';
 import 'package:unlockway/screens/register/register.dart';
-import 'package:unlockway/screens/home/home.dart';
 
 class InitialLogin extends StatefulWidget {
   const InitialLogin({super.key});
@@ -33,109 +33,6 @@ Route _createRoute(Widget page) {
     },
   );
 }
-
-void navigatePage(BuildContext context, Widget page) {
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (_) {
-        return page;
-      },
-    ),
-  );
-}
-
-Future<void> _dialogBuilder(BuildContext context) {
-  return showGeneralDialog<void>(
-    barrierColor: const Color.fromARGB(0, 255, 255, 255),
-    context: context,
-    transitionDuration: const Duration(milliseconds: 200),
-    transitionBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(
-        0.0,
-        1.0,
-      );
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-    pageBuilder: (context, animation, secondaryAnimation) {
-      return Dialog(
-        alignment: Alignment.bottomCenter,
-        insetPadding: const EdgeInsets.all(0),
-        child: Container(
-          height: 450,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-            color: Color(darkBgdark),
-            boxShadow: [
-              BoxShadow(
-                color: Color(darkBglight),
-              ),
-              BoxShadow(
-                color: Color(darkBglight),
-                spreadRadius: 4.0,
-              ),
-            ],
-          ),
-          child: Container(
-            margin: const EdgeInsets.only(right: 20, left: 20),
-            child: Form(
-              child: Column(
-                children: [
-                  const SizedBox(height: 30),
-                  const GenericForm(
-                      title: "E-mail",
-                      placeholder: "Insira seu E-mail",
-                      width: double.infinity),
-                  const SizedBox(height: 20),
-                  const GenericForm(
-                      title: "Senha",
-                      placeholder: "********",
-                      width: double.infinity),
-                  const SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ButtonOutlined(
-                          text: "Cancelar",
-                          height: 48.0,
-                          width: 600.0,
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          }),
-                      const SizedBox(width: 10),
-                      ButtonFilled(
-                        text: "Entrar",
-                        height: 48.0,
-                        width: 600.0,
-                        onTap: () {
-                          navigatePage(
-                            context,
-                            const Home(),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}
-
 class _InitialLoginState extends State<InitialLogin> {
   @override
   Widget build(BuildContext context) {
@@ -157,7 +54,10 @@ class _InitialLoginState extends State<InitialLogin> {
                   text: "Entrar",
                   height: 48.0,
                   width: 240.0,
-                  onTap: () => _dialogBuilder(context),
+                  onTap: () => dialogBuilderBottomAnimation(
+                    context,
+                    const LoginPopup(),
+                  ),
                 ),
                 const SizedBox(height: 15),
                 ButtonOutlined(

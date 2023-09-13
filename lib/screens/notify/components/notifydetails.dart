@@ -52,7 +52,7 @@ class NotifyDetails extends StatelessWidget {
                 ),
               ),
             ),
-            Flexible(
+            Expanded(
               child: Text(
                 text,
                 style: const TextStyle(
