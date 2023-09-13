@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:unlockway/components/buttons.dart';
+import 'package:unlockway/components/generic_form.dart';
+import 'package:unlockway/components/utils/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/routine/routine.dart';
 
@@ -15,68 +19,57 @@ class _NewRoutineState extends State<NewRoutine> {
     return Scaffold(
       backgroundColor: Color(darkBgdark),
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              _createRoute(),
-            );
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.white,
-        ),
-        backgroundColor: Color(darkBglight),
-        title: const Text(
-          "NOTIFICAÇÕES(6)",
-          style: TextStyle(
-              color: Colors.white,
-              fontFamily: "Inter",
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Marcar todas como lidas",
-                  style: TextStyle(
-                    color: Color(primary),
-                  ),
+        flexibleSpace: Container(
+          color: Colors.transparent,
+          margin: const EdgeInsets.only(top: 13),
+          child: Row(
+            children: [
+              SizedBox(
+                child: Row(
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          navigationPageLeftAnimation(
+                            const Routine(),
+                          ),
+                        );
+                      },
+                      icon: Icon(Icons.arrow_back,
+                          size: 26.0, color: Color(primarydark)),
+                      label: Text(
+                        'VOLTAR',
+                        style: TextStyle(
+                          color: Color(primarydark),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
+              SvgPicture.asset("assets/icon/mini.svg"),
+            ],
           ),
-          const SingleChildScrollView(),
-        ],
+        ),
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        backgroundColor: Color(darkBgdark),
+      ),
+      body: Container(
+        margin: EdgeInsets.all(15),
+        child: Form(
+          child: Column(
+            children: [
+              GenericForm(
+                  title: "Nome",
+                  placeholder: "Insira um nome para a rotina",
+                  width: double.infinity),
+            ],
+          ),
+        ),
       ),
     );
   }
-}
-
-Route _createRoute() {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => const Routine(),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(
-        -1.0,
-        0.0,
-      );
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
 }
