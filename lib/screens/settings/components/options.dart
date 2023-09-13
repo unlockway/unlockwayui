@@ -1,49 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
 
-class OptionsSettings extends StatelessWidget {
-  const OptionsSettings({super.key});
+class SettingsOption extends StatelessWidget {
+  const SettingsOption({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(children: [
-        InkWell(
-          onTap: () {},
-          child: Flexible(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              width: double.infinity,
-              height: 95,
-              decoration: BoxDecoration(
-                color: Color(darkBglight),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
-              ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Icon(),
-                  FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text(
-                      "usar inteligência artifical",
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+    return Column(children: [
+      InkWell(
+        onTap: onTap,
+        child: Container(
+          margin: const EdgeInsets.only(top: 1.0),
+          padding: const EdgeInsets.all(16),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Color(darkBglight),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(6),
+              topRight: Radius.circular(6),
             ),
           ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Icon(icon, color: Colors.white),
+              const SizedBox(width: 16.0),
+              FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(
+                  label.toUpperCase(),
+                  style: const TextStyle(
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
-      ]),
-    );
+      ),
+    ]);
   }
 }

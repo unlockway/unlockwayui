@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/components/utils/bottom_navigator.dart';
+import 'package:unlockway/screens/settings/components/options.dart';
 import 'package:unlockway/screens/settings/components/profile.dart';
 
 class Settings extends StatelessWidget {
@@ -22,10 +24,11 @@ class Settings extends StatelessWidget {
                 child: Text(
                   "Configurações".toUpperCase(),
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Inter",
-                      color: Colors.white,
-                      fontSize: 16.0),
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Inter",
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
                 ),
               ),
             ],
@@ -36,9 +39,37 @@ class Settings extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.all(10),
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [ProfileSettings()],
+        child: Column(
+          children: [
+            const ProfileSettings(),
+            Container(
+              margin: const EdgeInsets.only(top: 32.0),
+              child: Column(
+                children: [
+                  SettingsOption(
+                    icon: PhosphorIcons.key,
+                    label: "Privacidade",
+                    onTap: () {},
+                  ),
+                  SettingsOption(
+                    icon: PhosphorIcons.bell,
+                    label: "Permitir Alertas",
+                    onTap: () {},
+                  ),
+                  SettingsOption(
+                    icon: PhosphorIcons.sun,
+                    label: "Privacidade",
+                    onTap: () {},
+                  ),
+                  SettingsOption(
+                    icon: PhosphorIcons.sign_out,
+                    label: "Privacidade",
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

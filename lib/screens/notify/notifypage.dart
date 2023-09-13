@@ -41,47 +41,45 @@ class _NotifyPageState extends State<NotifyPage> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Marcar todas como lidas",
-                    style: TextStyle(
-                      color: Color(primary),
-                    ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  "Marcar todas como lidas",
+                  style: TextStyle(
+                    color: Color(primary),
                   ),
                 ),
               ),
             ),
-            ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: notify.length,
-              itemBuilder: (context, index) {
-                for (var index in notify) {
-                  return NotifyCard(
-                    icon: index.icon,
-                    description: index.description,
-                    date: index.date,
-                    func: () {
-                      Navigator.of(context).push(
-                        _createRouteTwo(index.description, index.title),
-                      );
-                    },
-                  );
-                }
-                return null;
-              },
-            ),
-          ],
-        ),
+          ),
+          ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: notify.length,
+            itemBuilder: (context, index) {
+              for (var index in notify) {
+                return NotifyCard(
+                  icon: index.icon,
+                  description: index.description,
+                  date: index.date,
+                  func: () {
+                    Navigator.of(context).push(
+                      _createRouteTwo(index.description, index.title),
+                    );
+                  },
+                );
+              }
+              return null;
+            },
+          ),
+        ],
       ),
     );
   }
