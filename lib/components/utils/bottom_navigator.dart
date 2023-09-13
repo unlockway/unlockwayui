@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/home.dart';
-import 'package:unlockway/screens/settings/index.dart';
-import 'package:unlockway/screens/meals.dart';
-import 'package:unlockway/screens/routine.dart';
-import 'package:unlockway/utils/navigation.dart';
+import 'package:unlockway/screens/history/history.dart';
+import 'package:unlockway/screens/home/home.dart';
+import 'package:unlockway/screens/settings/settings.dart';
+import 'package:unlockway/screens/meals/meals.dart';
+import 'package:unlockway/screens/routine/routine.dart';
+import 'package:unlockway/components/utils/navigation.dart';
 
 class UBottomNavigator extends StatelessWidget {
   const UBottomNavigator(this.atual, {super.key});
@@ -16,9 +17,9 @@ class UBottomNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     Color home = Colors.white;
     Color meal = Colors.white;
-
     Color routine = Colors.white;
     Color settings = Colors.white;
+    Color history = Colors.white;
 
     if (atual == "Home") {
       home = Color(primary);
@@ -28,6 +29,8 @@ class UBottomNavigator extends StatelessWidget {
       routine = Color(primary);
     } else if (atual == "Settings") {
       settings = Color(primary);
+    } else if (atual == "History") {
+      history = Color(primary);
     }
 
     return SizedBox(
@@ -93,14 +96,14 @@ class UBottomNavigator extends StatelessWidget {
               onPressed: () {
                 navigatePage(
                   context,
-                  const Meals(),
+                  const History(),
                 );
               },
               icon: SvgPicture.asset(
                 "assets/icon/History.svg",
                 width: 28,
                 height: 28,
-                colorFilter: ColorFilter.mode(meal, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(history, BlendMode.srcIn),
               ),
             ),
             IconButton(

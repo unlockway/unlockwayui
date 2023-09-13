@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/utils/bottom_navigator.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/generic_form.dart';
-import 'package:unlockway/components/new_routine.dart';
+import 'package:unlockway/screens/routine/components/new_routine.dart';
 
 class Routine extends StatefulWidget {
   const Routine({super.key});

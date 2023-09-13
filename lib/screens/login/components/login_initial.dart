@@ -3,8 +3,8 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/generic_form.dart';
-import 'package:unlockway/screens/register.dart';
-import 'package:unlockway/screens/home.dart';
+import 'package:unlockway/screens/register/register.dart';
+import 'package:unlockway/screens/home/home.dart';
 
 class InitialLogin extends StatefulWidget {
   const InitialLogin({super.key});

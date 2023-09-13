@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/meals.dart';
-import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/utils/bottom_navigator.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/cards/card.dart';
 import 'package:unlockway/components/generic_form.dart';
@@ -15,7 +15,6 @@ class Meals extends StatefulWidget {
 }
 
 class _MealsState extends State<Meals> {
-  
   Future<void> _dialogBuilder(BuildContext context) {
     return showDialog<void>(
       context: context,

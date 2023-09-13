@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/bottom_navigator.dart';
-import 'package:unlockway/components/notifypage.dart';
+import 'package:unlockway/components/utils/bottom_navigator.dart';
+import 'package:unlockway/screens/notify/notifypage.dart';
 
 class Home extends StatelessWidget {
   const Home({

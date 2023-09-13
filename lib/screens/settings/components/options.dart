@@ -22,11 +22,11 @@ class OptionsSettings extends StatelessWidget {
                   topRight: Radius.circular(8),
                 ),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // Icon(),
-                  const FittedBox(
+                  FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
                       "usar inteligência artifical",

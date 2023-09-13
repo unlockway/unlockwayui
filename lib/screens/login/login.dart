@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/components/login_register_comps/login_initial.dart';
+import 'package:unlockway/screens/login/components/login_initial.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});

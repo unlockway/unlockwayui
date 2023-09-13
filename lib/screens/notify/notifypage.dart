@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/cards/notify_card.dart';
-import 'package:unlockway/components/notifydetails.dart';
-import 'package:unlockway/screens/home.dart';
+import 'package:unlockway/screens/notify/components/notify_card.dart';
+import 'package:unlockway/screens/notify/components/notifydetails.dart';
+import 'package:unlockway/screens/home/home.dart';
 import 'package:unlockway/data/notify.dart';
 
 class NotifyPage extends StatefulWidget {

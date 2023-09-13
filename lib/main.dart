@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:unlockway/screens/login.dart';
-
+import 'package:unlockway/screens/login/login.dart';
 import 'constants.dart';
 
 void main() {

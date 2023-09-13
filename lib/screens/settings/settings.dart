@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/utils/bottom_navigator.dart';
 import 'package:unlockway/screens/settings/components/profile.dart';
 
 class Settings extends StatelessWidget {

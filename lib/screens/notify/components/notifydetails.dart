@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/routine.dart';
+import 'package:unlockway/screens/notify/notifypage.dart';
 
-class NewRoutine extends StatefulWidget {
-  const NewRoutine({super.key});
+class NotifyDetails extends StatelessWidget {
+  const NotifyDetails({super.key, required this.text, required this.title});
 
-  @override
-  State<NewRoutine> createState() => _NewRoutineState();
-}
+  final String text;
+  final String title;
 
-class _NewRoutineState extends State<NewRoutine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +22,9 @@ class _NewRoutineState extends State<NewRoutine> {
           icon: const Icon(Icons.arrow_back_ios),
           color: Colors.white,
         ),
-        backgroundColor: Color(darkBglight),
+        backgroundColor: Color(darkBgdark),
         title: const Text(
-          "NOTIFICAÇÕES(6)",
+          "NOTIFICAÇÃO",
           style: TextStyle(
               color: Colors.white,
               fontFamily: "Inter",
@@ -35,26 +33,34 @@ class _NewRoutineState extends State<NewRoutine> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                onPressed: () {},
+      body: Container(
+        margin: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: Align(
+                alignment: Alignment.centerLeft,
                 child: Text(
-                  "Marcar todas como lidas",
-                  style: TextStyle(
-                    color: Color(primary),
-                  ),
+                  title,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
                 ),
               ),
             ),
-          ),
-          const SingleChildScrollView(),
-        ],
+            Flexible(
+              child: Text(
+                text,
+                style: const TextStyle(
+                    color: Colors.white, fontFamily: "Inter", fontSize: 16),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -62,7 +68,7 @@ class _NewRoutineState extends State<NewRoutine> {
 
 Route _createRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => const Routine(),
+    pageBuilder: (context, animation, secondaryAnimation) => const NotifyPage(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(
         -1.0,

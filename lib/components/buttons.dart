@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/home.dart';
+import 'package:unlockway/screens/home/home.dart';
 
 class ButtonFilled extends StatelessWidget {
   const ButtonFilled({
