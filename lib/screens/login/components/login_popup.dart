@@ -51,25 +51,24 @@ class LoginPopup extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ButtonOutlined(
-                      text: "Cancelar",
-                      height: 48.0,
-                      width: 600.0,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
+                        text: "Cancelar",
+                        height: 48.0,
+                        width: 600.0,
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        }),
                     const SizedBox(width: 10),
                     ButtonFilled(
-                      text: "Entrar",
-                      height: 48.0,
-                      width: 600.0,
-                      onTap: () {
-                        navigatePage(
-                          context,
-                          const Home(),
-                        );
-                      },
-                    ),
+                        text: "Entrar",
+                        height: 48.0,
+                        width: 600.0,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            navigationPageRightAnimation(
+                              const Home(),
+                            ),
+                          );
+                        }),
                   ],
                 ),
               ],
