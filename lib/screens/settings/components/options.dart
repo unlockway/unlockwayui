@@ -7,32 +7,38 @@ class SettingsOption extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.onTap,
+    this.iconColor,
+    this.borderRadius,
+    this.suffix,
   });
 
   final IconData icon;
   final String label;
   final VoidCallback onTap;
 
+  final Color? iconColor;
+  final BorderRadius? borderRadius;
+  final Widget? suffix;
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       InkWell(
         onTap: onTap,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         child: Container(
           margin: const EdgeInsets.only(top: 1.0),
           padding: const EdgeInsets.all(16),
           width: double.infinity,
           decoration: BoxDecoration(
             color: Color(darkBglight),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(6),
-              topRight: Radius.circular(6),
-            ),
+            borderRadius: borderRadius,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Icon(icon, color: Colors.white),
+              Icon(icon, color: iconColor ?? Colors.white),
               const SizedBox(width: 16.0),
               FittedBox(
                 fit: BoxFit.fitWidth,
@@ -45,7 +51,7 @@ class SettingsOption extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -4,6 +4,10 @@ import 'package:unlockway/screens/login/login.dart';
 import 'constants.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
+
   runApp(const MyApp());
 }
 
