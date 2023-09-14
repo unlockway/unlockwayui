@@ -12,9 +12,9 @@ class ProfileSettings extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 64.0,
-              backgroundImage: AssetImage("assets/img/generic_profile.png"),
+              backgroundImage: AssetImage("assets/img/thomas.png"),
             ),
-            SizedBox(width: 16.0),
+            Spacer(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

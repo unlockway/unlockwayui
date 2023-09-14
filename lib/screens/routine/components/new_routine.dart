@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/generic_form.dart';
 import 'package:unlockway/components/utils/navigation.dart';
 import 'package:unlockway/constants.dart';
@@ -58,8 +57,8 @@ class _NewRoutineState extends State<NewRoutine> {
         backgroundColor: Color(darkBgdark),
       ),
       body: Container(
-        margin: EdgeInsets.all(15),
-        child: Form(
+        margin: const EdgeInsets.all(15),
+        child: const Form(
           child: Column(
             children: [
               GenericForm(
