@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 Future<void> dialogBuilderBottomAnimation(
-    BuildContext context, Widget dialog) {
+  BuildContext context,
+  Widget dialog,
+) {
   return showGeneralDialog<void>(
     barrierColor: const Color.fromARGB(0, 255, 255, 255),
     context: context,

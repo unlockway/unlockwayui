@@ -3,12 +3,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
 
 class NotifyCard extends StatefulWidget {
-  const NotifyCard(
-      {super.key,
-      required this.icon,
-      required this.description,
-      required this.date,
-      required this.func});
+  const NotifyCard({
+    super.key,
+    required this.icon,
+    required this.description,
+    required this.date,
+    required this.func,
+  });
 
   final String icon;
   final String description;
@@ -38,7 +39,7 @@ class _NotifyCardState extends State<NotifyCard> {
             Align(
               alignment: Alignment.centerLeft,
               child: SvgPicture.asset(
-                "assets/icon/${widget.icon}",
+                "assets/svgs/logo_mini.svg",
                 width: 28,
                 height: 28,
               ),

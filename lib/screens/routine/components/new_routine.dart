@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:unlockway/components/generic_form.dart';
-import 'package:unlockway/components/utils/navigation.dart';
+import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/routine/routine.dart';
 
@@ -48,7 +48,7 @@ class _NewRoutineState extends State<NewRoutine> {
                   ],
                 ),
               ),
-              SvgPicture.asset("assets/icon/mini.svg"),
+              SvgPicture.asset("assets/svgs/logo_mini.svg"),
             ],
           ),
         ),
@@ -61,7 +61,7 @@ class _NewRoutineState extends State<NewRoutine> {
         child: const Form(
           child: Column(
             children: [
-              GenericForm(
+              GenericTextField(
                   title: "Nome",
                   placeholder: "Insira um nome para a rotina",
                   width: double.infinity),

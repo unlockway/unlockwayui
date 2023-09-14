@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/components/utils/navigation.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/notify/components/notify_card.dart';
 import 'package:unlockway/screens/notify/components/notifydetails.dart';

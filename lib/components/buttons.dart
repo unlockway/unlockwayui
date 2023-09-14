@@ -43,9 +43,10 @@ class ButtonFilled extends StatelessWidget {
               child: Text(
                 text,
                 style: const TextStyle(
-                    fontSize: 23.04,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: "Inter"),
+                  fontSize: 23.04,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "Inter",
+                ),
               ),
             ),
           ),
@@ -91,10 +92,11 @@ class ButtonOutlined extends StatelessWidget {
               child: Text(
                 text,
                 style: TextStyle(
-                    fontSize: 23.04,
-                    fontWeight: FontWeight.w500,
-                    color: Color(primary),
-                    fontFamily: "Inter"),
+                  fontSize: 23.04,
+                  fontWeight: FontWeight.w500,
+                  color: Color(primary),
+                  fontFamily: "Inter",
+                ),
               ),
             ),
           ),
@@ -136,7 +138,7 @@ class GoogleButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                "assets/icon/Google.png",
+                "assets/imgs/google.png",
                 height: 30,
                 width: 30,
               ),

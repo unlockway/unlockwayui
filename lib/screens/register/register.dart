@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/constants.dart';
-
 import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/screens/register/components/register_initial.dart';
 import 'package:unlockway/screens/register/components/register_second.dart';
@@ -34,42 +33,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
         flexibleSpace: Container(
           color: Colors.transparent,
           margin: const EdgeInsets.only(top: 13),
+          padding: const EdgeInsets.all(22.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                child: Row(
-                  children: [
-                    TextButton.icon(
-                      onPressed: () {
-                        navigate(context);
-                      },
-                      icon: Icon(Icons.arrow_back,
-                          size: 26.0, color: Color(primarydark)),
-                      label: Text(
-                        'VOLTAR',
-                        style: TextStyle(
-                          color: Color(primarydark),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                  ],
+              TextButton.icon(
+                onPressed: () {
+                  navigate(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  size: 26.0,
+                  color: Color(primarydark),
+                ),
+                label: Text(
+                  'Voltar'.toUpperCase(),
+                  style: TextStyle(
+                    color: Color(primary),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ),
-              SvgPicture.asset("assets/icon/mini.svg"),
+              SvgPicture.asset(
+                "assets/svgs/logo_mini.svg",
+                width: 28,
+                height: 28,
+              ),
             ],
           ),
         ),
         automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: const Color(0xFF1B232A),
+        toolbarHeight: 80,
       ),
       body: Stack(
         children: <Widget>[
           Positioned(
             width: MediaQuery.of(context).size.width,
-            child: SvgPicture.asset("assets/icon/registerBg.svg",
+            child: SvgPicture.asset("assets/svgs/register_bg.svg",
                 fit: BoxFit.fill, height: MediaQuery.of(context).size.height),
           ),
           registerPhase,

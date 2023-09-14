@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/utils/bottom_navigator.dart';
 import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/components/generic_form.dart';
+import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/screens/routine/components/new_routine.dart';
 
 class Routine extends StatefulWidget {
@@ -46,12 +46,12 @@ class _RoutineState extends State<Routine> {
                 child: Column(
                   children: [
                     const SizedBox(height: 30),
-                    const GenericForm(
+                    const GenericTextField(
                         title: "Categoria",
                         placeholder: "",
                         width: double.infinity),
                     const SizedBox(height: 20),
-                    const GenericForm(
+                    const GenericTextField(
                         title: "Data de criação",
                         placeholder: "dd/mm/yyyy",
                         width: double.infinity),
@@ -130,87 +130,89 @@ class _RoutineState extends State<Routine> {
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(150),
-        child: Container(
-          margin:
-              const EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 5,
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "ROTINAS",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Inter",
-                      color: Colors.white),
+        child: SafeArea(
+          child: Container(
+            margin:
+                const EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(
+                  height: 5,
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: TextField(
-                      cursorColor: const Color.fromARGB(255, 155, 155, 155),
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      decoration: InputDecoration(
-                        enabled: true,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        filled: true,
-                        fillColor: Color(darkBglight),
-                        contentPadding: const EdgeInsets.all(10.0),
-                        hintText: "Buscar",
-                        suffixIcon: Icon(
-                          Icons.search,
-                          color: Color(lightBglight),
-                        ),
-                        border: InputBorder.none,
-                        hintStyle: TextStyle(
-                          color: Color(lightBg),
-                          fontWeight: FontWeight.w100,
-                        ),
-                      ),
-                    ),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "ROTINAS",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Inter",
+                        color: Colors.white),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Material(
-                    type: MaterialType.transparency,
-                    child: Ink(
-                      decoration: BoxDecoration(
-                        color: Color(darkBglight),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: InkWell(
-                        //borderRadius: BorderRadius.circular(100.0),
-                        onTap: () => _dialogBuilder(context),
-                        child: const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Icon(
-                            Icons.filter_list,
-                            size: 25.0,
-                            color: Colors.white,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: TextField(
+                        cursorColor: const Color.fromARGB(255, 155, 155, 155),
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        decoration: InputDecoration(
+                          enabled: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Color(darkBglight),
+                          contentPadding: const EdgeInsets.all(10.0),
+                          hintText: "Buscar",
+                          suffixIcon: Icon(
+                            Icons.search,
+                            color: Color(lightBglight),
+                          ),
+                          border: InputBorder.none,
+                          hintStyle: TextStyle(
+                            color: Color(lightBg),
+                            fontWeight: FontWeight.w100,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Material(
+                      type: MaterialType.transparency,
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          color: Color(darkBglight),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: InkWell(
+                          //borderRadius: BorderRadius.circular(100.0),
+                          onTap: () => _dialogBuilder(context),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Icon(
+                              Icons.filter_list,
+                              size: 25.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

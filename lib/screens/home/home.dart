@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/utils/bottom_navigator.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
-import 'package:unlockway/components/utils/navigation.dart';
 
 class Home extends StatelessWidget {
   const Home({
@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Image.asset(
-                          "assets/img/thomas.png",
+                          "assets/imgs/thomas.png",
                           width: 50,
                           height: 50,
                         ),

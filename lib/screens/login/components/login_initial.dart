@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/components/utils/popups.dart';
+import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,6 +33,7 @@ Route _createRoute(Widget page) {
     },
   );
 }
+
 class _InitialLoginState extends State<InitialLogin> {
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class _InitialLoginState extends State<InitialLogin> {
                 Container(
                   margin: const EdgeInsets.only(bottom: 70),
                   child: SvgPicture.asset(
-                    "assets/icon/Logo.svg",
+                    "assets/svgs/logo.svg",
                   ),
                 ),
                 ButtonFilled(
@@ -102,12 +103,12 @@ class _InitialLoginState extends State<InitialLogin> {
         ),
         Positioned(
           top: 0,
-          child: Image.asset("assets/icon/Vector.png"),
+          child: Image.asset("assets/imgs/top_left_vector.png"),
         ),
         Positioned(
           bottom: 0,
           right: 0,
-          child: Image.asset("assets/icon/Vectortwo.png"),
+          child: Image.asset("assets/imgs/bottom_right_vector.png"),
         ),
       ],
     );

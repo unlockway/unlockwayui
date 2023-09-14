@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/history/history.dart';
 import 'package:unlockway/screens/home/home.dart';
-import 'package:unlockway/screens/settings/settings.dart';
 import 'package:unlockway/screens/meals/meals.dart';
 import 'package:unlockway/screens/routine/routine.dart';
-import 'package:unlockway/components/utils/navigation.dart';
+import 'package:unlockway/screens/settings/settings.dart';
 
 class UBottomNavigator extends StatelessWidget {
   const UBottomNavigator(this.atual, {super.key});
@@ -57,11 +57,10 @@ class UBottomNavigator extends StatelessWidget {
                   const Home(),
                 );
               },
-              icon: SvgPicture.asset(
-                "assets/icon/Home.svg",
-                width: 28,
-                height: 28,
-                colorFilter: ColorFilter.mode(home, BlendMode.srcIn),
+              icon: Icon(
+                PhosphorIcons.regular.house,
+                size: 28,
+                color: home,
               ),
             ),
             IconButton(
@@ -71,11 +70,10 @@ class UBottomNavigator extends StatelessWidget {
                   const Meals(),
                 );
               },
-              icon: SvgPicture.asset(
-                "assets/icon/Meal.svg",
-                width: 28,
-                height: 28,
-                colorFilter: ColorFilter.mode(meal, BlendMode.srcIn),
+              icon: Icon(
+                PhosphorIcons.regular.bowlFood,
+                size: 28,
+                color: meal,
               ),
             ),
             IconButton(
@@ -85,11 +83,10 @@ class UBottomNavigator extends StatelessWidget {
                   const Routine(),
                 );
               },
-              icon: SvgPicture.asset(
-                "assets/icon/time.svg",
-                width: 28,
-                height: 28,
-                colorFilter: ColorFilter.mode(routine, BlendMode.srcIn),
+              icon: Icon(
+                PhosphorIcons.regular.timer,
+                size: 28,
+                color: routine,
               ),
             ),
             IconButton(
@@ -99,11 +96,10 @@ class UBottomNavigator extends StatelessWidget {
                   const History(),
                 );
               },
-              icon: SvgPicture.asset(
-                "assets/icon/History.svg",
-                width: 28,
-                height: 28,
-                colorFilter: ColorFilter.mode(history, BlendMode.srcIn),
+              icon: Icon(
+                PhosphorIcons.regular.scroll,
+                size: 28,
+                color: history,
               ),
             ),
             IconButton(
@@ -113,11 +109,10 @@ class UBottomNavigator extends StatelessWidget {
                   const Settings(),
                 );
               },
-              icon: SvgPicture.asset(
-                "assets/icon/Settings.svg",
-                width: 28,
-                height: 28,
-                colorFilter: ColorFilter.mode(settings, BlendMode.srcIn),
+              icon: Icon(
+                PhosphorIcons.regular.gearSix,
+                size: 28,
+                color: settings,
               ),
             ),
           ],

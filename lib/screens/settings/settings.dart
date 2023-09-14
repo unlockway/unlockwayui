@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:unlockway/components/utils/bottom_navigator.dart';
-import 'package:unlockway/components/utils/navigation.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/screens/settings/components/options.dart';
@@ -29,31 +29,37 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       backgroundColor: Color(darkBgdark),
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
+        preferredSize: const Size(double.infinity, 60),
         child: SafeArea(
-            child: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Configurações".toUpperCase(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Inter",
-                    color: Colors.white,
-                    fontSize: 16.0,
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    "Configurações".toUpperCase(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Inter",
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ),
                   ),
                 ),
-              ),
-              SvgPicture.asset(
-                "assets/icon/mini.svg",
-              )
-            ],
+                SvgPicture.asset(
+                  "assets/svgs/logo_mini.svg",
+                  width: 28,
+                  height: 28,
+                )
+              ],
+            ),
           ),
-        )),
+        ),
       ),
       bottomNavigationBar: const UBottomNavigator("Settings"),
       body: Container(
@@ -67,7 +73,7 @@ class _SettingsState extends State<Settings> {
               child: Column(
                 children: [
                   SettingsOption(
-                    icon: PhosphorIcons.key,
+                    icon: PhosphorIcons.regular.key,
                     label: "Privacidade",
                     onTap: () {},
                     borderRadius: const BorderRadius.only(
@@ -89,7 +95,7 @@ class _SettingsState extends State<Settings> {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Icon(PhosphorIcons.bell, color: Colors.white),
+                          Icon(PhosphorIcons.regular.bell, color: Colors.white),
                           const SizedBox(width: 16.0),
                           FittedBox(
                             fit: BoxFit.fitWidth,
@@ -126,12 +132,12 @@ class _SettingsState extends State<Settings> {
                     ),
                   ),
                   SettingsOption(
-                    icon: PhosphorIcons.sun,
+                    icon: PhosphorIcons.regular.sun,
                     label: "Tema",
                     onTap: () {},
                   ),
                   SettingsOption(
-                    icon: PhosphorIcons.sign_out,
+                    icon: PhosphorIcons.regular.signOut,
                     label: "Desconectar",
                     onTap: () {
                       Navigator.of(context).push(
@@ -176,10 +182,11 @@ class _SettingsState extends State<Settings> {
                   Text(
                     "© unlockway 2023",
                     style: TextStyle(
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14.0,
-                        color: Color(darkBglight)),
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.normal,
+                      fontSize: 14.0,
+                      color: Color(lightBglight),
+                    ),
                   ),
                 ],
               ),

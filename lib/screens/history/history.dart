@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/components/utils/bottom_navigator.dart';
+import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/constants.dart';
 
 class History extends StatelessWidget {

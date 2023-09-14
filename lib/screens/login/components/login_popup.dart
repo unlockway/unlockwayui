@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/components/generic_form.dart';
-import 'package:unlockway/components/utils/navigation.dart';
+import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/home.dart';
 
@@ -14,7 +14,7 @@ class LoginPopup extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       insetPadding: const EdgeInsets.all(0),
       child: Container(
-        height: 450,
+        height: 320,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
@@ -37,12 +37,12 @@ class LoginPopup extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 30),
-                const GenericForm(
+                const GenericTextField(
                     title: "E-mail",
                     placeholder: "Insira seu E-mail",
                     width: double.infinity),
                 const SizedBox(height: 20),
-                const GenericForm(
+                const GenericTextField(
                     title: "Senha",
                     placeholder: "********",
                     width: double.infinity),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/form_progress.dart';
-import 'package:unlockway/components/generic_form.dart';
+import 'package:unlockway/components/text_field.dart';
 
 class RegisterInitial extends StatelessWidget {
   const RegisterInitial({super.key});
@@ -15,14 +15,14 @@ class RegisterInitial extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          GenericForm(
+          GenericTextField(
               placeholder: "Insira seu nome, ex: Marcela",
               title: "Nome",
               width: double.infinity),
           SizedBox(
             height: 20,
           ),
-          GenericForm(
+          GenericTextField(
               placeholder: "Insira seu sobrenome, ex: Fernandes",
               title: "Sobrenome",
               width: double.infinity),
@@ -32,14 +32,14 @@ class RegisterInitial extends StatelessWidget {
           Row(
             children: [
               Flexible(
-                child: GenericForm(
+                child: GenericTextField(
                     placeholder: "Ex: 88", title: "Peso", width: 200),
               ),
               SizedBox(
                 width: 30,
               ),
               Flexible(
-                child: GenericForm(
+                child: GenericTextField(
                     placeholder: "Ex: 1,70", title: "Altura", width: 200),
               ),
             ],
@@ -47,7 +47,7 @@ class RegisterInitial extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          GenericForm(
+          GenericTextField(
               placeholder: "Diga-nos qual seu objetivo",
               title: "Meta",
               width: double.infinity),
