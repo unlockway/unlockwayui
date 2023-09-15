@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/home.dart';
 
 class LoginPopup extends StatelessWidget {
