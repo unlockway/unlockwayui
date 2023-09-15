@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/constants.dart';
 
-Future<void> dialogBuilderBottomAnimation(
+Future<void> modalBuilderBottomAnimation(
   BuildContext context,
   Widget dialog,
 ) {
-  return showGeneralDialog<void>(
-    barrierColor: const Color.fromARGB(0, 255, 255, 255),
+  return showModalBottomSheet<void>(
+    enableDrag: true,
     context: context,
-    transitionDuration: const Duration(milliseconds: 200),
-    transitionBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(
-        0.0,
-        1.0,
+    useSafeArea: true,
+    backgroundColor: const Color.fromRGBO(26, 36, 47, 1),
+    elevation: 0,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(16.0),
+        topRight: Radius.circular(16.0),
+      ),
+    ),
+    builder: (context) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            width: 180,
+            height: 6,
+            decoration: BoxDecoration(
+              color: Color(darkBglight),
+              borderRadius: BorderRadius.circular(9999),
+            ),
+          ),
+          dialog,
+        ],
       );
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-    pageBuilder: (context, animation, secondaryAnimation) {
-      return dialog;
     },
   );
 }

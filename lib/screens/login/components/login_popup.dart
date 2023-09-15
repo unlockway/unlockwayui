@@ -10,69 +10,55 @@ class LoginPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      alignment: Alignment.bottomCenter,
-      insetPadding: const EdgeInsets.all(0),
-      child: Container(
-        height: 320,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          color: Color(darkBgdark),
-          boxShadow: [
-            BoxShadow(
-              color: Color(darkBglight),
-            ),
-            BoxShadow(
-              color: Color(darkBglight),
-              spreadRadius: 4.0,
-            ),
-          ],
+    return Container(
+      height: 320,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
-        child: Container(
-          margin: const EdgeInsets.only(right: 20, left: 20),
-          child: Form(
-            child: Column(
-              children: [
-                const SizedBox(height: 30),
-                const GenericTextField(
-                    title: "E-mail",
-                    placeholder: "Insira seu E-mail",
-                    width: double.infinity),
-                const SizedBox(height: 20),
-                const GenericTextField(
-                    title: "Senha",
-                    placeholder: "********",
-                    width: double.infinity),
-                const SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ButtonOutlined(
-                        text: "Cancelar",
-                        height: 48.0,
-                        width: 600.0,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        }),
-                    const SizedBox(width: 10),
-                    ButtonFilled(
-                        text: "Entrar",
-                        height: 48.0,
-                        width: 600.0,
-                        onTap: () {
-                          Navigator.of(context).push(
-                            navigationPageRightAnimation(
-                              const Home(),
-                            ),
-                          );
-                        }),
-                  ],
-                ),
-              ],
-            ),
+      ),
+      child: Container(
+        margin: const EdgeInsets.only(right: 20, left: 20),
+        child: Form(
+          child: Column(
+            children: [
+              const SizedBox(height: 30),
+              const GenericTextField(
+                  title: "E-mail",
+                  placeholder: "Insira seu E-mail",
+                  width: double.infinity),
+              const SizedBox(height: 20),
+              const GenericTextField(
+                  title: "Senha",
+                  placeholder: "********",
+                  width: double.infinity),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ButtonOutlined(
+                      text: "Cancelar",
+                      height: 48.0,
+                      width: 600.0,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      }),
+                  const SizedBox(width: 10),
+                  ButtonFilled(
+                      text: "Entrar",
+                      height: 48.0,
+                      width: 600.0,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          navigationPageRightAnimation(
+                            const Home(),
+                          ),
+                        );
+                      }),
+                ],
+              ),
+            ],
           ),
         ),
       ),

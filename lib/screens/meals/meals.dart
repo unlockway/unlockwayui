@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/card.dart';
+import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/meals.dart';
-import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/screens/meals/components/filter_meal_popup.dart';
+import 'package:unlockway/screens/meals/components/new_meal_popup.dart';
 
 class Meals extends StatefulWidget {
   const Meals({super.key});
@@ -15,225 +15,14 @@ class Meals extends StatefulWidget {
 }
 
 class _MealsState extends State<Meals> {
-  Future<void> _dialogBuilder(BuildContext context) {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return Dialog(
-          alignment: Alignment.topCenter,
-          insetPadding: const EdgeInsets.all(0),
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          surfaceTintColor: Colors.transparent,
-          child: Container(
-            margin: const EdgeInsets.only(top: 40),
-            width: 200,
-            height: 300,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Color(darkBgdark),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(darkBglight),
-                ),
-                BoxShadow(
-                  color: Color(darkBglight),
-                  spreadRadius: 4.0,
-                ),
-              ],
-            ),
-            child: Container(
-              margin: const EdgeInsets.only(right: 20, left: 20),
-              child: Form(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 30),
-                    const GenericTextField(
-                        title: "Categoria",
-                        placeholder: "",
-                        width: double.infinity),
-                    const SizedBox(height: 20),
-                    const GenericTextField(
-                        title: "Data de criação",
-                        placeholder: "dd/mm/yyyy",
-                        width: double.infinity),
-                    const SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ButtonOutlined(
-                            text: "Cancelar",
-                            height: 48.0,
-                            width: 600.0,
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            }),
-                        const SizedBox(width: 10),
-                        ButtonFilled(
-                          text: "Filtrar",
-                          height: 48.0,
-                          width: 600.0,
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> _dialogBuilderNew(BuildContext context) {
-    return showGeneralDialog<void>(
-      context: context,
-      transitionDuration: const Duration(milliseconds: 200),
-      transitionBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(
-          0.0,
-          1.0,
-        );
-        const end = Offset.zero;
-        const curve = Curves.ease;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return Dialog(
-          alignment: Alignment.bottomCenter,
-          insetPadding: const EdgeInsets.all(0),
-          child: Container(
-            height: 300,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-              color: Color(darkBgdark),
-            ),
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: const Icon(Icons.close),
-                      color: Color(primary),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          Color(darkBglight),
-                        ),
-                        shape: MaterialStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Flexible(
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        width: double.infinity,
-                        height: 95,
-                        decoration: BoxDecoration(
-                          color: Color(darkBglight),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(8),
-                            topRight: Radius.circular(8),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgPicture.asset("assets/svgs/ia.svg"),
-                            const FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Text(
-                                "usar inteligência artifical",
-                                style: TextStyle(
-                                  fontFamily: "Inter",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Flexible(
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        width: double.infinity,
-                        height: 95,
-                        decoration: BoxDecoration(
-                          color: Color(darkBglight),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(8),
-                            bottomRight: Radius.circular(8),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset("assets/svgs/manually.svg"),
-                            const FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Text(
-                                "Criar Manualmente",
-                                style: TextStyle(
-                                  fontFamily: "Inter",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: IconButton(
-        onPressed: () => _dialogBuilderNew(context),
+        onPressed: () => modalBuilderBottomAnimation(
+          context,
+          const NewMealPopup(),
+        ),
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(
             Color(primarydark),
@@ -315,7 +104,10 @@ class _MealsState extends State<Meals> {
                         ),
                         child: InkWell(
                           //borderRadius: BorderRadius.circular(100.0),
-                          onTap: () => _dialogBuilder(context),
+                          onTap: () => modalBuilderBottomAnimation(
+                            context,
+                            const FilterMealPopup(),
+                          ),
                           child: const Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Icon(

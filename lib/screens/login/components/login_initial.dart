@@ -55,7 +55,7 @@ class _InitialLoginState extends State<InitialLogin> {
                   text: "Entrar",
                   height: 48.0,
                   width: 240.0,
-                  onTap: () => dialogBuilderBottomAnimation(
+                  onTap: () => modalBuilderBottomAnimation(
                     context,
                     const LoginPopup(),
                   ),
