@@ -24,7 +24,7 @@ class _ThemeDialogState extends State<ThemeDialog> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           RadioListTile(
-            title: Text(
+            title: const Text(
               "PADRÃO DO SISTEMA",
               style: TextStyle(
                 color: Colors.white,
@@ -42,7 +42,7 @@ class _ThemeDialogState extends State<ThemeDialog> {
             },
           ),
           RadioListTile(
-            title: Text(
+            title: const Text(
               "MODO CLARO",
               style: TextStyle(
                 color: Colors.white,
@@ -60,7 +60,7 @@ class _ThemeDialogState extends State<ThemeDialog> {
             },
           ),
           RadioListTile(
-            title: Text(
+            title: const Text(
               "MODO ESCURO",
               style: TextStyle(
                 color: Colors.white,

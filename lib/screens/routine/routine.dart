@@ -3,8 +3,6 @@ import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/screens/routine/components/filter_routine_popup.dart';
 import 'package:unlockway/screens/routine/components/new_routine.dart';
 
