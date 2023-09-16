@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 
-class FilterMealPopup extends StatelessWidget {
-  const FilterMealPopup({super.key});
+class FilterRoutinePopup extends StatelessWidget {
+  const FilterRoutinePopup({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+      ),
       margin: const EdgeInsets.all(20),
       child: Form(
         child: Column(
           children: [
+            const SizedBox(height: 30),
             const GenericTextField(
                 title: "Categoria", placeholder: "", width: double.infinity),
             const SizedBox(height: 20),
