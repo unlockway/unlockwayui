@@ -3,6 +3,7 @@ import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/history/components/filter_history_popup.dart';
+import 'package:unlockway/screens/history/components/history_card.dart';
 
 class History extends StatelessWidget {
   const History({super.key});
@@ -101,6 +102,24 @@ class History extends StatelessWidget {
             ),
           ),
         ),
+      ),
+      body: const Column(
+        children: [
+          HistoryCard(
+            name: "Semana",
+            weekRepetitions: [
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+            ],
+            calories: 1500,
+            date: "09 de Setembro",
+          ),
+        ],
       ),
       bottomNavigationBar: const UBottomNavigator("History"),
     );
