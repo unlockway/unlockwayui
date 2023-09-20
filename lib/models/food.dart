@@ -1,5 +1,5 @@
-class RoutineModel {
-  const RoutineModel(
+class FoodModel {
+  const FoodModel(
     this.idFood,
     this.name,
     this.description,
