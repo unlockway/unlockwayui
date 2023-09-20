@@ -150,7 +150,7 @@ class _MealsState extends State<Meals> {
                         for (var index in meals) {
                           return UCard(
                             description: index.description,
-                            title: index.title,
+                            title: index.name,
                             imageUrl: index.img,
                           );
                         }
