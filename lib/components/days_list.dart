@@ -18,93 +18,195 @@ class DaysList extends StatefulWidget {
 class _DaysListState extends State<DaysList> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextButton(
-          onPressed: widget.func,
-          style: ButtonStyle(
-            maximumSize: const MaterialStatePropertyAll(
-              Size(40, 40),
-            ),
-            backgroundColor: widget.days[0]
-                ? MaterialStatePropertyAll(
-                    Color(primary),
-                  )
-                : const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 43, 55, 68),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: widget.func,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: widget.days[0] ? Color(primarydark) : Colors.white,
+                  width: 2,
+                ),
+                color: widget.days[0]
+                    ? Color(primarylight)
+                    : const Color.fromARGB(48, 255, 255, 255),
+              ),
+              width: 40,
+              height: 40,
+              child: Center(
+                child: Text(
+                  "S",
+                  style: TextStyle(
+                    color: widget.days[0] ? Color(darkBgdark) : Colors.white,
                   ),
-            side: MaterialStatePropertyAll(BorderSide(
-              color: widget.days[0]
-                  ? Color(primarydark)
-                  : const Color.fromARGB(255, 43, 55, 68),
-            )),
-          ),
-          child: const Text("S"),
-        ),
-        TextButton(
-          onPressed: widget.func,
-          style: ButtonStyle(
-            maximumSize: const MaterialStatePropertyAll(
-              Size(40, 40),
+                ),
+              ),
             ),
-            backgroundColor: widget.days[1]
-                ? MaterialStatePropertyAll(
-                    Color(primary),
-                  )
-                : const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 43, 55, 68),
-                  ),
-            side: MaterialStatePropertyAll(BorderSide(
-              color: widget.days[1]
-                  ? Color(primarydark)
-                  : const Color.fromARGB(255, 43, 55, 68),
-            )),
           ),
-          child: const Text("T"),
-        ),
-        TextButton(
-          onPressed: widget.func,
-          style: ButtonStyle(
-            maximumSize: const MaterialStatePropertyAll(
-              Size(40, 40),
+          InkWell(
+            onTap: widget.func,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: widget.days[1] ? Color(primarydark) : Colors.white,
+                  width: 2,
+                ),
+                color: widget.days[1]
+                    ? Color(primarylight)
+                    : const Color.fromARGB(48, 255, 255, 255),
+              ),
+              width: 40,
+              height: 40,
+              child: Center(
+                child: Text(
+                  "T",
+                  style: TextStyle(
+                    color: widget.days[1] ? Color(darkBgdark) : Colors.white,
+                  ),
+                ),
+              ),
             ),
-            backgroundColor: widget.days[2]
-                ? MaterialStatePropertyAll(
-                    Color(primary),
-                  )
-                : const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 43, 55, 68),
-                  ),
-            side: MaterialStatePropertyAll(BorderSide(
-              color: widget.days[2]
-                  ? Color(primarydark)
-                  : const Color.fromARGB(255, 43, 55, 68),
-            )),
           ),
-          child: const Text("Q"),
-        ),
-        TextButton(
-          onPressed: widget.func,
-          style: ButtonStyle(
-            maximumSize: const MaterialStatePropertyAll(
-              Size(40, 40),
+          InkWell(
+            onTap: widget.func,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: widget.days[2] ? Color(primarydark) : Colors.white,
+                  width: 2,
+                ),
+                color: widget.days[2]
+                    ? Color(primarylight)
+                    : const Color.fromARGB(48, 255, 255, 255),
+              ),
+              width: 40,
+              height: 40,
+              child: Center(
+                child: Text(
+                  "Q",
+                  style: TextStyle(
+                    color: widget.days[2] ? Color(darkBgdark) : Colors.white,
+                  ),
+                ),
+              ),
             ),
-            backgroundColor: widget.days[3]
-                ? MaterialStatePropertyAll(
-                    Color(primary),
-                  )
-                : const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 43, 55, 68),
-                  ),
-            side: MaterialStatePropertyAll(BorderSide(
-              color: widget.days[3]
-                  ? Color(primarydark)
-                  : const Color.fromARGB(255, 43, 55, 68),
-            )),
           ),
-          child: const Text("Q"),
-        ),
-      ],
+          InkWell(
+            onTap: widget.func,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: widget.days[3] ? Color(primarydark) : Colors.white,
+                  width: 2,
+                ),
+                color: widget.days[3]
+                    ? Color(primarylight)
+                    : const Color.fromARGB(48, 255, 255, 255),
+              ),
+              width: 40,
+              height: 40,
+              child: Center(
+                child: Text(
+                  "Q",
+                  style: TextStyle(
+                    color: widget.days[3] ? Color(darkBgdark) : Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: widget.func,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: widget.days[4] ? Color(primarydark) : Colors.white,
+                  width: 2,
+                ),
+                color: widget.days[4]
+                    ? Color(primarylight)
+                    : const Color.fromARGB(48, 255, 255, 255),
+              ),
+              width: 40,
+              height: 40,
+              child: Center(
+                child: Text(
+                  "S",
+                  style: TextStyle(
+                    color: widget.days[4] ? Color(darkBgdark) : Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: widget.func,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: widget.days[5] ? Color(primarydark) : Colors.white,
+                  width: 2,
+                ),
+                color: widget.days[5]
+                    ? Color(primarylight)
+                    : const Color.fromARGB(48, 255, 255, 255),
+              ),
+              width: 40,
+              height: 40,
+              child: Center(
+                child: Text(
+                  "S",
+                  style: TextStyle(
+                    color: widget.days[5] ? Color(darkBgdark) : Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: widget.func,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: widget.days[6] ? Color(primarydark) : Colors.white,
+                  width: 2,
+                ),
+                color: widget.days[6]
+                    ? Color(primarylight)
+                    : const Color.fromARGB(48, 255, 255, 255),
+              ),
+              width: 40,
+              height: 40,
+              child: Center(
+                child: Text(
+                  "D",
+                  style: TextStyle(
+                    color: widget.days[6] ? Color(darkBgdark) : Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

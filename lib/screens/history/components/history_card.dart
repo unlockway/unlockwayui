@@ -61,6 +61,7 @@ class HistoryCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  DaysList(days: weekRepetitions, func: () {}),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -72,8 +73,6 @@ class HistoryCard extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      DaysList(
-                          days: const [false, true, false, true], func: () {}),
                       Row(children: [
                         SvgPicture.asset("assets/svgs/Fire.svg"),
                         Text(

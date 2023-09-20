@@ -40,7 +40,7 @@ class History extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Flexible(
+                    Expanded(
                       child: TextField(
                         cursorColor: const Color.fromARGB(255, 155, 155, 155),
                         style: const TextStyle(
