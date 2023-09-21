@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/components/buttons.dart';
@@ -11,27 +12,6 @@ class InitialLogin extends StatefulWidget {
 
   @override
   State<InitialLogin> createState() => _InitialLoginState();
-}
-
-Route _createRoute(Widget page) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => page,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(
-        1.0,
-        0.0,
-      );
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
 }
 
 class _InitialLoginState extends State<InitialLogin> {
@@ -62,24 +42,26 @@ class _InitialLoginState extends State<InitialLogin> {
                 ),
                 const SizedBox(height: 15),
                 ButtonOutlined(
-                    text: "Criar Conta",
-                    height: 48.0,
-                    width: 240.0,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        _createRoute(
-                          const RegisterScreen(),
-                        ),
-                      );
-                    }),
+                  text: "Criar Conta",
+                  height: 48.0,
+                  width: 240.0,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      navigationPageRightAnimation(
+                        const RegisterScreen(),
+                      ),
+                    );
+                  },
+                ),
                 Row(children: <Widget>[
                   Expanded(
                     child: Container(
-                        margin: const EdgeInsets.only(left: 80.0, right: 20.0),
-                        child: const Divider(
-                          color: Color.fromARGB(255, 180, 179, 179),
-                          height: 36,
-                        )),
+                      margin: const EdgeInsets.only(left: 80.0, right: 20.0),
+                      child: const Divider(
+                        color: Color.fromARGB(255, 180, 179, 179),
+                        height: 36,
+                      ),
+                    ),
                   ),
                   const Text(
                     "Ou",

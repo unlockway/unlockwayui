@@ -103,11 +103,11 @@ class History extends StatelessWidget {
           ),
         ),
       ),
-      body: const Column(
+      body: Column(
         children: [
           HistoryCard(
             name: "Semana",
-            weekRepetitions: [
+            weekRepetitions: const [
               true,
               false,
               true,
@@ -118,6 +118,8 @@ class History extends StatelessWidget {
             ],
             calories: 1500,
             date: "09 de Setembro",
+            meals: const [],
+            color: Color(darkBglight),
           ),
         ],
       ),

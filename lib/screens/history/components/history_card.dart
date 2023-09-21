@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/days_list.dart';
-import 'package:unlockway/constants.dart';
+import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/screens/history/components/history_details.dart';
 
 class HistoryCard extends StatelessWidget {
   const HistoryCard({
@@ -10,12 +11,16 @@ class HistoryCard extends StatelessWidget {
     required this.weekRepetitions,
     required this.calories,
     required this.date,
+    required this.meals,
+    required this.color,
   });
 
   final String name;
   final List<bool> weekRepetitions;
-  final int calories;
+  final double calories;
   final String date;
+  final List<Object> meals;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +44,26 @@ class HistoryCard extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: Color(darkBglight),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            padding: const EdgeInsets.all(16),
-            child: InkWell(
-              onTap: () {},
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                navigationPageRightAnimation(
+                  HistoryDetails(
+                    ingestedMeals: const [],
+                    days: weekRepetitions,
+                    name: name,
+                    color: color,
+                    calories: calories,
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
                   Align(
@@ -73,18 +90,20 @@ class HistoryCard extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      Row(children: [
-                        SvgPicture.asset("assets/svgs/Fire.svg"),
-                        Text(
-                          calories.toString(),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFE96016),
+                      Row(
+                        children: [
+                          SvgPicture.asset("assets/svgs/Fire.svg"),
+                          Text(
+                            calories.toString(),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: "Inter",
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFE96016),
+                            ),
                           ),
-                        )
-                      ]),
+                        ],
+                      ),
                     ],
                   )
                 ],

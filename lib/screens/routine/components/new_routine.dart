@@ -19,12 +19,21 @@ class _NewRoutineState extends State<NewRoutine> {
       backgroundColor: Color(darkBgdark),
       appBar: AppBar(
         flexibleSpace: Container(
+          padding: const EdgeInsets.only(
+            bottom: 16.0,
+            left: 0.0,
+            right: 16.0,
+            top: 16.0,
+          ),
           color: Colors.transparent,
-          margin: const EdgeInsets.only(top: 13),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextButton.icon(
                       onPressed: () {
@@ -34,8 +43,11 @@ class _NewRoutineState extends State<NewRoutine> {
                           ),
                         );
                       },
-                      icon: Icon(Icons.arrow_back,
-                          size: 26.0, color: Color(primarydark)),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        size: 26.0,
+                        color: Color(primarydark),
+                      ),
                       label: Text(
                         'VOLTAR',
                         style: TextStyle(
@@ -48,7 +60,11 @@ class _NewRoutineState extends State<NewRoutine> {
                   ],
                 ),
               ),
-              SvgPicture.asset("assets/svgs/logo_mini.svg"),
+              SvgPicture.asset(
+                "assets/svgs/logo_mini.svg",
+                width: 28,
+                height: 28,
+              ),
             ],
           ),
         ),
