@@ -13,7 +13,7 @@ class FilterHistoryPopup extends StatelessWidget {
         child: Column(
           children: [
             const GenericTextField(
-                title: "Data de criação",
+                title: "Data",
                 placeholder: "dd/mm/yyyy",
                 width: double.infinity),
             const SizedBox(height: 30),

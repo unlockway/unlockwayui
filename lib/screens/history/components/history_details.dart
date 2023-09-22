@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/screens/history/components/meal_history_card.dart';
 import 'package:unlockway/screens/history/history.dart';
 
 class HistoryDetails extends StatelessWidget {
@@ -156,6 +157,13 @@ class HistoryDetails extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const MealHistoryCard(
+                    svg: "assets/svgs/ok.svg",
+                    title: "Filé de Frango",
+                    description:
+                        "Descrição detalhada do alimento aqui. Ao clicar no alimento é possivel saber mais sobre ele",
+                    img: "assets/imgs/meal.png",
+                  )
                 ],
               ),
             ),

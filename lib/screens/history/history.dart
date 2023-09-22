@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/data/history.dart';
 import 'package:unlockway/screens/history/components/filter_history_popup.dart';
 import 'package:unlockway/screens/history/components/history_card.dart';
 
@@ -103,25 +104,23 @@ class History extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          HistoryCard(
-            name: "Semana",
-            weekRepetitions: const [
-              true,
-              false,
-              true,
-              false,
-              true,
-              false,
-              true,
-            ],
-            calories: 1500,
-            date: "09 de Setembro",
-            meals: const [],
-            color: Color(darkBglight),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: List.generate(
+            history.length,
+            (i) {
+              return HistoryCard(
+                name: history[i].routineName,
+                weekRepetitions: history[i].days,
+                calories: history[i].calories,
+                date: history[i].date,
+                meals: history[i].ingestedMeals,
+                color: Color(darkBglight),
+              );
+            },
           ),
-        ],
+        ),
       ),
       bottomNavigationBar: const UBottomNavigator("History"),
     );
