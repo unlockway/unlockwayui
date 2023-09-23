@@ -21,7 +21,7 @@ class _DaysListState extends State<DaysList> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
             onTap: widget.func,

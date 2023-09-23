@@ -5,7 +5,7 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/routine.dart';
 import 'package:unlockway/screens/routine/components/filter_routine_popup.dart';
-import 'package:unlockway/screens/routine/components/new_routine.dart';
+import 'package:unlockway/screens/routine/components/new_routine_popup.dart';
 import 'package:unlockway/screens/routine/components/routine_card.dart';
 
 class Routine extends StatefulWidget {

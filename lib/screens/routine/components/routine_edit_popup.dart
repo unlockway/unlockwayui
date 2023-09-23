@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RoutineEdition extends StatelessWidget {
-  const RoutineEdition({super.key});
+class RoutineEditPopup extends StatelessWidget {
+  const RoutineEditPopup({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/days_list.dart';
-import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/routine/components/routine_edition.dart';
+import 'package:unlockway/screens/routine/components/routine_edit_popup.dart';
 
 class RoutineCard extends StatelessWidget {
   const RoutineCard({
@@ -30,10 +30,9 @@ class RoutineCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).push(
-            navigationPageRightAnimation(
-              const RoutineEdition(),
-            ),
+          modalBuilderBottomAnimation(
+            context,
+            const RoutineEditPopup(),
           );
         },
         child: Container(
@@ -44,23 +43,55 @@ class RoutineCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Rotina: $name",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/svgs/calendar.svg",
+                    width: 32,
+                    height: 32,
                   ),
-                ),
+                  Text(
+                    "Rotina: $name",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
               DaysList(days: weekRepetitions, func: () {}),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
+                    style: ButtonStyle(
+                        fixedSize: const MaterialStatePropertyAll(
+                          Size(77, 30),
+                        ),
+                        backgroundColor: using
+                            ? const MaterialStatePropertyAll(
+                                Color(0XFFF7BEA1),
+                              )
+                            : const MaterialStatePropertyAll(
+                                Colors.transparent,
+                              ),
+                        side: using
+                            ? const MaterialStatePropertyAll(
+                                BorderSide(
+                                  width: 0,
+                                  color: Colors.transparent,
+                                ),
+                              )
+                            : MaterialStatePropertyAll(
+                                BorderSide(
+                                  width: 2,
+                                  color: Color(darkBgdark),
+                                ),
+                              )),
                     onPressed: () {},
                     child: Text(
                       using ? "USANDO" : "USAR",
