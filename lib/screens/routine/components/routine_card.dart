@@ -67,6 +67,8 @@ class RoutineCard extends StatelessWidget {
                       style: TextStyle(
                         color:
                             using ? Color(darkBgdark) : const Color(0XFFF39668),
+                        fontFamily: "Inter",
+                        fontSize: 12,
                       ),
                     ),
                   ),

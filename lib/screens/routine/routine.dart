@@ -130,9 +130,8 @@ class _RoutineState extends State<Routine> {
       ),
       backgroundColor: Color(darkBgdark),
       bottomNavigationBar: const UBottomNavigator("Routine"),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        margin: const EdgeInsets.all(10),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(

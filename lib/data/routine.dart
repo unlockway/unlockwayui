@@ -14,7 +14,7 @@ const routine = [
     "2",
     "Ficar Bombado",
     meals,
-    true,
+    false,
     [true, false, true, false, true, false, false],
     3000,
   ),
