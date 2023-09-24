@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/days_list.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/routine/components/routine_edit_popup.dart';
+import 'package:unlockway/screens/routine/components/routine_edit_page.dart';
 
 class RoutineCard extends StatelessWidget {
   const RoutineCard({
@@ -30,9 +31,11 @@ class RoutineCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: InkWell(
         onTap: () {
-          modalBuilderBottomAnimation(
+          Navigator.push(
             context,
-            const RoutineEditPopup(),
+            navigationPageRightAnimation(
+              const RoutineEditPage(),
+            ),
           );
         },
         child: Container(
