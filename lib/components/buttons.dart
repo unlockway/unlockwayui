@@ -18,10 +18,10 @@ class ButtonFilled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return Expanded(
       child: Container(
         width: width,
-        height: height,
+        height: 48,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             gradient: LinearGradient(colors: [

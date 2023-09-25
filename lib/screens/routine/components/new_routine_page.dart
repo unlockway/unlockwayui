@@ -78,51 +78,75 @@ class _NewRoutineState extends State<NewRoutine> {
       ),
       body: Container(
         margin: const EdgeInsets.all(15),
-        child: Form(
-          child: Column(
-            children: [
-              const GenericTextField(
-                title: "Nome",
-                placeholder: "Insira um nome para a rotina",
-                width: double.infinity,
-              ),
-              Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Selecione os dias que a rotina deve ocorrer",
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        fontSize: 12,
-                        color: Colors.white,
-                      ),
+        child: Column(
+          children: [
+            const GenericTextField(
+              title: "Nome",
+              placeholder: "Insira um nome para a rotina",
+              width: double.infinity,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Selecione os dias que a rotina deve ocorrer",
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 12,
+                      color: Colors.white,
                     ),
                   ),
-                  DaysList(
-                    days: const [
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                      false,
-                    ],
-                    func: () {},
+                ),
+                DaysList(
+                  days: const [
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                  ],
+                  func: () {},
+                ),
+                const RoutineMealCard(
+                  category: "Café da Manhã",
+                  meal: "Escolher na Hora",
+                  hour: "7:00 AM",
+                  calories: 500.00,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.add),
+                    label: Text(
+                      "Novo",
+                      style: TextStyle(
+                        color: Color(primary),
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      iconColor: MaterialStatePropertyAll(
+                        Color(primary),
+                      ),
+                      iconSize: const MaterialStatePropertyAll(16),
+                    ),
                   ),
-                  const RoutineMealCard(
-                    category: "Café da Manhã",
-                    meal: "Escolher na Hora",
-                    hour: "7:00 AM",
-                  ),
-                ],
-              ),
-            ],
-          ),
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );

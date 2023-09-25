@@ -9,11 +9,13 @@ class RoutineMealCard extends StatelessWidget {
     required this.category,
     required this.meal,
     required this.hour,
+    required this.calories,
   });
 
   final String category;
   final String meal;
   final String hour;
+  final double calories;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,9 @@ class RoutineMealCard extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(
+            height: 24,
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -70,6 +75,9 @@ class RoutineMealCard extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(
+            height: 24,
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -89,6 +97,21 @@ class RoutineMealCard extends StatelessWidget {
                   fontFamily: "Inter",
                   fontSize: 19.2,
                 ),
+              ),
+              const Spacer(),
+              Row(
+                children: [
+                  SvgPicture.asset("assets/svgs/Fire.svg"),
+                  Text(
+                    calories.toString(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFE96016),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
