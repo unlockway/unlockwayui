@@ -3,8 +3,10 @@ import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/data/routine.dart';
 import 'package:unlockway/screens/routine/components/filter_routine_popup.dart';
-import 'package:unlockway/screens/routine/components/new_routine.dart';
+import 'package:unlockway/screens/routine/components/new_routine_popup.dart';
+import 'package:unlockway/screens/routine/components/routine_card.dart';
 
 class Routine extends StatefulWidget {
   const Routine({super.key});
@@ -128,14 +130,25 @@ class _RoutineState extends State<Routine> {
       ),
       backgroundColor: Color(darkBgdark),
       bottomNavigationBar: const UBottomNavigator("Routine"),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        margin: const EdgeInsets.all(13),
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Routine"),
-          ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: List.generate(
+              routine.length,
+              (i) {
+                return RoutineCard(
+                  name: routine[i].name,
+                  weekRepetitions: routine[i].weekRepetitions,
+                  calories: routine[i].totalCaloriesInTheDay,
+                  meals: routine[i].meals,
+                  color: Color(darkBglight),
+                  using: routine[i].inUsage,
+                );
+              },
+            ),
+          ),
         ),
       ),
     );

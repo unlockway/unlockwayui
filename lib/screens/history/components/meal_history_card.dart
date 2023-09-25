@@ -41,6 +41,9 @@ class MealHistoryCard extends StatelessWidget {
               height: 80,
             ),
           ),
+          const SizedBox(
+            width: 8,
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +69,14 @@ class MealHistoryCard extends StatelessWidget {
               ],
             ),
           ),
-          SvgPicture.asset(svg),
+          const SizedBox(
+            width: 8,
+          ),
+          SvgPicture.asset(
+            svg,
+            height: 32,
+            width: 32,
+          ),
         ],
       ),
     );

@@ -53,31 +53,34 @@ class _InitialLoginState extends State<InitialLogin> {
                     );
                   },
                 ),
-                Row(children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 80.0, right: 20.0),
-                      child: const Divider(
-                        color: Color.fromARGB(255, 180, 179, 179),
-                        height: 36,
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 80.0, right: 20.0),
+                        child: const Divider(
+                          color: Color.fromARGB(255, 180, 179, 179),
+                          height: 36,
+                        ),
                       ),
                     ),
-                  ),
-                  const Text(
-                    "Ou",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 180, 179, 179),
+                    const Text(
+                      "Ou",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 180, 179, 179),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
+                    Expanded(
+                      child: Container(
                         margin: const EdgeInsets.only(left: 20.0, right: 80.0),
                         child: const Divider(
                           color: Color.fromARGB(255, 180, 179, 179),
                           height: 36,
-                        )),
-                  ),
-                ]),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 const GoogleButton(),
               ],
             ),
