@@ -18,7 +18,7 @@ class ButtonFilled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Container(
         width: width,
         height: 48,

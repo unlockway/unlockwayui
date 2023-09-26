@@ -26,7 +26,9 @@ class _DaysListState extends State<DaysList> {
           InkWell(
             onTap: widget.func,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 1,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
@@ -52,7 +54,9 @@ class _DaysListState extends State<DaysList> {
           InkWell(
             onTap: widget.func,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 1,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
@@ -78,7 +82,9 @@ class _DaysListState extends State<DaysList> {
           InkWell(
             onTap: widget.func,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 1,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
@@ -104,7 +110,9 @@ class _DaysListState extends State<DaysList> {
           InkWell(
             onTap: widget.func,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 1,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
@@ -130,7 +138,9 @@ class _DaysListState extends State<DaysList> {
           InkWell(
             onTap: widget.func,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 1,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
@@ -156,7 +166,9 @@ class _DaysListState extends State<DaysList> {
           InkWell(
             onTap: widget.func,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 1,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
@@ -182,7 +194,9 @@ class _DaysListState extends State<DaysList> {
           InkWell(
             onTap: widget.func,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 1,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
