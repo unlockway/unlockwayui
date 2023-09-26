@@ -33,7 +33,7 @@ class RoutineCard extends StatelessWidget {
           Navigator.push(
             context,
             navigationPageRightAnimation(
-              const RoutineEditPage(),
+              const EditRoutine(),
             ),
           );
         },

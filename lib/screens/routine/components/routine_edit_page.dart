@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/screens/routine/components/routine_meal_card.dart';
 import 'package:unlockway/screens/routine/routine.dart';
 
-class RoutineEditPage extends StatelessWidget {
-  const RoutineEditPage({super.key});
+class EditRoutine extends StatefulWidget {
+  const EditRoutine({
+    super.key,
+  });
 
+  @override
+  State<EditRoutine> createState() => _EditRoutineState();
+}
+
+class _EditRoutineState extends State<EditRoutine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,16 +78,75 @@ class RoutineEditPage extends StatelessWidget {
       ),
       body: Container(
         margin: const EdgeInsets.all(15),
-        child: const Form(
-          child: Column(
-            children: [
-              GenericTextField(
-                title: "Nome",
-                placeholder: "Insira um nome para a rotina",
-                width: double.infinity,
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            const GenericTextField(
+              title: "Nome",
+              placeholder: "Insira um nome para a rotina",
+              width: double.infinity,
+            ),
+            Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Selecione os dias que a rotina deve ocorrer",
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                DaysList(
+                  days: const [
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                  ],
+                  func: () {},
+                ),
+                const RoutineMealCard(
+                  category: "Café da Manhã",
+                  meal: "Escolher na Hora",
+                  hour: "7:00 AM",
+                  calories: 500.00,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.add),
+                    label: Text(
+                      "Novo",
+                      style: TextStyle(
+                        color: Color(primary),
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      iconColor: MaterialStatePropertyAll(
+                        Color(primary),
+                      ),
+                      iconSize: const MaterialStatePropertyAll(16),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );

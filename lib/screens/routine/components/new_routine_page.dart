@@ -113,15 +113,6 @@ class _NewRoutineState extends State<NewRoutine> {
                   ],
                   func: () {},
                 ),
-                const RoutineMealCard(
-                  category: "Café da Manhã",
-                  meal: "Escolher na Hora",
-                  hour: "7:00 AM",
-                  calories: 500.00,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton.icon(
