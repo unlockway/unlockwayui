@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/constants.dart';
 
 class FilterRoutinePopup extends StatelessWidget {
@@ -16,13 +16,29 @@ class FilterRoutinePopup extends StatelessWidget {
       child: Form(
         child: Column(
           children: [
-            const GenericTextField(
-                title: "Categoria", placeholder: "", width: double.infinity),
-            const SizedBox(height: 20),
-            const GenericTextField(
-                title: "Data de criação",
-                placeholder: "dd/mm/yyyy",
-                width: double.infinity),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Dias da Semana",
+                style: TextStyle(
+                  fontFamily: "Inter",
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            DaysList(
+              days: const [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+              ],
+              func: () {},
+            ),
             const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
