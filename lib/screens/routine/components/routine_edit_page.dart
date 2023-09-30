@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/text_field.dart';
@@ -22,6 +23,19 @@ class _EditRoutineState extends State<EditRoutine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            ButtonFilled(
+              text: "ATUALIZAR ROTINA",
+              height: 48,
+              width: double.infinity,
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       backgroundColor: Color(darkBgdark),
       appBar: AppBar(
         flexibleSpace: Container(
