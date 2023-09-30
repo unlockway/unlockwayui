@@ -5,17 +5,17 @@ class DaysList extends StatefulWidget {
   const DaysList({
     super.key,
     required this.days,
-    required this.func,
   });
 
   final List<bool> days;
-  final Function() func;
 
   @override
   State<DaysList> createState() => _DaysListState();
 }
 
 class _DaysListState extends State<DaysList> {
+  late List<bool> dias = widget.days;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +24,11 @@ class _DaysListState extends State<DaysList> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-            onTap: widget.func,
+            onTap: () {
+              setState(() {
+                dias[0] = !dias[0];
+              });
+            },
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -52,7 +56,11 @@ class _DaysListState extends State<DaysList> {
             ),
           ),
           InkWell(
-            onTap: widget.func,
+            onTap: () {
+              setState(() {
+                widget.days[0] = !widget.days[0];
+              });
+            },
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -80,7 +88,11 @@ class _DaysListState extends State<DaysList> {
             ),
           ),
           InkWell(
-            onTap: widget.func,
+            onTap: () {
+              setState(() {
+                widget.days[0] = !widget.days[0];
+              });
+            },
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -108,7 +120,11 @@ class _DaysListState extends State<DaysList> {
             ),
           ),
           InkWell(
-            onTap: widget.func,
+            onTap: () {
+              setState(() {
+                widget.days[0] = !widget.days[0];
+              });
+            },
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -136,7 +152,11 @@ class _DaysListState extends State<DaysList> {
             ),
           ),
           InkWell(
-            onTap: widget.func,
+            onTap: () {
+              setState(() {
+                widget.days[0] = !widget.days[0];
+              });
+            },
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -164,7 +184,11 @@ class _DaysListState extends State<DaysList> {
             ),
           ),
           InkWell(
-            onTap: widget.func,
+            onTap: () {
+              setState(() {
+                widget.days[0] = !widget.days[0];
+              });
+            },
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -192,7 +216,11 @@ class _DaysListState extends State<DaysList> {
             ),
           ),
           InkWell(
-            onTap: widget.func,
+            onTap: () {
+              setState(() {
+                widget.days[0] = !widget.days[0];
+              });
+            },
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/home.dart';
 
 class LoginPopup extends StatelessWidget {
@@ -37,12 +38,14 @@ class LoginPopup extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ButtonOutlined(
-                      text: "Cancelar",
-                      height: 48.0,
-                      width: 600.0,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      }),
+                    text: "Cancelar",
+                    height: 48.0,
+                    width: 600.0,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    color: Color(primary),
+                  ),
                   const SizedBox(width: 10),
                   ButtonFilled(
                       text: "Entrar",

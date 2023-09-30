@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 
@@ -29,32 +30,27 @@ class NewRoutineMealPopup extends StatelessWidget {
                 width: double.infinity),
             const SizedBox(height: 30),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextButton(
-                  onPressed: () {
+                ButtonOutlined(
+                  text: "CANCELAR",
+                  height: 48,
+                  width: double.infinity,
+                  onTap: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text(
-                    "CANCELAR",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Inter",
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  color: Color(primary),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "BUSCAR",
-                    style: TextStyle(
-                      color: Color(primary),
-                      fontFamily: "Inter",
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                const SizedBox(
+                  width: 20,
+                ),
+                ButtonFilled(
+                  text: "SALVAR",
+                  height: 48,
+                  width: double.infinity,
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
               ],
             ),

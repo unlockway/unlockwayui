@@ -43,7 +43,7 @@ class ButtonFilled extends StatelessWidget {
               child: Text(
                 text,
                 style: const TextStyle(
-                  fontSize: 23.04,
+                  fontSize: 16,
                   fontWeight: FontWeight.w500,
                   fontFamily: "Inter",
                 ),
@@ -63,8 +63,10 @@ class ButtonOutlined extends StatelessWidget {
     required this.height,
     required this.width,
     required this.onTap,
+    required this.color,
   });
 
+  final Color color;
   final String text;
   final double height;
   final double width;
@@ -80,7 +82,7 @@ class ButtonOutlined extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
             width: 2,
-            color: Color(primary),
+            color: color,
           ),
           color: Colors.black.withOpacity(0),
         ),
@@ -92,9 +94,9 @@ class ButtonOutlined extends StatelessWidget {
               child: Text(
                 text,
                 style: TextStyle(
-                  fontSize: 23.04,
+                  fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: Color(primary),
+                  color: color,
                   fontFamily: "Inter",
                 ),
               ),

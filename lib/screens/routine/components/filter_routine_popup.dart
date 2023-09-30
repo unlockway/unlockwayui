@@ -37,7 +37,6 @@ class FilterRoutinePopup extends StatelessWidget {
                 false,
                 false,
               ],
-              func: () {},
             ),
             const SizedBox(height: 30),
             Row(

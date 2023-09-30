@@ -52,6 +52,7 @@ class _InitialLoginState extends State<InitialLogin> {
                       ),
                     );
                   },
+                  color: Color(primary),
                 ),
                 Row(
                   children: <Widget>[

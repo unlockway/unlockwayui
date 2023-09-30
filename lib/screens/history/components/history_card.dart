@@ -78,7 +78,9 @@ class HistoryCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  DaysList(days: weekRepetitions, func: () {}),
+                  DaysList(
+                    days: weekRepetitions,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

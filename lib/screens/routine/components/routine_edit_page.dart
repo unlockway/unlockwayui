@@ -103,8 +103,8 @@ class _EditRoutineState extends State<EditRoutine> {
                     ),
                   ),
                 ),
-                DaysList(
-                  days: const [
+                const DaysList(
+                  days: [
                     false,
                     false,
                     false,
@@ -113,7 +113,6 @@ class _EditRoutineState extends State<EditRoutine> {
                     false,
                     false,
                   ],
-                  func: () {},
                 ),
                 const RoutineMealCard(
                   category: "Café da Manhã",

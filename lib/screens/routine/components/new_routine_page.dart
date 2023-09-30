@@ -102,8 +102,8 @@ class _NewRoutineState extends State<NewRoutine> {
                     ),
                   ),
                 ),
-                DaysList(
-                  days: const [
+                const DaysList(
+                  days: [
                     false,
                     false,
                     false,
@@ -112,7 +112,6 @@ class _NewRoutineState extends State<NewRoutine> {
                     false,
                     false,
                   ],
-                  func: () {},
                 ),
                 Align(
                   alignment: Alignment.centerRight,

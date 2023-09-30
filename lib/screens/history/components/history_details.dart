@@ -126,7 +126,9 @@ class HistoryDetails extends StatelessWidget {
                             ),
                           ),
                         ),
-                        DaysList(days: days, func: () {}),
+                        DaysList(
+                          days: days,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
