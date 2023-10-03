@@ -4,6 +4,7 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/home.dart';
+import 'package:unlockway/screens/login/components/about.dart';
 
 class LoginPopup extends StatelessWidget {
   const LoginPopup({super.key});
@@ -54,7 +55,7 @@ class LoginPopup extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).push(
                           navigationPageRightAnimation(
-                            const Home(),
+                            const AboutPage(),
                           ),
                         );
                       }),

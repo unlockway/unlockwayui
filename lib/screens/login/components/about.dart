@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
 class AboutCover extends StatelessWidget {
-  const AboutCover({Key? key});
+  const AboutCover({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +49,7 @@ class AboutCover extends StatelessWidget {
 }
 
 class Page2Content extends StatelessWidget {
-  const Page2Content({Key? key});
+  const Page2Content({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +102,7 @@ class Page2Content extends StatelessWidget {
 }
 
 class Page3Content extends StatelessWidget {
-  const Page3Content({Key? key});
+  const Page3Content({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +155,7 @@ class Page3Content extends StatelessWidget {
 }
 
 class Page4Content extends StatelessWidget {
-  const Page4Content({Key? key});
+  const Page4Content({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -211,19 +207,21 @@ class Page4Content extends StatelessWidget {
   }
 }
 
-class MyApp extends StatefulWidget {
+class AboutPage extends StatefulWidget {
+  const AboutPage({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<AboutPage> createState() => _AboutPageState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _AboutPageState extends State<AboutPage> {
   int currentIndex = 0;
   final PageController pageController = PageController();
   final List<Widget> contentList = [
-    AboutCover(), // Página 0
-    Page2Content(), // Página 1
-    Page3Content(), // Página 2
-    Page4Content(), // Página 3
+    const AboutCover(), // Página 0
+    const Page2Content(), // Página 1
+    const Page3Content(), // Página 2
+    const Page4Content(), // Página 3
   ];
 
   @override
@@ -238,17 +236,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          body: GestureDetector(
+    return Scaffold(
+      body: GestureDetector(
         onHorizontalDragUpdate: (details) {
           if (details.delta.dx > 0) {
             // Swiping right
             if (currentIndex > 0) {
               currentIndex--;
               pageController.previousPage(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 curve: Curves.ease,
               );
             }
@@ -257,7 +253,7 @@ class _MyAppState extends State<MyApp> {
             if (currentIndex < contentList.length - 1) {
               currentIndex++;
               pageController.nextPage(
-                duration: Duration(milliseconds: 400),
+                duration: const Duration(milliseconds: 400),
                 curve: Curves.ease,
               );
             }
@@ -314,7 +310,7 @@ class _MyAppState extends State<MyApp> {
             ),
           ],
         ),
-      )),
+      ),
     );
   }
 }
