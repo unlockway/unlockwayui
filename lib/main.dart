@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:unlockway/screens/login/login.dart';
 import 'constants.dart';
 
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
