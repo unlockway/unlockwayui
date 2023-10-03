@@ -27,8 +27,8 @@ class FilterRoutinePopup extends StatelessWidget {
                 ),
               ),
             ),
-            DaysList(
-              days: const [
+            const DaysList(
+              days: [
                 false,
                 false,
                 false,
@@ -37,6 +37,7 @@ class FilterRoutinePopup extends StatelessWidget {
                 false,
                 false,
               ],
+              enable: true,
             ),
             const SizedBox(height: 30),
             Row(

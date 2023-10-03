@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/screens/home/components/create_buttons.dart';
+import 'package:unlockway/screens/home/components/next_meals.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 
 class Home extends StatelessWidget {
@@ -88,7 +90,31 @@ class Home extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           margin: const EdgeInsets.all(13),
           child: const Column(
-            children: [],
+            children: [
+              SizedBox(
+                height: 16,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Próximas Refeições",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Inter",
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              NextMeals(),
+              SizedBox(
+                height: 16,
+              ),
+              CreateButtons(),
+            ],
           ),
         ),
       ),

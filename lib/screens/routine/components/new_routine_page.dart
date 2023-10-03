@@ -126,6 +126,7 @@ class _NewRoutineState extends State<NewRoutine> {
                     false,
                     false,
                   ],
+                  enable: true,
                 ),
                 Align(
                   alignment: Alignment.centerRight,

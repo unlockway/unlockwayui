@@ -1,7 +1,9 @@
 class FoodModel {
   const FoodModel(
     this.idFood,
+    this.imgURL,
     this.name,
+    this.measurement,
     this.description,
     this.calories,
     this.proteins,
@@ -12,7 +14,9 @@ class FoodModel {
   );
 
   final String idFood;
+  final String imgURL;
   final String name;
+  final String measurement;
   final String description;
   final double calories;
   final double proteins;

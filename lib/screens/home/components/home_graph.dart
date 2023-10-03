@@ -5,12 +5,12 @@ class HomeGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Text(""),
-        ],
-      ),
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("CALORIAS POR DIA",
+            style: TextStyle(color: Colors.white, fontFamily: "Inter")),
+      ],
     );
   }
 }

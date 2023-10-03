@@ -13,7 +13,10 @@ import 'package:unlockway/screens/routine/routine.dart';
 class EditRoutine extends StatefulWidget {
   const EditRoutine({
     super.key,
+    required this.days,
   });
+
+  final List<bool> days;
 
   @override
   State<EditRoutine> createState() => _EditRoutineState();
@@ -117,16 +120,9 @@ class _EditRoutineState extends State<EditRoutine> {
                     ),
                   ),
                 ),
-                const DaysList(
-                  days: [
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                  ],
+                DaysList(
+                  days: widget.days,
+                  enable: true,
                 ),
                 const RoutineMealCard(
                   category: "Café da Manhã",

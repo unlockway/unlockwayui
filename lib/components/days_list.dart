@@ -5,16 +5,28 @@ class DaysList extends StatefulWidget {
   const DaysList({
     super.key,
     required this.days,
+    required this.enable,
   });
 
   final List<bool> days;
+  final bool enable;
 
   @override
   State<DaysList> createState() => _DaysListState();
 }
 
 class _DaysListState extends State<DaysList> {
-  late List<bool> dias = widget.days;
+  late List<bool> dias;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.days.isNotEmpty) {
+      dias = List.from(widget.days);
+    } else {
+      dias = [false, false, false, false, false, false, false];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +36,13 @@ class _DaysListState extends State<DaysList> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-            onTap: () {
-              setState(() {
-                dias[0] = !dias[0];
-              });
-            },
+            onTap: widget.enable
+                ? () {
+                    setState(() {
+                      dias[0] = !dias[0];
+                    });
+                  }
+                : () {},
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -36,10 +50,10 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: widget.days[0] ? Color(primarydark) : Colors.white,
+                  color: dias[0] ? Color(primarydark) : Colors.white,
                   width: 2,
                 ),
-                color: widget.days[0]
+                color: dias[0]
                     ? Color(primarylight)
                     : const Color.fromARGB(48, 255, 255, 255),
               ),
@@ -49,18 +63,20 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "S",
                   style: TextStyle(
-                    color: widget.days[0] ? Color(darkBgdark) : Colors.white,
+                    color: dias[0] ? Color(darkBgdark) : Colors.white,
                   ),
                 ),
               ),
             ),
           ),
           InkWell(
-            onTap: () {
-              setState(() {
-                widget.days[0] = !widget.days[0];
-              });
-            },
+            onTap: widget.enable
+                ? () {
+                    setState(() {
+                      dias[1] = !dias[1];
+                    });
+                  }
+                : () {},
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -68,10 +84,10 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: widget.days[1] ? Color(primarydark) : Colors.white,
+                  color: dias[1] ? Color(primarydark) : Colors.white,
                   width: 2,
                 ),
-                color: widget.days[1]
+                color: dias[1]
                     ? Color(primarylight)
                     : const Color.fromARGB(48, 255, 255, 255),
               ),
@@ -81,18 +97,20 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "T",
                   style: TextStyle(
-                    color: widget.days[1] ? Color(darkBgdark) : Colors.white,
+                    color: dias[1] ? Color(darkBgdark) : Colors.white,
                   ),
                 ),
               ),
             ),
           ),
           InkWell(
-            onTap: () {
-              setState(() {
-                widget.days[0] = !widget.days[0];
-              });
-            },
+            onTap: widget.enable
+                ? () {
+                    setState(() {
+                      dias[2] = !dias[2];
+                    });
+                  }
+                : () {},
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -100,10 +118,10 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: widget.days[2] ? Color(primarydark) : Colors.white,
+                  color: dias[2] ? Color(primarydark) : Colors.white,
                   width: 2,
                 ),
-                color: widget.days[2]
+                color: dias[2]
                     ? Color(primarylight)
                     : const Color.fromARGB(48, 255, 255, 255),
               ),
@@ -113,18 +131,20 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "Q",
                   style: TextStyle(
-                    color: widget.days[2] ? Color(darkBgdark) : Colors.white,
+                    color: dias[2] ? Color(darkBgdark) : Colors.white,
                   ),
                 ),
               ),
             ),
           ),
           InkWell(
-            onTap: () {
-              setState(() {
-                widget.days[0] = !widget.days[0];
-              });
-            },
+            onTap: widget.enable
+                ? () {
+                    setState(() {
+                      dias[3] = !dias[3];
+                    });
+                  }
+                : () {},
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -132,10 +152,10 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: widget.days[3] ? Color(primarydark) : Colors.white,
+                  color: dias[3] ? Color(primarydark) : Colors.white,
                   width: 2,
                 ),
-                color: widget.days[3]
+                color: dias[3]
                     ? Color(primarylight)
                     : const Color.fromARGB(48, 255, 255, 255),
               ),
@@ -145,18 +165,20 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "Q",
                   style: TextStyle(
-                    color: widget.days[3] ? Color(darkBgdark) : Colors.white,
+                    color: dias[3] ? Color(darkBgdark) : Colors.white,
                   ),
                 ),
               ),
             ),
           ),
           InkWell(
-            onTap: () {
-              setState(() {
-                widget.days[0] = !widget.days[0];
-              });
-            },
+            onTap: widget.enable
+                ? () {
+                    setState(() {
+                      dias[4] = !dias[4];
+                    });
+                  }
+                : () {},
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -164,10 +186,10 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: widget.days[4] ? Color(primarydark) : Colors.white,
+                  color: dias[4] ? Color(primarydark) : Colors.white,
                   width: 2,
                 ),
-                color: widget.days[4]
+                color: dias[4]
                     ? Color(primarylight)
                     : const Color.fromARGB(48, 255, 255, 255),
               ),
@@ -177,18 +199,20 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "S",
                   style: TextStyle(
-                    color: widget.days[4] ? Color(darkBgdark) : Colors.white,
+                    color: dias[4] ? Color(darkBgdark) : Colors.white,
                   ),
                 ),
               ),
             ),
           ),
           InkWell(
-            onTap: () {
-              setState(() {
-                widget.days[0] = !widget.days[0];
-              });
-            },
+            onTap: widget.enable
+                ? () {
+                    setState(() {
+                      dias[5] = !dias[5];
+                    });
+                  }
+                : () {},
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -196,10 +220,10 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: widget.days[5] ? Color(primarydark) : Colors.white,
+                  color: dias[5] ? Color(primarydark) : Colors.white,
                   width: 2,
                 ),
-                color: widget.days[5]
+                color: dias[5]
                     ? Color(primarylight)
                     : const Color.fromARGB(48, 255, 255, 255),
               ),
@@ -209,18 +233,20 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "S",
                   style: TextStyle(
-                    color: widget.days[5] ? Color(darkBgdark) : Colors.white,
+                    color: dias[5] ? Color(darkBgdark) : Colors.white,
                   ),
                 ),
               ),
             ),
           ),
           InkWell(
-            onTap: () {
-              setState(() {
-                widget.days[0] = !widget.days[0];
-              });
-            },
+            onTap: widget.enable
+                ? () {
+                    setState(() {
+                      dias[6] = !dias[6];
+                    });
+                  }
+                : () {},
             child: Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 1,
@@ -228,10 +254,10 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: widget.days[6] ? Color(primarydark) : Colors.white,
+                  color: dias[6] ? Color(primarydark) : Colors.white,
                   width: 2,
                 ),
-                color: widget.days[6]
+                color: dias[6]
                     ? Color(primarylight)
                     : const Color.fromARGB(48, 255, 255, 255),
               ),
@@ -241,7 +267,7 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "D",
                   style: TextStyle(
-                    color: widget.days[6] ? Color(darkBgdark) : Colors.white,
+                    color: dias[6] ? Color(darkBgdark) : Colors.white,
                   ),
                 ),
               ),

@@ -80,6 +80,7 @@ class HistoryCard extends StatelessWidget {
                   ),
                   DaysList(
                     days: weekRepetitions,
+                    enable: false,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

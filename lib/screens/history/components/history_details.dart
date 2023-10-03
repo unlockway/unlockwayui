@@ -128,6 +128,7 @@ class HistoryDetails extends StatelessWidget {
                         ),
                         DaysList(
                           days: days,
+                          enable: false,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

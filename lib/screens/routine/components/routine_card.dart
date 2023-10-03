@@ -33,7 +33,9 @@ class RoutineCard extends StatelessWidget {
           Navigator.push(
             context,
             navigationPageRightAnimation(
-              const EditRoutine(),
+              EditRoutine(
+                days: weekRepetitions,
+              ),
             ),
           );
         },
@@ -67,6 +69,7 @@ class RoutineCard extends StatelessWidget {
               ),
               DaysList(
                 days: weekRepetitions,
+                enable: false,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
