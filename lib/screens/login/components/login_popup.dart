@@ -3,7 +3,6 @@ import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/home/home.dart';
 import 'package:unlockway/screens/login/components/about.dart';
 
 class LoginPopup extends StatelessWidget {
@@ -49,16 +48,17 @@ class LoginPopup extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   ButtonFilled(
-                      text: "Entrar",
-                      height: 48.0,
-                      width: 600.0,
-                      onTap: () {
-                        Navigator.of(context).push(
-                          navigationPageRightAnimation(
-                            const AboutPage(),
-                          ),
-                        );
-                      }),
+                    text: "Entrar",
+                    height: 48.0,
+                    width: 600.0,
+                    onTap: () {
+                      Navigator.of(context).push(
+                        navigationPageRightAnimation(
+                          const AboutPage(),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ],

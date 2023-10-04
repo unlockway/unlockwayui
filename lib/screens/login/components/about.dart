@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/screens/home/home.dart';
 
 class AboutCover extends StatelessWidget {
   const AboutCover({super.key});
@@ -13,7 +15,11 @@ class AboutCover extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: TextButton(
               onPressed: () {
-                // Ação quando o botão "Pular" for presionado
+                Navigator.of(context).push(
+                  navigationPageRightAnimation(
+                    const Home(),
+                  ),
+                );
               },
               child: const Text(
                 'Pular',
@@ -29,7 +35,7 @@ class AboutCover extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset('assets/images/image1.png'),
+              Image.asset('assets/imgs/image1.png'),
               const SizedBox(height: 15),
               const Text(
                 textAlign: TextAlign.center,
@@ -61,7 +67,11 @@ class Page2Content extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: TextButton(
               onPressed: () {
-                // Ação quando o botão "Pular" for presionado
+                Navigator.of(context).push(
+                  navigationPageRightAnimation(
+                    const Home(),
+                  ),
+                );
               },
               child: const Text(
                 'Pular',
@@ -78,7 +88,7 @@ class Page2Content extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/images/image2.png', // Altere o caminho da imagem
+                'assets/imgs/image2.png', // Altere o caminho da imagem
                 width: 150, // Largura da imagem reduzida
                 height: 150, // Altura da imagem reduzida
               ),
@@ -114,7 +124,11 @@ class Page3Content extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: TextButton(
               onPressed: () {
-                // Ação quando o botão "Pular" for presionado
+                Navigator.of(context).push(
+                  navigationPageRightAnimation(
+                    const Home(),
+                  ),
+                );
               },
               child: const Text(
                 'Pular',
@@ -131,7 +145,7 @@ class Page3Content extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/images/image3.png', // Altere o caminho da imagem
+                'assets/imgs/image3.png', // Altere o caminho da imagem
                 width: 150, // Largura da imagem reduzida
                 height: 150, // Altura da imagem reduzida
               ),
@@ -167,7 +181,11 @@ class Page4Content extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: TextButton(
               onPressed: () {
-                // Ação quando o botão "Pular" for presionado
+                Navigator.of(context).push(
+                  navigationPageRightAnimation(
+                    const Home(),
+                  ),
+                );
               },
               child: const Text(
                 'Fechar',
@@ -184,7 +202,7 @@ class Page4Content extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/images/image4.png', // Altere o caminho da imagem
+                'assets/imgs/image4.png', // Altere o caminho da imagem
                 width: 150, // Largura da imagem reduzida
                 height: 150, // Altura da imagem reduzida
               ),
@@ -263,7 +281,7 @@ class _AboutPageState extends State<AboutPage> {
           children: [
             Positioned.fill(
               child: Image.asset(
-                'assets/images/about_bg.png', // Altere o caminho da imagem
+                'assets/imgs/about_bg.png', // Altere o caminho da imagem
                 fit: BoxFit.cover,
                 height: double.infinity,
                 width: double.infinity,
