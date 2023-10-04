@@ -38,6 +38,7 @@ dependencies:
   percent_indicator: ^4.2.3
   phosphor_flutter: ^2.0.0
   flutter_launcher_icons: ^0.13.1
+  syncfusion_flutter_charts: ^23.1.39
 
 dev_dependencies:
   flutter_test:

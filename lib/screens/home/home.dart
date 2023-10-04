@@ -3,6 +3,7 @@ import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
+import 'package:unlockway/screens/home/components/home_graph/home_graph.dart';
 import 'package:unlockway/screens/home/components/next_meals.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 
@@ -85,11 +86,11 @@ class Home extends StatelessWidget {
               ),
             ),
           )),
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          margin: const EdgeInsets.all(13),
-          child: const Column(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        margin: const EdgeInsets.all(13),
+        child: const SingleChildScrollView(
+          child: Column(
             children: [
               SizedBox(
                 height: 16,
@@ -114,6 +115,32 @@ class Home extends StatelessWidget {
                 height: 16,
               ),
               CreateButtons(),
+              SizedBox(
+                height: 32,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "CALORIAS POR DIA",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "Inter",
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              HomeGraph(
+                data: [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50,
+                  60,
+                  70,
+                ],
+              ),
             ],
           ),
         ),
