@@ -45,30 +45,28 @@ class HomeGraph extends StatelessWidget {
                     ),
                   ],
                 ),
-                const VerticalDivider(
-                  width: 20,
-                  thickness: 1,
-                  indent: 20,
-                  endIndent: 10,
-                  color: Color(0xFF5A6478),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          BarChart(),
-                        ],
-                      ),
-                      const Divider(
-                        height: 20,
-                        thickness: 1,
-                        indent: 0,
-                        endIndent: 0,
-                        color: Color(0xFF5A6478),
-                      )
+                Container(
+                  width: 300,
+                  height: 300,
+                  child: BarChart(
+                    colors: [
+                      Colors.deepOrange.shade100,
+                      Colors.deepOrange.shade200,
+                      Colors.deepOrange.shade300,
+                      Colors.deepOrange.shade400,
+                      Colors.deepOrange.shade100,
+                      Colors.deepOrange.shade200,
+                      Colors.deepOrange.shade300,
+                      Colors.deepOrange.shade400,
+                    ],
+                    values: const [
+                      10,
+                      20,
+                      30,
+                      40,
+                      50,
+                      60,
+                      70,
                     ],
                   ),
                 ),
