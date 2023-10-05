@@ -3,7 +3,7 @@ import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
-import 'package:unlockway/screens/home/components/home_graph/home_graph.dart';
+import 'package:unlockway/screens/home/components/home_graph.dart';
 import 'package:unlockway/screens/home/components/next_meals.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 
