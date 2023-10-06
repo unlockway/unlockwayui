@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
@@ -89,13 +90,14 @@ class Home extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.all(13),
-        child: const SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Próximas Refeições",
@@ -107,18 +109,18 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              NextMeals(),
-              SizedBox(
+              const NextMeals(),
+              const SizedBox(
                 height: 16,
               ),
-              CreateButtons(),
-              SizedBox(
+              const CreateButtons(),
+              const SizedBox(
                 height: 32,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "CALORIAS POR DIA",
@@ -130,7 +132,7 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ),
-              HomeGraph(
+              const HomeGraph(
                 data: [
                   10,
                   20,
@@ -140,6 +142,29 @@ class Home extends StatelessWidget {
                   60,
                   70,
                 ],
+              ),
+              SizedBox(
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      "assets/svgs/logo_mini.svg",
+                      height: 24,
+                      width: 24,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    const Expanded(
+                      child: Text(
+                        "Acompanha sua porcentagem de progresso conforme gerencia seus melhores hábitos.",
+                        style: TextStyle(
+                            fontFamily: "Inter",
+                            fontSize: 12,
+                            color: Colors.white),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/components/bar.dart';
+import 'package:unlockway/screens/home/components/line.dart';
 
 class HomeGraph extends StatelessWidget {
   const HomeGraph({
@@ -20,24 +21,47 @@ class HomeGraph extends StatelessWidget {
       height: 200,
       child: Stack(
         children: [
+          const Positioned.fill(
+            left: 0,
+            top: -80,
+            child: Line(number: 3000),
+          ),
+          const Positioned.fill(
+            left: 0,
+            top: 50,
+            child: Line(number: 2000),
+          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              const SizedBox(
+                width: 22.5,
+              ),
               const VerticalDivider(
                 color: Color(0xFF5A6478),
                 endIndent: 25,
               ),
-              Bar(data: 40, color: Color(primary), day: "S"),
-              Bar(data: 40, color: Color(primary), day: "S"),
-              Bar(data: 30, color: Color(primary), day: "S"),
-              Bar(data: 40, color: Color(primary), day: "S"),
-              Bar(data: 100, color: Color(primary), day: "S"),
-              Bar(data: 100, color: Color(primary), day: "S"),
-              Bar(data: 100, color: Color(primary), day: "S"),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Bar(data: 40, color: Color(primary), day: "S"),
+                    Bar(data: 40, color: Color(primary), day: "S"),
+                    Bar(data: 30, color: Color(primary), day: "S"),
+                    Bar(data: 40, color: Color(primary), day: "S"),
+                    Bar(data: 100, color: Color(primary), day: "S"),
+                    Bar(data: 100, color: Color(primary), day: "S"),
+                    Bar(data: 100, color: Color(primary), day: "S"),
+                  ],
+                ),
+              ),
             ],
           ),
-          const Positioned(
-            child: Divider(),
+          const Positioned.fill(
+            left: 30,
+            top: 150,
+            child: Divider(
+              color: Color(0xFF5A6478),
+            ),
           ),
         ],
       ),
