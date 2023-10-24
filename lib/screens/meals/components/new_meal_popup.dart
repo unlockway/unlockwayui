@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:unlockway/constants.dart';
 
 class NewMealPopup extends StatelessWidget {
   const NewMealPopup({super.key});
@@ -25,7 +24,7 @@ class NewMealPopup extends StatelessWidget {
               width: double.infinity,
               height: 95,
               decoration: BoxDecoration(
-                color: Color(darkBglight),
+                color: Theme.of(context).colorScheme.onBackground,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(8),
                   topRight: Radius.circular(8),
@@ -34,8 +33,11 @@ class NewMealPopup extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  SvgPicture.asset("assets/svgs/ia.svg"),
-                  const FittedBox(
+                  SvgPicture.asset("assets/svgs/ia.svg",
+                      theme: SvgTheme(
+                        currentColor: Theme.of(context).colorScheme.primary,
+                      )),
+                  FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
                       "usar inteligência artifical",
@@ -43,7 +45,7 @@ class NewMealPopup extends StatelessWidget {
                         fontFamily: "Inter",
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.outline,
                       ),
                     ),
                   )
@@ -61,7 +63,7 @@ class NewMealPopup extends StatelessWidget {
               width: double.infinity,
               height: 95,
               decoration: BoxDecoration(
-                color: Color(darkBglight),
+                color: Theme.of(context).colorScheme.onBackground,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(8),
                   bottomRight: Radius.circular(8),
@@ -70,7 +72,7 @@ class NewMealPopup extends StatelessWidget {
               child: Row(
                 children: [
                   SvgPicture.asset("assets/svgs/manually.svg"),
-                  const FittedBox(
+                  FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
                       "Criar Manualmente",
@@ -78,7 +80,7 @@ class NewMealPopup extends StatelessWidget {
                         fontFamily: "Inter",
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.outline,
                       ),
                     ),
                   )

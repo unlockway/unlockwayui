@@ -31,7 +31,8 @@ class _RoutineState extends State<Routine> {
           backgroundColor: MaterialStatePropertyAll(
             Color(primarydark),
           ),
-          iconColor: const MaterialStatePropertyAll(Colors.white),
+          iconColor:
+              MaterialStatePropertyAll(Theme.of(context).colorScheme.outline),
         ),
         iconSize: 24,
         icon: const Icon(Icons.add),
@@ -49,14 +50,14 @@ class _RoutineState extends State<Routine> {
                 const SizedBox(
                   height: 5,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "ROTINAS",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: "Inter",
-                        color: Colors.white),
+                        color: Theme.of(context).colorScheme.outline),
                   ),
                 ),
                 const SizedBox(
@@ -68,8 +69,8 @@ class _RoutineState extends State<Routine> {
                     Flexible(
                       child: TextField(
                         cursorColor: const Color.fromARGB(255, 155, 155, 155),
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
                         ),
                         decoration: InputDecoration(
                           enabled: true,
@@ -79,16 +80,16 @@ class _RoutineState extends State<Routine> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           filled: true,
-                          fillColor: Color(darkBglight),
+                          fillColor: Theme.of(context).colorScheme.onBackground,
                           contentPadding: const EdgeInsets.all(10.0),
                           hintText: "Buscar",
                           suffixIcon: Icon(
                             Icons.search,
-                            color: Color(lightBglight),
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           border: InputBorder.none,
                           hintStyle: TextStyle(
-                            color: Color(lightBg),
+                            color: Theme.of(context).colorScheme.outline,
                             fontWeight: FontWeight.w100,
                           ),
                         ),
@@ -101,7 +102,7 @@ class _RoutineState extends State<Routine> {
                       type: MaterialType.transparency,
                       child: Ink(
                         decoration: BoxDecoration(
-                          color: Color(darkBglight),
+                          color: Theme.of(context).colorScheme.onBackground,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: InkWell(
@@ -110,12 +111,12 @@ class _RoutineState extends State<Routine> {
                             context,
                             const FilterRoutinePopup(),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
                             child: Icon(
                               Icons.filter_list,
                               size: 25.0,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                           ),
                         ),
@@ -128,7 +129,7 @@ class _RoutineState extends State<Routine> {
           ),
         ),
       ),
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       bottomNavigationBar: const UBottomNavigator("Routine"),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -143,7 +144,7 @@ class _RoutineState extends State<Routine> {
                   weekRepetitions: routine[i].weekRepetitions,
                   calories: routine[i].totalCaloriesInTheDay,
                   meals: routine[i].meals,
-                  color: Color(darkBglight),
+                  color: Theme.of(context).colorScheme.onBackground,
                   using: routine[i].inUsage,
                 );
               },

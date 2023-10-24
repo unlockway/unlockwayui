@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/text_field.dart';
-import 'package:unlockway/constants.dart';
 
 class FilterHistoryPopup extends StatelessWidget {
   const FilterHistoryPopup({super.key});
@@ -24,10 +23,10 @@ class FilterHistoryPopup extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text(
+                  child: Text(
                     "CANCELAR",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.outline,
                         fontFamily: "Inter",
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
@@ -38,7 +37,7 @@ class FilterHistoryPopup extends StatelessWidget {
                   child: Text(
                     "BUSCAR",
                     style: TextStyle(
-                      color: Color(primary),
+                      color: Theme.of(context).colorScheme.primary,
                       fontFamily: "Inter",
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

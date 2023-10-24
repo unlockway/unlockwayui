@@ -5,7 +5,6 @@ import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/routine/components/new_routine_meal_popup.dart';
 import 'package:unlockway/screens/routine/routine.dart';
 
@@ -35,7 +34,7 @@ class _NewRoutineState extends State<NewRoutine> {
           ],
         ),
       ),
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         flexibleSpace: Container(
           padding: const EdgeInsets.only(
@@ -65,12 +64,12 @@ class _NewRoutineState extends State<NewRoutine> {
                       icon: Icon(
                         Icons.arrow_back,
                         size: 26.0,
-                        color: Color(primarydark),
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       label: Text(
                         'VOLTAR',
                         style: TextStyle(
-                          color: Color(primarydark),
+                          color: Theme.of(context).colorScheme.primary,
                           fontSize: 18,
                           fontWeight: FontWeight.w300,
                         ),
@@ -89,7 +88,7 @@ class _NewRoutineState extends State<NewRoutine> {
         ),
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: Color(darkBgdark),
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: Container(
         margin: const EdgeInsets.all(15),
@@ -105,14 +104,14 @@ class _NewRoutineState extends State<NewRoutine> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Selecione os dias que a rotina deve ocorrer",
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 12,
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
                 ),
@@ -141,7 +140,7 @@ class _NewRoutineState extends State<NewRoutine> {
                     label: Text(
                       "Novo",
                       style: TextStyle(
-                        color: Color(primary),
+                        color: Theme.of(context).colorScheme.primary,
                         fontFamily: "Inter",
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -149,7 +148,7 @@ class _NewRoutineState extends State<NewRoutine> {
                     ),
                     style: ButtonStyle(
                       iconColor: MaterialStatePropertyAll(
-                        Color(primary),
+                        Theme.of(context).colorScheme.primary,
                       ),
                       iconSize: const MaterialStatePropertyAll(16),
                     ),

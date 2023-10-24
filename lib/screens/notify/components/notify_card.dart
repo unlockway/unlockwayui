@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:unlockway/constants.dart';
 
 class NotifyCard extends StatefulWidget {
   const NotifyCard({
@@ -29,7 +28,7 @@ class _NotifyCardState extends State<NotifyCard> {
       width: double.infinity,
       height: 74,
       decoration: BoxDecoration(
-        color: Color(darkBglight),
+        color: Theme.of(context).colorScheme.onBackground,
       ),
       child: InkWell(
         onTap: widget.func,
@@ -51,8 +50,8 @@ class _NotifyCardState extends State<NotifyCard> {
               child: Text(
                 widget.description,
                 maxLines: 2,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.outline,
                   fontFamily: "Inter",
                   fontSize: 12,
                 ),
@@ -65,8 +64,8 @@ class _NotifyCardState extends State<NotifyCard> {
               alignment: Alignment.centerRight,
               child: Text(
                 widget.date,
-                style: const TextStyle(
-                  color: Color(0xFFCCCCCC),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.outline,
                   fontFamily: "Inter",
                   fontSize: 12,
                 ),

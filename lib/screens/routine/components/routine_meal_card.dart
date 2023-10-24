@@ -28,7 +28,7 @@ class RoutineMealCard extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(darkBglight),
+          color: Theme.of(context).colorScheme.onBackground,
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.all(16),
@@ -49,8 +49,8 @@ class RoutineMealCard extends StatelessWidget {
                 ),
                 Text(
                   category,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
                     fontFamily: "Inter",
                     fontSize: 19.2,
                   ),
@@ -74,8 +74,8 @@ class RoutineMealCard extends StatelessWidget {
                 ),
                 Text(
                   meal,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
                     fontFamily: "Inter",
                     fontSize: 19.2,
                   ),
@@ -99,8 +99,8 @@ class RoutineMealCard extends StatelessWidget {
                 ),
                 Text(
                   hour,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
                     fontFamily: "Inter",
                     fontSize: 19.2,
                   ),

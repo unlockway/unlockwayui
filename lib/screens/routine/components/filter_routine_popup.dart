@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/days_list.dart';
-import 'package:unlockway/constants.dart';
 
 class FilterRoutinePopup extends StatelessWidget {
   const FilterRoutinePopup({super.key});
@@ -16,13 +15,13 @@ class FilterRoutinePopup extends StatelessWidget {
       child: Form(
         child: Column(
           children: [
-            const Align(
+            Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "Dias da Semana",
                 style: TextStyle(
                   fontFamily: "Inter",
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                   fontSize: 14,
                 ),
               ),
@@ -47,10 +46,10 @@ class FilterRoutinePopup extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text(
+                  child: Text(
                     "CANCELAR",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.outline,
                         fontFamily: "Inter",
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
@@ -61,7 +60,7 @@ class FilterRoutinePopup extends StatelessWidget {
                   child: Text(
                     "BUSCAR",
                     style: TextStyle(
-                      color: Color(primary),
+                      color: Theme.of(context).colorScheme.primary,
                       fontFamily: "Inter",
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

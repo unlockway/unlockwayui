@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/constants.dart';
 
 class SettingsOption extends StatelessWidget {
   const SettingsOption({
@@ -32,23 +31,24 @@ class SettingsOption extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Color(darkBglight),
+            color: Theme.of(context).colorScheme.onBackground,
             borderRadius: borderRadius,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Icon(icon, color: iconColor ?? Colors.white),
+              Icon(icon,
+                  color: iconColor ?? Theme.of(context).colorScheme.outline),
               const SizedBox(width: 16.0),
               FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
                   label.toUpperCase(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: "Inter",
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),

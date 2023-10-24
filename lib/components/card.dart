@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/constants.dart';
 
 class UCard extends StatelessWidget {
   const UCard({
@@ -21,7 +20,7 @@ class UCard extends StatelessWidget {
       width: 177,
       height: 288,
       decoration: BoxDecoration(
-        color: Color(darkBglight),
+        color: Theme.of(context).colorScheme.onBackground,
         borderRadius: const BorderRadius.all(
           Radius.circular(6),
         ),
@@ -44,10 +43,10 @@ class UCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: "Signika",
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.outline,
                     fontSize: 19.02,
                   ),
                 ),
@@ -69,9 +68,9 @@ class UCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Text(
                 description,
-                style: const TextStyle(
+                style: TextStyle(
                   overflow: TextOverflow.ellipsis,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
                 maxLines: 3,
               ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:unlockway/constants.dart';
 
 class MealHistoryCard extends StatelessWidget {
   const MealHistoryCard({
@@ -23,9 +22,9 @@ class MealHistoryCard extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Color(darkBgdark),
+        color: Theme.of(context).colorScheme.onBackground,
         border: Border.all(
-          color: Color(darkBglight),
+          color: Theme.of(context).colorScheme.onBackground,
           width: 2,
         ),
       ),
@@ -51,8 +50,8 @@ class MealHistoryCard extends StatelessWidget {
                 Text(
                   title,
                   maxLines: 1,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
                     fontFamily: "Inter",
                     fontSize: 23.04,
                   ),
@@ -60,8 +59,8 @@ class MealHistoryCard extends StatelessWidget {
                 Text(
                   description,
                   maxLines: 2,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
                     fontFamily: "Inter",
                     fontSize: 14,
                   ),

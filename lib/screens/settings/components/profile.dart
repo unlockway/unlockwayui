@@ -45,14 +45,14 @@ class ProfileSettings extends StatelessWidget {
                 flex: 2,
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Thomas Schmit",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.outline,
                           fontFamily: "Inter",
                           fontSize: 24.0,
                         ),
@@ -61,7 +61,7 @@ class ProfileSettings extends StatelessWidget {
                         "thomas.p.schmit@gmail.com",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.outline,
                           fontFamily: "Inter",
                           fontWeight: FontWeight.w400,
                           fontSize: 14.0,

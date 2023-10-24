@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/constants.dart';
 
 Future<void> modalBuilderBottomAnimation(
   BuildContext context,
@@ -9,7 +8,7 @@ Future<void> modalBuilderBottomAnimation(
     enableDrag: true,
     context: context,
     useSafeArea: true,
-    backgroundColor: const Color.fromRGBO(26, 36, 47, 1),
+    backgroundColor: Theme.of(context).colorScheme.background,
     elevation: 0,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -26,7 +25,7 @@ Future<void> modalBuilderBottomAnimation(
             width: 180,
             height: 6,
             decoration: BoxDecoration(
-              color: Color(darkBglight),
+              color: Theme.of(context).colorScheme.onBackground,
               borderRadius: BorderRadius.circular(9999),
             ),
           ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
 import 'package:unlockway/screens/home/components/home_graph.dart';
 import 'package:unlockway/screens/home/components/next_meals.dart';
@@ -16,7 +15,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       bottomNavigationBar: const UBottomNavigator("Home"),
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(100),
@@ -41,17 +40,20 @@ class Home extends StatelessWidget {
                       const SizedBox(
                         width: 20,
                       ),
-                      const Column(
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             "Boa tarde,",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.outline),
                           ),
                           Text(
                             "Thomas Schmit",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Theme.of(context).colorScheme.outline),
                           ),
                         ],
                       )
@@ -67,7 +69,7 @@ class Home extends StatelessWidget {
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
-                        Color(darkBglight),
+                        Theme.of(context).colorScheme.onBackground,
                       ),
                       padding: const MaterialStatePropertyAll(
                         EdgeInsets.all(8),
@@ -78,9 +80,9 @@ class Home extends StatelessWidget {
                         ),
                       ),
                     ),
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.notifications_none_outlined,
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
                 ],
@@ -97,12 +99,12 @@ class Home extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Próximas Refeições",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.outline,
                     fontFamily: "Inter",
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -120,12 +122,12 @@ class Home extends StatelessWidget {
               const SizedBox(
                 height: 32,
               ),
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "CALORIAS POR DIA",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.outline,
                     fontFamily: "Inter",
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -154,13 +156,13 @@ class Home extends StatelessWidget {
                     const SizedBox(
                       width: 20,
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         "Acompanha sua porcentagem de progresso conforme gerencia seus melhores hábitos.",
                         style: TextStyle(
                             fontFamily: "Inter",
                             fontSize: 12,
-                            color: Colors.white),
+                            color: Theme.of(context).colorScheme.outline),
                       ),
                     )
                   ],

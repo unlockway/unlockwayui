@@ -1,15 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:unlockway/constants.dart';
 
 ThemeData lightMode = ThemeData(
+  useMaterial3: true,
+  appBarTheme: const AppBarTheme(
+    systemOverlayStyle:
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Color(primary),
+  ),
   brightness: Brightness.light,
   colorScheme: ColorScheme.light(
-    background: Colors.grey.shade400,
+    primary: Color(primarydark),
+    background: Color(lightBg),
+    onBackground: Color(lightBgdark),
+    outline: Color(darkBglight),
   ),
 );
 
 ThemeData darkMode = ThemeData(
+  useMaterial3: true,
+  appBarTheme: const AppBarTheme(
+    systemOverlayStyle:
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Color(primary),
+  ),
   brightness: Brightness.dark,
   colorScheme: ColorScheme.dark(
-    background: Colors.grey.shade900,
+    primary: Color(primary),
+    background: Color(darkBgdark),
+    onBackground: Color(darkBglight),
+    outline: Colors.white,
   ),
 );

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:unlockway/themes/theme_manager.dart';
+
+String theme = "System";
 
 class ThemeDialog extends StatefulWidget {
   const ThemeDialog({super.key});
@@ -9,13 +12,12 @@ class ThemeDialog extends StatefulWidget {
 }
 
 class _ThemeDialogState extends State<ThemeDialog> {
-  var theme = "system";
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Color(darker),
+        color: Theme.of(context).colorScheme.onBackground,
       ),
       height: 200,
       width: 300,
@@ -24,10 +26,11 @@ class _ThemeDialogState extends State<ThemeDialog> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           RadioListTile(
-            title: const Text(
+            selected: theme == "system" ? true : false,
+            title: Text(
               "PADRÃO DO SISTEMA",
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.outline,
                 fontFamily: "Inter",
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -38,14 +41,17 @@ class _ThemeDialogState extends State<ThemeDialog> {
             onChanged: (value) {
               setState(() {
                 theme = value.toString();
+                Provider.of<ThemeProvider>(context, listen: false)
+                    .toggleTheme(value.toString());
+                Navigator.of(context).pop();
               });
             },
           ),
           RadioListTile(
-            title: const Text(
+            title: Text(
               "MODO CLARO",
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.outline,
                 fontFamily: "Inter",
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -56,14 +62,18 @@ class _ThemeDialogState extends State<ThemeDialog> {
             onChanged: (value) {
               setState(() {
                 theme = value.toString();
+                Provider.of<ThemeProvider>(context, listen: false)
+                    .toggleTheme(value.toString());
+                Navigator.of(context).pop();
               });
             },
           ),
           RadioListTile(
-            title: const Text(
+            selected: theme == "dark" ? true : false,
+            title: Text(
               "MODO ESCURO",
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.outline,
                 fontFamily: "Inter",
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -74,6 +84,9 @@ class _ThemeDialogState extends State<ThemeDialog> {
             onChanged: (value) {
               setState(() {
                 theme = value.toString();
+                Provider.of<ThemeProvider>(context, listen: false)
+                    .toggleTheme(value.toString());
+                Navigator.of(context).pop();
               });
             },
           ),

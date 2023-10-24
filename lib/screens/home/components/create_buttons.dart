@@ -107,7 +107,7 @@ class CreateButtons extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "REFEIÇÃO",
+                        "ROTINA",
                         style: TextStyle(
                           color: Color(darkBgdark),
                           fontWeight: FontWeight.bold,

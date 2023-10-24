@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/text_field.dart';
-import 'package:unlockway/constants.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
@@ -9,21 +8,22 @@ class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color(darkBglight),
+        backgroundColor: Theme.of(context).colorScheme.onBackground,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(PhosphorIcons.regular.caretLeft),
         ),
-        iconTheme: const IconThemeData(color: Colors.white, size: 32.0),
+        iconTheme: IconThemeData(
+            color: Theme.of(context).colorScheme.outline, size: 32.0),
         title: Text(
           "Perfil".toUpperCase(),
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.outline,
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
             fontFamily: "Inter",
@@ -35,7 +35,7 @@ class UserProfile extends StatelessWidget {
             child: Text(
               "Salvar".toUpperCase(),
               style: TextStyle(
-                color: Color(primarylight),
+                color: Theme.of(context).colorScheme.primary,
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
                 fontFamily: "Inter",
@@ -120,7 +120,7 @@ class UserProfile extends StatelessWidget {
                         fontFamily: "Inter",
                         fontWeight: FontWeight.normal,
                         fontSize: 14.0,
-                        color: Color(lightBglight),
+                        color: Theme.of(context).colorScheme.outline,
                       ),
                     ),
                   ],

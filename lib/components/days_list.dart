@@ -50,7 +50,9 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: dias[0] ? Color(primarydark) : Colors.white,
+                  color: dias[0]
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.outline,
                   width: 2,
                 ),
                 color: dias[0]
@@ -63,7 +65,9 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "S",
                   style: TextStyle(
-                    color: dias[0] ? Color(darkBgdark) : Colors.white,
+                    color: dias[0]
+                        ? Color(darkBgdark)
+                        : Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
@@ -84,7 +88,9 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: dias[1] ? Color(primarydark) : Colors.white,
+                  color: dias[1]
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.outline,
                   width: 2,
                 ),
                 color: dias[1]
@@ -97,7 +103,9 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "T",
                   style: TextStyle(
-                    color: dias[1] ? Color(darkBgdark) : Colors.white,
+                    color: dias[1]
+                        ? Color(darkBgdark)
+                        : Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
@@ -118,7 +126,9 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: dias[2] ? Color(primarydark) : Colors.white,
+                  color: dias[2]
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.outline,
                   width: 2,
                 ),
                 color: dias[2]
@@ -131,7 +141,9 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "Q",
                   style: TextStyle(
-                    color: dias[2] ? Color(darkBgdark) : Colors.white,
+                    color: dias[2]
+                        ? Color(darkBgdark)
+                        : Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
@@ -152,7 +164,9 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: dias[3] ? Color(primarydark) : Colors.white,
+                  color: dias[3]
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.outline,
                   width: 2,
                 ),
                 color: dias[3]
@@ -165,7 +179,9 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "Q",
                   style: TextStyle(
-                    color: dias[3] ? Color(darkBgdark) : Colors.white,
+                    color: dias[3]
+                        ? Color(darkBgdark)
+                        : Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
@@ -186,7 +202,9 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: dias[4] ? Color(primarydark) : Colors.white,
+                  color: dias[4]
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.outline,
                   width: 2,
                 ),
                 color: dias[4]
@@ -199,7 +217,9 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "S",
                   style: TextStyle(
-                    color: dias[4] ? Color(darkBgdark) : Colors.white,
+                    color: dias[4]
+                        ? Color(darkBgdark)
+                        : Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
@@ -220,7 +240,9 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: dias[5] ? Color(primarydark) : Colors.white,
+                  color: dias[5]
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.outline,
                   width: 2,
                 ),
                 color: dias[5]
@@ -233,7 +255,9 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "S",
                   style: TextStyle(
-                    color: dias[5] ? Color(darkBgdark) : Colors.white,
+                    color: dias[5]
+                        ? Color(darkBgdark)
+                        : Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),
@@ -254,7 +278,9 @@ class _DaysListState extends State<DaysList> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: dias[6] ? Color(primarydark) : Colors.white,
+                  color: dias[6]
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.outline,
                   width: 2,
                 ),
                 color: dias[6]
@@ -267,7 +293,9 @@ class _DaysListState extends State<DaysList> {
                 child: Text(
                   "D",
                   style: TextStyle(
-                    color: dias[6] ? Color(darkBgdark) : Colors.white,
+                    color: dias[6]
+                        ? Color(darkBgdark)
+                        : Theme.of(context).colorScheme.outline,
                   ),
                 ),
               ),

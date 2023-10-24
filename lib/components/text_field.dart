@@ -16,7 +16,7 @@ class GenericTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      cursorColor: Colors.white,
+      cursorColor: Theme.of(context).colorScheme.outline,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Color(darkBgdark)),
@@ -29,17 +29,20 @@ class GenericTextField extends StatelessWidget {
         hintText: placeholder,
         label: Text(
           title,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.outline,
             fontFamily: "Inter",
           ),
         ),
         hintStyle: const TextStyle(color: Color(0xFF616B7C)),
         filled: true,
-        fillColor: Color(darkBglight),
-        focusColor: Color(darkBglight),
+        fillColor: Theme.of(context).colorScheme.onBackground,
+        focusColor: Theme.of(context).colorScheme.onBackground,
       ),
-      style: const TextStyle(fontFamily: "Inter", color: Colors.white),
+      style: TextStyle(
+        fontFamily: "Inter",
+        color: Theme.of(context).colorScheme.outline,
+      ),
     );
   }
 }

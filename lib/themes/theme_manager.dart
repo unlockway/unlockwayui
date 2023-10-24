@@ -14,10 +14,10 @@ class ThemeProvider with ChangeNotifier {
   }
 
   void toggleTheme(String theme) {
-    if (_themeData == lightMode) {
+    if (theme == "dark") {
       themeData = darkMode;
-    } else {
+    } else if (theme == "light") {
       themeData = lightMode;
-    }
+    } else if (theme == "system") {}
   }
 }

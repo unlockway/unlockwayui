@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/history/history.dart';
 import 'package:unlockway/screens/home/home.dart';
 import 'package:unlockway/screens/meals/meals.dart';
@@ -15,22 +14,22 @@ class UBottomNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color home = Colors.white;
-    Color meal = Colors.white;
-    Color routine = Colors.white;
-    Color settings = Colors.white;
-    Color history = Colors.white;
+    Color home = Theme.of(context).colorScheme.outline;
+    Color meal = Theme.of(context).colorScheme.outline;
+    Color routine = Theme.of(context).colorScheme.outline;
+    Color settings = Theme.of(context).colorScheme.outline;
+    Color history = Theme.of(context).colorScheme.outline;
 
     if (atual == "Home") {
-      home = Color(primary);
+      home = Theme.of(context).colorScheme.primary;
     } else if (atual == "Meal") {
-      meal = Color(primary);
+      meal = Theme.of(context).colorScheme.primary;
     } else if (atual == "Routine") {
-      routine = Color(primary);
+      routine = Theme.of(context).colorScheme.primary;
     } else if (atual == "Settings") {
-      settings = Color(primary);
+      settings = Theme.of(context).colorScheme.primary;
     } else if (atual == "History") {
-      history = Color(primary);
+      history = Theme.of(context).colorScheme.primary;
     }
 
     return SizedBox(
@@ -45,7 +44,7 @@ class UBottomNavigator extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Color(darkBglight),
+          color: Theme.of(context).colorScheme.onBackground,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

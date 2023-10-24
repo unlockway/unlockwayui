@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/history/components/meal_history_card.dart';
 import 'package:unlockway/screens/history/history.dart';
 
@@ -25,7 +24,7 @@ class HistoryDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         flexibleSpace: Container(
           padding: const EdgeInsets.only(
@@ -55,12 +54,12 @@ class HistoryDetails extends StatelessWidget {
                       icon: Icon(
                         Icons.arrow_back,
                         size: 26.0,
-                        color: Color(primarydark),
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       label: Text(
                         'VOLTAR',
                         style: TextStyle(
-                          color: Color(primarydark),
+                          color: Theme.of(context).colorScheme.primary,
                           fontSize: 18,
                           fontWeight: FontWeight.w300,
                         ),
@@ -79,7 +78,7 @@ class HistoryDetails extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: Color(darkBgdark),
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: Container(
         margin: const EdgeInsets.all(10),
@@ -93,8 +92,8 @@ class HistoryDetails extends StatelessWidget {
                 ),
                 child: Text(
                   name,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Inter",
@@ -108,13 +107,13 @@ class HistoryDetails extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Color(darkBgdark),
+                      color: Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.all(8),
                     child: Column(
                       children: [
-                        const Align(
+                        Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             "Dias de Uso",
@@ -122,7 +121,7 @@ class HistoryDetails extends StatelessWidget {
                               fontSize: 18,
                               fontFamily: "Inter",
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                           ),
                         ),
@@ -133,12 +132,12 @@ class HistoryDetails extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               "Calorias Acumuladas",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontFamily: "Inter",
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.outline,
                               ),
                             ),
                             Row(

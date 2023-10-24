@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/notify/components/notify_card.dart';
 import 'package:unlockway/screens/notify/components/notifydetails.dart';
 import 'package:unlockway/screens/home/home.dart';
@@ -17,7 +16,7 @@ class _NotifyPageState extends State<NotifyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -28,13 +27,13 @@ class _NotifyPageState extends State<NotifyPage> {
             );
           },
           icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.outline,
         ),
-        backgroundColor: Color(darkBglight),
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.onBackground,
+        title: Text(
           "NOTIFICAÇÕES(6)",
           style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.outline,
               fontFamily: "Inter",
               fontSize: 16,
               fontWeight: FontWeight.bold),
@@ -53,7 +52,7 @@ class _NotifyPageState extends State<NotifyPage> {
                 child: Text(
                   "Marcar todas como lidas",
                   style: TextStyle(
-                    color: Color(primary),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),

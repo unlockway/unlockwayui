@@ -58,11 +58,11 @@ class RoutineCard extends StatelessWidget {
                   ),
                   Text(
                     "Rotina: $name",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontFamily: "Inter",
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
                 ],

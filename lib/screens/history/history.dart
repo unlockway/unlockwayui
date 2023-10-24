@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/popups.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/history.dart';
 import 'package:unlockway/screens/history/components/filter_history_popup.dart';
 import 'package:unlockway/screens/history/components/history_card.dart';
@@ -12,7 +11,7 @@ class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(150),
         child: SafeArea(
@@ -25,14 +24,14 @@ class History extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "HISTÓRICO",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: "Inter",
-                        color: Colors.white),
+                        color: Theme.of(context).colorScheme.outline),
                   ),
                 ),
                 const SizedBox(
@@ -44,8 +43,8 @@ class History extends StatelessWidget {
                     Expanded(
                       child: TextField(
                         cursorColor: const Color.fromARGB(255, 155, 155, 155),
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
                         ),
                         decoration: InputDecoration(
                           enabled: true,
@@ -55,16 +54,16 @@ class History extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           filled: true,
-                          fillColor: Color(darkBglight),
+                          fillColor: Theme.of(context).colorScheme.onBackground,
                           contentPadding: const EdgeInsets.all(10.0),
                           hintText: "Buscar",
                           suffixIcon: Icon(
                             Icons.search,
-                            color: Color(lightBglight),
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           border: InputBorder.none,
                           hintStyle: TextStyle(
-                            color: Color(lightBg),
+                            color: Theme.of(context).colorScheme.outline,
                             fontWeight: FontWeight.w100,
                           ),
                         ),
@@ -77,7 +76,7 @@ class History extends StatelessWidget {
                       type: MaterialType.transparency,
                       child: Ink(
                         decoration: BoxDecoration(
-                          color: Color(darkBglight),
+                          color: Theme.of(context).colorScheme.onBackground,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: InkWell(
@@ -86,12 +85,12 @@ class History extends StatelessWidget {
                             context,
                             const FilterHistoryPopup(),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
                             child: Icon(
                               Icons.filter_list,
                               size: 25.0,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                           ),
                         ),
@@ -116,7 +115,7 @@ class History extends StatelessWidget {
                 calories: history[i].calories,
                 date: history[i].date,
                 meals: history[i].ingestedMeals,
-                color: Color(darkBglight),
+                color: Theme.of(context).colorScheme.onBackground,
               );
             },
           ),

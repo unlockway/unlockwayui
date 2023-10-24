@@ -27,13 +27,14 @@ class _MealsState extends State<Meals> {
           backgroundColor: MaterialStatePropertyAll(
             Color(primarydark),
           ),
-          iconColor: const MaterialStatePropertyAll(Colors.white),
+          iconColor:
+              MaterialStatePropertyAll(Theme.of(context).colorScheme.outline),
         ),
         iconSize: 24,
         icon: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       bottomNavigationBar: const UBottomNavigator("Meal"),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(150),
@@ -47,14 +48,14 @@ class _MealsState extends State<Meals> {
                 const SizedBox(
                   height: 5,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "REFEIÇÕES",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: "Inter",
-                        color: Colors.white),
+                        color: Theme.of(context).colorScheme.outline),
                   ),
                 ),
                 const SizedBox(
@@ -66,8 +67,8 @@ class _MealsState extends State<Meals> {
                     Flexible(
                       child: TextField(
                         cursorColor: const Color.fromARGB(255, 155, 155, 155),
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
                         ),
                         decoration: InputDecoration(
                           enabled: true,
@@ -77,16 +78,16 @@ class _MealsState extends State<Meals> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           filled: true,
-                          fillColor: Color(darkBglight),
+                          fillColor: Theme.of(context).colorScheme.onBackground,
                           contentPadding: const EdgeInsets.all(10.0),
                           hintText: "Buscar",
                           suffixIcon: Icon(
                             Icons.search,
-                            color: Color(lightBglight),
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           border: InputBorder.none,
                           hintStyle: TextStyle(
-                            color: Color(lightBg),
+                            color: Theme.of(context).colorScheme.outline,
                             fontWeight: FontWeight.w100,
                           ),
                         ),
@@ -99,7 +100,7 @@ class _MealsState extends State<Meals> {
                       type: MaterialType.transparency,
                       child: Ink(
                         decoration: BoxDecoration(
-                          color: Color(darkBglight),
+                          color: Theme.of(context).colorScheme.onBackground,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: InkWell(
@@ -108,12 +109,12 @@ class _MealsState extends State<Meals> {
                             context,
                             const FilterMealPopup(),
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(10.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
                             child: Icon(
                               Icons.filter_list,
                               size: 25.0,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                           ),
                         ),

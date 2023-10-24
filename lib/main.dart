@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/themes/theme_manager.dart';
-import 'constants.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -26,16 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Unlockway',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          systemOverlayStyle:
-              SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-        ),
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Color(primary),
-        ),
-      ),
+      theme: Provider.of<ThemeProvider>(context).themeData,
       home: const Login(),
     );
   }

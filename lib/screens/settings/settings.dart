@@ -28,7 +28,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, 60),
         child: SafeArea(
@@ -44,10 +44,10 @@ class _SettingsState extends State<Settings> {
                   flex: 2,
                   child: Text(
                     "Configurações".toUpperCase(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: "Inter",
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.outline,
                       fontSize: 16.0,
                     ),
                   ),
@@ -92,23 +92,23 @@ class _SettingsState extends State<Settings> {
                         padding: const EdgeInsets.all(16),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Color(darkBglight),
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Icon(PhosphorIcons.regular.bell,
-                                color: Colors.white),
+                                color: Theme.of(context).colorScheme.outline),
                             const SizedBox(width: 16.0),
                             FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Text(
                                 "Permitir Alertas".toUpperCase(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: "Inter",
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
-                                  color: Colors.white,
+                                  color: Theme.of(context).colorScheme.outline,
                                 ),
                               ),
                             ),
@@ -165,7 +165,9 @@ class _SettingsState extends State<Settings> {
                         style: OutlinedButton.styleFrom(
                           side: BorderSide(
                             width: 2, // Specify the border width
-                            color: Color(primary), // Specify the border color
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary, // Specify the border color
                           ),
                           fixedSize: const Size(double.infinity, 48),
                           shape: RoundedRectangleBorder(
@@ -179,7 +181,7 @@ class _SettingsState extends State<Settings> {
                             fontFamily: "Signika",
                             fontWeight: FontWeight.bold,
                             fontSize: 16.0,
-                            color: Color(primary),
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
@@ -190,7 +192,7 @@ class _SettingsState extends State<Settings> {
                         fontFamily: "Inter",
                         fontWeight: FontWeight.normal,
                         fontSize: 14.0,
-                        color: Color(lightBglight),
+                        color: Theme.of(context).colorScheme.outline,
                       ),
                     ),
                   ],

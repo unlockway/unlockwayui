@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
-import 'package:unlockway/constants.dart';
 
 class NewRoutineMealPopup extends StatelessWidget {
   const NewRoutineMealPopup({super.key});
@@ -39,7 +38,7 @@ class NewRoutineMealPopup extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  color: Color(primary),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(
                   width: 20,

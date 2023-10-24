@@ -33,11 +33,11 @@ class HistoryCard extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               date,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14,
                 fontFamily: "Inter",
                 fontWeight: FontWeight.w500,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.outline,
               ),
             ),
           ),
@@ -70,11 +70,11 @@ class HistoryCard extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Rotina: $name",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontFamily: "Inter",
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.outline,
                       ),
                     ),
                   ),
@@ -85,12 +85,12 @@ class HistoryCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         "Calorias Acumuladas",
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: "Inter",
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.outline,
                         ),
                       ),
                       Row(

@@ -17,8 +17,8 @@ class Bar extends StatelessWidget {
       children: [
         Text(
           data.toString(),
-          style: const TextStyle(
-              color: Colors.white,
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.outline,
               fontFamily: "Inter",
               fontSize: 8,
               fontWeight: FontWeight.bold),
@@ -36,8 +36,8 @@ class Bar extends StatelessWidget {
         ),
         Text(
           day,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.outline,
             fontFamily: "Inter",
             fontSize: 18,
             fontWeight: FontWeight.bold,

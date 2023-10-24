@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 
 class NotifyDetails extends StatelessWidget {
@@ -11,7 +10,7 @@ class NotifyDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(darkBgdark),
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -20,13 +19,13 @@ class NotifyDetails extends StatelessWidget {
             );
           },
           icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.outline,
         ),
-        backgroundColor: Color(darkBgdark),
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: Text(
           "NOTIFICAÇÃO",
           style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.outline,
               fontFamily: "Inter",
               fontSize: 16,
               fontWeight: FontWeight.bold),
@@ -44,8 +43,8 @@ class NotifyDetails extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   title,
-                  style: const TextStyle(
-                      color: Colors.white,
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.outline,
                       fontFamily: "Inter",
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
@@ -55,8 +54,11 @@ class NotifyDetails extends StatelessWidget {
             Expanded(
               child: Text(
                 text,
-                style: const TextStyle(
-                    color: Colors.white, fontFamily: "Inter", fontSize: 16),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.outline,
+                  fontFamily: "Inter",
+                  fontSize: 16,
+                ),
               ),
             ),
           ],
