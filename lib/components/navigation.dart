@@ -10,7 +10,10 @@ void navigatePage(BuildContext context, Widget page) {
     );
   }
 
-  Navigator.of(context).push(createRoute());
+  Navigator.of(context).pushAndRemoveUntil(
+    createRoute(),
+    (r) => false,
+  );
 }
 
 Route navigationPageRightAnimation(Widget page) {
