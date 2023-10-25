@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
-import 'package:unlockway/components/card.dart';
+import 'package:unlockway/screens/meals/components/meal_card.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/meals.dart';

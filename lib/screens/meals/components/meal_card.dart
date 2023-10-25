@@ -33,11 +33,11 @@ class UCard extends StatelessWidget {
               imageUrl,
               fit: BoxFit.cover,
               width: double.infinity,
-              height: 150,
+              height: 125,
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 13.00),
+            margin: const EdgeInsets.only(top: 6.00),
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Row(
               children: [
@@ -64,7 +64,7 @@ class UCard extends StatelessWidget {
           ),
           Flexible(
             child: Container(
-              margin: const EdgeInsets.only(top: 8.0),
+              margin: const EdgeInsets.only(top: 8.0, bottom: 5.0),
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Text(
                 description,

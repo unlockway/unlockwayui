@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/screens/login/components/login_popup.dart';
@@ -20,16 +19,20 @@ class _InitialLoginState extends State<InitialLogin> {
     return Stack(
       children: <Widget>[
         Scaffold(
-          backgroundColor: Color(darkBgdark),
+          backgroundColor: Theme.of(context).colorScheme.background,
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   margin: const EdgeInsets.only(bottom: 70),
-                  child: SvgPicture.asset(
-                    "assets/svgs/logo.svg",
-                  ),
+                  child: Theme.of(context).colorScheme.outline == Colors.white
+                      ? SvgPicture.asset(
+                          "assets/svgs/logo.svg",
+                        )
+                      : SvgPicture.asset(
+                          "assets/svgs/logo_light.svg",
+                        ),
                 ),
                 ButtonFilled(
                   text: "Entrar",
@@ -52,30 +55,30 @@ class _InitialLoginState extends State<InitialLogin> {
                       ),
                     );
                   },
-                  color: Color(primary),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(left: 80.0, right: 20.0),
-                        child: const Divider(
-                          color: Color.fromARGB(255, 180, 179, 179),
+                        child: Divider(
+                          color: Theme.of(context).colorScheme.outline,
                           height: 36,
                         ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       "Ou",
                       style: TextStyle(
-                        color: Color.fromARGB(255, 180, 179, 179),
+                        color: Theme.of(context).colorScheme.outline,
                       ),
                     ),
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(left: 20.0, right: 80.0),
-                        child: const Divider(
-                          color: Color.fromARGB(255, 180, 179, 179),
+                        child: Divider(
+                          color: Theme.of(context).colorScheme.outline,
                           height: 36,
                         ),
                       ),
@@ -89,12 +92,16 @@ class _InitialLoginState extends State<InitialLogin> {
         ),
         Positioned(
           top: 0,
-          child: Image.asset("assets/imgs/top_left_vector.png"),
+          child: Theme.of(context).colorScheme.outline == Colors.white
+              ? Image.asset("assets/imgs/top_left_vector.png")
+              : Image.asset("assets/imgs/top_left_vector_light.png"),
         ),
         Positioned(
           bottom: 0,
           right: 0,
-          child: Image.asset("assets/imgs/bottom_right_vector.png"),
+          child: Theme.of(context).colorScheme.outline == Colors.white
+              ? Image.asset("assets/imgs/bottom_right_vector.png")
+              : Image.asset("assets/imgs/bottom_right_vector_light.png"),
         ),
       ],
     );

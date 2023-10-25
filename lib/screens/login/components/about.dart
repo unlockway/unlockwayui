@@ -21,10 +21,10 @@ class AboutCover extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text(
+              child: Text(
                 'Pular',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                   fontSize: 16,
                 ),
               ),
@@ -37,11 +37,11 @@ class AboutCover extends StatelessWidget {
             children: [
               Image.asset('assets/imgs/image1.png'),
               const SizedBox(height: 15),
-              const Text(
+              Text(
                 textAlign: TextAlign.center,
                 'Unlockway é um gerenciador\n inteligente de rotina alimentar e de\n exercícios físicos que te ajudará a \n desenvolver hábitos positivos e\n alcançar sua melhor forma.',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                   height: 1.10,
                   fontSize: 18,
                 ),
@@ -73,10 +73,10 @@ class Page2Content extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text(
+              child: Text(
                 'Pular',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                   fontSize: 16,
                 ),
               ),
@@ -94,11 +94,11 @@ class Page2Content extends StatelessWidget {
               ),
               const SizedBox(
                   height: 80), // Espaçamento vertical entre a imagem e o texto
-              const Text(
+              Text(
                 textAlign: TextAlign.center,
                 'Utilizamos de uma inteligência artificial\n para gerar as melhores recomendações\n alimentares para você.',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                   height: 1.10,
                   fontSize: 18,
                 ),
@@ -130,10 +130,10 @@ class Page3Content extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text(
+              child: Text(
                 'Pular',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                   fontSize: 16,
                 ),
               ),
@@ -151,11 +151,11 @@ class Page3Content extends StatelessWidget {
               ),
               const SizedBox(
                   height: 80), // Espaçamento vertical entre a imagem e o texto
-              const Text(
+              Text(
                 textAlign: TextAlign.center,
                 'Receba notificações em tempo real\n para se lembrar de se alimentar bem.',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                   height: 1.10,
                   fontSize: 18,
                 ),
@@ -187,10 +187,10 @@ class Page4Content extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text(
+              child: Text(
                 'Fechar',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                   fontSize: 16,
                 ),
               ),
@@ -208,11 +208,11 @@ class Page4Content extends StatelessWidget {
               ),
               const SizedBox(
                   height: 80), // Espaçamento vertical entre a imagem e o texto
-              const Text(
+              Text(
                 textAlign: TextAlign.center,
                 'Acompanha sua porcentagem de\n progresso conforme gerencia seus\n melhores hábitos.', // Altere o texto
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.outline,
                   height: 1.10,
                   fontSize: 18,
                 ),
@@ -287,7 +287,9 @@ class _AboutPageState extends State<AboutPage> {
                 width: double.infinity,
               ),
             ),
-            Container(color: const Color(0xff242E39).withOpacity(0.90)),
+            Container(
+              color: Theme.of(context).colorScheme.background.withOpacity(0.90),
+            ),
             PageView(
               controller: pageController,
               children: contentList,
@@ -303,7 +305,7 @@ class _AboutPageState extends State<AboutPage> {
               right: 50,
               child: Container(
                 decoration: BoxDecoration(
-                  color: const Color(0xff242E39),
+                  color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -318,8 +320,8 @@ class _AboutPageState extends State<AboutPage> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: currentIndex == i
-                              ? const Color(0xffABD84D)
-                              : Colors.white,
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.outline,
                         ),
                       ),
                   ],

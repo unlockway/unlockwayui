@@ -44,7 +44,7 @@ class LoginPopup extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    color: Color(primary),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(width: 10),
                   ButtonFilled(

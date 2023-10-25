@@ -44,12 +44,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 icon: Icon(
                   Icons.arrow_back,
                   size: 26.0,
-                  color: Color(primarydark),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 label: Text(
                   'Voltar'.toUpperCase(),
                   style: TextStyle(
-                    color: Color(primary),
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 18,
                     fontWeight: FontWeight.w300,
                   ),
@@ -65,15 +65,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: const Color(0xFF1B232A),
+        backgroundColor: Theme.of(context).colorScheme.background,
         toolbarHeight: 80,
       ),
       body: Stack(
         children: <Widget>[
           Positioned(
             width: MediaQuery.of(context).size.width,
-            child: SvgPicture.asset("assets/svgs/register_bg.svg",
-                fit: BoxFit.fill, height: MediaQuery.of(context).size.height),
+            child: Theme.of(context).colorScheme.outline == Colors.white
+                ? SvgPicture.asset("assets/svgs/register_bg.svg",
+                    fit: BoxFit.fill,
+                    height: MediaQuery.of(context).size.height)
+                : SvgPicture.asset("assets/svgs/register_bg_light.svg",
+                    fit: BoxFit.fill,
+                    height: MediaQuery.of(context).size.height),
           ),
           registerPhase,
           Align(
@@ -86,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 borderRadius: BorderRadius.circular(5),
                 gradient: LinearGradient(
                   colors: [
-                    Color(primary),
+                    Theme.of(context).colorScheme.primary,
                     const Color.fromARGB(255, 171, 216, 77)
                   ],
                 ),

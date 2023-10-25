@@ -129,6 +129,14 @@ class GoogleButton extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.outline,
+            spreadRadius: 0.5,
+            blurRadius: 1,
+            offset: const Offset(0, 1),
+          )
+        ],
       ),
       child: Material(
         color: Colors.transparent,
