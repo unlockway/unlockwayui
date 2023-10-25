@@ -6,10 +6,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/screens/meals/components/photo_picker_popup.dart';
 import 'package:unlockway/screens/meals/meals.dart';
 import 'package:dotted_border/dotted_border.dart';
+
+File? selectedImage;
 
 class NewMeal extends StatefulWidget {
   const NewMeal({
@@ -21,8 +25,6 @@ class NewMeal extends StatefulWidget {
 }
 
 class _NewMealState extends State<NewMeal> {
-  File? selectedImage;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +116,10 @@ class _NewMealState extends State<NewMeal> {
             children: [
               InkWell(
                 onTap: () {
-                  _pickFromCamera();
+                  modalBuilderBottomAnimation(
+                    context,
+                    const PhotoPickerPopup(),
+                  );
                 },
                 child: selectedImage != null
                     ? Container(
@@ -221,9 +226,20 @@ class _NewMealState extends State<NewMeal> {
     );
   }
 
-  Future _pickFromCamera() async {
+  Future pickFromCamera() async {
     final returnedImage = await ImagePicker().pickImage(
       source: ImageSource.camera,
+    );
+
+    if (returnedImage == null) return;
+    setState(() {
+      selectedImage = File(returnedImage.path);
+    });
+  }
+
+  Future pickFromGallery() async {
+    final returnedImage = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
     );
 
     if (returnedImage == null) return;
