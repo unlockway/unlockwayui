@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/screens/meals/components/new_meal_page.dart';
 
 class NewMealPopup extends StatelessWidget {
   const NewMealPopup({super.key});
@@ -40,7 +42,7 @@ class NewMealPopup extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      "usar inteligência artifical",
+                      "Usar inteligência artifical",
                       style: TextStyle(
                         fontFamily: "Inter",
                         fontWeight: FontWeight.bold,
@@ -57,7 +59,13 @@ class NewMealPopup extends StatelessWidget {
             height: 5,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                navigationPageRightAnimation(
+                  const NewMeal(),
+                ),
+              );
+            },
             child: Container(
               padding: const EdgeInsets.all(10),
               width: double.infinity,

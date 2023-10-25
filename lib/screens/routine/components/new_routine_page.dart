@@ -36,54 +36,56 @@ class _NewRoutineState extends State<NewRoutine> {
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        flexibleSpace: Container(
-          padding: const EdgeInsets.only(
-            bottom: 16.0,
-            left: 0.0,
-            right: 16.0,
-            top: 16.0,
-          ),
-          color: Colors.transparent,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    TextButton.icon(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          navigationPageLeftAnimation(
-                            const Routine(),
-                          ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 26.0,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      label: Text(
-                        'VOLTAR',
-                        style: TextStyle(
+        flexibleSpace: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.only(
+              bottom: 16.0,
+              left: 0.0,
+              right: 16.0,
+              top: 16.0,
+            ),
+            color: Colors.transparent,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      TextButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            navigationPageLeftAnimation(
+                              const Routine(),
+                            ),
+                          );
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          size: 26.0,
                           color: Theme.of(context).colorScheme.primary,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
+                        ),
+                        label: Text(
+                          'VOLTAR',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              SvgPicture.asset(
-                "assets/svgs/logo_mini.svg",
-                width: 28,
-                height: 28,
-              ),
-            ],
+                SvgPicture.asset(
+                  "assets/svgs/logo_mini.svg",
+                  width: 28,
+                  height: 28,
+                ),
+              ],
+            ),
           ),
         ),
         automaticallyImplyLeading: false,

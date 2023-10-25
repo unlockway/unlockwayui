@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/components/days_list.dart';
-import 'package:unlockway/components/popups.dart';
-import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/screens/routine/components/new_routine_meal_popup.dart';
-import 'package:unlockway/screens/routine/routine.dart';
+import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/constants.dart';
+import 'package:unlockway/screens/meals/meals.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 class NewMeal extends StatefulWidget {
   const NewMeal({
@@ -18,6 +21,8 @@ class NewMeal extends StatefulWidget {
 }
 
 class _NewMealState extends State<NewMeal> {
+  File? selectedImage;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +30,20 @@ class _NewMealState extends State<NewMeal> {
         margin: const EdgeInsets.all(10),
         child: Row(
           children: [
+            ButtonOutlined(
+              color: Theme.of(context).colorScheme.primary,
+              text: "CANCELAR",
+              height: 48,
+              width: double.infinity,
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            const SizedBox(
+              width: 15,
+            ),
             ButtonFilled(
-              text: "CRIAR ROTINA",
+              text: "SALVAR",
               height: 48,
               width: double.infinity,
               onTap: () {},
@@ -57,7 +74,7 @@ class _NewMealState extends State<NewMeal> {
                       onPressed: () {
                         Navigator.of(context).push(
                           navigationPageLeftAnimation(
-                            const Routine(),
+                            const Meals(),
                           ),
                         );
                       },
@@ -92,73 +109,126 @@ class _NewMealState extends State<NewMeal> {
       ),
       body: Container(
         margin: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            const GenericTextField(
-              title: "Nome",
-              placeholder: "Insira um nome para a rotina",
-              width: double.infinity,
-            ),
-            Column(
-              children: [
-                const SizedBox(
-                  height: 20,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  _pickFromCamera();
+                },
+                child: selectedImage != null
+                    ? Container(
+                        width: double.infinity,
+                        height: 158,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.onBackground,
+                            width: 2,
+                          ),
+                        ),
+                        child: Image.file(
+                          selectedImage!,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: 158,
+                        ),
+                      )
+                    : DottedBorder(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        borderType: BorderType.RRect,
+                        radius: const Radius.circular(12),
+                        padding: const EdgeInsets.all(6),
+                        dashPattern: const [10, 10],
+                        strokeWidth: 2,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          height: 158,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                PhosphorIcons.regular.camera,
+                                size: 94.0,
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                              Text(
+                                "Escolha uma imagem",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "Inter",
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+              ),
+              const SizedBox(height: 20),
+              const GenericTextField(
+                title: "Nome",
+                placeholder: "Insira o nome da refeição",
+                width: double.infinity,
+              ),
+              const SizedBox(height: 20),
+              const GenericTextField(
+                title: "Categoria",
+                placeholder: "Selecionar",
+                width: double.infinity,
+              ),
+              const SizedBox(height: 20),
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: Color(darker),
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
+                child: const Center(
                   child: Text(
-                    "Selecione os dias que a rotina deve ocorrer",
+                    "ESCOLHER INGREDIENTES",
                     style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
                       fontFamily: "Inter",
-                      fontSize: 12,
-                      color: Theme.of(context).colorScheme.outline,
                     ),
                   ),
                 ),
-                const DaysList(
-                  days: [
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                  ],
-                  enable: true,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton.icon(
-                    onPressed: () {
-                      modalBuilderBottomAnimation(
-                        context,
-                        const NewRoutineMealPopup(),
-                      );
-                    },
-                    icon: const Icon(Icons.add),
-                    label: Text(
-                      "Novo",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    style: ButtonStyle(
-                      iconColor: MaterialStatePropertyAll(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      iconSize: const MaterialStatePropertyAll(16),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ],
+              ),
+              const SizedBox(height: 20),
+              const TextFieldMultline(
+                title: "Descrição",
+                placeholder: "Insira o nome da refeição",
+                width: double.infinity,
+              ),
+              const SizedBox(height: 20),
+              const TextFieldMultline(
+                title: "Modo de Preparo",
+                placeholder:
+                    "Escreva ou cole aqui o modo de preparo de sua refeição",
+                width: double.infinity,
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future _pickFromCamera() async {
+    final returnedImage = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+    );
+
+    if (returnedImage == null) return;
+    setState(() {
+      selectedImage = File(returnedImage.path);
+    });
   }
 }

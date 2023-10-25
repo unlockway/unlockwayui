@@ -42,7 +42,8 @@ class ButtonFilled extends StatelessWidget {
             child: Center(
               child: Text(
                 text,
-                style: const TextStyle(
+                style: TextStyle(
+                  color: Color(darkBgdark),
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   fontFamily: "Inter",
