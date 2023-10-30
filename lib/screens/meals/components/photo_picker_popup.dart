@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/screens/meals/components/new_meal_page.dart';
 
 class PhotoPickerPopup extends StatelessWidget {
   const PhotoPickerPopup({super.key});
