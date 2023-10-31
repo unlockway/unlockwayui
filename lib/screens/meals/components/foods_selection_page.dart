@@ -89,209 +89,207 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
       ),
       body: Container(
         margin: const EdgeInsets.all(15),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const GenericTextField(
-                title: "Pesquisar Alimento",
-                placeholder: "EX: Maçã",
-                width: double.infinity,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              SizedBox(
-                height: 40,
-                child: ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          cafe = !cafe;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: cafe == false
-                              ? Theme.of(context).colorScheme.background
-                              : Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.onBackground,
-                            width: 2,
-                          ),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: Text(
-                          "Café da manhã",
-                          style: TextStyle(
-                            color: almoco == false
-                                ? Theme.of(context).colorScheme.outline
-                                : Color(darkBg),
-                            fontSize: 16,
-                            fontFamily: "Inter",
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          almoco = !almoco;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: almoco == false
-                              ? Theme.of(context).colorScheme.background
-                              : Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.onBackground,
-                            width: 2,
-                          ),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: Text(
-                          "Almoço",
-                          style: TextStyle(
-                            color: almoco == false
-                                ? Theme.of(context).colorScheme.outline
-                                : Color(darkBg),
-                            fontSize: 16,
-                            fontFamily: "Inter",
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          jantar = !jantar;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: jantar == false
-                              ? Theme.of(context).colorScheme.background
-                              : Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.onBackground,
-                            width: 2,
-                          ),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: Text(
-                          "Jantar",
-                          style: TextStyle(
-                            color: almoco == false
-                                ? Theme.of(context).colorScheme.outline
-                                : Color(darkBg),
-                            fontSize: 16,
-                            fontFamily: "Inter",
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          lanche = !lanche;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: lanche == false
-                              ? Theme.of(context).colorScheme.background
-                              : Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.onBackground,
-                            width: 2,
-                          ),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: Text(
-                          "Lanche",
-                          style: TextStyle(
-                            color: almoco == false
-                                ? Theme.of(context).colorScheme.outline
-                                : Color(darkBg),
-                            fontSize: 16,
-                            fontFamily: "Inter",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Selecione os ingredientes",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.outline,
-                    fontSize: 19,
-                    fontFamily: "Inter",
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: List.generate(
-                    food.length,
-                    (i) {
-                      return FoodCard(
-                        idFood: food[i].idFood,
-                        imgURL: food[i].imgURL,
-                        name: food[i].name,
-                        measurement: food[i].measurement,
-                        description: food[i].description,
-                        calories: food[i].calories,
-                        proteins: food[i].proteins,
-                        water: food[i].water,
-                        minerals: food[i].minerals,
-                        vitamins: food[i].vitamins,
-                        fats: food[i].fats,
-                      );
+        child: Column(
+          children: [
+            const GenericTextField(
+              title: "Pesquisar Alimento",
+              placeholder: "EX: Maçã",
+              width: double.infinity,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SizedBox(
+              height: 40,
+              child: ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        cafe = !cafe;
+                      });
                     },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: cafe == false
+                            ? Theme.of(context).colorScheme.background
+                            : Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          width: 2,
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        "Café da manhã",
+                        style: TextStyle(
+                          color: almoco == false
+                              ? Theme.of(context).colorScheme.outline
+                              : Color(darkBg),
+                          fontSize: 16,
+                          fontFamily: "Inter",
+                        ),
+                      ),
+                    ),
                   ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        almoco = !almoco;
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: almoco == false
+                            ? Theme.of(context).colorScheme.background
+                            : Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          width: 2,
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        "Almoço",
+                        style: TextStyle(
+                          color: almoco == false
+                              ? Theme.of(context).colorScheme.outline
+                              : Color(darkBg),
+                          fontSize: 16,
+                          fontFamily: "Inter",
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        jantar = !jantar;
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: jantar == false
+                            ? Theme.of(context).colorScheme.background
+                            : Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          width: 2,
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        "Jantar",
+                        style: TextStyle(
+                          color: almoco == false
+                              ? Theme.of(context).colorScheme.outline
+                              : Color(darkBg),
+                          fontSize: 16,
+                          fontFamily: "Inter",
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        lanche = !lanche;
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: lanche == false
+                            ? Theme.of(context).colorScheme.background
+                            : Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          width: 2,
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        "Lanche",
+                        style: TextStyle(
+                          color: almoco == false
+                              ? Theme.of(context).colorScheme.outline
+                              : Color(darkBg),
+                          fontSize: 16,
+                          fontFamily: "Inter",
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Selecione os ingredientes",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.outline,
+                  fontSize: 19,
+                  fontFamily: "Inter",
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: List.generate(
+                  food.length,
+                  (i) {
+                    return FoodCard(
+                      idFood: food[i].idFood,
+                      imgURL: food[i].imgURL,
+                      name: food[i].name,
+                      measurement: food[i].measurement,
+                      description: food[i].description,
+                      calories: food[i].calories,
+                      proteins: food[i].proteins,
+                      water: food[i].water,
+                      minerals: food[i].minerals,
+                      vitamins: food[i].vitamins,
+                      fats: food[i].fats,
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
