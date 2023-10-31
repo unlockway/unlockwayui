@@ -21,7 +21,7 @@ class FoodModel {
   final double calories;
   final double proteins;
   final double water;
-  final double minerals;
-  final List<String> vitamins;
+  final String minerals;
+  final String vitamins;
   final double fats;
 }

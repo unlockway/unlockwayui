@@ -25,8 +25,8 @@ class FoodCard extends StatelessWidget {
   final double calories;
   final double proteins;
   final double water;
-  final double minerals;
-  final List<String> vitamins;
+  final String minerals;
+  final String vitamins;
   final double fats;
 
   @override
@@ -85,7 +85,6 @@ class FoodCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       InkWell(),
-                      GenericTextField(),
                       InkWell(),
                     ],
                   ),
