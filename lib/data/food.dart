@@ -11,7 +11,7 @@ const food = [
     2.9,
     91.0,
     "ferro e magnésio",
-    "vitamina A, vitamina K",
+    "A, K",
     0.4,
   ),
   FoodModel(
@@ -24,7 +24,7 @@ const food = [
     2.9,
     91.0,
     "ferro e magnésio",
-    "vitamina A, vitamina K",
+    "A,K",
     0.4,
   ),
 ];
