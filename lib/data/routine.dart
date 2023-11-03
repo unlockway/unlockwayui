@@ -1,21 +1,62 @@
-import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/models/routine.dart';
 
 const routine = [
   RoutineModel(
-    "1",
-    "Semana",
-    meals,
+    "550e8400-e29b-41d4-a716-446655440000",
+    "My Weekly Routine",
+    [
+      {
+        "idMeal": "550e8400-e29b-41d4-a716-446655440000",
+        "notifyAt": "10:00",
+        "photo": "https://azure.storage/file19283912319123.png",
+        "name": "Delicious Meal",
+        "description": "A meal that is both healthy and delicious.",
+        "category": 1,
+        "totalCalories": 500.0
+      },
+      {
+        "idMeal": "550e8400-e29b-41d4-a716-446655440000",
+        "notifyAt": "12:00",
+        "photo": "https://azure.storage/file19283912319123.png",
+        "name": "Delicious Meal",
+        "description": "A meal that is both healthy and delicious.",
+        "category": 1,
+        "totalCalories": 500.0
+      },
+      {
+        "idMeal": "550e8400-e29b-41d4-a716-446655440000",
+        "notifyAt": "10:00",
+        "photo": "https://azure.storage/file19283912319123.png",
+        "name": "Delicious Meal",
+        "description": "A meal that is both healthy and delicious.",
+        "category": 1,
+        "totalCalories": 500.0
+      },
+    ],
     true,
     [true, true, true, true, true, false, false],
-    1500,
+    1000.0,
+    "2023-10-01T00:00:00.000Z",
+    "2023-10-01T00:00:00.000Z",
   ),
   RoutineModel(
-    "2",
-    "Ficar Bombado",
-    meals,
-    false,
-    [true, false, true, false, true, false, false],
-    3000,
+    "550e8400-e29b-41d4-a716-446655440000",
+    "My Weekly Routine",
+    [
+      {
+        "idMeal": "550e8400-e29b-41d4-a716-446655440000",
+        "notifyAt": "2023-10-01T00:00:00.000Z",
+        "photo": "https://azure.storage/file19283912319123.png",
+        "name": "Delicious Meal",
+        "description": "A meal that is both healthy and delicious.",
+        "category": 1,
+        "totalCalories": 500.0
+      },
+    ],
+    true,
+    [true, true, true, true, true, false, false],
+    500.0,
+    "2023-10-01T00:00:00.000Z",
+    "2023-10-01T00:00:00.000Z",
   ),
 ];

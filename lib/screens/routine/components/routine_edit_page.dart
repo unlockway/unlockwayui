@@ -13,9 +13,11 @@ class EditRoutine extends StatefulWidget {
   const EditRoutine({
     super.key,
     required this.days,
+    required this.meals,
   });
 
   final List<bool> days;
+  final List<Object> meals;
 
   @override
   State<EditRoutine> createState() => _EditRoutineState();
@@ -25,6 +27,30 @@ class _EditRoutineState extends State<EditRoutine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: TextButton.icon(
+        onPressed: () {
+          modalBuilderBottomAnimation(
+            context,
+            const NewRoutineMealPopup(),
+          );
+        },
+        icon: const Icon(Icons.add),
+        label: Text(
+          "Novo",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+            fontFamily: "Inter",
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        style: ButtonStyle(
+          iconColor: MaterialStatePropertyAll(
+            Theme.of(context).colorScheme.primary,
+          ),
+          iconSize: const MaterialStatePropertyAll(16),
+        ),
+      ),
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(10),
         child: Row(
@@ -123,41 +149,26 @@ class _EditRoutineState extends State<EditRoutine> {
                   days: widget.days,
                   enable: true,
                 ),
-                const RoutineMealCard(
-                  category: "Café da Manhã",
-                  meal: "Escolher na Hora",
-                  hour: "7:00 AM",
-                  calories: 500.00,
+                SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: List.generate(
+                      widget.meals.length,
+                      (i) {
+                        var mealInfo = widget.meals[i] as Map;
+                        return RoutineMealCard(
+                          category: mealInfo['category'],
+                          meal: mealInfo['name'],
+                          hour: mealInfo['notifyAt'],
+                          calories: mealInfo['totalCalories'],
+                          imgURL: mealInfo['photo'],
+                        );
+                      },
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 16,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton.icon(
-                    onPressed: () {
-                      modalBuilderBottomAnimation(
-                        context,
-                        const NewRoutineMealPopup(),
-                      );
-                    },
-                    icon: const Icon(Icons.add),
-                    label: Text(
-                      "Novo",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    style: ButtonStyle(
-                      iconColor: MaterialStatePropertyAll(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      iconSize: const MaterialStatePropertyAll(16),
-                    ),
-                  ),
                 ),
               ],
             ),

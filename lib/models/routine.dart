@@ -6,8 +6,8 @@ class RoutineModel {
     this.inUsage,
     this.weekRepetitions,
     this.totalCaloriesInTheDay,
-    //this.createdAt,
-    //this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   );
 
   final String idRoutine;
@@ -16,6 +16,6 @@ class RoutineModel {
   final bool inUsage;
   final List<bool> weekRepetitions;
   final double totalCaloriesInTheDay;
-  //final DateTime createdAt;
-  //final DateTime updatedAt;
+  final String createdAt;
+  final String updatedAt;
 }

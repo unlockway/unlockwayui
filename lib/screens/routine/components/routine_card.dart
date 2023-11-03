@@ -35,6 +35,7 @@ class RoutineCard extends StatelessWidget {
             navigationPageRightAnimation(
               EditRoutine(
                 days: weekRepetitions,
+                meals: meals,
               ),
             ),
           );

@@ -12,12 +12,14 @@ class RoutineMealCard extends StatelessWidget {
     required this.meal,
     required this.hour,
     required this.calories,
+    required this.imgURL,
   });
 
-  final String category;
+  final int category;
   final String meal;
   final String hour;
   final double calories;
+  final String imgURL;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class RoutineMealCard extends StatelessWidget {
         const EditMealRoutinePopup(),
       ),
       child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.onBackground,
           borderRadius: BorderRadius.circular(8),
@@ -48,7 +51,7 @@ class RoutineMealCard extends StatelessWidget {
                   width: 6,
                 ),
                 Text(
-                  category,
+                  category.toString(),
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.outline,
                     fontFamily: "Inter",
