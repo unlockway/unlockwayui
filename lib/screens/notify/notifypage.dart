@@ -40,48 +40,65 @@ class _NotifyPageState extends State<NotifyPage> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Marcar todas como lidas",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return CustomScrollView(
+            slivers: <Widget>[
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Marcar todas como lidas",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: List.generate(
-                notify.length,
-                (i) {
-                  return NotifyCard(
-                    icon: notify[i].icon,
-                    description: notify[i].description,
-                    date: notify[i].date,
-                    func: () {
-                      Navigator.of(context).push(
-                        _createRouteTwo(
-                          notify[i].description,
-                          notify[i].title,
-                        ),
-                      );
+              SliverToBoxAdapter(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: constraints.maxHeight - 60,
+                  ),
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1,
+                      childAspectRatio: 5,
+                    ),
+                    shrinkWrap: true,
+                    itemCount: notify.length,
+                    itemBuilder: (context, index) {
+                      for (var index in notify) {
+                        return NotifyCard(
+                          icon: index.icon,
+                          description: index.description,
+                          date: index.date,
+                          func: () {
+                            Navigator.of(context).push(
+                              _createRouteTwo(
+                                index.description,
+                                index.title,
+                              ),
+                            );
+                          },
+                        );
+                      }
+                      return null;
                     },
-                  );
-                },
+                  ),
+                ),
               ),
-            ),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
   }

@@ -27,6 +27,7 @@ class _EditRoutineState extends State<EditRoutine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       floatingActionButton: TextButton.icon(
         onPressed: () {
           modalBuilderBottomAnimation(
