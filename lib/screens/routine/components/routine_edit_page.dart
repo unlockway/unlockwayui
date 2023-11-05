@@ -122,7 +122,9 @@ class _EditRoutineState extends State<EditRoutine> {
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: Container(
-        margin: const EdgeInsets.all(15),
+        margin: const EdgeInsets.symmetric(
+          horizontal: 15,
+        ),
         child: Column(
           children: [
             const GenericTextField(
@@ -130,48 +132,56 @@ class _EditRoutineState extends State<EditRoutine> {
               placeholder: "Insira um nome para a rotina",
               width: double.infinity,
             ),
-            Column(
-              children: [
-                const SizedBox(
-                  height: 20,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Selecione os dias que a rotina deve ocorrer",
+                style: TextStyle(
+                  fontFamily: "Inter",
+                  fontSize: 12,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Selecione os dias que a rotina deve ocorrer",
-                    style: TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 12,
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-                  ),
-                ),
-                DaysList(
-                  days: widget.days,
-                  enable: true,
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: List.generate(
-                      widget.meals.length,
-                      (i) {
-                        var mealInfo = widget.meals[i] as Map;
-                        return RoutineMealCard(
-                          category: mealInfo['category'],
-                          meal: mealInfo['name'],
-                          hour: mealInfo['notifyAt'],
-                          calories: mealInfo['totalCalories'],
-                          imgURL: mealInfo['photo'],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-              ],
+              ),
+            ),
+            DaysList(
+              days: widget.days,
+              enable: true,
+            ),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return CustomScrollView(
+                    shrinkWrap: true,
+                    slivers: <Widget>[
+                      SliverToBoxAdapter(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight: constraints.maxHeight - 60,
+                          ),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Column(
+                              children: List.generate(
+                                widget.meals.length,
+                                (i) {
+                                  var mealInfo = widget.meals[i] as Map;
+                                  return RoutineMealCard(
+                                    category: mealInfo['category'],
+                                    meal: mealInfo['name'],
+                                    hour: mealInfo['notifyAt'],
+                                    calories: mealInfo['totalCalories'],
+                                    imgURL: mealInfo['photo'],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ],
         ),
