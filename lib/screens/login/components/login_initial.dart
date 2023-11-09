@@ -3,6 +3,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:unlockway/handlers/login.dart';
 import 'package:unlockway/screens/login/components/login_popup.dart';
 import 'package:unlockway/screens/register/register.dart';
 
@@ -38,10 +39,13 @@ class _InitialLoginState extends State<InitialLogin> {
                   text: "Entrar",
                   height: 48.0,
                   width: 240.0,
-                  onTap: () => modalBuilderBottomAnimation(
-                    context,
-                    const LoginPopup(),
-                  ),
+                  onTap: () {
+                    loginAPI(
+                      context,
+                      "destroer2828@gmail.com",
+                      "KoomSusser2828",
+                    );
+                  },
                 ),
                 const SizedBox(height: 15),
                 ButtonOutlined(

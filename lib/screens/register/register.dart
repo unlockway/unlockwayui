@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:unlockway/handlers/register.dart';
 import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/screens/register/components/register_initial.dart';
 import 'package:unlockway/screens/register/components/register_second.dart';
@@ -14,7 +15,13 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   int phase = 1;
   String buttonText = "Seguir";
-  Widget registerPhase = const RegisterInitial();
+  Widget registerPhase = const RegisterInitial(
+    altura: 0,
+    lastname: '',
+    meta: '',
+    name: '',
+    peso: 0,
+  );
   var navigate = (BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -79,7 +86,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fit: BoxFit.fill,
                     height: MediaQuery.of(context).size.height),
           ),
-          registerPhase,
+          Form(
+            child: registerPhase,
+          ),
           Align(
             alignment: Alignment.bottomRight,
             child: Container(
@@ -106,12 +115,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    setState(
-                      () {
-                        phase++;
-                        registerPhase = const RegisterSecond();
-                        buttonText = "Finalizar";
-                      },
+                    registerAPI(
+                      context,
+                      "Daniel",
+                      "Vieira",
+                      "destroer2828@gmail.com",
+                      "KoomSusser2828",
+                      1.84,
+                      84,
+                      "GAIN_MUSCULAR_MASS",
+                      "ECTOMORPH",
                     );
                   },
                   child: Row(

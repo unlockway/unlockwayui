@@ -29,9 +29,10 @@ class History extends StatelessWidget {
                   child: Text(
                     "HISTÓRICO",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Inter",
-                        color: Theme.of(context).colorScheme.outline),
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Inter",
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
                   ),
                 ),
                 const SizedBox(
