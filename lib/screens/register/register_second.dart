@@ -3,11 +3,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/form_progress.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/handlers/register.dart';
 import 'package:unlockway/screens/login/login.dart';
-import 'package:unlockway/screens/register/register_second.dart';
+import 'package:unlockway/screens/register/register.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({
+class RegisterSecond extends StatefulWidget {
+  const RegisterSecond({
     super.key,
     required this.name,
     required this.lastname,
@@ -29,10 +30,10 @@ class RegisterScreen extends StatefulWidget {
   final String biotype;
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<RegisterSecond> createState() => _RegisterSecondState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterSecondState extends State<RegisterSecond> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +49,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onPressed: () {
                   Navigator.of(context).push(
                     navigationPageLeftAnimation(
-                      const Login(),
+                      const RegisterScreen(
+                        altura: 0,
+                        biotype: '',
+                        email: '',
+                        goal: '',
+                        lastname: '',
+                        meta: '',
+                        name: '',
+                        peso: 0,
+                      ),
                     ),
                   );
                 },
@@ -93,56 +103,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           Form(
             child: Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+              ),
               child: const Column(
                 children: [
-                  FormProgress(steps: 2, now: 1),
+                  FormProgress(
+                    steps: 2,
+                    now: 2,
+                  ),
                   SizedBox(
                     height: 20,
                   ),
                   GenericTextField(
-                    placeholder: "Insira seu nome, ex: Marcela",
-                    title: "Nome",
+                    placeholder: "Insira seu melhor e-mail",
+                    title: "E-mail",
                     width: double.infinity,
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   GenericTextField(
-                    placeholder: "Insira seu sobrenome, ex: Fernandes",
-                    title: "Sobrenome",
+                    placeholder: "*******",
+                    title: "Senha",
                     width: double.infinity,
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: GenericTextField(
-                          placeholder: "Ex: 88",
-                          title: "Peso",
-                          width: 200,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Flexible(
-                        child: GenericTextField(
-                          placeholder: "Ex: 1,70",
-                          title: "Altura",
-                          width: 200,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
                   GenericTextField(
-                    placeholder: "Diga-nos qual seu objetivo",
-                    title: "Meta",
+                    placeholder: "*******",
+                    title: "Confirmar senha",
                     width: double.infinity,
                   ),
                 ],
@@ -175,26 +167,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
-                      navigationPageRightAnimation(
-                        RegisterSecond(
-                          name: widget.name,
-                          lastname: widget.lastname,
-                          peso: widget.peso,
-                          altura: widget.altura,
-                          meta: widget.meta,
-                          email: widget.email,
-                          goal: widget.goal,
-                          biotype: widget.biotype,
-                        ),
-                      ),
+                    registerAPI(
+                      context,
+                      widget.name,
+                      widget.lastname,
+                      widget.email,
+                      '',
+                      widget.altura,
+                      widget.peso,
+                      widget.goal,
+                      widget.biotype,
                     );
                   },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Seguir",
+                        "Cadastrar",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
