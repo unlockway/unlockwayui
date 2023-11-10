@@ -14,14 +14,17 @@ Future<void> loginAPI(
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/auth/authenticate'; // Substitua pelo seu endpoint da API
 
+  Map payload = {
+    "email": email,
+    "password": password,
+  };
+
+  // Encoding Map to JSON
+  var body = json.encode(payload);
+
   try {
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      body: {
-        "email": email,
-        "password": password,
-      },
-    );
+    final response = await http.post(Uri.parse(apiUrl),
+        headers: {"Content-type": "application/json"}, body: body);
 
     final responseData = json.decode(response.body);
     final String teste = "Logou na conta ${responseData['firstname']}";
@@ -33,6 +36,8 @@ Future<void> loginAPI(
       ),
     );
   } catch (e) {
+    print(e);
+
     modalBuilderBottomAnimation(
       context,
       const SimplePopup(
