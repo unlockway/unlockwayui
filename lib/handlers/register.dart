@@ -34,6 +34,8 @@ Future<void> registerAPI(
       },
     );
 
+    response;
+
     modalBuilderBottomAnimation(
       context,
       const SimplePopup(

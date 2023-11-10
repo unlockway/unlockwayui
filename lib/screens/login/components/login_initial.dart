@@ -14,6 +14,9 @@ class InitialLogin extends StatefulWidget {
 }
 
 class _InitialLoginState extends State<InitialLogin> {
+  final email = TextEditingController();
+  final password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Stack(

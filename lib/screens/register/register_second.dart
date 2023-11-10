@@ -4,7 +4,6 @@ import 'package:unlockway/components/form_progress.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/handlers/register.dart';
-import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/screens/register/register.dart';
 
 class RegisterSecond extends StatefulWidget {
