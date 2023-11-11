@@ -73,7 +73,6 @@ class UserProfile extends StatelessWidget {
                       width: double.infinity,
                       controller: nameController,
                       number: false,
-                      value: "",
                     ),
                     const SizedBox(height: 16.0),
                     GenericTextField(
@@ -82,7 +81,6 @@ class UserProfile extends StatelessWidget {
                       width: double.infinity,
                       controller: lastnameController,
                       number: false,
-                      value: "",
                     ),
                     const SizedBox(height: 16.0),
                     Row(
@@ -94,7 +92,6 @@ class UserProfile extends StatelessWidget {
                             width: double.infinity,
                             controller: pesoController,
                             number: true,
-                            value: "",
                           ),
                         ),
                         const SizedBox(width: 16.0),
@@ -105,7 +102,6 @@ class UserProfile extends StatelessWidget {
                             width: double.infinity,
                             controller: alturaController,
                             number: false,
-                            value: "",
                           ),
                         )
                       ],
@@ -117,7 +113,6 @@ class UserProfile extends StatelessWidget {
                       width: double.infinity,
                       controller: metaController,
                       number: false,
-                      value: "",
                     ),
                     const SizedBox(height: 16.0),
                     GenericTextField(
@@ -126,7 +121,6 @@ class UserProfile extends StatelessWidget {
                       width: double.infinity,
                       controller: biotipoController,
                       number: false,
-                      value: "",
                     ),
                     const SizedBox(height: 16.0),
                     GenericTextField(
@@ -135,7 +129,6 @@ class UserProfile extends StatelessWidget {
                       width: double.infinity,
                       controller: emailController,
                       number: false,
-                      value: "",
                     ),
                     const SizedBox(height: 16.0),
                     GenericTextField(
@@ -144,7 +137,6 @@ class UserProfile extends StatelessWidget {
                       width: double.infinity,
                       controller: senhaController,
                       number: false,
-                      value: "",
                     ),
                     const SizedBox(height: 16.0),
                     Text(

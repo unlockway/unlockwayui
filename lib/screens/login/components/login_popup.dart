@@ -32,7 +32,6 @@ class LoginPopup extends StatelessWidget {
                 width: double.infinity,
                 controller: emailController,
                 number: false,
-                value: "",
               ),
               const SizedBox(height: 20),
               GenericTextField(
@@ -41,7 +40,6 @@ class LoginPopup extends StatelessWidget {
                 width: double.infinity,
                 controller: senhaController,
                 number: false,
-                value: "",
               ),
               const SizedBox(height: 30),
               Row(

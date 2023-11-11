@@ -15,7 +15,6 @@ class RegisterScreen extends StatefulWidget {
     required this.altura,
     required this.meta,
     required this.email,
-    required this.goal,
     required this.biotype,
   });
 
@@ -25,7 +24,7 @@ class RegisterScreen extends StatefulWidget {
   final double altura;
   final String meta;
   final String email;
-  final String goal;
+
   final String biotype;
 
   @override
@@ -33,14 +32,44 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final nameController = TextEditingController();
-  final lastnameController = TextEditingController();
-  final pesoController = TextEditingController();
-  final alturaController = TextEditingController();
-  final metaController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    var nameController = TextEditingController();
+    var pesoController = TextEditingController();
+    var lastnameController = TextEditingController();
+    var alturaController = TextEditingController();
+    var metaController = TextEditingController();
+
+    if (widget.name != "") {
+      nameController = TextEditingController(
+        text: widget.name,
+      );
+    }
+
+    if (widget.peso != 0.0) {
+      pesoController = TextEditingController(
+        text: widget.peso.toString(),
+      );
+    }
+
+    if (widget.lastname != "") {
+      lastnameController = TextEditingController(
+        text: widget.lastname,
+      );
+    }
+
+    if (widget.altura != 0.0) {
+      alturaController = TextEditingController(
+        text: widget.altura.toString(),
+      );
+    }
+
+    if (widget.meta != "") {
+      metaController = TextEditingController(
+        text: widget.meta,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -112,7 +141,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: double.infinity,
                     number: false,
                     controller: nameController,
-                    value: widget.name,
                   ),
                   const SizedBox(
                     height: 20,
@@ -123,7 +151,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: double.infinity,
                     number: false,
                     controller: lastnameController,
-                    value: widget.lastname,
                   ),
                   const SizedBox(
                     height: 20,
@@ -137,7 +164,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           width: 200,
                           controller: pesoController,
                           number: true,
-                          value: widget.peso.toString(),
                         ),
                       ),
                       const SizedBox(
@@ -150,7 +176,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           width: 200,
                           controller: alturaController,
                           number: true,
-                          value: widget.altura.toString(),
                         ),
                       ),
                     ],
@@ -164,7 +189,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: double.infinity,
                     controller: metaController,
                     number: false,
-                    value: widget.meta.toString(),
                   ),
                 ],
               ),
@@ -205,7 +229,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           altura: widget.altura,
                           meta: widget.meta,
                           email: widget.email,
-                          goal: widget.goal,
                           biotype: widget.biotype,
                         ),
                       ),

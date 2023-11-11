@@ -19,7 +19,6 @@ class FilterHistoryPopup extends StatelessWidget {
               width: double.infinity,
               controller: dataController,
               number: false,
-              value: "",
             ),
             const SizedBox(height: 30),
             Row(

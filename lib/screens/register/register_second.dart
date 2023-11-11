@@ -15,7 +15,6 @@ class RegisterSecond extends StatefulWidget {
     required this.altura,
     required this.meta,
     required this.email,
-    required this.goal,
     required this.biotype,
   });
 
@@ -25,7 +24,7 @@ class RegisterSecond extends StatefulWidget {
   final double altura;
   final String meta;
   final String email;
-  final String goal;
+
   final String biotype;
 
   @override
@@ -52,15 +51,14 @@ class _RegisterSecondState extends State<RegisterSecond> {
                 onPressed: () {
                   Navigator.of(context).push(
                     navigationPageLeftAnimation(
-                      const RegisterScreen(
-                        altura: 0,
-                        biotype: '',
-                        email: '',
-                        goal: '',
-                        lastname: '',
-                        meta: '',
-                        name: '',
-                        peso: 0,
+                      RegisterScreen(
+                        altura: widget.altura,
+                        biotype: widget.biotype,
+                        email: emailController.toString(),
+                        lastname: widget.lastname,
+                        meta: widget.meta,
+                        name: widget.name,
+                        peso: widget.peso,
                       ),
                     ),
                   );
@@ -125,7 +123,6 @@ class _RegisterSecondState extends State<RegisterSecond> {
                     width: double.infinity,
                     controller: emailController,
                     number: false,
-                    value: widget.email != "" ? widget.email : "",
                   ),
                   const SizedBox(
                     height: 20,
@@ -136,7 +133,6 @@ class _RegisterSecondState extends State<RegisterSecond> {
                     width: double.infinity,
                     controller: senhaController,
                     number: false,
-                    value: "",
                   ),
                   const SizedBox(
                     height: 20,
@@ -146,7 +142,6 @@ class _RegisterSecondState extends State<RegisterSecond> {
                     title: "Confirmar senha",
                     width: double.infinity,
                     controller: senhaRepeatController,
-                    value: "",
                     number: false,
                   ),
                 ],
@@ -184,10 +179,10 @@ class _RegisterSecondState extends State<RegisterSecond> {
                       widget.name,
                       widget.lastname,
                       widget.email,
-                      '',
+                      senhaController.toString(),
                       widget.altura,
                       widget.peso,
-                      widget.goal,
+                      widget.meta,
                       widget.biotype,
                     );
                   },

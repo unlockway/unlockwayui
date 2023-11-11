@@ -22,7 +22,6 @@ class NewRoutineMealPopup extends StatelessWidget {
               width: double.infinity,
               controller: groupController,
               number: false,
-              value: "",
             ),
             const SizedBox(height: 20),
             GenericTextField(
@@ -31,7 +30,6 @@ class NewRoutineMealPopup extends StatelessWidget {
               width: double.infinity,
               controller: mealController,
               number: false,
-              value: "",
             ),
             const SizedBox(height: 20),
             GenericTextField(
@@ -40,7 +38,6 @@ class NewRoutineMealPopup extends StatelessWidget {
               width: double.infinity,
               controller: alarmController,
               number: false,
-              value: "",
             ),
             const SizedBox(height: 30),
             Row(

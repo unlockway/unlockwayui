@@ -135,7 +135,6 @@ class _EditRoutineState extends State<EditRoutine> {
               width: double.infinity,
               controller: nameController,
               number: false,
-              value: "",
             ),
             Align(
               alignment: Alignment.centerLeft,

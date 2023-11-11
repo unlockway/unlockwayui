@@ -104,7 +104,6 @@ class _NewRoutineState extends State<NewRoutine> {
               width: double.infinity,
               controller: nameController,
               number: false,
-              value: "",
             ),
             Column(
               children: [

@@ -20,7 +20,6 @@ class FilterMealPopup extends StatelessWidget {
               width: double.infinity,
               controller: categoryController,
               number: false,
-              value: "",
             ),
             const SizedBox(height: 20),
             GenericTextField(
@@ -29,7 +28,6 @@ class FilterMealPopup extends StatelessWidget {
               width: double.infinity,
               controller: dataController,
               number: false,
-              value: "",
             ),
             const SizedBox(height: 30),
             Row(

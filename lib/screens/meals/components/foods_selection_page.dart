@@ -99,7 +99,6 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
               width: double.infinity,
               controller: searchController,
               number: false,
-              value: "",
             ),
             const SizedBox(
               height: 16,

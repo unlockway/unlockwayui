@@ -64,7 +64,6 @@ class _InitialLoginState extends State<InitialLogin> {
                           altura: 0.0,
                           meta: '',
                           email: '',
-                          goal: '',
                           biotype: '',
                         ),
                       ),

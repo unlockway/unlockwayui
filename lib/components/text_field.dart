@@ -10,7 +10,6 @@ class GenericTextField extends StatelessWidget {
     required this.width,
     required this.controller,
     required this.number,
-    required this.value,
   });
 
   final String title;
@@ -18,16 +17,14 @@ class GenericTextField extends StatelessWidget {
   final double width;
   final TextEditingController controller;
   final bool number;
-  final String value;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: value == "" ? "" : value,
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       inputFormatters: [
         FilteringTextInputFormatter.allow(
-          number ? RegExp(r'^\d+\.?\d{0,2}') : RegExp(r'[^a-zA-Z0-9]'),
+          number ? RegExp(r'^\d+\.?\d{0,2}') : RegExp(r'^[a-zA-Z0-9_.-]*$'),
         ),
       ],
       controller: controller,

@@ -182,7 +182,6 @@ class _NewMealState extends State<NewMeal> {
                 width: double.infinity,
                 controller: nomeController,
                 number: false,
-                value: "",
               ),
               const SizedBox(height: 20),
               GenericTextField(
@@ -191,7 +190,6 @@ class _NewMealState extends State<NewMeal> {
                 width: double.infinity,
                 controller: categoriaController,
                 number: false,
-                value: "",
               ),
               const SizedBox(height: 20),
               InkWell(
