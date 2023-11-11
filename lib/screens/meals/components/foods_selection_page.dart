@@ -21,6 +21,8 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final searchController = TextEditingController();
+
     return Scaffold(
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(10),
@@ -91,10 +93,13 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
         margin: const EdgeInsets.all(15),
         child: Column(
           children: [
-            const GenericTextField(
+            GenericTextField(
               title: "Pesquisar Alimento",
               placeholder: "EX: Maçã",
               width: double.infinity,
+              controller: searchController,
+              number: false,
+              value: "",
             ),
             const SizedBox(
               height: 16,

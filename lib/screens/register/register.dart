@@ -33,6 +33,12 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final nameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final pesoController = TextEditingController();
+  final alturaController = TextEditingController();
+  final metaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,26 +100,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Form(
             child: Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
-              child: const Column(
+              child: Column(
                 children: [
-                  FormProgress(steps: 2, now: 1),
-                  SizedBox(
+                  const FormProgress(steps: 2, now: 1),
+                  const SizedBox(
                     height: 20,
                   ),
                   GenericTextField(
                     placeholder: "Insira seu nome, ex: Marcela",
                     title: "Nome",
                     width: double.infinity,
+                    number: false,
+                    controller: nameController,
+                    value: widget.name,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   GenericTextField(
                     placeholder: "Insira seu sobrenome, ex: Fernandes",
                     title: "Sobrenome",
                     width: double.infinity,
+                    number: false,
+                    controller: lastnameController,
+                    value: widget.lastname,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -123,9 +135,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           placeholder: "Ex: 88",
                           title: "Peso",
                           width: 200,
+                          controller: pesoController,
+                          number: true,
+                          value: widget.peso.toString(),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
                       Flexible(
@@ -133,17 +148,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           placeholder: "Ex: 1,70",
                           title: "Altura",
                           width: 200,
+                          controller: alturaController,
+                          number: true,
+                          value: widget.altura.toString(),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   GenericTextField(
                     placeholder: "Diga-nos qual seu objetivo",
                     title: "Meta",
                     width: double.infinity,
+                    controller: metaController,
+                    number: false,
+                    value: widget.meta.toString(),
                   ),
                 ],
               ),

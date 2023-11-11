@@ -6,18 +6,31 @@ class FilterMealPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryController = TextEditingController();
+    final dataController = TextEditingController();
+
     return Container(
       margin: const EdgeInsets.all(20),
       child: Form(
         child: Column(
           children: [
-            const GenericTextField(
-                title: "Categoria", placeholder: "", width: double.infinity),
+            GenericTextField(
+              title: "Categoria",
+              placeholder: "",
+              width: double.infinity,
+              controller: categoryController,
+              number: false,
+              value: "",
+            ),
             const SizedBox(height: 20),
-            const GenericTextField(
-                title: "Data de criação",
-                placeholder: "dd/mm/yyyy",
-                width: double.infinity),
+            GenericTextField(
+              title: "Data de criação",
+              placeholder: "dd/mm/yyyy",
+              width: double.infinity,
+              controller: dataController,
+              number: false,
+              value: "",
+            ),
             const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

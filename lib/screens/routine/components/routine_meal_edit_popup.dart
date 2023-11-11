@@ -8,6 +8,10 @@ class EditMealRoutinePopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final groupController = TextEditingController();
+    final mealController = TextEditingController();
+    final alarmController = TextEditingController();
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -17,22 +21,31 @@ class EditMealRoutinePopup extends StatelessWidget {
       child: Form(
         child: Column(
           children: [
-            const GenericTextField(
+            GenericTextField(
               title: "Grupo",
               placeholder: "",
               width: double.infinity,
+              controller: groupController,
+              number: false,
+              value: "",
             ),
             const SizedBox(height: 20),
-            const GenericTextField(
+            GenericTextField(
               title: "Refeição",
               placeholder: "",
               width: double.infinity,
+              controller: mealController,
+              number: false,
+              value: "",
             ),
             const SizedBox(height: 20),
-            const GenericTextField(
+            GenericTextField(
               title: "Alarme",
               placeholder: "",
               width: double.infinity,
+              controller: alarmController,
+              number: false,
+              value: "",
             ),
             const SizedBox(height: 30),
             Row(

@@ -6,15 +6,21 @@ class FilterHistoryPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dataController = TextEditingController();
+
     return Container(
       margin: const EdgeInsets.all(20),
       child: Form(
         child: Column(
           children: [
-            const GenericTextField(
-                title: "Data",
-                placeholder: "dd/mm/yyyy",
-                width: double.infinity),
+            GenericTextField(
+              title: "Data",
+              placeholder: "dd/mm/yyyy",
+              width: double.infinity,
+              controller: dataController,
+              number: false,
+              value: "",
+            ),
             const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

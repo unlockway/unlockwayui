@@ -23,6 +23,9 @@ class NewMeal extends StatefulWidget {
 
 class _NewMealState extends State<NewMeal> {
   String selectedImagePath = '';
+  final categoriaController = TextEditingController();
+  final nomeController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,16 +176,22 @@ class _NewMealState extends State<NewMeal> {
                       ),
               ),
               const SizedBox(height: 20),
-              const GenericTextField(
+              GenericTextField(
                 title: "Nome",
                 placeholder: "Insira o nome da refeição",
                 width: double.infinity,
+                controller: nomeController,
+                number: false,
+                value: "",
               ),
               const SizedBox(height: 20),
-              const GenericTextField(
+              GenericTextField(
                 title: "Categoria",
                 placeholder: "Selecionar",
                 width: double.infinity,
+                controller: categoriaController,
+                number: false,
+                value: "",
               ),
               const SizedBox(height: 20),
               InkWell(

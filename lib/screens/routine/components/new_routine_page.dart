@@ -18,6 +18,8 @@ class NewRoutine extends StatefulWidget {
 }
 
 class _NewRoutineState extends State<NewRoutine> {
+  final nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,10 +98,13 @@ class _NewRoutineState extends State<NewRoutine> {
         margin: const EdgeInsets.all(15),
         child: Column(
           children: [
-            const GenericTextField(
+            GenericTextField(
               title: "Nome",
               placeholder: "Insira um nome para a rotina",
               width: double.infinity,
+              controller: nameController,
+              number: false,
+              value: "",
             ),
             Column(
               children: [

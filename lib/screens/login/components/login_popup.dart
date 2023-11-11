@@ -9,6 +9,9 @@ class LoginPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final senhaController = TextEditingController();
+
     return Container(
       height: 320,
       decoration: const BoxDecoration(
@@ -23,15 +26,23 @@ class LoginPopup extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 30),
-              const GenericTextField(
-                  title: "E-mail",
-                  placeholder: "Insira seu E-mail",
-                  width: double.infinity),
+              GenericTextField(
+                title: "E-mail",
+                placeholder: "Insira seu E-mail",
+                width: double.infinity,
+                controller: emailController,
+                number: false,
+                value: "",
+              ),
               const SizedBox(height: 20),
-              const GenericTextField(
-                  title: "Senha",
-                  placeholder: "********",
-                  width: double.infinity),
+              GenericTextField(
+                title: "Senha",
+                placeholder: "********",
+                width: double.infinity,
+                controller: senhaController,
+                number: false,
+                value: "",
+              ),
               const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

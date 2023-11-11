@@ -24,6 +24,8 @@ class EditRoutine extends StatefulWidget {
 }
 
 class _EditRoutineState extends State<EditRoutine> {
+  final nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,10 +129,13 @@ class _EditRoutineState extends State<EditRoutine> {
         ),
         child: Column(
           children: [
-            const GenericTextField(
+            GenericTextField(
               title: "Nome",
               placeholder: "Insira um nome para a rotina",
               width: double.infinity,
+              controller: nameController,
+              number: false,
+              value: "",
             ),
             Align(
               alignment: Alignment.centerLeft,

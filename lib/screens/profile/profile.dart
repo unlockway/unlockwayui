@@ -7,6 +7,15 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nameController = TextEditingController();
+    final lastnameController = TextEditingController();
+    final pesoController = TextEditingController();
+    final alturaController = TextEditingController();
+    final metaController = TextEditingController();
+    final biotipoController = TextEditingController();
+    final emailController = TextEditingController();
+    final senhaController = TextEditingController();
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -58,60 +67,84 @@ class UserProfile extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    const GenericTextField(
+                    GenericTextField(
                       title: "Nome",
                       placeholder: "Insira seu nome aqui",
                       width: double.infinity,
+                      controller: nameController,
+                      number: false,
+                      value: "",
                     ),
                     const SizedBox(height: 16.0),
-                    const GenericTextField(
+                    GenericTextField(
                       title: "Sobrenome",
                       placeholder: "Insira seu sobrenome aqui",
                       width: double.infinity,
+                      controller: lastnameController,
+                      number: false,
+                      value: "",
                     ),
                     const SizedBox(height: 16.0),
-                    const Row(
+                    Row(
                       children: [
                         Expanded(
                           child: GenericTextField(
                             title: "Peso",
                             placeholder: "KG",
                             width: double.infinity,
+                            controller: pesoController,
+                            number: true,
+                            value: "",
                           ),
                         ),
-                        SizedBox(width: 16.0),
+                        const SizedBox(width: 16.0),
                         Expanded(
                           child: GenericTextField(
                             title: "Altura",
                             placeholder: "0,00",
                             width: double.infinity,
+                            controller: alturaController,
+                            number: false,
+                            value: "",
                           ),
                         )
                       ],
                     ),
                     const SizedBox(height: 16.0),
-                    const GenericTextField(
+                    GenericTextField(
                       title: "Meta",
                       placeholder: "Deve ser um multiselect",
                       width: double.infinity,
+                      controller: metaController,
+                      number: false,
+                      value: "",
                     ),
                     const SizedBox(height: 16.0),
-                    const GenericTextField(
+                    GenericTextField(
                       title: "Biotipo",
                       placeholder: "Deve ser um multiselect",
                       width: double.infinity,
+                      controller: biotipoController,
+                      number: false,
+                      value: "",
                     ),
                     const SizedBox(height: 16.0),
-                    const GenericTextField(
+                    GenericTextField(
                       title: "E-mail",
                       placeholder: "Insira seu E-mail aqui",
                       width: double.infinity,
+                      controller: emailController,
+                      number: false,
+                      value: "",
                     ),
                     const SizedBox(height: 16.0),
-                    const GenericTextField(
+                    GenericTextField(
                       title: "Senha",
                       placeholder: "Insira seu E-mail aqui",
                       width: double.infinity,
+                      controller: senhaController,
+                      number: false,
+                      value: "",
                     ),
                     const SizedBox(height: 16.0),
                     Text(

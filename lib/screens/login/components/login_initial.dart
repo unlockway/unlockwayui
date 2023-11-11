@@ -3,8 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
-import 'package:unlockway/components/buttons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:unlockway/screens/login/components/login_popup.dart';
 import 'package:unlockway/screens/register/register.dart';
 

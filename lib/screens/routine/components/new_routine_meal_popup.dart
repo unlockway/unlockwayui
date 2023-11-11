@@ -7,26 +7,41 @@ class NewRoutineMealPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final groupController = TextEditingController();
+    final mealController = TextEditingController();
+    final alarmController = TextEditingController();
+
     return Container(
       margin: const EdgeInsets.all(20),
       child: Form(
         child: Column(
           children: [
-            const GenericTextField(
+            GenericTextField(
               title: "Grupo",
               placeholder: "Selecionar",
               width: double.infinity,
+              controller: groupController,
+              number: false,
+              value: "",
             ),
             const SizedBox(height: 20),
-            const GenericTextField(
-                title: "Refeição",
-                placeholder: "Selecionar",
-                width: double.infinity),
+            GenericTextField(
+              title: "Refeição",
+              placeholder: "Selecionar",
+              width: double.infinity,
+              controller: mealController,
+              number: false,
+              value: "",
+            ),
             const SizedBox(height: 20),
-            const GenericTextField(
-                title: "Alarme",
-                placeholder: "Selecionar",
-                width: double.infinity),
+            GenericTextField(
+              title: "Alarme",
+              placeholder: "Selecionar",
+              width: double.infinity,
+              controller: alarmController,
+              number: false,
+              value: "",
+            ),
             const SizedBox(height: 30),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,

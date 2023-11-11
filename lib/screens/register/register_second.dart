@@ -35,6 +35,10 @@ class RegisterSecond extends StatefulWidget {
 class _RegisterSecondState extends State<RegisterSecond> {
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final senhaController = TextEditingController();
+    final senhaRepeatController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -106,35 +110,44 @@ class _RegisterSecondState extends State<RegisterSecond> {
                 left: 20,
                 right: 20,
               ),
-              child: const Column(
+              child: Column(
                 children: [
-                  FormProgress(
+                  const FormProgress(
                     steps: 2,
                     now: 2,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   GenericTextField(
                     placeholder: "Insira seu melhor e-mail",
                     title: "E-mail",
                     width: double.infinity,
+                    controller: emailController,
+                    number: false,
+                    value: widget.email != "" ? widget.email : "",
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   GenericTextField(
                     placeholder: "*******",
                     title: "Senha",
                     width: double.infinity,
+                    controller: senhaController,
+                    number: false,
+                    value: "",
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   GenericTextField(
                     placeholder: "*******",
                     title: "Confirmar senha",
                     width: double.infinity,
+                    controller: senhaRepeatController,
+                    value: "",
+                    number: false,
                   ),
                 ],
               ),
