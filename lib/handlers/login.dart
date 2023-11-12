@@ -2,9 +2,11 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:http/http.dart' as http;
+import 'package:unlockway/screens/home/home.dart';
 
 Future<void> loginAPI(
   BuildContext context,
@@ -29,11 +31,9 @@ Future<void> loginAPI(
     final responseData = json.decode(response.body);
     final String teste = "Logou na conta ${responseData['firstname']}";
 
-    modalBuilderBottomAnimation(
+    navigatePage(
       context,
-      SimplePopup(
-        message: teste,
-      ),
+      const Home(),
     );
   } catch (e) {
     modalBuilderBottomAnimation(

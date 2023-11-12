@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
-import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/screens/login/components/about.dart';
+import 'package:unlockway/handlers/login.dart';
 
 class LoginPopup extends StatelessWidget {
   const LoginPopup({super.key});
@@ -34,7 +33,7 @@ class LoginPopup extends StatelessWidget {
                 number: false,
               ),
               const SizedBox(height: 20),
-              GenericTextField(
+              PasswordTextField(
                 title: "Senha",
                 placeholder: "********",
                 width: double.infinity,
@@ -60,10 +59,10 @@ class LoginPopup extends StatelessWidget {
                     height: 48.0,
                     width: 600.0,
                     onTap: () {
-                      Navigator.of(context).push(
-                        navigationPageRightAnimation(
-                          const AboutPage(),
-                        ),
+                      loginAPI(
+                        context,
+                        emailController.text,
+                        senhaController.text,
                       );
                     },
                   ),

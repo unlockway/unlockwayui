@@ -24,7 +24,6 @@ class RegisterSecond extends StatefulWidget {
   final double altura;
   final String meta;
   final String email;
-
   final String biotype;
 
   @override
@@ -34,9 +33,15 @@ class RegisterSecond extends StatefulWidget {
 class _RegisterSecondState extends State<RegisterSecond> {
   @override
   Widget build(BuildContext context) {
-    final emailController = TextEditingController();
-    final senhaController = TextEditingController();
-    final senhaRepeatController = TextEditingController();
+    var emailController = TextEditingController();
+    var senhaController = TextEditingController();
+    var senhaRepeatController = TextEditingController();
+
+    if (widget.email != '') {
+      emailController = TextEditingController(
+        text: widget.email,
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +59,7 @@ class _RegisterSecondState extends State<RegisterSecond> {
                       RegisterScreen(
                         altura: widget.altura,
                         biotype: widget.biotype,
-                        email: emailController.toString(),
+                        email: emailController.text,
                         lastname: widget.lastname,
                         meta: widget.meta,
                         name: widget.name,
@@ -127,7 +132,7 @@ class _RegisterSecondState extends State<RegisterSecond> {
                   const SizedBox(
                     height: 20,
                   ),
-                  GenericTextField(
+                  PasswordTextField(
                     placeholder: "*******",
                     title: "Senha",
                     width: double.infinity,
@@ -137,7 +142,7 @@ class _RegisterSecondState extends State<RegisterSecond> {
                   const SizedBox(
                     height: 20,
                   ),
-                  GenericTextField(
+                  PasswordTextField(
                     placeholder: "*******",
                     title: "Confirmar senha",
                     width: double.infinity,

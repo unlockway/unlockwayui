@@ -24,7 +24,6 @@ class RegisterScreen extends StatefulWidget {
   final double altura;
   final String meta;
   final String email;
-
   final String biotype;
 
   @override
@@ -223,13 +222,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Navigator.of(context).push(
                       navigationPageRightAnimation(
                         RegisterSecond(
-                          name: widget.name,
-                          lastname: widget.lastname,
-                          peso: widget.peso,
-                          altura: widget.altura,
-                          meta: widget.meta,
-                          email: widget.email,
-                          biotype: widget.biotype,
+                          name: nameController.text.toString(),
+                          lastname: lastnameController.text.toString(),
+                          peso: double.parse(pesoController.text),
+                          altura: double.parse(alturaController.text),
+                          meta: metaController.text.toString(),
+                          email: widget.email == "" ? "" : widget.email,
+                          biotype: "",
                         ),
                       ),
                     );
