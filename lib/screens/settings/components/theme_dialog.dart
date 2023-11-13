@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unlockway/themes/theme_manager.dart';
 
-String theme = "System";
+String theme = "dark";
 
 class ThemeDialog extends StatefulWidget {
   const ThemeDialog({super.key});
@@ -25,28 +25,6 @@ class _ThemeDialogState extends State<ThemeDialog> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RadioListTile(
-            selected: theme == "system" ? true : false,
-            title: Text(
-              "PADRÃO DO SISTEMA",
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.outline,
-                fontFamily: "Inter",
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            value: "system",
-            groupValue: theme,
-            onChanged: (value) {
-              setState(() {
-                theme = value.toString();
-                Provider.of<ThemeProvider>(context, listen: false)
-                    .toggleTheme(value.toString());
-                Navigator.of(context).pop();
-              });
-            },
-          ),
           RadioListTile(
             title: Text(
               "MODO CLARO",

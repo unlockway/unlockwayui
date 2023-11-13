@@ -31,9 +31,11 @@ Future<void> loginAPI(
     final responseData = json.decode(response.body);
     final String teste = "Logou na conta ${responseData['firstname']}";
 
-    navigatePage(
+    modalBuilderBottomAnimation(
       context,
-      const Home(),
+      SimplePopup(
+        message: teste,
+      ),
     );
   } catch (e) {
     modalBuilderBottomAnimation(
@@ -43,4 +45,8 @@ Future<void> loginAPI(
       ),
     );
   }
+  navigatePage(
+    context,
+    const Home(),
+  );
 }

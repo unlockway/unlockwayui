@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:multiselect/multiselect.dart';
 import 'package:unlockway/components/form_progress.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/screens/register/register_second.dart';
 
@@ -31,6 +33,9 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  List<String> selected = [];
+  String selectedValue = "";
+
   @override
   Widget build(BuildContext context) {
     var nameController = TextEditingController();
@@ -129,6 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const FormProgress(steps: 2, now: 1),
                   const SizedBox(
@@ -182,12 +188,113 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  GenericTextField(
-                    placeholder: "Diga-nos qual seu objetivo",
-                    title: "Meta",
-                    width: double.infinity,
-                    controller: metaController,
-                    number: false,
+                  Text(
+                    "Meta",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.outline,
+                      fontSize: 16,
+                      fontFamily: "Inter",
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  DropDownMultiSelect(
+                    decoration: InputDecoration(
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF616B7C),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          width: 2,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(darkBgdark),
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      enabled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(primarydark),
+                        ),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      filled: true,
+                      fillColor: Theme.of(context).colorScheme.onBackground,
+                      focusColor: Theme.of(context).colorScheme.onBackground,
+                    ),
+                    enabled: true,
+                    selected_values_style: TextStyle(
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
+                    onChanged: (List<String> x) {
+                      setState(() {
+                        selected = x;
+                      });
+                    },
+                    options: const [
+                      'Manter saúde',
+                      'Perder peso',
+                      'Ganhar musculo',
+                    ],
+                    selectedValues: selected,
+                    whenEmpty: 'Diga-nos qual seu objetivo',
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    "Biotipo",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.outline,
+                      fontSize: 16,
+                      fontFamily: "Inter",
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4,
+                      horizontal: 8,
+                    ),
+                    child: DropdownButton<String>(
+                      dropdownColor: Theme.of(context).colorScheme.onBackground,
+                      hint: const Text("EX: Endomorfo"),
+                      borderRadius: BorderRadius.circular(6),
+                      isExpanded: true,
+                      value: selectedValue,
+                      icon: const Icon(Icons.arrow_drop_down),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.outline,
+                        fontSize: 16,
+                        fontFamily: "Inter",
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedValue = newValue!;
+                        });
+                      },
+                      underline: Container(
+                        color: Colors.transparent,
+                      ),
+                      items: <String>[
+                        'Ectomorfo',
+                        'Endomorfo',
+                        'Mesomorfo',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ],
               ),
@@ -233,7 +340,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     );
                   },
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -242,12 +349,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           fontFamily: "Poppins",
+                          color: Theme.of(context).colorScheme.outline,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Icon(Icons.arrow_forward_outlined),
+                      const Icon(Icons.arrow_forward_outlined),
                     ],
                   ),
                 ),

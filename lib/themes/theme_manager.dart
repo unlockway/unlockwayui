@@ -4,7 +4,7 @@ import 'package:unlockway/themes/theme.dart';
 ThemeData teste = ThemeData();
 
 class ThemeProvider with ChangeNotifier {
-  ThemeData _themeData = lightMode;
+  ThemeData _themeData = darkMode;
 
   ThemeData get themeData => _themeData;
 
@@ -18,6 +18,6 @@ class ThemeProvider with ChangeNotifier {
       themeData = darkMode;
     } else if (theme == "light") {
       themeData = lightMode;
-    } else if (theme == "system") {}
+    }
   }
 }

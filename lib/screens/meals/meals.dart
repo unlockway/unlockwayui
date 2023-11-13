@@ -128,7 +128,11 @@ class _MealsState extends State<Meals> {
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.only(
+          left: 10,
+          right: 10,
+          bottom: 40,
+        ),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             return CustomScrollView(

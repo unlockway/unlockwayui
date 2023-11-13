@@ -183,12 +183,12 @@ class _RegisterSecondState extends State<RegisterSecond> {
                       context,
                       widget.name,
                       widget.lastname,
-                      widget.email,
-                      senhaController.toString(),
+                      emailController.text,
+                      senhaController.text,
                       widget.altura,
                       widget.peso,
-                      widget.meta,
-                      widget.biotype,
+                      "GAIN_MUSCULAR_MASS",
+                      "ECTOMORPH",
                     );
                   },
                   child: const Row(
