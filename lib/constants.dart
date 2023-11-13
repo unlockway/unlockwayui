@@ -19,3 +19,5 @@ var darker = 0xFF212121;
 var dark = 0xFF595959;
 var danger = 0xFFC33434;
 var success = 0xFF52CC83;
+
+Object userData = {};

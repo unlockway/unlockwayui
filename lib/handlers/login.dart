@@ -6,6 +6,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:http/http.dart' as http;
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/home.dart';
 
 Future<void> loginAPI(
@@ -28,15 +29,7 @@ Future<void> loginAPI(
     final response = await http.post(Uri.parse(apiUrl),
         headers: {"Content-type": "application/json"}, body: body);
 
-    final responseData = json.decode(response.body);
-    final String teste = "Logou na conta ${responseData['firstname']}";
-
-    modalBuilderBottomAnimation(
-      context,
-      SimplePopup(
-        message: teste,
-      ),
-    );
+    userData = json.decode(response.body);
 
     navigatePage(
       context,

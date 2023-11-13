@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
@@ -46,18 +48,23 @@ Future<void> registerAPI(
       biotype = "MESOMORPH";
     }
 
+    var payload = {
+      "firstname": firstname,
+      "lastname": lastname,
+      "email": email,
+      "password": password,
+      "height": height,
+      "weight": weight,
+      "goals": goalsObject,
+      "biotype": biotype,
+    };
+
+    var bodyApi = json.encode(payload);
+
     final response = await http.post(
       Uri.parse(apiUrl),
-      body: {
-        "firstname": firstname,
-        "lastname": lastname,
-        "email": email,
-        "password": password,
-        "height": height,
-        "weight": weight,
-        "goals": goalsObject,
-        "biotype": biotype,
-      },
+      headers: {"Content-type": "application/json"},
+      body: bodyApi,
     );
 
     response;

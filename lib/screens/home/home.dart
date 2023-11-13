@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
 import 'package:unlockway/screens/home/components/home_graph.dart';
 import 'package:unlockway/screens/home/components/next_meals.dart';
@@ -14,6 +15,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = userData as Map;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       bottomNavigationBar: const UBottomNavigator("Home"),
@@ -50,7 +53,7 @@ class Home extends StatelessWidget {
                                 color: Theme.of(context).colorScheme.outline),
                           ),
                           Text(
-                            "Thomas Schmit",
+                            user["firstname"] + " " + user["lastname"],
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Theme.of(context).colorScheme.outline),

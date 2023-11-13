@@ -332,8 +332,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Navigator.of(context).push(
                       navigationPageRightAnimation(
                         RegisterSecond(
-                          name: nameController.text.toString(),
-                          lastname: lastnameController.text.toString(),
+                          name: nameController.text,
+                          lastname: lastnameController.text,
                           peso: double.parse(pesoController.text),
                           altura: double.parse(alturaController.text),
                           meta: goals,
