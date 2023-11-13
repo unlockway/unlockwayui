@@ -24,7 +24,7 @@ class RegisterScreen extends StatefulWidget {
   final String lastname;
   final double peso;
   final double altura;
-  final String meta;
+  final List<String> meta;
   final String email;
   final String biotype;
 
@@ -33,17 +33,16 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  List<String> selected = [];
-  String selectedValue = "";
+  List<String> goals = [];
+  String? selectedValue;
+
+  var nameController = TextEditingController();
+  var pesoController = TextEditingController();
+  var lastnameController = TextEditingController();
+  var alturaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var nameController = TextEditingController();
-    var pesoController = TextEditingController();
-    var lastnameController = TextEditingController();
-    var alturaController = TextEditingController();
-    var metaController = TextEditingController();
-
     if (widget.name != "") {
       nameController = TextEditingController(
         text: widget.name,
@@ -68,10 +67,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
     }
 
-    if (widget.meta != "") {
-      metaController = TextEditingController(
-        text: widget.meta,
-      );
+    if (widget.meta.isNotEmpty) {
+      goals = widget.meta;
     }
 
     return Scaffold(
@@ -201,6 +198,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: InputDecoration(
                       hintStyle: const TextStyle(
                         color: Color(0xFF616B7C),
+                        fontFamily: "Inter",
+                        fontSize: 16,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
@@ -232,7 +231,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     onChanged: (List<String> x) {
                       setState(() {
-                        selected = x;
+                        goals = x;
                       });
                     },
                     options: const [
@@ -240,7 +239,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       'Perder peso',
                       'Ganhar musculo',
                     ],
-                    selectedValues: selected,
+                    selectedValues: goals,
                     whenEmpty: 'Diga-nos qual seu objetivo',
                   ),
                   const SizedBox(height: 20),
@@ -326,6 +325,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
+                    var biotype = "";
+
+                    if (selectedValue == "Ectomorfo") {
+                      biotype = "ECTOMORPH";
+                    } else if (selectedValue == "Endomorfo") {
+                      biotype = "ENDOMORPH";
+                    } else if (selectedValue == "Mesomorfo") {
+                      biotype = "MESOMORPH";
+                    }
+
                     Navigator.of(context).push(
                       navigationPageRightAnimation(
                         RegisterSecond(
@@ -333,9 +342,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           lastname: lastnameController.text.toString(),
                           peso: double.parse(pesoController.text),
                           altura: double.parse(alturaController.text),
-                          meta: metaController.text.toString(),
+                          meta: ["GAIN_MUSCULAR_MASS"],
                           email: widget.email == "" ? "" : widget.email,
-                          biotype: "",
+                          biotype: biotype,
                         ),
                       ),
                     );

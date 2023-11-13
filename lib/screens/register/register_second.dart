@@ -22,7 +22,7 @@ class RegisterSecond extends StatefulWidget {
   final String lastname;
   final double peso;
   final double altura;
-  final String meta;
+  final List<String> meta;
   final String email;
   final String biotype;
 
@@ -61,7 +61,7 @@ class _RegisterSecondState extends State<RegisterSecond> {
                         biotype: widget.biotype,
                         email: emailController.text,
                         lastname: widget.lastname,
-                        meta: widget.meta,
+                        meta: ["GAIN_MUSCULAR_MASS"],
                         name: widget.name,
                         peso: widget.peso,
                       ),
