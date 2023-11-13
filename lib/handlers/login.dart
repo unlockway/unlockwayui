@@ -37,6 +37,11 @@ Future<void> loginAPI(
         message: teste,
       ),
     );
+
+    navigatePage(
+      context,
+      const Home(),
+    );
   } catch (e) {
     modalBuilderBottomAnimation(
       context,
@@ -45,8 +50,4 @@ Future<void> loginAPI(
       ),
     );
   }
-  navigatePage(
-    context,
-    const Home(),
-  );
 }

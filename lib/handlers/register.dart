@@ -13,13 +13,39 @@ Future<void> registerAPI(
   String password,
   double height,
   double weight,
-  String goals,
+  List<String> goals,
   String biotype,
 ) async {
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/auth/register'; // Substitua pelo seu endpoint da API
 
   try {
+    bool mMass = false;
+    bool mHealth = false;
+    bool lWeight = false;
+
+    if (goals.contains('Ganhar musculo')) {
+      mMass = true;
+    } else if (goals.contains('Manter saúde')) {
+      mHealth = true;
+    } else if (goals.contains('Perder peso')) {
+      lWeight = true;
+    }
+
+    var goalsObject = {
+      "gainMuscularMass": mMass,
+      "maintainHealth": mHealth,
+      "loseWeight": lWeight,
+    };
+
+    if (biotype == "Ectomorfo") {
+      biotype = "ECTOMORPH";
+    } else if (biotype == "Endomorfo") {
+      biotype = "ENDOMORPH";
+    } else if (biotype == "Mesomorfo") {
+      biotype = "MESOMORPH";
+    }
+
     final response = await http.post(
       Uri.parse(apiUrl),
       body: {
@@ -27,9 +53,9 @@ Future<void> registerAPI(
         "lastname": lastname,
         "email": email,
         "password": password,
-        "height": height.toString(), // Converter para String
-        "weight": weight.toString(), // Converter para String
-        "goals": goals,
+        "height": height,
+        "weight": weight,
+        "goals": goalsObject,
         "biotype": biotype,
       },
     );

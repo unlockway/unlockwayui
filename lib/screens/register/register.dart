@@ -34,7 +34,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   List<String> goals = [];
-  String? selectedValue;
+  String? biotypeSelected;
 
   var nameController = TextEditingController();
   var pesoController = TextEditingController();
@@ -69,6 +69,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     if (widget.meta.isNotEmpty) {
       goals = widget.meta;
+    }
+
+    if (widget.biotype != "") {
+      biotypeSelected = widget.biotype;
     }
 
     return Scaffold(
@@ -266,7 +270,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hint: const Text("EX: Endomorfo"),
                       borderRadius: BorderRadius.circular(6),
                       isExpanded: true,
-                      value: selectedValue,
+                      value: biotypeSelected,
                       icon: const Icon(Icons.arrow_drop_down),
                       iconSize: 24,
                       elevation: 16,
@@ -277,7 +281,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       onChanged: (String? newValue) {
                         setState(() {
-                          selectedValue = newValue!;
+                          biotypeSelected = newValue!;
                         });
                       },
                       underline: Container(
@@ -325,16 +329,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    var biotype = "";
-
-                    if (selectedValue == "Ectomorfo") {
-                      biotype = "ECTOMORPH";
-                    } else if (selectedValue == "Endomorfo") {
-                      biotype = "ENDOMORPH";
-                    } else if (selectedValue == "Mesomorfo") {
-                      biotype = "MESOMORPH";
-                    }
-
                     Navigator.of(context).push(
                       navigationPageRightAnimation(
                         RegisterSecond(
@@ -342,9 +336,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           lastname: lastnameController.text.toString(),
                           peso: double.parse(pesoController.text),
                           altura: double.parse(alturaController.text),
-                          meta: ["GAIN_MUSCULAR_MASS"],
+                          meta: goals,
                           email: widget.email == "" ? "" : widget.email,
-                          biotype: biotype,
+                          biotype: biotypeSelected!,
                         ),
                       ),
                     );

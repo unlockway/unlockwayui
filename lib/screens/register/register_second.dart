@@ -61,7 +61,7 @@ class _RegisterSecondState extends State<RegisterSecond> {
                         biotype: widget.biotype,
                         email: emailController.text,
                         lastname: widget.lastname,
-                        meta: ["GAIN_MUSCULAR_MASS"],
+                        meta: widget.meta,
                         name: widget.name,
                         peso: widget.peso,
                       ),
@@ -187,8 +187,8 @@ class _RegisterSecondState extends State<RegisterSecond> {
                       senhaController.text,
                       widget.altura,
                       widget.peso,
-                      "GAIN_MUSCULAR_MASS",
-                      "ECTOMORPH",
+                      widget.meta,
+                      widget.biotype,
                     );
                   },
                   child: const Row(

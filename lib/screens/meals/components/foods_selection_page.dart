@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
-import 'package:unlockway/constants.dart';
+
 import 'package:unlockway/data/food.dart';
 import 'package:unlockway/screens/meals/components/food_card.dart';
 
