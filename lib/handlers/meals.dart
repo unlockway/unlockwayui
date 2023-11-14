@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:http/http.dart' as http;
-import 'package:unlockway/data/meals.dart';
+import 'package:unlockway/constants.dart';
 
 Future<void> getMealsAPI(
   BuildContext context,

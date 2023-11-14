@@ -21,3 +21,4 @@ var danger = 0xFFC33434;
 var success = 0xFF52CC83;
 
 Object userData = {};
+List<Map<String, dynamic>> userMeals = [];
