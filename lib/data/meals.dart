@@ -1,5 +1,7 @@
 import 'package:unlockway/models/meals.dart';
 
+List<Object> userMeals = [];
+
 const meals = [
   MealsModel(
     "filé de frango",
