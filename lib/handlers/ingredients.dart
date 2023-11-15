@@ -7,6 +7,8 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 
+var responde = "teste";
+
 Future<void> getIngredients(
   BuildContext context,
   String sessionToken,
@@ -16,11 +18,11 @@ Future<void> getIngredients(
 
   try {
     final response = await http.get(Uri.parse(apiUrl), headers: {
-      'Authorization': 'Bearer $sessionToken',
       "Content-type": "application/json",
     });
 
     ingredients = json.decode(response.body);
+    responde = response.body;
   } catch (e) {
     modalBuilderBottomAnimation(
       context,
@@ -29,4 +31,7 @@ Future<void> getIngredients(
       ),
     );
   }
+
+  print(ingredients);
+  print(responde);
 }

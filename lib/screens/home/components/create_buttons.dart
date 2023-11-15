@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/screens/meals/components/new_meal_popup.dart';
+import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 
 class CreateButtons extends StatelessWidget {
   const CreateButtons({super.key});
@@ -11,7 +15,12 @@ class CreateButtons extends StatelessWidget {
       children: [
         Expanded(
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              modalBuilderBottomAnimation(
+                context,
+                const NewMealPopup(),
+              );
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: const Color(0xFFC8E191),
@@ -69,7 +78,13 @@ class CreateButtons extends StatelessWidget {
         ),
         Expanded(
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                navigationPageRightAnimation(
+                  const NewRoutine(),
+                ),
+              );
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: const Color(0xFFE3CB75),
