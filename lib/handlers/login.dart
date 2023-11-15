@@ -15,7 +15,7 @@ Future<void> loginAPI(
   String password,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/auth/authenticate'; // Substitua pelo seu endpoint da API
+      'https://unlockway.azurewebsites.net/api/v1/auth/authenticate';
 
   Map payload = {
     "email": email,

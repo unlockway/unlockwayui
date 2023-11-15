@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
@@ -133,24 +134,55 @@ class _RoutineState extends State<Routine> {
       bottomNavigationBar: const UBottomNavigator("Routine"),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: List.generate(
-              routine.length,
-              (i) {
-                return RoutineCard(
-                  name: routine[i].name,
-                  weekRepetitions: routine[i].weekRepetitions,
-                  calories: routine[i].totalCaloriesInTheDay,
-                  meals: routine[i].meals,
-                  color: Theme.of(context).colorScheme.onBackground,
-                  using: routine[i].inUsage,
-                );
-              },
-            ),
-          ),
-        ),
+        child: routine.isNotEmpty
+            ? SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: List.generate(
+                    routine.length,
+                    (i) {
+                      return RoutineCard(
+                        name: routine[i].name,
+                        weekRepetitions: routine[i].weekRepetitions,
+                        calories: routine[i].totalCaloriesInTheDay,
+                        meals: routine[i].meals,
+                        color: Theme.of(context).colorScheme.onBackground,
+                        using: routine[i].inUsage,
+                      );
+                    },
+                  ),
+                ),
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    PhosphorIcons.regular.timer,
+                    size: 150,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 28,
+                    ),
+                    child: Expanded(
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        "Não há rotinas criadas, crie sua primeira rotina para que ela seja listada aqui.",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
+                          fontFamily: "Inter",
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }

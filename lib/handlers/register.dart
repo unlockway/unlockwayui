@@ -3,9 +3,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:http/http.dart' as http;
+import 'package:unlockway/constants.dart';
+import 'package:unlockway/screens/home/home.dart';
 
 Future<void> registerAPI(
   BuildContext context,
@@ -19,7 +22,7 @@ Future<void> registerAPI(
   String biotype,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/auth/register'; // Substitua pelo seu endpoint da API
+      'https://unlockway.azurewebsites.net/api/v1/auth/register';
 
   try {
     bool mMass = false;
@@ -74,6 +77,31 @@ Future<void> registerAPI(
       const SimplePopup(
         message: "Usuário criado com sucesso",
       ),
+    ).then(
+      (value) async {
+        const String apiUrl =
+            'https://unlockway.azurewebsites.net/api/v1/auth/authenticate';
+
+        Map payload = {
+          "email": email,
+          "password": password,
+        };
+
+        var body = json.encode(payload);
+
+        final response = await http.post(
+          Uri.parse(apiUrl),
+          headers: {"Content-type": "application/json"},
+          body: body,
+        );
+
+        userData = json.decode(response.body);
+
+        navigatePage(
+          context,
+          const Home(),
+        );
+      },
     );
   } catch (e) {
     modalBuilderBottomAnimation(

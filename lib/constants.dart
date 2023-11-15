@@ -21,4 +21,6 @@ var danger = 0xFFC33434;
 var success = 0xFF52CC83;
 
 Object userData = {};
+List<Map<String, dynamic>> userRoutines = [];
 List<Map<String, dynamic>> userMeals = [];
+List<Map<String, dynamic>> ingredients = [];

@@ -1,33 +1,26 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 
-Future<void> getRoutinesAPI(
+Future<void> getIngredients(
   BuildContext context,
-  String userID,
   String sessionToken,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/routines/userId'; // Substitua pelo seu endpoint da API
+      'https://unlockway.azurewebsites.net/api/v1/ingredients';
 
   try {
-    var bodyApi = json.encode(userID);
+    final response = await http.get(Uri.parse(apiUrl), headers: {
+      'Authorization': 'Bearer $sessionToken',
+      "Content-type": "application/json",
+    });
 
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {
-        'Authorization': 'Bearer $sessionToken',
-        "Content-type": "application/json"
-      },
-      body: bodyApi,
-    );
-
-    userRoutines = json.decode(response.body);
+    ingredients = json.decode(response.body);
   } catch (e) {
     modalBuilderBottomAnimation(
       context,

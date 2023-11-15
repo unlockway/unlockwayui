@@ -1,6 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/ingredients.dart';
 import 'package:unlockway/screens/meals/components/new_meal_page.dart';
 
 class NewMealPopup extends StatelessWidget {
@@ -8,6 +12,8 @@ class NewMealPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = userData as Map;
+
     return Container(
       height: 200,
       decoration: const BoxDecoration(
@@ -59,7 +65,12 @@ class NewMealPopup extends StatelessWidget {
             height: 5,
           ),
           InkWell(
-            onTap: () {
+            onTap: () async {
+              await getIngredients(
+                context,
+                user['token'],
+              );
+
               Navigator.of(context).push(
                 navigationPageRightAnimation(
                   const NewMeal(),

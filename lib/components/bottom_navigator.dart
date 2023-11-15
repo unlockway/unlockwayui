@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.dart';
+import 'package:unlockway/handlers/routine.dart';
 import 'package:unlockway/screens/history/history.dart';
 import 'package:unlockway/screens/home/home.dart';
 import 'package:unlockway/screens/meals/meals.dart';
@@ -87,7 +88,12 @@ class UBottomNavigator extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {
+              onPressed: () async {
+                await getRoutinesAPI(
+                  context,
+                  user['id'],
+                  user['token'],
+                );
                 navigatePage(
                   context,
                   const Routine(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/screens/meals/components/meal_card.dart';
 import 'package:unlockway/components/popups.dart';
@@ -133,41 +134,72 @@ class _MealsState extends State<Meals> {
           right: 10,
           bottom: 40,
         ),
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return CustomScrollView(
-              slivers: <Widget>[
-                SliverToBoxAdapter(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(maxHeight: constraints.maxHeight),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.850,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
+        child: meals.isNotEmpty
+            ? LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return CustomScrollView(
+                    slivers: <Widget>[
+                      SliverToBoxAdapter(
+                        child: ConstrainedBox(
+                          constraints:
+                              BoxConstraints(maxHeight: constraints.maxHeight),
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.850,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                            ),
+                            shrinkWrap: true,
+                            itemCount: meals.length,
+                            itemBuilder: (context, index) {
+                              for (var index in meals) {
+                                return UCard(
+                                  description: index.description,
+                                  title: index.name,
+                                  imageUrl: index.img,
+                                );
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
                       ),
-                      shrinkWrap: true,
-                      itemCount: meals.length,
-                      itemBuilder: (context, index) {
-                        for (var index in meals) {
-                          return UCard(
-                            description: index.description,
-                            title: index.name,
-                            imageUrl: index.img,
-                          );
-                        }
-                        return null;
-                      },
+                    ],
+                  );
+                },
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    PhosphorIcons.regular.bowlFood,
+                    size: 150,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 28,
+                    ),
+                    child: SizedBox(
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        "Não há refeições criadas, crie sua primeira refeição para que ela seja listada aqui.",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
+                          fontFamily: "Inter",
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            );
-          },
-        ),
+                ],
+              ),
       ),
     );
   }

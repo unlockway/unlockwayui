@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
-
-import 'package:unlockway/data/food.dart';
+import 'package:unlockway/data/ingredients.dart';
 import 'package:unlockway/screens/meals/components/food_card.dart';
 
 class FoodSelectionPage extends StatefulWidget {
@@ -124,20 +123,20 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
               scrollDirection: Axis.vertical,
               child: Column(
                 children: List.generate(
-                  food.length,
+                  ingredientsRegistered.length,
                   (i) {
                     return FoodCard(
-                      idFood: food[i].idFood,
-                      imgURL: food[i].imgURL,
-                      name: food[i].name,
-                      measurement: food[i].measurement,
-                      description: food[i].description,
-                      calories: food[i].calories,
-                      proteins: food[i].proteins,
-                      water: food[i].water,
-                      minerals: food[i].minerals,
-                      vitamins: food[i].vitamins,
-                      fats: food[i].fats,
+                      idFood: ingredientsRegistered[i].idFood,
+                      imgURL: ingredientsRegistered[i].imgURL,
+                      name: ingredientsRegistered[i].name,
+                      measurement: ingredientsRegistered[i].measurement,
+                      description: ingredientsRegistered[i].description,
+                      calories: ingredientsRegistered[i].calories,
+                      proteins: ingredientsRegistered[i].proteins,
+                      water: ingredientsRegistered[i].water,
+                      minerals: ingredientsRegistered[i].minerals,
+                      vitamins: ingredientsRegistered[i].vitamins,
+                      fats: ingredientsRegistered[i].fats,
                     );
                   },
                 ),

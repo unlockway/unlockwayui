@@ -8,6 +8,8 @@ class ProfileSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = userData as Map;
+
     return InkWell(
         onTap: () {
           Navigator.of(context).push(
@@ -49,7 +51,7 @@ class ProfileSettings extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Thomas Schmit",
+                        user['firstname'] + " " + user['lastname'],
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
@@ -58,7 +60,7 @@ class ProfileSettings extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "thomas.p.schmit@gmail.com",
+                        user['email'],
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
