@@ -123,15 +123,18 @@ class TextFieldMultline extends StatelessWidget {
     required this.title,
     required this.placeholder,
     required this.width,
+    required this.controller,
   });
 
   final String title;
   final String placeholder;
   final double width;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       minLines: 3,
       maxLines: 10,
       cursorColor: Theme.of(context).colorScheme.outline,

@@ -8,6 +8,7 @@ import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/meals.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
 import 'package:unlockway/screens/meals/meals.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -22,9 +23,14 @@ class NewMeal extends StatefulWidget {
 }
 
 class _NewMealState extends State<NewMeal> {
+  var user = userData as Map;
   String selectedImagePath = '';
   final categoriaController = TextEditingController();
   final nomeController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final preparationMethodController = TextEditingController();
+  List<Object> ingredients = [];
+  String? category;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +55,19 @@ class _NewMealState extends State<NewMeal> {
               text: "SALVAR",
               height: 48,
               width: double.infinity,
-              onTap: () {},
+              onTap: () {
+                createMealsAPI(
+                  context,
+                  user['token'],
+                  user['id'],
+                  nomeController.text,
+                  category!,
+                  descriptionController.text,
+                  preparationMethodController.text,
+                  ingredients,
+                  null,
+                );
+              },
             ),
           ],
         ),
@@ -114,6 +132,7 @@ class _NewMealState extends State<NewMeal> {
         margin: const EdgeInsets.all(15),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
                 onTap: () {
@@ -184,12 +203,58 @@ class _NewMealState extends State<NewMeal> {
                 number: false,
               ),
               const SizedBox(height: 20),
-              GenericTextField(
-                title: "Categoria",
-                placeholder: "Selecionar",
-                width: double.infinity,
-                controller: categoriaController,
-                number: false,
+              Text(
+                "Categoria",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.outline,
+                  fontSize: 16,
+                  fontFamily: "Inter",
+                ),
+              ),
+              const SizedBox(height: 5),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 4,
+                  horizontal: 8,
+                ),
+                child: DropdownButton<String>(
+                  dropdownColor: Theme.of(context).colorScheme.onBackground,
+                  hint: const Text("EX: Almoço"),
+                  borderRadius: BorderRadius.circular(6),
+                  isExpanded: true,
+                  value: category,
+                  icon: const Icon(Icons.arrow_drop_down),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                    fontSize: 16,
+                    fontFamily: "Inter",
+                  ),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      category = newValue!;
+                    });
+                  },
+                  underline: Container(
+                    color: Colors.transparent,
+                  ),
+                  items: <String>[
+                    'Café da manhã',
+                    'Almoço',
+                    'Jantar',
+                    'Lanche',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
               ),
               const SizedBox(height: 20),
               InkWell(
@@ -220,13 +285,15 @@ class _NewMealState extends State<NewMeal> {
                 ),
               ),
               const SizedBox(height: 20),
-              const TextFieldMultline(
+              TextFieldMultline(
                 title: "Descrição",
                 placeholder: "Insira o nome da refeição",
                 width: double.infinity,
+                controller: descriptionController,
               ),
               const SizedBox(height: 20),
-              const TextFieldMultline(
+              TextFieldMultline(
+                controller: preparationMethodController,
                 title: "Modo de Preparo",
                 placeholder:
                     "Escreva ou cole aqui o modo de preparo de sua refeição",

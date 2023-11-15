@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/popups.dart';
@@ -29,6 +30,63 @@ Future<void> getMealsAPI(
     );
 
     userMeals = json.decode(response.body);
+  } catch (e) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Houve um erro na execução do aplicativo",
+      ),
+    );
+  }
+}
+
+Future<void> createMealsAPI(
+  BuildContext context,
+  String sessionToken,
+  String userID,
+  String name,
+  String category,
+  String description,
+  String preparationMethod,
+  List<Object> ingredients,
+  File? imageFile,
+) async {
+  const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals';
+
+  try {
+    var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
+      ..headers['Authorization'] = 'Bearer $sessionToken';
+
+    // Add text fields
+    request.fields['userId'] = userID;
+    request.fields['name'] = name;
+    request.fields['category'] = category;
+    request.fields['description'] = description;
+    request.fields['preparationMethod'] = preparationMethod;
+
+    // Add image file
+    if (imageFile != null) {
+      var imageStream = http.ByteStream(imageFile.openRead());
+      var length = await imageFile.length();
+      var multipartFile = http.MultipartFile(
+        'image',
+        imageStream,
+        length,
+        filename: imageFile.path.split('/').last,
+      );
+      request.files.add(multipartFile);
+    }
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      modalBuilderBottomAnimation(
+        context,
+        const SimplePopup(
+          message: "Refeição criada com sucesso",
+        ),
+      );
+    }
   } catch (e) {
     modalBuilderBottomAnimation(
       context,
