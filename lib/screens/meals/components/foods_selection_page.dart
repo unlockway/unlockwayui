@@ -13,11 +13,6 @@ class FoodSelectionPage extends StatefulWidget {
 }
 
 class _FoodSelectionPageState extends State<FoodSelectionPage> {
-  bool almoco = false;
-  bool jantar = false;
-  bool cafe = false;
-  bool lanche = false;
-
   @override
   Widget build(BuildContext context) {
     final searchController = TextEditingController();
