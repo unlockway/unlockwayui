@@ -66,7 +66,7 @@ class NewMealPopup extends StatelessWidget {
           ),
           InkWell(
             onTap: () async {
-              await getIngredients(
+              await getIngredientsAPI(
                 context,
                 user['token'],
               );

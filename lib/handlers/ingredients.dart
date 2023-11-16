@@ -7,9 +7,7 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 
-var responde = "teste";
-
-Future<void> getIngredients(
+Future<void> getIngredientsAPI(
   BuildContext context,
   String sessionToken,
 ) async {
@@ -18,12 +16,20 @@ Future<void> getIngredients(
 
   try {
     final response = await http.get(Uri.parse(apiUrl), headers: {
+      'Authorization': 'Bearer $sessionToken',
       "Content-type": "application/json",
     });
 
     ingredients = json.decode(response.body);
-    responde = response.body;
   } catch (e) {
+    if (e is http.ClientException) {
+      // Handle network-related errors
+      print('Network error: $e');
+    } else {
+      // Handle other errors
+      print('Error: $e');
+    }
+
     modalBuilderBottomAnimation(
       context,
       const SimplePopup(
@@ -31,7 +37,6 @@ Future<void> getIngredients(
       ),
     );
   }
-
+  // Handle other errors
   print(ingredients);
-  print(responde);
 }
