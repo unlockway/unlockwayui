@@ -103,6 +103,7 @@ class FoodCard extends StatelessWidget {
                       ),
                     ),
                     InkWell(
+                      onTap: () {},
                       child: Container(
                         padding: const EdgeInsets.all(3),
                         decoration: BoxDecoration(
