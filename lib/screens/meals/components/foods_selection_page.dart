@@ -85,59 +85,82 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
       ),
       body: Container(
         margin: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            GenericTextField(
-              title: "Pesquisar Alimento",
-              placeholder: "EX: Maçã",
-              width: double.infinity,
-              controller: searchController,
-              number: false,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Selecione os ingredientes",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.outline,
-                  fontSize: 19,
-                  fontFamily: "Inter",
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      GenericTextField(
+                        title: "Pesquisar Alimento",
+                        placeholder: "EX: Maçã",
+                        width: double.infinity,
+                        controller: searchController,
+                        number: false,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Selecione os ingredientes",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
+                            fontSize: 19,
+                            fontFamily: "Inter",
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: List.generate(
-                  ingredientsRegistered.length,
-                  (i) {
-                    return FoodCard(
-                      idFood: ingredientsRegistered[i].idFood,
-                      imgURL: ingredientsRegistered[i].imgURL,
-                      name: ingredientsRegistered[i].name,
-                      measurement: ingredientsRegistered[i].measurement,
-                      description: ingredientsRegistered[i].description,
-                      calories: ingredientsRegistered[i].calories,
-                      proteins: ingredientsRegistered[i].proteins,
-                      water: ingredientsRegistered[i].water,
-                      minerals: ingredientsRegistered[i].minerals,
-                      vitamins: ingredientsRegistered[i].vitamins,
-                      fats: ingredientsRegistered[i].fats,
-                    );
-                  },
+                SliverToBoxAdapter(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: constraints.maxHeight - 130,
+                    ),
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                        childAspectRatio: 3,
+                      ),
+                      shrinkWrap: true,
+                      itemCount: ingredientsRegistered.length,
+                      itemBuilder: (context, index) {
+                        var currentIngredient = ingredientsRegistered[index];
+                        return FoodCard(
+                          idFood: currentIngredient.idFood,
+                          imgURL: currentIngredient.imgURL,
+                          name: currentIngredient.name,
+                          measurement: currentIngredient.measurement,
+                          description: currentIngredient.description,
+                          calories: currentIngredient.calories,
+                          proteins: currentIngredient.proteins,
+                          water: currentIngredient.water,
+                          minerals: currentIngredient.minerals,
+                          vitamins: currentIngredient.vitamins,
+                          fats: currentIngredient.fats,
+                          selected: index == 1 ? false : true,
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         ),
       ),
     );

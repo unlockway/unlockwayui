@@ -20,7 +20,7 @@ Future<void> getIngredientsAPI(
       "Content-type": "application/json",
     });
 
-    ingredients = json.decode(response.body);
+    ingredients = json.decode(utf8.decode(response.bodyBytes));
   } catch (e) {
     if (e is http.ClientException) {
       // Handle network-related errors
