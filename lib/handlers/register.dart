@@ -8,7 +8,7 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:http/http.dart' as http;
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/home/home.dart';
+
 import 'package:unlockway/screens/login/components/about.dart';
 
 Future<void> registerAPI(

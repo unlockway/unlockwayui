@@ -24,10 +24,8 @@ Future<void> getIngredientsAPI(
   } catch (e) {
     if (e is http.ClientException) {
       // Handle network-related errors
-      print('Network error: $e');
     } else {
       // Handle other errors
-      print('Error: $e');
     }
 
     modalBuilderBottomAnimation(
@@ -37,4 +35,5 @@ Future<void> getIngredientsAPI(
       ),
     );
   }
+  // Handle other errors
 }
