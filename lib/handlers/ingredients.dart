@@ -37,3 +37,40 @@ Future<void> getIngredientsAPI(
   }
   // Handle other errors
 }
+
+Future<void> getIngredientsByNameAPI(
+  BuildContext context,
+  String sessionToken,
+  String name,
+) async {
+  const String apiUrl =
+      'https://unlockway.azurewebsites.net/api/v1/ingredients';
+
+  try {
+    final response = await http.get(
+      Uri.parse(apiUrl).replace(queryParameters: {
+        'name': name,
+      }),
+      headers: {
+        'Authorization': 'Bearer $sessionToken',
+        "Content-type": "application/json",
+      },
+    );
+
+    ingredients = json.decode(utf8.decode(response.bodyBytes));
+  } catch (e) {
+    if (e is http.ClientException) {
+      // Handle network-related errors
+    } else {
+      // Handle other errors
+    }
+
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Houve um erro na execução do aplicativo",
+      ),
+    );
+  }
+  // Handle other errors
+}
