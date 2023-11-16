@@ -6,6 +6,7 @@ Future<void> modalBuilderBottomAnimation(
 ) {
   return showModalBottomSheet<void>(
     enableDrag: true,
+    isScrollControlled: true,
     context: context,
     useSafeArea: true,
     backgroundColor: Theme.of(context).colorScheme.background,
@@ -17,23 +18,26 @@ Future<void> modalBuilderBottomAnimation(
       ),
     ),
     builder: (context) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            width: 180,
-            height: 6,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onBackground,
-              borderRadius: BorderRadius.circular(9999),
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              width: 180,
+              height: 6,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.onBackground,
+                borderRadius: BorderRadius.circular(9999),
+              ),
             ),
-          ),
-          dialog,
-        ],
+            dialog,
+          ],
+        ),
       );
     },
   );
 }
-
-
