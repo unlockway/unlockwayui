@@ -1,3 +1,4 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:unlockway/constants.dart';
@@ -67,6 +68,7 @@ class SearchTextField extends StatefulWidget {
     required this.width,
     required this.controller,
     required this.number,
+    required this.method,
   });
 
   final String title;
@@ -74,6 +76,7 @@ class SearchTextField extends StatefulWidget {
   final double width;
   final TextEditingController controller;
   final bool number;
+  final Function method;
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();
@@ -83,6 +86,13 @@ class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: (value) {
+        EasyDebounce.debounce(
+          'my-debouncer',
+          const Duration(milliseconds: 500),
+          () => widget.method,
+        );
+      },
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       inputFormatters: [
         FilteringTextInputFormatter.allow(
