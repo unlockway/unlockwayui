@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/ingredients.dart';
+import 'package:unlockway/handlers/ingredients.dart';
 import 'package:unlockway/screens/meals/components/food_card.dart';
 
 class FoodSelectionPage extends StatefulWidget {
@@ -15,6 +17,7 @@ class FoodSelectionPage extends StatefulWidget {
 class _FoodSelectionPageState extends State<FoodSelectionPage> {
   @override
   Widget build(BuildContext context) {
+    var user = userData as Map;
     final searchController = TextEditingController();
 
     return Scaffold(
@@ -95,7 +98,12 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                       const SizedBox(
                         height: 6,
                       ),
-                      GenericTextField(
+                      SearchTextField(
+                        method: getIngredientsByNameAPI(
+                          context,
+                          user['token'],
+                          searchController.text,
+                        ),
                         title: "Pesquisar Alimento",
                         placeholder: "EX: Maçã",
                         width: double.infinity,

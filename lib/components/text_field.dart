@@ -22,7 +22,9 @@ class GenericTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      keyboardType: number
+          ? const TextInputType.numberWithOptions(decimal: true)
+          : TextInputType.text,
       inputFormatters: [
         FilteringTextInputFormatter.allow(
           number ? RegExp(r'^\d+\.?\d{0,2}') : RegExp(r'[a-zA-Z0-9@._-]'),
@@ -76,7 +78,7 @@ class SearchTextField extends StatefulWidget {
   final double width;
   final TextEditingController controller;
   final bool number;
-  final Function method;
+  final Future<void> method;
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();
@@ -86,12 +88,13 @@ class _SearchTextFieldState extends State<SearchTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: (value) {
+      onChanged: (value) async {
         EasyDebounce.debounce(
           'my-debouncer',
           const Duration(milliseconds: 500),
           () => widget.method,
         );
+        setState(() {});
       },
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       inputFormatters: [
