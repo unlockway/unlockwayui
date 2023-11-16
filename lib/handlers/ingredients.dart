@@ -37,6 +37,4 @@ Future<void> getIngredientsAPI(
       ),
     );
   }
-  // Handle other errors
-  print(ingredients);
 }
