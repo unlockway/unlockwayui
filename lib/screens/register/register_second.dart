@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/form_progress.dart';
-import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/handlers/register.dart';
-import 'package:unlockway/screens/register/register.dart';
+import 'package:unlockway/screens/register/components/app_bar.dart';
 
 class RegisterSecond extends StatefulWidget {
   const RegisterSecond({
@@ -45,56 +44,7 @@ class _RegisterSecondState extends State<RegisterSecond> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        leading: TextButton.icon(
-          style: const ButtonStyle(
-            overlayColor: MaterialStatePropertyAll(Colors.transparent),
-          ),
-          onPressed: () {
-            Navigator.of(context).push(
-              navigationPageLeftAnimation(
-                RegisterScreen(
-                  altura: widget.altura,
-                  biotype: widget.biotype,
-                  email: emailController.text,
-                  lastname: widget.lastname,
-                  meta: widget.meta,
-                  name: widget.name,
-                  peso: widget.peso,
-                ),
-              ),
-            );
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            size: 26.0,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-          label: Text(
-            'Voltar'.toUpperCase(),
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: 18,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ),
-        leadingWidth: 140,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SvgPicture.asset(
-              "assets/svgs/logo_mini.svg",
-              width: 28,
-              height: 28,
-            ),
-          ),
-        ],
-        automaticallyImplyLeading: true,
-        elevation: 0,
-        titleSpacing: 0.0,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
+      appBar: registerAppBar(context),
       body: Stack(
         children: <Widget>[
           Positioned(
@@ -108,46 +58,48 @@ class _RegisterSecondState extends State<RegisterSecond> {
                     height: MediaQuery.of(context).size.height),
           ),
           Positioned.fill(
-            child: Form(
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    const FormProgress(
-                      steps: 2,
-                      now: 2,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GenericTextField(
-                      placeholder: "Insira seu melhor e-mail",
-                      title: "E-mail",
-                      width: double.infinity,
-                      controller: emailController,
-                      number: false,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    PasswordTextField(
-                      placeholder: "*******",
-                      title: "Senha",
-                      width: double.infinity,
-                      controller: senhaController,
-                      number: false,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    PasswordTextField(
-                      placeholder: "*******",
-                      title: "Confirmar senha",
-                      width: double.infinity,
-                      controller: senhaRepeatController,
-                      number: false,
-                    ),
-                  ],
+            child: SingleChildScrollView(
+              child: Form(
+                child: Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      const FormProgress(
+                        steps: 2,
+                        now: 2,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GenericTextField(
+                        placeholder: "Insira seu melhor e-mail",
+                        title: "E-mail",
+                        width: double.infinity,
+                        controller: emailController,
+                        number: false,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      PasswordTextField(
+                        placeholder: "*******",
+                        title: "Senha",
+                        width: double.infinity,
+                        controller: senhaController,
+                        number: false,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      PasswordTextField(
+                        placeholder: "*******",
+                        title: "Confirmar senha",
+                        width: double.infinity,
+                        controller: senhaRepeatController,
+                        number: false,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -190,7 +142,7 @@ class _RegisterSecondState extends State<RegisterSecond> {
                       widget.biotype,
                     );
                   },
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -199,12 +151,16 @@ class _RegisterSecondState extends State<RegisterSecond> {
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           fontFamily: "Poppins",
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Icon(Icons.arrow_forward_outlined),
+                      Icon(
+                        Icons.arrow_forward_outlined,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ],
                   ),
                 ),
