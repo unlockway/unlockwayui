@@ -1,12 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
-import 'package:http/http.dart' as http;
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/home.dart';
 
 Future<void> loginAPI(
@@ -29,7 +31,9 @@ Future<void> loginAPI(
     final response = await http.post(Uri.parse(apiUrl),
         headers: {"Content-type": "application/json"}, body: body);
 
-    userData = json.decode(response.body);
+    Map<Object?, Object?> user = json.decode(response.body);
+
+    userData = UserModel.fromMap(user);
 
     navigatePage(
       context,
@@ -38,8 +42,8 @@ Future<void> loginAPI(
   } catch (e) {
     modalBuilderBottomAnimation(
       context,
-      const SimplePopup(
-        message: "Houve um erro na execução do aplicativo",
+      SimplePopup(
+        message: e.toString(),
       ),
     );
   }

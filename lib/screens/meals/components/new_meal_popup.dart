@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/ingredients.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/new_meal_page.dart';
 
 class NewMealPopup extends StatelessWidget {
@@ -12,7 +13,7 @@ class NewMealPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = userData as Map;
+    UserModel user = userData;
 
     return Container(
       height: 200,
@@ -68,7 +69,7 @@ class NewMealPopup extends StatelessWidget {
             onTap: () async {
               await getIngredientsAPI(
                 context,
-                user['token'],
+                user.token!,
               );
 
               Navigator.of(context).push(

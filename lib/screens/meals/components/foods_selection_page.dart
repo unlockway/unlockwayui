@@ -5,6 +5,7 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/ingredients.dart';
 import 'package:unlockway/handlers/ingredients.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/food_card.dart';
 
 class FoodSelectionPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class FoodSelectionPage extends StatefulWidget {
 class _FoodSelectionPageState extends State<FoodSelectionPage> {
   @override
   Widget build(BuildContext context) {
-    var user = userData as Map;
+    UserModel user = userData;
     final searchController = TextEditingController();
 
     return Scaffold(
@@ -101,7 +102,7 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                       SearchTextField(
                         method: getIngredientsByNameAPI(
                           context,
-                          user['token'],
+                          user.token!,
                           searchController.text,
                         ),
                         title: "Pesquisar Alimento",

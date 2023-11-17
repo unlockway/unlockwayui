@@ -1,4 +1,6 @@
 // Primary Color
+import 'package:unlockway/models/user.dart';
+
 var primary = 0xFFD7FF82;
 var primarylight = 0xFFD1F87F;
 var primarydark = 0xFFABD84D;
@@ -20,7 +22,7 @@ var dark = 0xFF595959;
 var danger = 0xFFC33434;
 var success = 0xFF52CC83;
 
-Object userData = {};
+UserModel userData = UserModel();
 List userRoutines = [];
 List userMeals = [];
 List ingredients = [];

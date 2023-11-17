@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/user.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final nameController = TextEditingController();
-    final lastnameController = TextEditingController();
-    final pesoController = TextEditingController();
-    final alturaController = TextEditingController();
+    UserModel user = userData;
+
+    final nameController = TextEditingController(text: user.firstName);
+    final lastnameController = TextEditingController(text: user.lastName);
+    final pesoController = TextEditingController(text: user.weight.toString());
+    final alturaController =
+        TextEditingController(text: user.height.toString());
     final metaController = TextEditingController();
-    final biotipoController = TextEditingController();
-    final emailController = TextEditingController();
+    final biotipoController = TextEditingController(text: user.biotype);
+    final emailController = TextEditingController(text: user.email);
     final senhaController = TextEditingController();
 
     return Scaffold(
@@ -132,8 +137,8 @@ class UserProfile extends StatelessWidget {
                     ),
                     const SizedBox(height: 16.0),
                     GenericTextField(
-                      title: "Senha",
-                      placeholder: "Insira seu E-mail aqui",
+                      title: "Nova Senha",
+                      placeholder: "Digite nova senha",
                       width: double.infinity,
                       controller: senhaController,
                       number: false,
