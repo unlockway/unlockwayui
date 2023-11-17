@@ -9,6 +9,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
 import 'package:dotted_border/dotted_border.dart';
 
@@ -22,7 +23,7 @@ class NewMeal extends StatefulWidget {
 }
 
 class _NewMealState extends State<NewMeal> {
-  var user = userData as Map;
+  UserModel user = userData;
   String selectedImagePath = '';
   final categoriaController = TextEditingController();
   final nomeController = TextEditingController();
@@ -57,8 +58,8 @@ class _NewMealState extends State<NewMeal> {
               onTap: () {
                 createMealsAPI(
                   context,
-                  user['token'],
-                  user['id'],
+                  user.token!,
+                  user.id!,
                   nomeController.text,
                   category!,
                   descriptionController.text,

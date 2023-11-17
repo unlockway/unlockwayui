@@ -76,9 +76,9 @@ getIngredientsByNameAPI(
     }).toList();
   } catch (e) {
     if (e is http.ClientException) {
-      print("Erro: $e");
+      // Do something
     } else {
-      print("Erro: $e");
+      // Do something
     }
 
     modalBuilderBottomAnimation(
@@ -88,8 +88,4 @@ getIngredientsByNameAPI(
       ),
     );
   }
-  print(ingredients);
-  print(apiUrl);
-
-  return ingredients;
 }

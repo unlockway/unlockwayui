@@ -6,6 +6,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.dart';
 import 'package:unlockway/handlers/routine.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/history/history.dart';
 import 'package:unlockway/screens/home/home.dart';
 import 'package:unlockway/screens/meals/meals.dart';
@@ -19,7 +20,7 @@ class UBottomNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = userData as Map;
+    UserModel user = userData;
 
     Color home = Theme.of(context).colorScheme.outline;
     Color meal = Theme.of(context).colorScheme.outline;
@@ -73,8 +74,8 @@ class UBottomNavigator extends StatelessWidget {
               onPressed: () async {
                 await getMealsAPI(
                   context,
-                  user['id'],
-                  user['token'],
+                  user.id!,
+                  user.token!,
                 );
                 navigatePage(
                   context,
@@ -91,8 +92,8 @@ class UBottomNavigator extends StatelessWidget {
               onPressed: () async {
                 await getRoutinesAPI(
                   context,
-                  user['id'],
-                  user['token'],
+                  user.id!,
+                  user.token!,
                 );
                 navigatePage(
                   context,

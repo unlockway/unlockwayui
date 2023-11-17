@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/profile/profile.dart';
 
 class ProfileSettings extends StatelessWidget {
@@ -8,7 +9,7 @@ class ProfileSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = userData as Map;
+    UserModel user = userData;
 
     return InkWell(
         onTap: () {
@@ -51,7 +52,7 @@ class ProfileSettings extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user['firstname'] + " " + user['lastname'],
+                        "${user.firstName} ${user.lastName}",
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
@@ -60,7 +61,7 @@ class ProfileSettings extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        user['email'],
+                        user.email!,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
