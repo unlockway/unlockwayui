@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/form_progress.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/handlers/register.dart';
-import 'package:unlockway/screens/register/components/app_bar.dart';
+import 'package:unlockway/components/app_bar.dart';
 
 class RegisterSecond extends StatefulWidget {
   const RegisterSecond({

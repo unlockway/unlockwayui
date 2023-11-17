@@ -156,10 +156,12 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: true,
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      keyboardType: number
+          ? const TextInputType.numberWithOptions(decimal: true)
+          : TextInputType.text,
       inputFormatters: [
         FilteringTextInputFormatter.allow(
-          number ? RegExp(r'^\d+\.?\d{0,2}') : RegExp(r'^[a-zA-Z0-9_.-]*$'),
+          number ? RegExp(r'^\d+\.?\d{0,2}') : RegExp(r'[a-zA-Z0-9@._-]'),
         ),
       ],
       controller: controller,

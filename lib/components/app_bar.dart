@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 var registerAppBar = (BuildContext context) {
   return AppBar(
+    surfaceTintColor: Colors.transparent,
     leading: TextButton.icon(
       style: const ButtonStyle(
         overlayColor: MaterialStatePropertyAll(Colors.transparent),

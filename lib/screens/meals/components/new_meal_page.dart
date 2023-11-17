@@ -1,16 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
-import 'package:unlockway/screens/meals/meals.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 class NewMeal extends StatefulWidget {
@@ -73,61 +72,7 @@ class _NewMealState extends State<NewMeal> {
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        flexibleSpace: Container(
-          padding: const EdgeInsets.only(
-            bottom: 16.0,
-            left: 0.0,
-            right: 16.0,
-            top: 16.0,
-          ),
-          color: Colors.transparent,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    TextButton.icon(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          navigationPageLeftAnimation(
-                            const Meals(),
-                          ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 26.0,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      label: Text(
-                        'VOLTAR',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SvgPicture.asset(
-                "assets/svgs/logo_mini.svg",
-                width: 28,
-                height: 28,
-              ),
-            ],
-          ),
-        ),
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
+      appBar: registerAppBar(context),
       body: Container(
         margin: const EdgeInsets.all(15),
         child: SingleChildScrollView(
