@@ -31,28 +31,30 @@ class _FoodCardState extends State<FoodCard> {
   double add = 0;
 
   sumOrSub(String operation) {
-    if (operation == "sum") {
-      if (widget.food.measurement == "AMOUNT") {
-        add = 1;
-        quantNumber = quantNumber + add;
-        amount.text = quantNumber.toString();
-      } else if (widget.food.measurement == "MILILITERS" ||
-          widget.food.measurement == "GRAMS") {
-        add = 100;
-        quantNumber = quantNumber + add;
-        amount.text = quantNumber.toString();
+    if (selected == true) {
+      if (operation == "sum") {
+        if (widget.food.measurement == "AMOUNT") {
+          add = 1;
+          quantNumber = quantNumber + add;
+          amount.text = quantNumber.toString();
+        } else if (widget.food.measurement == "MILILITERS" ||
+            widget.food.measurement == "GRAMS") {
+          add = 100;
+          quantNumber = quantNumber + add;
+          amount.text = quantNumber.toString();
+        }
       }
-    }
-    if (operation == "sub" && quantNumber > 0) {
-      if (widget.food.measurement == "AMOUNT") {
-        add = -1;
-        quantNumber = quantNumber + add;
-        amount.text = quantNumber.toString();
-      } else if (widget.food.measurement == "MILILITERS" ||
-          widget.food.measurement == "GRAMS") {
-        add = -100;
-        quantNumber = quantNumber + add;
-        amount.text = quantNumber.toString();
+      if (operation == "sub" && quantNumber > 0) {
+        if (widget.food.measurement == "AMOUNT") {
+          add = -1;
+          quantNumber = quantNumber + add;
+          amount.text = quantNumber.toString();
+        } else if (widget.food.measurement == "MILILITERS" ||
+            widget.food.measurement == "GRAMS") {
+          add = -100;
+          quantNumber = quantNumber + add;
+          amount.text = quantNumber.toString();
+        }
       }
     }
   }
@@ -149,7 +151,13 @@ class _FoodCardState extends State<FoodCard> {
                         );
                         setState(
                           () {
-                            selected = !selected;
+                            if (selected == true) {
+                              selected = !selected;
+                              quantNumber = 0;
+                              amount.text = quantNumber.toString();
+                            } else {
+                              selected = !selected;
+                            }
                           },
                         );
                       },
