@@ -6,6 +6,10 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const InitialLogin();
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: const InitialLogin(),
+    );
   }
 }

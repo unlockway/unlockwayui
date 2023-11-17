@@ -12,7 +12,6 @@ class LoginPopup extends StatelessWidget {
     final senhaController = TextEditingController();
 
     return Container(
-      height: 320,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -20,7 +19,7 @@ class LoginPopup extends StatelessWidget {
         ),
       ),
       child: Container(
-        margin: const EdgeInsets.only(right: 20, left: 20),
+        margin: const EdgeInsets.only(right: 20, left: 20, bottom: 34),
         child: Form(
           child: Column(
             children: [

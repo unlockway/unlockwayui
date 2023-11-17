@@ -5,7 +5,7 @@ import 'package:unlockway/components/form_progress.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/login/login.dart';
+import 'package:unlockway/screens/register/components/app_bar.dart';
 import 'package:unlockway/screens/register/register_second.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -76,49 +76,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          color: Colors.transparent,
-          margin: const EdgeInsets.only(top: 13),
-          padding: const EdgeInsets.all(22.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    navigationPageLeftAnimation(
-                      const Login(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: 26.0,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                label: Text(
-                  'Voltar'.toUpperCase(),
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-              ),
-              SvgPicture.asset(
-                "assets/svgs/logo_mini.svg",
-                width: 28,
-                height: 28,
-              ),
-            ],
-          ),
-        ),
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        toolbarHeight: 80,
-      ),
+      resizeToAvoidBottomInset: false,
+      appBar: registerAppBar(context),
       body: Stack(
         children: <Widget>[
           Positioned(
@@ -131,175 +90,181 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fit: BoxFit.fill,
                     height: MediaQuery.of(context).size.height),
           ),
-          Form(
-            child: Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const FormProgress(steps: 2, now: 1),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GenericTextField(
-                    placeholder: "Insira seu nome, ex: Marcela",
-                    title: "Nome",
-                    width: double.infinity,
-                    number: false,
-                    controller: nameController,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GenericTextField(
-                    placeholder: "Insira seu sobrenome, ex: Fernandes",
-                    title: "Sobrenome",
-                    width: double.infinity,
-                    number: false,
-                    controller: lastnameController,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
+          Positioned.fill(
+            child: SingleChildScrollView(
+              child: Form(
+                child: Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
-                        child: GenericTextField(
-                          placeholder: "Ex: 88",
-                          title: "Peso",
-                          width: 200,
-                          controller: pesoController,
-                          number: true,
-                        ),
+                      const FormProgress(steps: 2, now: 1),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      GenericTextField(
+                        placeholder: "Insira seu nome, ex: Marcela",
+                        title: "Nome",
+                        width: double.infinity,
+                        number: false,
+                        controller: nameController,
                       ),
                       const SizedBox(
-                        width: 30,
+                        height: 20,
                       ),
-                      Flexible(
-                        child: GenericTextField(
-                          placeholder: "Ex: 1,70",
-                          title: "Altura",
-                          width: 200,
-                          controller: alturaController,
-                          number: true,
+                      GenericTextField(
+                        placeholder: "Insira seu sobrenome, ex: Fernandes",
+                        title: "Sobrenome",
+                        width: double.infinity,
+                        number: false,
+                        controller: lastnameController,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: GenericTextField(
+                              placeholder: "Ex: 88",
+                              title: "Peso",
+                              width: 200,
+                              controller: pesoController,
+                              number: true,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 30,
+                          ),
+                          Flexible(
+                            child: GenericTextField(
+                              placeholder: "Ex: 1,70",
+                              title: "Altura",
+                              width: 200,
+                              controller: alturaController,
+                              number: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Meta",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
+                          fontSize: 16,
+                          fontFamily: "Inter",
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Meta",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.outline,
-                      fontSize: 16,
-                      fontFamily: "Inter",
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  DropDownMultiSelect(
-                    decoration: InputDecoration(
-                      hintStyle: const TextStyle(
-                        color: Color(0xFF616B7C),
-                        fontFamily: "Inter",
-                        fontSize: 16,
+                      const SizedBox(height: 5),
+                      DropDownMultiSelect(
+                        decoration: InputDecoration(
+                          hintStyle: const TextStyle(
+                            color: Color(0xFF616B7C),
+                            fontFamily: "Inter",
+                            fontSize: 16,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.onBackground,
+                              width: 2,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(darkBgdark),
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          enabled: true,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(primarydark),
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.onBackground,
+                          focusColor:
+                              Theme.of(context).colorScheme.onBackground,
+                        ),
+                        enabled: true,
+                        selected_values_style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                        onChanged: (List<String> x) {
+                          setState(() {
+                            goals = x;
+                          });
+                        },
+                        options: const [
+                          'Manter saúde',
+                          'Perder peso',
+                          'Ganhar musculo',
+                        ],
+                        selectedValues: goals,
+                        whenEmpty: 'Diga-nos qual seu objetivo',
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        borderSide: BorderSide(
+                      const SizedBox(height: 20),
+                      Text(
+                        "Biotipo",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
+                          fontSize: 16,
+                          fontFamily: "Inter",
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
                           color: Theme.of(context).colorScheme.onBackground,
-                          width: 2,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 8,
+                        ),
+                        child: DropdownButton<String>(
+                          dropdownColor:
+                              Theme.of(context).colorScheme.onBackground,
+                          hint: const Text("EX: Endomorfo"),
+                          borderRadius: BorderRadius.circular(6),
+                          isExpanded: true,
+                          value: biotypeSelected,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
+                            fontSize: 16,
+                            fontFamily: "Inter",
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              biotypeSelected = newValue!;
+                            });
+                          },
+                          underline: Container(
+                            color: Colors.transparent,
+                          ),
+                          items: <String>[
+                            'Ectomorfo',
+                            'Endomorfo',
+                            'Mesomorfo',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(darkBgdark),
-                        ),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      enabled: true,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(primarydark),
-                        ),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      filled: true,
-                      fillColor: Theme.of(context).colorScheme.onBackground,
-                      focusColor: Theme.of(context).colorScheme.onBackground,
-                    ),
-                    enabled: true,
-                    selected_values_style: TextStyle(
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-                    onChanged: (List<String> x) {
-                      setState(() {
-                        goals = x;
-                      });
-                    },
-                    options: const [
-                      'Manter saúde',
-                      'Perder peso',
-                      'Ganhar musculo',
                     ],
-                    selectedValues: goals,
-                    whenEmpty: 'Diga-nos qual seu objetivo',
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    "Biotipo",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.outline,
-                      fontSize: 16,
-                      fontFamily: "Inter",
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Theme.of(context).colorScheme.onBackground,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 4,
-                      horizontal: 8,
-                    ),
-                    child: DropdownButton<String>(
-                      dropdownColor: Theme.of(context).colorScheme.onBackground,
-                      hint: const Text("EX: Endomorfo"),
-                      borderRadius: BorderRadius.circular(6),
-                      isExpanded: true,
-                      value: biotypeSelected,
-                      icon: const Icon(Icons.arrow_drop_down),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.outline,
-                        fontSize: 16,
-                        fontFamily: "Inter",
-                      ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          biotypeSelected = newValue!;
-                        });
-                      },
-                      underline: Container(
-                        color: Colors.transparent,
-                      ),
-                      items: <String>[
-                        'Ectomorfo',
-                        'Endomorfo',
-                        'Mesomorfo',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
@@ -352,13 +317,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           fontFamily: "Poppins",
-                          color: Theme.of(context).colorScheme.outline,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
-                      const Icon(Icons.arrow_forward_outlined),
+                      Icon(
+                        Icons.arrow_forward_outlined,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ],
                   ),
                 ),

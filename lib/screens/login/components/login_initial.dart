@@ -22,9 +22,22 @@ class _InitialLoginState extends State<InitialLogin> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          body: Center(
+        Positioned(
+          top: 0,
+          left: 0,
+          child: Theme.of(context).colorScheme.outline == Colors.white
+              ? Image.asset("assets/imgs/top_left_vector.png")
+              : Image.asset("assets/imgs/top_left_vector_light.png"),
+        ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Theme.of(context).colorScheme.outline == Colors.white
+              ? Image.asset("assets/imgs/bottom_right_vector.png")
+              : Image.asset("assets/imgs/bottom_right_vector_light.png"),
+        ),
+        Positioned.fill(
+          child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -103,19 +116,6 @@ class _InitialLoginState extends State<InitialLogin> {
               ],
             ),
           ),
-        ),
-        Positioned(
-          top: 0,
-          child: Theme.of(context).colorScheme.outline == Colors.white
-              ? Image.asset("assets/imgs/top_left_vector.png")
-              : Image.asset("assets/imgs/top_left_vector_light.png"),
-        ),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: Theme.of(context).colorScheme.outline == Colors.white
-              ? Image.asset("assets/imgs/bottom_right_vector.png")
-              : Image.asset("assets/imgs/bottom_right_vector_light.png"),
         ),
       ],
     );
