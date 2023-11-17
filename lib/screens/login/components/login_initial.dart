@@ -70,15 +70,7 @@ class _InitialLoginState extends State<InitialLogin> {
                   onTap: () {
                     Navigator.of(context).push(
                       navigationPageRightAnimation(
-                        const RegisterScreen(
-                          name: '',
-                          lastname: '',
-                          peso: 0.0,
-                          altura: 0.0,
-                          meta: [],
-                          email: '',
-                          biotype: '',
-                        ),
+                        const RegisterScreen(),
                       ),
                     );
                   },

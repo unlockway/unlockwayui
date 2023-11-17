@@ -42,6 +42,12 @@ class _UserProfileState extends State<UserProfile> {
   late String biotypeSelected;
 
   @override
+  void initState() {
+    super.initState();
+    biotypeSelected = widget.biotype;
+  }
+
+  @override
   Widget build(BuildContext context) {
     nameController.text = widget.firstname;
     lastnameController.text = widget.lastname;
@@ -49,7 +55,6 @@ class _UserProfileState extends State<UserProfile> {
     alturaController.text = widget.height.toString();
     pesoController.text = widget.weight.toString();
     goals = widget.goals;
-    biotypeSelected = widget.biotype;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -255,18 +260,7 @@ class _UserProfileState extends State<UserProfile> {
                               value: 'MESOMORPH',
                               child: Text('Mesomorfo'),
                             ),
-                          ]
-                          // items: <String>[
-                          //   'Ectomorfo',
-                          //   'Endomorfo',
-                          //   'Mesomorfo',
-                          // ].map<DropdownMenuItem<String>>((String value) {
-                          //   return DropdownMenuItem<String>(
-                          //     value: value,
-                          //     child: Text(value),
-                          //   );
-                          // }).toList(),
-                          ),
+                          ]),
                     ),
                     const SizedBox(height: 24.0),
                     GenericTextField(
