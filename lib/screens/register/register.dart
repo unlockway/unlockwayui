@@ -203,7 +203,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         options: const [
                           'Manter saúde',
                           'Perder peso',
-                          'Ganhar musculo',
+                          'Ganhar músculo',
                         ],
                         selectedValues: goals,
                         whenEmpty: 'Diga-nos qual seu objetivo',

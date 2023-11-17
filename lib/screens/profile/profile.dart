@@ -1,25 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:multiselect/multiselect.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/models/user.dart';
 
-class UserProfile extends StatelessWidget {
-  const UserProfile({super.key});
+class UserProfile extends StatefulWidget {
+  const UserProfile({
+    super.key,
+    required this.firstname,
+    required this.lastname,
+    required this.weight,
+    required this.height,
+    required this.goals,
+    required this.email,
+    required this.biotype,
+    required this.password,
+  });
+
+  final String firstname;
+  final String lastname;
+  final double weight;
+  final double height;
+  final List<String> goals;
+  final String email;
+  final String biotype;
+  final String password;
+
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
+  final nameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final pesoController = TextEditingController();
+  final alturaController = TextEditingController();
+  final emailController = TextEditingController();
+  final senhaController = TextEditingController();
+
+  List<String> goals = [];
+  late String biotypeSelected;
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = userData;
-
-    final nameController = TextEditingController(text: user.firstName);
-    final lastnameController = TextEditingController(text: user.lastName);
-    final pesoController = TextEditingController(text: user.weight.toString());
-    final alturaController =
-        TextEditingController(text: user.height.toString());
-    final metaController = TextEditingController();
-    final biotipoController = TextEditingController(text: user.biotype);
-    final emailController = TextEditingController(text: user.email);
-    final senhaController = TextEditingController();
+    nameController.text = widget.firstname;
+    lastnameController.text = widget.lastname;
+    emailController.text = widget.email;
+    alturaController.text = widget.height.toString();
+    pesoController.text = widget.weight.toString();
+    goals = widget.goals;
+    biotypeSelected = widget.biotype;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -71,6 +101,7 @@ class UserProfile extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 32.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     GenericTextField(
                       title: "Nome",
@@ -111,23 +142,133 @@ class UserProfile extends StatelessWidget {
                         )
                       ],
                     ),
-                    const SizedBox(height: 16.0),
-                    GenericTextField(
-                      title: "Meta",
-                      placeholder: "Deve ser um multiselect",
-                      width: double.infinity,
-                      controller: metaController,
-                      number: false,
+                    const SizedBox(height: 12.0),
+                    Text(
+                      "Meta",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.outline,
+                        fontSize: 16,
+                        fontFamily: "Inter",
+                      ),
                     ),
-                    const SizedBox(height: 16.0),
-                    GenericTextField(
-                      title: "Biotipo",
-                      placeholder: "Deve ser um multiselect",
-                      width: double.infinity,
-                      controller: biotipoController,
-                      number: false,
+                    const SizedBox(height: 5),
+                    DropDownMultiSelect(
+                      decoration: InputDecoration(
+                        hintStyle: const TextStyle(
+                          color: Color(0xFF616B7C),
+                          fontFamily: "Inter",
+                          fontSize: 16,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.onBackground,
+                            width: 2,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(darkBgdark),
+                          ),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        enabled: true,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(primarydark),
+                          ),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.onBackground,
+                        focusColor: Theme.of(context).colorScheme.onBackground,
+                      ),
+                      enabled: true,
+                      selected_values_style: TextStyle(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      onChanged: (List<String> x) {
+                        setState(() {
+                          goals = x;
+                        });
+                      },
+                      options: const [
+                        'Manter saúde',
+                        'Perder peso',
+                        'Ganhar músculo',
+                      ],
+                      selectedValues: goals,
+                      whenEmpty: 'Diga-nos qual seu objetivo',
                     ),
-                    const SizedBox(height: 16.0),
+                    const SizedBox(height: 12.0),
+                    Text(
+                      "Biotipo",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.outline,
+                        fontSize: 16,
+                        fontFamily: "Inter",
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 8,
+                      ),
+                      child: DropdownButton<String>(
+                          dropdownColor:
+                              Theme.of(context).colorScheme.onBackground,
+                          hint: const Text("EX: Endomorfo"),
+                          borderRadius: BorderRadius.circular(6),
+                          isExpanded: true,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
+                            fontSize: 16,
+                            fontFamily: "Inter",
+                          ),
+                          value: biotypeSelected,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              biotypeSelected = newValue!;
+                            });
+                          },
+                          underline: Container(
+                            color: Colors.transparent,
+                          ),
+                          items: const [
+                            DropdownMenuItem(
+                              value: 'ECTOMORPH',
+                              child: Text('Ectomorfo'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'ENDOMORPH',
+                              child: Text('Endomorfo'),
+                            ),
+                            DropdownMenuItem(
+                              value: 'MESOMORPH',
+                              child: Text('Mesomorfo'),
+                            ),
+                          ]
+                          // items: <String>[
+                          //   'Ectomorfo',
+                          //   'Endomorfo',
+                          //   'Mesomorfo',
+                          // ].map<DropdownMenuItem<String>>((String value) {
+                          //   return DropdownMenuItem<String>(
+                          //     value: value,
+                          //     child: Text(value),
+                          //   );
+                          // }).toList(),
+                          ),
+                    ),
+                    const SizedBox(height: 24.0),
                     GenericTextField(
                       title: "E-mail",
                       placeholder: "Insira seu E-mail aqui",
@@ -152,6 +293,7 @@ class UserProfile extends StatelessWidget {
                         fontSize: 14.0,
                         color: Theme.of(context).colorScheme.outline,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
