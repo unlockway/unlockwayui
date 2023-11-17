@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/days_list.dart';
-import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/screens/history/components/meal_history_card.dart';
-import 'package:unlockway/screens/history/history.dart';
 
 class HistoryDetails extends StatelessWidget {
   const HistoryDetails({
@@ -25,63 +24,7 @@ class HistoryDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        flexibleSpace: SafeArea(
-          child: Container(
-            padding: const EdgeInsets.only(
-              bottom: 16.0,
-              left: 0.0,
-              right: 16.0,
-              top: 16.0,
-            ),
-            color: Colors.transparent,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextButton.icon(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            navigationPageLeftAnimation(
-                              const History(),
-                            ),
-                          );
-                        },
-                        icon: Icon(
-                          Icons.arrow_back,
-                          size: 26.0,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        label: Text(
-                          'VOLTAR',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SvgPicture.asset(
-                  "assets/svgs/logo_mini.svg",
-                  width: 28,
-                  height: 28,
-                ),
-              ],
-            ),
-          ),
-        ),
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
+      appBar: registerAppBar(context),
       body: Container(
         margin: const EdgeInsets.all(10),
         child: Column(

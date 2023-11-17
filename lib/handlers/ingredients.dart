@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/ingredients.dart';
 
 Future<void> getIngredientsAPI(
   BuildContext context,
@@ -38,13 +39,13 @@ Future<void> getIngredientsAPI(
   // Handle other errors
 }
 
-Future<void> getIngredientsByNameAPI(
+getIngredientsByNameAPI(
   BuildContext context,
   String sessionToken,
   String name,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/ingredients';
+      'https://unlockway.azurewebsites.net/api/v1/ingredients/findByName';
 
   try {
     final response = await http.get(
@@ -58,11 +59,26 @@ Future<void> getIngredientsByNameAPI(
     );
 
     ingredients = json.decode(utf8.decode(response.bodyBytes));
+    ingredients.map((entry) {
+      return FoodModel(
+        entry["id"],
+        entry["photo"],
+        entry["name"],
+        entry["measure"],
+        entry["description"],
+        entry["calories"],
+        entry["proteins"],
+        entry["water"],
+        entry["minerals"],
+        entry["vitamins"],
+        entry["fats"],
+      );
+    }).toList();
   } catch (e) {
     if (e is http.ClientException) {
-      // Handle network-related errors
+      print("Erro: $e");
     } else {
-      // Handle other errors
+      print("Erro: $e");
     }
 
     modalBuilderBottomAnimation(
@@ -72,5 +88,6 @@ Future<void> getIngredientsByNameAPI(
       ),
     );
   }
-  // Handle other errors
+  print(ingredients);
+  print(apiUrl);
 }

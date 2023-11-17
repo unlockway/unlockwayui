@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
@@ -23,7 +23,12 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
 
     return Scaffold(
       bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(
+          bottom: 16,
+          left: 16,
+          right: 16,
+          top: 6,
+        ),
         child: Row(
           children: [
             ButtonFilled(
@@ -36,57 +41,7 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        flexibleSpace: Container(
-          padding: const EdgeInsets.only(
-            bottom: 16.0,
-            left: 0.0,
-            right: 16.0,
-            top: 16.0,
-          ),
-          color: Colors.transparent,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    TextButton.icon(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 26.0,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      label: Text(
-                        'VOLTAR',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SvgPicture.asset(
-                "assets/svgs/logo_mini.svg",
-                width: 28,
-                height: 28,
-              ),
-            ],
-          ),
-        ),
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
+      appBar: registerAppBar(context),
       body: Container(
         margin: const EdgeInsets.all(15),
         child: LayoutBuilder(
@@ -137,13 +92,13 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                 SliverToBoxAdapter(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      maxHeight: constraints.maxHeight - 130,
+                      maxHeight: constraints.maxHeight - 140,
                     ),
                     child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 1,
-                        childAspectRatio: 3,
+                        childAspectRatio: 2.3,
                       ),
                       shrinkWrap: true,
                       itemCount: ingredientsRegistered.length,

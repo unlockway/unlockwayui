@@ -78,9 +78,9 @@ class _FoodCardState extends State<FoodCard> {
   @override
   Widget build(BuildContext context) {
     if (widget.measurement == "AMOUNT") {
-      measureText = "Quantidade";
+      measureText = "Quant";
     } else if (widget.measurement == "MILILITERS") {
-      measureText = "Mililitros";
+      measureText = "MLs";
     } else if (widget.measurement == "GRAMS") {
       measureText = "Gramas";
     }
@@ -147,7 +147,7 @@ class _FoodCardState extends State<FoodCard> {
                         widget.name,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
-                          fontSize: 22,
+                          fontSize: 19,
                           fontFamily: "Inter",
                           fontWeight: FontWeight.bold,
                         ),
@@ -204,7 +204,7 @@ class _FoodCardState extends State<FoodCard> {
                       ),
                     ),
                     SizedBox(
-                      width: 150,
+                      width: 122,
                       child: Row(
                         children: [
                           Container(
@@ -222,7 +222,7 @@ class _FoodCardState extends State<FoodCard> {
                             ),
                           ),
                           const SizedBox(
-                            width: 3,
+                            width: 1,
                           ),
                           Expanded(
                             child: TextFormField(
@@ -265,7 +265,7 @@ class _FoodCardState extends State<FoodCard> {
                             ),
                           ),
                           const SizedBox(
-                            width: 3,
+                            width: 1,
                           ),
                           Container(
                             padding: const EdgeInsets.all(3),
