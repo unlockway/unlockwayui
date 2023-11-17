@@ -38,13 +38,13 @@ Future<void> getIngredientsAPI(
   // Handle other errors
 }
 
-Future<void> getIngredientsByNameAPI(
+getIngredientsByNameAPI(
   BuildContext context,
   String sessionToken,
   String name,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/ingredients';
+      'https://unlockway.azurewebsites.net/api/v1/ingredients/findByName';
 
   try {
     final response = await http.get(
@@ -60,9 +60,9 @@ Future<void> getIngredientsByNameAPI(
     ingredients = json.decode(utf8.decode(response.bodyBytes));
   } catch (e) {
     if (e is http.ClientException) {
-      // Handle network-related errors
+      print("Erro: $e");
     } else {
-      // Handle other errors
+      print("Erro: $e");
     }
 
     modalBuilderBottomAnimation(
@@ -72,5 +72,6 @@ Future<void> getIngredientsByNameAPI(
       ),
     );
   }
-  // Handle other errors
+  print(ingredients);
+  print(apiUrl);
 }

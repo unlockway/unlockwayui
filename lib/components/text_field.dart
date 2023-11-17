@@ -1,4 +1,4 @@
-import 'package:easy_debounce/easy_debounce.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:unlockway/constants.dart';
@@ -85,16 +85,16 @@ class SearchTextField extends StatefulWidget {
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
+  Timer? _debounce;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: (value) async {
-        EasyDebounce.debounce(
-          'my-debouncer',
-          const Duration(milliseconds: 500),
-          () => widget.method,
-        );
-        setState(() {});
+      onChanged: (value) {
+        _debounce?.cancel();
+        _debounce = Timer(const Duration(milliseconds: 500), () {
+          widget.method;
+        });
       },
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       inputFormatters: [
