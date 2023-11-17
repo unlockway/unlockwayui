@@ -95,8 +95,12 @@ class _SearchTextFieldState extends State<SearchTextField> {
         _debounce = Timer(const Duration(milliseconds: 500), () {
           widget.method;
         });
+
+        setState(() {});
       },
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      keyboardType: widget.number
+          ? const TextInputType.numberWithOptions(decimal: true)
+          : TextInputType.text,
       inputFormatters: [
         FilteringTextInputFormatter.allow(
           widget.number

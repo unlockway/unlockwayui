@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/ingredients.dart';
 
 Future<void> getIngredientsAPI(
   BuildContext context,
@@ -58,6 +59,21 @@ getIngredientsByNameAPI(
     );
 
     ingredients = json.decode(utf8.decode(response.bodyBytes));
+    ingredients.map((entry) {
+      return FoodModel(
+        entry["id"],
+        entry["photo"],
+        entry["name"],
+        entry["measure"],
+        entry["description"],
+        entry["calories"],
+        entry["proteins"],
+        entry["water"],
+        entry["minerals"],
+        entry["vitamins"],
+        entry["fats"],
+      );
+    }).toList();
   } catch (e) {
     if (e is http.ClientException) {
       print("Erro: $e");

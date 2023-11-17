@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
@@ -23,7 +22,12 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
 
     return Scaffold(
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(
+          bottom: 16,
+          left: 16,
+          right: 16,
+          top: 6,
+        ),
         child: Row(
           children: [
             ButtonFilled(
@@ -87,7 +91,7 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                 SliverToBoxAdapter(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      maxHeight: constraints.maxHeight - 130,
+                      maxHeight: constraints.maxHeight - 140,
                     ),
                     child: GridView.builder(
                       gridDelegate:
