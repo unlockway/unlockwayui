@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multiselect/multiselect.dart';
+import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/form_progress.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/register/components/app_bar.dart';
 import 'package:unlockway/screens/register/register_second.dart';
 
 class RegisterScreen extends StatefulWidget {
