@@ -25,3 +25,13 @@ class FoodModel {
   final String vitamins;
   final double fats;
 }
+
+class SelectedFood {
+  const SelectedFood(
+    this.id,
+    this.amount,
+  );
+
+  final String id;
+  final double amount;
+}

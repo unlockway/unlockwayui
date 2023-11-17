@@ -35,7 +35,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.6
-  percent_indicator: ^4.2.3
   phosphor_flutter: ^2.0.0
   flutter_launcher_icons: ^0.13.1
   provider: ^6.0.5

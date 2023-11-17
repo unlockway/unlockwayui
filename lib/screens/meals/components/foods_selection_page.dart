@@ -5,6 +5,7 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/ingredients.dart';
 import 'package:unlockway/handlers/ingredients.dart';
+import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/food_card.dart';
 
@@ -16,11 +17,34 @@ class FoodSelectionPage extends StatefulWidget {
 }
 
 class _FoodSelectionPageState extends State<FoodSelectionPage> {
+  final List<SelectedFood> selectedFoods = [];
+  UserModel user = userData;
+  final searchController = TextEditingController();
+
+  bool checkIfExists(List<FoodModel> objectList, String id) {
+    return objectList.any((obj) => obj.idFood == id);
+  }
+
+  bool checkIfExistsSelectedFood(List<SelectedFood> objectList, String id) {
+    return objectList.any((obj) => obj.id == id);
+  }
+
+  selectIngredient(FoodModel food, double amount) {
+    SelectedFood selectedFood = SelectedFood(
+      food.idFood,
+      amount,
+    );
+    if (selectedFoods.contains(selectedFood)) {
+      selectedFoods.remove(selectedFood);
+      print(selectedFoods);
+    } else {
+      selectedFoods.add(selectedFood);
+      print(selectedFoods);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    UserModel user = userData;
-    final searchController = TextEditingController();
-
     return Scaffold(
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(
@@ -104,19 +128,17 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                       itemCount: ingredientsRegistered.length,
                       itemBuilder: (context, index) {
                         var currentIngredient = ingredientsRegistered[index];
+                        checkIfExists(
+                            ingredientsRegistered, currentIngredient.idFood);
                         return FoodCard(
-                          idFood: currentIngredient.idFood,
-                          imgURL: currentIngredient.imgURL,
-                          name: currentIngredient.name,
-                          measurement: currentIngredient.measurement,
-                          description: currentIngredient.description,
-                          calories: currentIngredient.calories,
-                          proteins: currentIngredient.proteins,
-                          water: currentIngredient.water,
-                          minerals: currentIngredient.minerals,
-                          vitamins: currentIngredient.vitamins,
-                          fats: currentIngredient.fats,
-                          selected: index == 1 ? false : true,
+                          food: currentIngredient,
+                          selected: checkIfExistsSelectedFood(
+                            selectedFoods,
+                            currentIngredient.idFood,
+                          ),
+                          selectIngredient: (food, amount) {
+                            selectIngredient(food, amount);
+                          },
                         );
                       },
                     ),

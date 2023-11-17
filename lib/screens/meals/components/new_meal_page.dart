@@ -23,6 +23,7 @@ class NewMeal extends StatefulWidget {
 }
 
 class _NewMealState extends State<NewMeal> {
+  final List<String> selectedFoods = [];
   UserModel user = userData;
   String selectedImagePath = '';
   final categoriaController = TextEditingController();
