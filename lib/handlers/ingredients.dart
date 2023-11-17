@@ -90,4 +90,6 @@ getIngredientsByNameAPI(
   }
   print(ingredients);
   print(apiUrl);
+
+  return ingredients;
 }
