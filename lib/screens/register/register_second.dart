@@ -44,56 +44,56 @@ class _RegisterSecondState extends State<RegisterSecond> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        flexibleSpace: Container(
-          color: Colors.transparent,
-          margin: const EdgeInsets.only(top: 13),
-          padding: const EdgeInsets.all(22.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    navigationPageLeftAnimation(
-                      RegisterScreen(
-                        altura: widget.altura,
-                        biotype: widget.biotype,
-                        email: emailController.text,
-                        lastname: widget.lastname,
-                        meta: widget.meta,
-                        name: widget.name,
-                        peso: widget.peso,
-                      ),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  size: 26.0,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                label: Text(
-                  'Voltar'.toUpperCase(),
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                  ),
+        leading: TextButton.icon(
+          style: const ButtonStyle(
+            overlayColor: MaterialStatePropertyAll(Colors.transparent),
+          ),
+          onPressed: () {
+            Navigator.of(context).push(
+              navigationPageLeftAnimation(
+                RegisterScreen(
+                  altura: widget.altura,
+                  biotype: widget.biotype,
+                  email: emailController.text,
+                  lastname: widget.lastname,
+                  meta: widget.meta,
+                  name: widget.name,
+                  peso: widget.peso,
                 ),
               ),
-              SvgPicture.asset(
-                "assets/svgs/logo_mini.svg",
-                width: 28,
-                height: 28,
-              ),
-            ],
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            size: 26.0,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          label: Text(
+            'Voltar'.toUpperCase(),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontSize: 18,
+              fontWeight: FontWeight.w300,
+            ),
           ),
         ),
-        automaticallyImplyLeading: false,
+        leadingWidth: 140,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SvgPicture.asset(
+              "assets/svgs/logo_mini.svg",
+              width: 28,
+              height: 28,
+            ),
+          ),
+        ],
+        automaticallyImplyLeading: true,
         elevation: 0,
+        titleSpacing: 0.0,
         backgroundColor: Theme.of(context).colorScheme.background,
-        toolbarHeight: 80,
       ),
       body: Stack(
         children: <Widget>[
@@ -107,49 +107,48 @@ class _RegisterSecondState extends State<RegisterSecond> {
                     fit: BoxFit.fill,
                     height: MediaQuery.of(context).size.height),
           ),
-          Form(
-            child: Container(
-              margin: const EdgeInsets.only(
-                left: 20,
-                right: 20,
-              ),
-              child: Column(
-                children: [
-                  const FormProgress(
-                    steps: 2,
-                    now: 2,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GenericTextField(
-                    placeholder: "Insira seu melhor e-mail",
-                    title: "E-mail",
-                    width: double.infinity,
-                    controller: emailController,
-                    number: false,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  PasswordTextField(
-                    placeholder: "*******",
-                    title: "Senha",
-                    width: double.infinity,
-                    controller: senhaController,
-                    number: false,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  PasswordTextField(
-                    placeholder: "*******",
-                    title: "Confirmar senha",
-                    width: double.infinity,
-                    controller: senhaRepeatController,
-                    number: false,
-                  ),
-                ],
+          Positioned.fill(
+            child: Form(
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const FormProgress(
+                      steps: 2,
+                      now: 2,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GenericTextField(
+                      placeholder: "Insira seu melhor e-mail",
+                      title: "E-mail",
+                      width: double.infinity,
+                      controller: emailController,
+                      number: false,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    PasswordTextField(
+                      placeholder: "*******",
+                      title: "Senha",
+                      width: double.infinity,
+                      controller: senhaController,
+                      number: false,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    PasswordTextField(
+                      placeholder: "*******",
+                      title: "Confirmar senha",
+                      width: double.infinity,
+                      controller: senhaRepeatController,
+                      number: false,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
