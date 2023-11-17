@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/themes/theme_manager.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -12,6 +12,10 @@ void main() {
       statusBarColor: Colors.transparent,
     ),
   );
+
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   runApp(
     ChangeNotifierProvider(

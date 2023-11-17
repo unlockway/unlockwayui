@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/goals.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/profile/profile.dart';
 
@@ -15,7 +16,16 @@ class ProfileSettings extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             navigationPageRightAnimation(
-              const UserProfile(),
+              UserProfile(
+                email: user.email!,
+                biotype: user.biotype!,
+                goals: setGoals(user.goals!),
+                firstname: user.firstName!,
+                lastname: user.lastName!,
+                height: user.height!,
+                weight: user.weight!,
+                password: "",
+              ),
             ),
           );
         },
@@ -78,4 +88,20 @@ class ProfileSettings extends StatelessWidget {
           ),
         ));
   }
+}
+
+List<String> setGoals(Goals goals) {
+  List<String> goalsArr = [];
+
+  if (goals.gainMuscularMass) goalsArr.add("Ganhar músculo");
+  if (goals.loseWeight) goalsArr.add("Perder peso");
+  if (goals.maintainHealth) goalsArr.add("Manter saúde");
+
+  return goalsArr;
+}
+
+String setBiotype(String bioType) {
+  if (bioType == "ECTOMORPH") return "Ectomorfo";
+  if (bioType == "MESOMORPH") return "Mesomorfo";
+  return "Endomorfo";
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-var registerAppBar = (BuildContext context) {
+var registerAppBar = (BuildContext context, [VoidCallback? goBack]) {
   return AppBar(
     surfaceTintColor: Colors.transparent,
     leading: TextButton.icon(
@@ -9,7 +9,11 @@ var registerAppBar = (BuildContext context) {
         overlayColor: MaterialStatePropertyAll(Colors.transparent),
       ),
       onPressed: () {
-        Navigator.pop(context);
+        if (goBack != null) {
+          goBack();
+        } else {
+          Navigator.pop(context);
+        }
       },
       icon: Icon(
         Icons.arrow_back,
