@@ -158,7 +158,7 @@ class _RoutineState extends State<Routine> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(
-                    PhosphorIcons.regular.timer,
+                    PhosphorIcons.timer(PhosphorIconsStyle.regular),
                     size: 150,
                     color: Theme.of(context).colorScheme.outline,
                   ),

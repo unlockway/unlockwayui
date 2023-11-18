@@ -65,7 +65,7 @@ class UBottomNavigator extends StatelessWidget {
                 );
               },
               icon: Icon(
-                PhosphorIcons.regular.house,
+                PhosphorIcons.house(PhosphorIconsStyle.regular),
                 size: 28,
                 color: home,
               ),
@@ -83,7 +83,7 @@ class UBottomNavigator extends StatelessWidget {
                 );
               },
               icon: Icon(
-                PhosphorIcons.regular.bowlFood,
+                PhosphorIcons.bowlFood(PhosphorIconsStyle.regular),
                 size: 28,
                 color: meal,
               ),
@@ -101,7 +101,7 @@ class UBottomNavigator extends StatelessWidget {
                 );
               },
               icon: Icon(
-                PhosphorIcons.regular.timer,
+                PhosphorIcons.timer(PhosphorIconsStyle.regular),
                 size: 28,
                 color: routine,
               ),
@@ -114,7 +114,7 @@ class UBottomNavigator extends StatelessWidget {
                 );
               },
               icon: Icon(
-                PhosphorIcons.regular.scroll,
+                PhosphorIcons.scroll(PhosphorIconsStyle.regular),
                 size: 28,
                 color: history,
               ),
@@ -127,7 +127,7 @@ class UBottomNavigator extends StatelessWidget {
                 );
               },
               icon: Icon(
-                PhosphorIcons.regular.gearSix,
+                PhosphorIcons.gearSix(PhosphorIconsStyle.regular),
                 size: 28,
                 color: settings,
               ),

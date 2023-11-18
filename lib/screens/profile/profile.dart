@@ -65,7 +65,7 @@ class _UserProfileState extends State<UserProfile> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(PhosphorIcons.regular.caretLeft),
+          icon: Icon(PhosphorIcons.caretLeft(PhosphorIconsStyle.regular)),
         ),
         iconTheme: IconThemeData(
             color: Theme.of(context).colorScheme.outline, size: 32.0),

@@ -75,7 +75,7 @@ class _SettingsState extends State<Settings> {
                 child: Column(
                   children: [
                     SettingsOption(
-                      icon: PhosphorIcons.regular.key,
+                      icon: PhosphorIcons.key(PhosphorIconsStyle.regular),
                       label: "Privacidade",
                       onTap: () {},
                       borderRadius: const BorderRadius.only(
@@ -97,7 +97,7 @@ class _SettingsState extends State<Settings> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Icon(PhosphorIcons.regular.bell,
+                            Icon(PhosphorIcons.bell(PhosphorIconsStyle.regular),
                                 color: Theme.of(context).colorScheme.outline),
                             const SizedBox(width: 16.0),
                             FittedBox(
@@ -135,14 +135,14 @@ class _SettingsState extends State<Settings> {
                       ),
                     ),
                     SettingsOption(
-                      icon: PhosphorIcons.regular.sun,
+                      icon: PhosphorIcons.sun(PhosphorIconsStyle.regular),
                       label: "Tema",
                       onTap: () {
                         themeModal(context);
                       },
                     ),
                     SettingsOption(
-                      icon: PhosphorIcons.regular.signOut,
+                      icon: PhosphorIcons.signOut(PhosphorIconsStyle.regular),
                       label: "Desconectar",
                       onTap: () {
                         Navigator.of(context).push(

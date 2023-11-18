@@ -180,7 +180,7 @@ class _FoodCardState extends State<FoodCard> {
                                 color: Theme.of(context).colorScheme.primary,
                               ),
                               child: Icon(
-                                PhosphorIcons.regular.check,
+                                PhosphorIcons.check(PhosphorIconsStyle.regular),
                                 size: 24.0,
                                 color: Color(darkBg),
                               ),
@@ -234,7 +234,7 @@ class _FoodCardState extends State<FoodCard> {
                                     Theme.of(context).colorScheme.onBackground,
                               ),
                               child: Icon(
-                                PhosphorIcons.regular.minus,
+                                PhosphorIcons.minus(PhosphorIconsStyle.regular),
                                 size: 24.0,
                                 color: Theme.of(context).colorScheme.outline,
                               ),
@@ -304,7 +304,7 @@ class _FoodCardState extends State<FoodCard> {
                                     Theme.of(context).colorScheme.onBackground,
                               ),
                               child: Icon(
-                                PhosphorIcons.regular.plus,
+                                PhosphorIcons.plus(PhosphorIconsStyle.regular),
                                 size: 24.0,
                                 color: Theme.of(context).colorScheme.outline,
                               ),

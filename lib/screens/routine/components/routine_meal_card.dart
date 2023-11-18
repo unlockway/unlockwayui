@@ -96,7 +96,7 @@ class RoutineMealCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       PhosphorIcon(
-                        PhosphorIcons.regular.bowlFood,
+                        PhosphorIcons.bowlFood(PhosphorIconsStyle.regular),
                         color: Color(success),
                         size: 26,
                       ),

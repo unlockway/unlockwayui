@@ -39,7 +39,7 @@ class CreateButtons extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.all(8),
                     child: Icon(
-                      PhosphorIcons.regular.bowlFood,
+                      PhosphorIcons.bowlFood(PhosphorIconsStyle.regular),
                       size: 28,
                       color: const Color(0xFF537706),
                     ),
@@ -103,7 +103,7 @@ class CreateButtons extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.all(8),
                     child: Icon(
-                      PhosphorIcons.regular.timer,
+                      PhosphorIcons.timer(PhosphorIconsStyle.regular),
                       size: 28,
                       color: const Color(0xFF997800),
                     ),

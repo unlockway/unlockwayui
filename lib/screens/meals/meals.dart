@@ -175,7 +175,7 @@ class _MealsState extends State<Meals> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(
-                    PhosphorIcons.regular.bowlFood,
+                    PhosphorIcons.bowlFood(PhosphorIconsStyle.regular),
                     size: 150,
                     color: Theme.of(context).colorScheme.outline,
                   ),
