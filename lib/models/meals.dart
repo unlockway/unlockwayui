@@ -14,12 +14,12 @@ class MealsModel {
 
   final String idMeal;
   final String name;
-  final String img;
+  final String? img;
   final String description;
-  final List<String> category;
+  final String category;
   final String preparationMethod;
-  final List<Object> ingredients;
+  final List ingredients;
   final double totalCalories;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String createdAt;
+  final String updatedAt;
 }

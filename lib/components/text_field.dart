@@ -27,7 +27,9 @@ class GenericTextField extends StatelessWidget {
           : TextInputType.text,
       inputFormatters: [
         FilteringTextInputFormatter.allow(
-          number ? RegExp(r'^\d+\.?\d{0,2}') : RegExp(r'^[^.-]*$'),
+          number
+              ? RegExp(r'^\d+\.?\d{0,2}')
+              : RegExp(r'^[ A-Za-z0-9_@./#&+-]*$'),
         ),
       ],
       controller: controller,
@@ -78,7 +80,7 @@ class SearchTextField extends StatefulWidget {
   final double width;
   final TextEditingController controller;
   final bool number;
-  final Future Function() method;
+  final Function method;
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();

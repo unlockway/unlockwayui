@@ -159,14 +159,17 @@ class _MealsState extends State<Meals> {
                             shrinkWrap: true,
                             itemCount: meals.length,
                             itemBuilder: (context, index) {
-                              for (var index in meals) {
-                                return UCard(
-                                  description: index.description,
-                                  title: index.name,
-                                  imageUrl: index.img,
-                                );
-                              }
-                              return null;
+                              var actualMeal = meals[index];
+
+                              return UCard(
+                                description: actualMeal.description,
+                                title: actualMeal.name,
+                                imageURL: actualMeal.img,
+                                category: actualMeal.category,
+                                idMeal: actualMeal.idMeal,
+                                ingredients: actualMeal.ingredients,
+                                preparationMethod: actualMeal.preparationMethod,
+                              );
                             },
                           ),
                         ),

@@ -9,7 +9,9 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:http/http.dart' as http;
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/models/ingredients.dart';
+import 'package:unlockway/models/meals.dart';
 
 Future<void> getMealsAPI(
   BuildContext context,
@@ -17,29 +19,36 @@ Future<void> getMealsAPI(
   String sessionToken,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/meals/findByUserId'; // Substitua pelo seu endpoint da API
+      'https://unlockway.azurewebsites.net/api/v1/meals/findByUserId';
 
-  try {
-    var bodyApi = json.encode(userID);
+  final response = await http.get(
+    Uri.parse(apiUrl).replace(queryParameters: {
+      'id': userID,
+    }),
+    headers: {
+      'Authorization': 'Bearer $sessionToken',
+    },
+  );
 
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {
-        'Authorization': 'Bearer $sessionToken',
-        "Content-type": "application/json"
-      },
-      body: bodyApi,
+  userMeals = json.decode(response.body);
+
+  meals = userMeals.map((entry) {
+    return MealsModel(
+      entry['id'],
+      entry['name'],
+      entry['photo'],
+      entry['description'],
+      entry['category'],
+      entry['preparationMethod'],
+      entry["ingredients"],
+      entry['totalCalories'],
+      entry['createdAt'],
+      entry['updatedAt'],
     );
+  }).toList();
 
-    userMeals = json.decode(response.body);
-  } catch (e) {
-    modalBuilderBottomAnimation(
-      context,
-      const SimplePopup(
-        message: "Houve um erro na execução do aplicativo",
-      ),
-    );
-  }
+  print(response.statusCode);
+  print(userMeals);
 }
 
 Future<void> createMealsAPI(

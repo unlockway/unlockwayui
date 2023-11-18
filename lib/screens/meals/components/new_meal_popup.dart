@@ -74,7 +74,14 @@ class NewMealPopup extends StatelessWidget {
 
               Navigator.of(context).push(
                 navigationPageRightAnimation(
-                  const NewMeal(),
+                  const NewMeal(
+                    category: '',
+                    description: '',
+                    ingredientsSelected: [],
+                    name: '',
+                    preparationMethod: '',
+                    img: '',
+                  ),
                 ),
               );
             },

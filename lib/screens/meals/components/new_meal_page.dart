@@ -16,7 +16,20 @@ import 'package:dotted_border/dotted_border.dart';
 class NewMeal extends StatefulWidget {
   const NewMeal({
     super.key,
+    required this.img,
+    required this.name,
+    required this.category,
+    required this.description,
+    required this.preparationMethod,
+    required this.ingredientsSelected,
   });
+
+  final String? img;
+  final String name;
+  final String category;
+  final String description;
+  final String preparationMethod;
+  final List ingredientsSelected;
 
   @override
   State<NewMeal> createState() => _NewMealState();
@@ -25,7 +38,6 @@ class NewMeal extends StatefulWidget {
 class _NewMealState extends State<NewMeal> {
   UserModel user = userData;
 
-  // Form Fields
   final nameController = TextEditingController();
   final categoryController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -42,15 +54,25 @@ class _NewMealState extends State<NewMeal> {
         margin: const EdgeInsets.all(10),
         child: Row(
           children: [
-            ButtonOutlined(
-              color: Theme.of(context).colorScheme.primary,
-              text: "CANCELAR",
-              height: 48,
-              width: double.infinity,
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            widget.name.isNotEmpty
+                ? ButtonOutlined(
+                    color: Color(danger),
+                    text: "EXCLUIR",
+                    height: 48,
+                    width: double.infinity,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                : ButtonOutlined(
+                    color: Theme.of(context).colorScheme.primary,
+                    text: "CANCELAR",
+                    height: 48,
+                    width: double.infinity,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
             const SizedBox(
               width: 15,
             ),
