@@ -4,7 +4,7 @@ import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/form_progress.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
-import 'package:unlockway/handlers/register.dart';
+import 'package:unlockway/handlers/register.handlers.dart';
 import 'package:unlockway/screens/register/inputs/step1.dart';
 import 'package:unlockway/screens/register/inputs/step2.dart';
 

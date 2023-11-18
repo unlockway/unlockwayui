@@ -2,12 +2,14 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:http/http.dart' as http;
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/ingredients.dart';
 
 Future<void> getMealsAPI(
   BuildContext context,
@@ -48,38 +50,43 @@ Future<void> createMealsAPI(
   String category,
   String description,
   String preparationMethod,
-  List ingredients,
+  List<SelectedFood> ingredients,
   File? imageFile,
 ) async {
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals';
 
-  try {
-    var request = http.MultipartRequest('', Uri.parse(apiUrl))
-      ..headers['Authorization'] = 'Bearer $sessionToken';
+  var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
+    ..headers['Authorization'] = 'Bearer $sessionToken';
 
-    // Add text fields
-    request.fields['userId'] = userID;
-    request.fields['name'] = name;
-    request.fields['category'] = category;
-    request.fields['description'] = description;
-    request.fields['preparationMethod'] = preparationMethod;
+  var payload = {
+    "userId": userID,
+    "name": name,
+    "category": category,
+    "description": description,
+    "preparationMethod": preparationMethod,
+    "ingredients": ingredients.map((e) => e.toJson()).toList()
+  };
 
-    // Add image file
-    if (imageFile != null) {
-      var imageStream = http.ByteStream(imageFile.openRead());
-      var length = await imageFile.length();
-      var multipartFile = http.MultipartFile(
-        'image',
-        imageStream,
-        length,
+  String payloadEncoded = json.encode(payload);
+
+  request.fields["payload"] = payloadEncoded;
+
+  // Add image file
+  if (imageFile != null) {
+    var imageStream = http.ByteStream(imageFile.openRead());
+    var length = await imageFile.length();
+    var multipartFile = http.MultipartFile('photo', imageStream, length,
         filename: imageFile.path.split('/').last,
-      );
-      request.files.add(multipartFile);
-    }
+        contentType: MediaType(
+          "image",
+          imageFile.path.split(".").last,
+        ));
 
-    var response = await request.send();
+    request.files.add(multipartFile);
+  }
 
-    if (response.statusCode == 200) {
+  await request.send().then((response) {
+    if (response.statusCode == 201) {
       modalBuilderBottomAnimation(
         context,
         const SimplePopup(
@@ -87,14 +94,16 @@ Future<void> createMealsAPI(
         ),
       );
     }
-  } catch (e) {
-    modalBuilderBottomAnimation(
-      context,
-      const SimplePopup(
-        message: "Houve um erro na execução do aplicativo",
-      ),
-    );
-  }
+
+    if (response.statusCode == 400) {
+      modalBuilderBottomAnimation(
+        context,
+        const SimplePopup(
+          message: "Erro ao criar refeição",
+        ),
+      );
+    }
+  });
 }
 
 Future<void> deleteMealAPI(

@@ -19,6 +19,7 @@ class _MealsState extends State<Meals> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: IconButton(
         onPressed: () => modalBuilderBottomAnimation(
           context,
@@ -86,7 +87,11 @@ class _MealsState extends State<Meals> {
                             Icons.search,
                             color: Theme.of(context).colorScheme.outline,
                           ),
-                          border: InputBorder.none,
+                          border: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.outline,
                             fontWeight: FontWeight.w100,

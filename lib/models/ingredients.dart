@@ -34,4 +34,7 @@ class SelectedFood {
 
   String id;
   double amount;
+
+  // Convert the object to a map
+  Map<String, dynamic> toJson() => {'id': id, 'amount': amount};
 }

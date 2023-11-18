@@ -27,9 +27,7 @@ class GenericTextField extends StatelessWidget {
           : TextInputType.text,
       inputFormatters: [
         FilteringTextInputFormatter.allow(
-          number
-              ? RegExp(r'^\d+\.?\d{0,2}')
-              : RegExp(r'^[ A-Za-z0-9_@./#&+-]*$'),
+          number ? RegExp(r'^\d+\.?\d{0,2}') : RegExp(r'^[^.-]*$'),
         ),
       ],
       controller: controller,
