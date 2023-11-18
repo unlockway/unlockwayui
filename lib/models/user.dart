@@ -1,20 +1,21 @@
 import 'package:unlockway/models/goals.dart';
 
 class UserModel {
-  UserModel({
-    this.id,
-    this.photo,
-    this.firstName,
-    this.lastName,
-    this.token,
-    this.email,
-    this.height,
-    this.weight,
-    this.goals,
-    this.biotype,
-    this.createdAt,
-    this.updatedAt,
-  });
+  UserModel(
+      {this.id,
+      this.photo,
+      this.firstName,
+      this.lastName,
+      this.token,
+      this.email,
+      this.height,
+      this.weight,
+      this.goals,
+      this.biotype,
+      this.createdAt,
+      this.updatedAt,
+      this.imc,
+      this.sex});
 
   String? id;
   Object? photo;
@@ -24,8 +25,10 @@ class UserModel {
   String? token;
   double? height;
   double? weight;
+  double? imc;
   Goals? goals;
   String? biotype;
+  String? sex;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -41,6 +44,8 @@ class UserModel {
       token: map["token"] as String,
       height: map["height"] as double,
       weight: map["weight"] as double,
+      imc: map["imc"] as double,
+      sex: map["sex"] as String,
       goals: Goals(
         gainMuscularMass: goals["gainMuscularMass"] as bool,
         maintainHealth: goals["maintainHealth"] as bool,

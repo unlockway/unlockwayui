@@ -22,6 +22,7 @@ Future<void> registerAPI(
   double weight,
   List<String> goals,
   String biotype,
+  String sex,
 ) async {
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/auth/register';
@@ -53,6 +54,7 @@ Future<void> registerAPI(
     "weight": weight,
     "goals": goalsObject,
     "biotype": biotype,
+    "sex": sex,
   };
 
   var bodyApi = json.encode(payload);
@@ -75,7 +77,6 @@ Future<void> registerAPI(
       );
     });
   } catch (error) {
-    print(error.toString());
     modalBuilderBottomAnimation(
       context,
       SimplePopup(

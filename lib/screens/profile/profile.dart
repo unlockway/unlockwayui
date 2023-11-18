@@ -31,7 +31,7 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  final nameController = TextEditingController();
+  final firstnameController = TextEditingController();
   final lastnameController = TextEditingController();
   final pesoController = TextEditingController();
   final alturaController = TextEditingController();
@@ -49,7 +49,7 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    nameController.text = widget.firstname;
+    firstnameController.text = widget.firstname;
     lastnameController.text = widget.lastname;
     emailController.text = widget.email;
     alturaController.text = widget.height.toString();
@@ -112,7 +112,7 @@ class _UserProfileState extends State<UserProfile> {
                       title: "Nome",
                       placeholder: "Insira seu nome aqui",
                       width: double.infinity,
-                      controller: nameController,
+                      controller: firstnameController,
                       number: false,
                     ),
                     const SizedBox(height: 16.0),

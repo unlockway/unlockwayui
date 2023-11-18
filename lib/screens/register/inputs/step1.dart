@@ -5,6 +5,7 @@ import 'package:unlockway/constants.dart';
 
 typedef GoalsCallback = void Function(List<String> goals);
 typedef BiotypeCallback = void Function(String? biotype);
+typedef SexCallback = void Function(String? sex);
 
 class RegisterStep1 extends StatelessWidget {
   const RegisterStep1({
@@ -15,8 +16,10 @@ class RegisterStep1 extends StatelessWidget {
     required this.heightController,
     required this.biotype,
     required this.goals,
+    required this.sex,
     required this.onChangeBiotype,
     required this.onChangeGoals,
+    required this.onChangeSex,
   });
 
   final TextEditingController firstNameController;
@@ -24,10 +27,12 @@ class RegisterStep1 extends StatelessWidget {
   final TextEditingController weightController;
   final TextEditingController heightController;
   final String biotype;
+  final String sex;
   final List<String> goals;
 
   final BiotypeCallback onChangeBiotype;
   final GoalsCallback onChangeGoals;
+  final SexCallback onChangeSex;
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +83,56 @@ class RegisterStep1 extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          "Sexo",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.outline,
+            fontSize: 16,
+            fontFamily: "Inter",
+          ),
+        ),
+        const SizedBox(height: 5),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
+          padding: const EdgeInsets.symmetric(
+            vertical: 4,
+            horizontal: 8,
+          ),
+          child: DropdownButton<String>(
+            dropdownColor: Theme.of(context).colorScheme.onBackground,
+            borderRadius: BorderRadius.circular(6),
+            isExpanded: true,
+            value: sex,
+            icon: const Icon(Icons.arrow_drop_down),
+            iconSize: 24,
+            elevation: 16,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.outline,
+              fontSize: 16,
+              fontFamily: "Inter",
+            ),
+            onChanged: onChangeSex,
+            underline: Container(
+              color: Colors.transparent,
+            ),
+            items: const [
+              DropdownMenuItem(
+                value: 'MALE',
+                child: Text('Homem'),
+              ),
+              DropdownMenuItem(
+                value: 'FEMALE',
+                child: Text('Mulher'),
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 20,
