@@ -25,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var heightController = TextEditingController();
 
   String biotype = "ECTOMORPH";
+  String sex = "MALE";
   List<String> goals = [];
 
   late int currentStep;
@@ -52,6 +53,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
+  void onSexChange(String? newSex) {
+    setState(() {
+      sex = newSex!;
+    });
+  }
+
   void goToNextStep() {
     setState(() {
       currentStep = 2;
@@ -67,7 +74,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar:
           registerAppBar(context, currentStep == 1 ? null : goToPreviousStep),
       body: Stack(
@@ -103,8 +109,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             heightController: heightController,
                             biotype: biotype,
                             goals: goals,
+                            sex: sex,
                             onChangeBiotype: onBiotypeChange,
                             onChangeGoals: onGoalsChange,
+                            onChangeSex: onSexChange,
                           );
                         }
                         return RegisterStep2(
@@ -113,86 +121,93 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           confirmPasswordController: confirmPasswordController,
                         );
                       }()),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Container(
-              margin: const EdgeInsets.only(right: 20, bottom: 20),
-              width: 130,
-              height: 48,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).colorScheme.primary,
-                    const Color.fromARGB(255, 171, 216, 77)
-                  ],
-                ),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.5),
-                    blurRadius: 1.5,
-                  ),
-                ],
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => {
-                    if (currentStep == 1)
-                      {goToNextStep()}
-                    else
-                      {
-                        if (passwordController.text !=
-                            confirmPasswordController.text)
-                          {
-                            modalBuilderBottomAnimation(
-                              context,
-                              const SimplePopup(
-                                message: "Senhas não coincidêm",
-                              ),
-                            )
-                          }
-                        else
-                          {
-                            registerAPI(
-                              context,
-                              firstNameController.text,
-                              lastNameController.text,
-                              emailController.text,
-                              passwordController.text,
-                              double.parse(heightController.text),
-                              double.parse(weightController.text),
-                              goals,
-                              biotype,
-                            )
-                          }
-                      }
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        currentStep == 1 ? "Seguir" : "Confirmar",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: "Poppins",
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                      ),
                       const SizedBox(
-                        width: 5,
+                        height: 20,
                       ),
-                      Icon(
-                        Icons.arrow_forward_outlined,
-                        color: Theme.of(context).colorScheme.onPrimary,
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 36),
+                          width: 130,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            gradient: LinearGradient(
+                              colors: [
+                                Theme.of(context).colorScheme.primary,
+                                const Color.fromARGB(255, 171, 216, 77)
+                              ],
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 1.5),
+                                blurRadius: 1.5,
+                              ),
+                            ],
+                          ),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () => {
+                                if (currentStep == 1)
+                                  {goToNextStep()}
+                                else
+                                  {
+                                    if (passwordController.text !=
+                                        confirmPasswordController.text)
+                                      {
+                                        modalBuilderBottomAnimation(
+                                          context,
+                                          const SimplePopup(
+                                            message: "Senhas não coincidêm",
+                                          ),
+                                        )
+                                      }
+                                    else
+                                      {
+                                        registerAPI(
+                                          context,
+                                          firstNameController.text,
+                                          lastNameController.text,
+                                          emailController.text,
+                                          passwordController.text,
+                                          double.parse(heightController.text),
+                                          double.parse(weightController.text),
+                                          goals,
+                                          biotype,
+                                          sex,
+                                        )
+                                      }
+                                  }
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    currentStep == 1 ? "Seguir" : "Confirmar",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "Poppins",
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_outlined,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
