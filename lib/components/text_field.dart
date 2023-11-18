@@ -80,7 +80,7 @@ class SearchTextField extends StatefulWidget {
   final double width;
   final TextEditingController controller;
   final bool number;
-  final Future<void> method;
+  final Future Function() method;
 
   @override
   State<SearchTextField> createState() => _SearchTextFieldState();

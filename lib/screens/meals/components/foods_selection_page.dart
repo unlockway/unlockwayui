@@ -100,11 +100,14 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                         height: 6,
                       ),
                       SearchTextField(
-                        method: getIngredientsByNameAPI(
-                          context,
-                          user.token!,
-                          searchController.text,
-                        ),
+                        method: () async {
+                          await getIngredientsByNameAPI(
+                            context,
+                            user.token!,
+                            searchController.text,
+                          );
+                          setState(() {});
+                        },
                         title: "Pesquisar Alimento",
                         placeholder: "EX: Maçã",
                         width: double.infinity,

@@ -39,7 +39,7 @@ Future<void> getIngredientsAPI(
   // Handle other errors
 }
 
-getIngredientsByNameAPI(
+Future getIngredientsByNameAPI(
   BuildContext context,
   String sessionToken,
   String name,
@@ -88,4 +88,8 @@ getIngredientsByNameAPI(
       ),
     );
   }
+  print(ingredients);
+  print(apiUrl);
+
+  return ingredients;
 }
