@@ -10,6 +10,7 @@ class Login extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.background,
       body: const InitialLogin(),
+      
     );
   }
 }
