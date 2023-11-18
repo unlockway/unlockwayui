@@ -12,11 +12,13 @@ class FoodCard extends StatefulWidget {
     required this.selected,
     required this.food,
     required this.selectIngredient,
+    required this.initialValue,
   });
 
   final bool selected;
   final FoodModel food;
   final Function(FoodModel food, double amount) selectIngredient;
+  final double? initialValue;
 
   @override
   State<FoodCard> createState() => _FoodCardState();
@@ -62,11 +64,9 @@ class _FoodCardState extends State<FoodCard> {
   @override
   void initState() {
     selected = widget.selected;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    widget.initialValue != null
+        ? quantNumber = widget.initialValue!
+        : quantNumber = 0;
     if (widget.food.measurement == "AMOUNT") {
       measureText = "Quant";
     } else if (widget.food.measurement == "MILILITERS") {
@@ -74,7 +74,11 @@ class _FoodCardState extends State<FoodCard> {
     } else if (widget.food.measurement == "GRAMS") {
       measureText = "Gramas";
     }
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 105,
       width: double.infinity,

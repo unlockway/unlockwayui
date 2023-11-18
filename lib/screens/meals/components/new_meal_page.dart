@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/app_bar.dart';
@@ -32,6 +33,8 @@ class _NewMealState extends State<NewMeal> {
   final preparationMethodController = TextEditingController();
   List<Object> ingredients = [];
   String? category;
+  List ingredientsSelected = [];
+  double ingredientsTotalCalories = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +68,8 @@ class _NewMealState extends State<NewMeal> {
                   category!,
                   descriptionController.text,
                   preparationMethodController.text,
-                  ingredients,
-                  null,
+                  ingredientsSelected,
+                  selectedImagePath != '' ? File(selectedImagePath) : null,
                 );
               },
             ),
@@ -206,28 +209,58 @@ class _NewMealState extends State<NewMeal> {
               const SizedBox(height: 20),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
+                  Navigator.of(context)
+                      .push(
                     navigationPageRightAnimation(
-                      const FoodSelectionPage(),
+                      ingredientsSelected.isEmpty
+                          ? const FoodSelectionPage(
+                              ingredients: null,
+                            )
+                          : FoodSelectionPage(ingredients: ingredientsSelected),
                     ),
+                  )
+                      .then(
+                    (value) {
+                      if (value.isNotEmpty) {
+                        setState(
+                          () {
+                            ingredientsTotalCalories = 0;
+                            ingredientsSelected = value;
+                          },
+                        );
+                      }
+                    },
                   );
                 },
                 child: Container(
                   height: 50,
+                  padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    color: Color(darker),
+                    color: ingredientsSelected.isNotEmpty
+                        ? Theme.of(context).colorScheme.primary
+                        : Color(darker),
                   ),
-                  child: const Center(
-                    child: Text(
-                      "ESCOLHER INGREDIENTES",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Inter",
-                      ),
-                    ),
+                  child: Center(
+                    child: ingredientsSelected.isNotEmpty
+                        ? Text(
+                            "${ingredientsSelected.length} Ingredientes",
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Inter",
+                            ),
+                          )
+                        : const Text(
+                            "ESCOLHER INGREDIENTES",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Inter",
+                            ),
+                          ),
                   ),
                 ),
               ),

@@ -27,7 +27,9 @@ class GenericTextField extends StatelessWidget {
           : TextInputType.text,
       inputFormatters: [
         FilteringTextInputFormatter.allow(
-          number ? RegExp(r'^\d+\.?\d{0,2}') : RegExp(r'[a-zA-Z0-9@._-]'),
+          number
+              ? RegExp(r'^\d+\.?\d{0,2}')
+              : RegExp(r'^[ A-Za-z0-9_@./#&+-]*$3'),
         ),
       ],
       controller: controller,
@@ -105,7 +107,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
         FilteringTextInputFormatter.allow(
           widget.number
               ? RegExp(r'^\d+\.?\d{0,2}')
-              : RegExp(r'[a-zA-Z0-9@._-]'),
+              : RegExp(r'^[ A-Za-z0-9_@./#&+-]*$3'),
         ),
       ],
       controller: widget.controller,
@@ -165,7 +167,9 @@ class PasswordTextField extends StatelessWidget {
           : TextInputType.text,
       inputFormatters: [
         FilteringTextInputFormatter.allow(
-          number ? RegExp(r'^\d+\.?\d{0,2}') : RegExp(r'[a-zA-Z0-9@._-]'),
+          number
+              ? RegExp(r'^\d+\.?\d{0,2}')
+              : RegExp(r'^[ A-Za-z0-9_@./#&+-]*$3'),
         ),
       ],
       controller: controller,

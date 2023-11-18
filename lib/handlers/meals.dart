@@ -48,7 +48,7 @@ Future<void> createMealsAPI(
   String category,
   String description,
   String preparationMethod,
-  List<Object> ingredients,
+  List ingredients,
   File? imageFile,
 ) async {
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals';

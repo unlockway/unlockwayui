@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/buttons.dart';
+
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/ingredients.dart';
@@ -10,7 +11,12 @@ import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/food_card.dart';
 
 class FoodSelectionPage extends StatefulWidget {
-  const FoodSelectionPage({super.key});
+  const FoodSelectionPage({
+    super.key,
+    required this.ingredients,
+  });
+
+  final List? ingredients;
 
   @override
   State<FoodSelectionPage> createState() => _FoodSelectionPageState();
@@ -21,13 +27,13 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
   UserModel user = userData;
   final searchController = TextEditingController();
 
-  bool checkIfExists(List<FoodModel> objectList, String id) {
-    return objectList.any((obj) => obj.idFood == id);
-  }
+  // bool checkIfExists(List<FoodModel> objectList, String id) {
+  //   return objectList.any((obj) => obj.idFood == id);
+  // }
 
-  bool checkIfExistsSelectedFood(List<SelectedFood> objectList, String id) {
-    return objectList.any((obj) => obj.id == id);
-  }
+  // bool checkIfExistsSelectedFood(List<SelectedFood> objectList, String id) {
+  //   return objectList.any((obj) => obj.id == id);
+  // }
 
   selectIngredient(FoodModel food, double amount) {
     SelectedFood selectedFood = SelectedFood(
@@ -59,7 +65,12 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
               text: "ESCOLHER",
               height: 48,
               width: double.infinity,
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(
+                  context,
+                  selectedFoods,
+                );
+              },
             ),
           ],
         ),
@@ -128,14 +139,33 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                       itemCount: ingredientsRegistered.length,
                       itemBuilder: (context, index) {
                         var currentIngredient = ingredientsRegistered[index];
-                        checkIfExists(
-                            ingredientsRegistered, currentIngredient.idFood);
+                        bool selected = false;
+                        var filteredValue;
+                        double? initialValue;
+
+                        if (widget.ingredients != null) {
+                          if (widget.ingredients!.any(
+                              (obj) => obj.id == currentIngredient.idFood)) {
+                            filteredValue = widget.ingredients!
+                                .where(
+                                  (element) =>
+                                      element.id == currentIngredient.idFood,
+                                )
+                                .toList();
+                            selected = true;
+                            initialValue = filteredValue[0].amount;
+                            print(widget.ingredients![0].amount);
+                            print(initialValue);
+                          } else {
+                            selected = false;
+                            initialValue = 0;
+                          }
+                        }
+
                         return FoodCard(
+                          initialValue: initialValue,
                           food: currentIngredient,
-                          selected: checkIfExistsSelectedFood(
-                            selectedFoods,
-                            currentIngredient.idFood,
-                          ),
+                          selected: selected,
                           selectIngredient: (food, amount) {
                             selectIngredient(food, amount);
                           },

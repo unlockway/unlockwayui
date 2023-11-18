@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/screens/notify/components/notify_card.dart';
 import 'package:unlockway/screens/notify/components/notifydetails.dart';
-import 'package:unlockway/screens/home/home.dart';
 import 'package:unlockway/data/notify.dart';
 
 class NotifyPage extends StatefulWidget {
@@ -20,11 +18,7 @@ class _NotifyPageState extends State<NotifyPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).push(
-              navigationPageLeftAnimation(
-                const Home(),
-              ),
-            );
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_ios),
           color: Theme.of(context).colorScheme.outline,
