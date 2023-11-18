@@ -98,16 +98,13 @@ Future<void> createMealsAPI(
 }
 
 Future<void> deleteMealAPI(
-  BuildContext context,
-  String userID,
-  String sessionToken,
-) async {
+    BuildContext context, String sessionToken, String mealID) async {
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals/';
 
   try {
     final response = await http.delete(
       Uri.parse(apiUrl).replace(queryParameters: {
-        'id': userID,
+        'id': mealID,
       }),
       headers: {
         'Authorization': 'Bearer $sessionToken',

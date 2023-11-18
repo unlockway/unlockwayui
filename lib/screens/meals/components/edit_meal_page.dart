@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/app_bar.dart';
@@ -17,15 +15,36 @@ import 'package:dotted_border/dotted_border.dart';
 class NewMeal extends StatefulWidget {
   const NewMeal({
     super.key,
+    required this.id,
+    required this.category,
+    required this.selectedFoods,
+    required this.name,
+    required this.preparationMethod,
+    required this.description,
+    required this.selectedImage,
   });
+
+  final String id;
+  final String category;
+  final List selectedFoods;
+  final String name;
+  final String preparationMethod;
+  final String description;
+  final File selectedImage;
 
   @override
   State<NewMeal> createState() => _NewMealState();
 }
 
 class _NewMealState extends State<NewMeal> {
-  final List<String> selectedFoods = [];
+  @override
+  void initState() {
+    super.initState();
+  }
+
   UserModel user = userData;
+  final List<String> selectedFoods = [];
+
   String selectedImagePath = '';
   final categoriaController = TextEditingController();
   final nomeController = TextEditingController();
@@ -44,12 +63,16 @@ class _NewMealState extends State<NewMeal> {
         child: Row(
           children: [
             ButtonOutlined(
-              color: Theme.of(context).colorScheme.primary,
-              text: "CANCELAR",
+              color: Color(danger),
+              text: "EXCLUIR",
               height: 48,
               width: double.infinity,
               onTap: () {
-                Navigator.of(context).pop();
+                deleteMealAPI(
+                  context,
+                  user.token!,
+                  widget.id,
+                );
               },
             ),
             const SizedBox(
