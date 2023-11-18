@@ -125,7 +125,9 @@ class _NewMealState extends State<NewMeal> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
-                                PhosphorIcons.regular.camera,
+                                PhosphorIcons.camera(
+                                  PhosphorIconsStyle.regular,
+                                ),
                                 size: 94.0,
                                 color: Theme.of(context).colorScheme.outline,
                               ),
@@ -366,7 +368,7 @@ class _NewMealState extends State<NewMeal> {
                           Align(
                             alignment: Alignment.center,
                             child: Icon(
-                              PhosphorIcons.regular.camera,
+                              PhosphorIcons.camera(PhosphorIconsStyle.regular),
                               size: 60.0,
                               color: Theme.of(context).colorScheme.outline,
                             ),
@@ -414,7 +416,7 @@ class _NewMealState extends State<NewMeal> {
                           Align(
                             alignment: Alignment.center,
                             child: Icon(
-                              PhosphorIcons.regular.images,
+                              PhosphorIcons.images(PhosphorIconsStyle.regular),
                               size: 60.0,
                               color: Theme.of(context).colorScheme.outline,
                             ),

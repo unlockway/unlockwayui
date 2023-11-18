@@ -92,7 +92,7 @@ class FoodInfoPopup extends StatelessWidget {
                 ),
               ),
               Icon(
-                PhosphorIcons.regular.fire,
+                PhosphorIcons.fire(PhosphorIconsStyle.regular),
                 size: 16.0,
                 color: const Color(0XFFE96016),
               ),
@@ -122,7 +122,7 @@ class FoodInfoPopup extends StatelessWidget {
                 ),
               ),
               Icon(
-                PhosphorIcons.regular.egg,
+                PhosphorIcons.egg(PhosphorIconsStyle.regular),
                 size: 16.0,
                 color: const Color(0XFFD49E2B),
               ),
@@ -152,7 +152,7 @@ class FoodInfoPopup extends StatelessWidget {
                 ),
               ),
               Icon(
-                PhosphorIcons.regular.drop,
+                PhosphorIcons.drop(PhosphorIconsStyle.regular),
                 size: 16.0,
                 color: const Color(0XFF1FB3F2),
               ),
@@ -182,7 +182,7 @@ class FoodInfoPopup extends StatelessWidget {
                 ),
               ),
               Icon(
-                PhosphorIcons.regular.scales,
+                PhosphorIcons.scales(PhosphorIconsStyle.regular),
                 size: 16.0,
                 color: const Color(0XFFFAA2A2),
               ),
