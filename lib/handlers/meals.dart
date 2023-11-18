@@ -54,7 +54,7 @@ Future<void> createMealsAPI(
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals';
 
   try {
-    var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
+    var request = http.MultipartRequest('', Uri.parse(apiUrl))
       ..headers['Authorization'] = 'Bearer $sessionToken';
 
     // Add text fields
@@ -87,6 +87,35 @@ Future<void> createMealsAPI(
         ),
       );
     }
+  } catch (e) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Houve um erro na execução do aplicativo",
+      ),
+    );
+  }
+}
+
+Future<void> deleteMealAPI(
+  BuildContext context,
+  String userID,
+  String sessionToken,
+) async {
+  const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals/';
+
+  try {
+    final response = await http.delete(
+      Uri.parse(apiUrl).replace(queryParameters: {
+        'id': userID,
+      }),
+      headers: {
+        'Authorization': 'Bearer $sessionToken',
+        "Content-type": "application/json"
+      },
+    );
+
+    userMeals = json.decode(response.body);
   } catch (e) {
     modalBuilderBottomAnimation(
       context,
