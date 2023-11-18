@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
-import 'package:unlockway/handlers/login.dart';
+import 'package:unlockway/handlers/login.handlers.dart';
 
 class LoginPopup extends StatelessWidget {
   const LoginPopup({super.key});

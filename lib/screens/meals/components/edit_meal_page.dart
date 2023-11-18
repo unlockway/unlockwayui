@@ -7,7 +7,8 @@ import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/handlers/meals.dart';
+import 'package:unlockway/handlers/meals.handlers.dart';
+import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -52,7 +53,7 @@ class _NewMealState extends State<NewMeal> {
   final preparationMethodController = TextEditingController();
   List<Object> ingredients = [];
   String? category;
-  List ingredientsSelected = [];
+  List<SelectedFood> ingredientsSelected = [];
   double ingredientsTotalCalories = 0;
 
   @override
@@ -236,11 +237,7 @@ class _NewMealState extends State<NewMeal> {
                   Navigator.of(context)
                       .push(
                     navigationPageRightAnimation(
-                      ingredientsSelected.isEmpty
-                          ? const FoodSelectionPage(
-                              ingredients: null,
-                            )
-                          : FoodSelectionPage(ingredients: ingredientsSelected),
+                      FoodSelectionPage(ingredients: ingredientsSelected),
                     ),
                   )
                       .then(

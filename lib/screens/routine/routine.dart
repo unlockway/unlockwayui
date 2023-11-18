@@ -88,7 +88,11 @@ class _RoutineState extends State<Routine> {
                             Icons.search,
                             color: Theme.of(context).colorScheme.outline,
                           ),
-                          border: InputBorder.none,
+                          border: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.outline,
                             fontWeight: FontWeight.w100,

@@ -5,7 +5,7 @@ import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/ingredients.dart';
-import 'package:unlockway/handlers/ingredients.dart';
+import 'package:unlockway/handlers/ingredients.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/food_card.dart';
@@ -16,7 +16,7 @@ class FoodSelectionPage extends StatefulWidget {
     required this.ingredients,
   });
 
-  final List? ingredients;
+  final List<SelectedFood> ingredients;
 
   @override
   State<FoodSelectionPage> createState() => _FoodSelectionPageState();
@@ -27,25 +27,15 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
   UserModel user = userData;
   final searchController = TextEditingController();
 
-  // bool checkIfExists(List<FoodModel> objectList, String id) {
-  //   return objectList.any((obj) => obj.idFood == id);
-  // }
-
-  // bool checkIfExistsSelectedFood(List<SelectedFood> objectList, String id) {
-  //   return objectList.any((obj) => obj.id == id);
-  // }
-
-  selectIngredient(FoodModel food, double amount) {
+  toggleIngredient(FoodModel food, double amount) {
     SelectedFood selectedFood = SelectedFood(
       food.idFood,
       amount,
     );
     if (selectedFoods.contains(selectedFood)) {
       selectedFoods.remove(selectedFood);
-      print(selectedFoods);
     } else {
       selectedFoods.add(selectedFood);
-      print(selectedFoods);
     }
   }
 
@@ -114,9 +104,6 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                       const SizedBox(
                         height: 16,
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -150,36 +137,29 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                       itemBuilder: (context, index) {
                         var currentIngredient = ingredientsRegistered[index];
                         bool selected = false;
-                        var filteredValue;
-                        double? initialValue;
+                        double initialValue = 0.0;
 
-                        if (widget.ingredients != null) {
-                          if (widget.ingredients!.any(
-                              (obj) => obj.id == currentIngredient.idFood)) {
-                            filteredValue = widget.ingredients!
-                                .where(
-                                  (element) =>
-                                      element.id == currentIngredient.idFood,
-                                )
-                                .toList();
+                        if (widget.ingredients.isNotEmpty) {
+                          var filteredIngredients = widget.ingredients
+                              .where((e) => e.id == currentIngredient.idFood)
+                              .toList();
+
+                          if (filteredIngredients.length == 1) {
                             selected = true;
-                            initialValue = filteredValue[0].amount;
-                            print(widget.ingredients![0].amount);
-                            print(initialValue);
-                          } else {
-                            selected = false;
-                            initialValue = 0;
+                            initialValue = filteredIngredients[0].amount;
                           }
                         }
 
                         return FoodCard(
                           initialValue: initialValue,
                           food: currentIngredient,
-                          selected: selected,
-                          selectIngredient: (food, amount) {
-                            selectIngredient(food, amount);
+                          checked: selected,
+                          onSelectIngredient: (food, amount) {
+                            setState(() {
+                              toggleIngredient(food, amount);
+                            });
                           },
-                          sumOrSubValues: sumOrSubValues,
+                          onSumOrSubAmount: sumOrSubValues,
                         );
                       },
                     ),

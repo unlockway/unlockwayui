@@ -9,18 +9,18 @@ import 'package:unlockway/screens/meals/components/food_info_popup.dart';
 class FoodCard extends StatefulWidget {
   const FoodCard({
     super.key,
-    required this.selected,
+    required this.checked,
     required this.food,
-    required this.selectIngredient,
+    required this.onSelectIngredient,
     required this.initialValue,
-    required this.sumOrSubValues,
+    required this.onSumOrSubAmount,
   });
 
-  final bool selected;
+  final bool checked;
   final FoodModel food;
-  final Function(FoodModel food, double amount) selectIngredient;
-  final Function(double value, FoodModel selectedFood) sumOrSubValues;
-  final double? initialValue;
+  final Function(FoodModel food, double amount) onSelectIngredient;
+  final Function(double value, FoodModel selectedFood) onSumOrSubAmount;
+  final double initialValue;
 
   @override
   State<FoodCard> createState() => _FoodCardState();
@@ -60,18 +60,18 @@ class _FoodCardState extends State<FoodCard> {
           amountController.text = quantNumber.toString();
         }
       }
-      widget.sumOrSubValues(quantNumber, widget.food);
+      widget.onSumOrSubAmount(quantNumber, widget.food);
     }
   }
 
   @override
   void initState() {
-    selected = widget.selected;
+    super.initState();
+    selected = widget.checked;
 
-    if (widget.initialValue != null) {
-      quantNumber = widget.initialValue!;
-      amountController.text = quantNumber.toString();
-    }
+    quantNumber = widget.initialValue;
+    amountController.text = quantNumber.toString();
+
     if (widget.food.measurement == "AMOUNT") {
       measureText = "Quant";
     } else if (widget.food.measurement == "MILILITERS") {
@@ -79,7 +79,6 @@ class _FoodCardState extends State<FoodCard> {
     } else if (widget.food.measurement == "GRAMS") {
       measureText = "Gramas";
     }
-    super.initState();
   }
 
   @override
@@ -154,7 +153,7 @@ class _FoodCardState extends State<FoodCard> {
                     ),
                     InkWell(
                       onTap: () {
-                        widget.selectIngredient(
+                        widget.onSelectIngredient(
                           widget.food,
                           quantNumber,
                         );

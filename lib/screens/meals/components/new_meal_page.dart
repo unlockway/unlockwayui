@@ -7,7 +7,8 @@ import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/handlers/meals.dart';
+import 'package:unlockway/handlers/meals.handlers.dart';
+import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -22,17 +23,17 @@ class NewMeal extends StatefulWidget {
 }
 
 class _NewMealState extends State<NewMeal> {
-  final List<String> selectedFoods = [];
   UserModel user = userData;
-  String selectedImagePath = '';
-  final categoriaController = TextEditingController();
-  final nomeController = TextEditingController();
+
+  // Form Fields
+  final nameController = TextEditingController();
+  final categoryController = TextEditingController();
   final descriptionController = TextEditingController();
   final preparationMethodController = TextEditingController();
-  List<Object> ingredients = [];
+
+  String selectedImagePath = '';
+  List<SelectedFood> ingredientsSelected = [];
   String? category;
-  List ingredientsSelected = [];
-  double ingredientsTotalCalories = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class _NewMealState extends State<NewMeal> {
                   context,
                   user.token!,
                   user.id!,
-                  nomeController.text,
+                  nameController.text,
                   category!,
                   descriptionController.text,
                   preparationMethodController.text,
@@ -101,7 +102,7 @@ class _NewMealState extends State<NewMeal> {
                         ),
                         child: Image.file(
                           File(selectedImagePath),
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.contain,
                           width: double.infinity,
                           height: 158,
                         ),
@@ -149,7 +150,7 @@ class _NewMealState extends State<NewMeal> {
                 title: "Nome",
                 placeholder: "Insira o nome da refeição",
                 width: double.infinity,
-                controller: nomeController,
+                controller: nameController,
                 number: false,
               ),
               const SizedBox(height: 20),
@@ -193,17 +194,24 @@ class _NewMealState extends State<NewMeal> {
                   underline: Container(
                     color: Colors.transparent,
                   ),
-                  items: <String>[
-                    'Café da manhã',
-                    'Almoço',
-                    'Jantar',
-                    'Lanche',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'BREAKFAST',
+                      child: Text('Café da manhã'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'LUNCH',
+                      child: Text('Almoço'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'DINNER',
+                      child: Text('Jantar'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'SNACK',
+                      child: Text('Lanche'),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
@@ -212,23 +220,16 @@ class _NewMealState extends State<NewMeal> {
                   Navigator.of(context)
                       .push(
                     navigationPageRightAnimation(
-                      ingredientsSelected.isEmpty
-                          ? const FoodSelectionPage(
-                              ingredients: null,
-                            )
-                          : FoodSelectionPage(ingredients: ingredientsSelected),
+                      FoodSelectionPage(ingredients: ingredientsSelected),
                     ),
                   )
                       .then(
                     (value) {
-                      if (value.isNotEmpty) {
-                        setState(
-                          () {
-                            ingredientsTotalCalories = 0;
-                            ingredientsSelected = value;
-                          },
-                        );
-                      }
+                      setState(
+                        () {
+                          ingredientsSelected = value;
+                        },
+                      );
                     },
                   );
                 },
