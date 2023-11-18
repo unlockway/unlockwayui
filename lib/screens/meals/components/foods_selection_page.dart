@@ -23,7 +23,7 @@ class FoodSelectionPage extends StatefulWidget {
 }
 
 class _FoodSelectionPageState extends State<FoodSelectionPage> {
-  final List<SelectedFood> selectedFoods = [];
+  List<SelectedFood> selectedFoods = [];
   UserModel user = userData;
   final searchController = TextEditingController();
 
@@ -47,6 +47,16 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
       selectedFoods.add(selectedFood);
       print(selectedFoods);
     }
+  }
+
+  sumOrSubValues(double value, FoodModel selectedFood) {
+    selectedFoods = selectedFoods.map((e) {
+      if (e.id == selectedFood.idFood) {
+        e.amount = value;
+        return e;
+      }
+      return e;
+    }).toList();
   }
 
   @override
@@ -169,6 +179,7 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                           selectIngredient: (food, amount) {
                             selectIngredient(food, amount);
                           },
+                          sumOrSubValues: sumOrSubValues,
                         );
                       },
                     ),

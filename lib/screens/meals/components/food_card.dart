@@ -13,11 +13,13 @@ class FoodCard extends StatefulWidget {
     required this.food,
     required this.selectIngredient,
     required this.initialValue,
+    required this.sumOrSubValues,
   });
 
   final bool selected;
   final FoodModel food;
   final Function(FoodModel food, double amount) selectIngredient;
+  final Function(double value, FoodModel selectedFood) sumOrSubValues;
   final double? initialValue;
 
   @override
@@ -25,7 +27,7 @@ class FoodCard extends StatefulWidget {
 }
 
 class _FoodCardState extends State<FoodCard> {
-  TextEditingController amount = TextEditingController(text: "0");
+  TextEditingController amountController = TextEditingController(text: "0");
   String? measureText;
   double quantNumber = 0;
 
@@ -38,35 +40,38 @@ class _FoodCardState extends State<FoodCard> {
         if (widget.food.measurement == "AMOUNT") {
           add = 1;
           quantNumber = quantNumber + add;
-          amount.text = quantNumber.toString();
+          amountController.text = quantNumber.toString();
         } else if (widget.food.measurement == "MILILITERS" ||
             widget.food.measurement == "GRAMS") {
           add = 100;
           quantNumber = quantNumber + add;
-          amount.text = quantNumber.toString();
+          amountController.text = quantNumber.toString();
         }
       }
       if (operation == "sub" && quantNumber > 0) {
         if (widget.food.measurement == "AMOUNT") {
           add = -1;
           quantNumber = quantNumber + add;
-          amount.text = quantNumber.toString();
+          amountController.text = quantNumber.toString();
         } else if (widget.food.measurement == "MILILITERS" ||
             widget.food.measurement == "GRAMS") {
           add = -100;
           quantNumber = quantNumber + add;
-          amount.text = quantNumber.toString();
+          amountController.text = quantNumber.toString();
         }
       }
+      widget.sumOrSubValues(quantNumber, widget.food);
     }
   }
 
   @override
   void initState() {
     selected = widget.selected;
-    widget.initialValue != null
-        ? quantNumber = widget.initialValue!
-        : quantNumber = 0;
+
+    if (widget.initialValue != null) {
+      quantNumber = widget.initialValue!;
+      amountController.text = quantNumber.toString();
+    }
     if (widget.food.measurement == "AMOUNT") {
       measureText = "Quant";
     } else if (widget.food.measurement == "MILILITERS") {
@@ -158,7 +163,7 @@ class _FoodCardState extends State<FoodCard> {
                             if (selected == true) {
                               selected = !selected;
                               quantNumber = 0;
-                              amount.text = quantNumber.toString();
+                              amountController.text = quantNumber.toString();
                             } else {
                               selected = !selected;
                             }
@@ -240,7 +245,7 @@ class _FoodCardState extends State<FoodCard> {
                           ),
                           Expanded(
                             child: TextFormField(
-                              controller: amount,
+                              controller: amountController,
                               textAlign: TextAlign.center,
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(

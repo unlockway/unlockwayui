@@ -27,11 +27,11 @@ class FoodModel {
 }
 
 class SelectedFood {
-  const SelectedFood(
+  SelectedFood(
     this.id,
     this.amount,
   );
 
-  final String id;
-  final double amount;
+  String id;
+  double amount;
 }
