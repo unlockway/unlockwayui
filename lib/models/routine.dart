@@ -19,3 +19,19 @@ class RoutineModel {
   final String createdAt;
   final String updatedAt;
 }
+
+class RoutineMeal {
+  RoutineMeal(
+    this.idMeal,
+    this.notifyAt,
+  );
+
+  String idMeal;
+  DateTime notifyAt;
+
+  // Convert the object to a map
+  Map<String, dynamic> toJson() => {
+        'idMeal': idMeal,
+        'notifyAt': notifyAt,
+      };
+}

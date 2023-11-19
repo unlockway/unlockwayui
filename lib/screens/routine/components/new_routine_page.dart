@@ -4,6 +4,7 @@ import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/screens/routine/components/new_routine_meal_popup.dart';
 
 class NewRoutine extends StatefulWidget {
@@ -16,6 +17,8 @@ class NewRoutine extends StatefulWidget {
 }
 
 class _NewRoutineState extends State<NewRoutine> {
+  List<bool> daysSelected = [];
+  List<RoutineMeal> routineMeals = [];
   final nameController = TextEditingController();
 
   @override
@@ -85,6 +88,10 @@ class _NewRoutineState extends State<NewRoutine> {
                         modalBuilderBottomAnimation(
                           context,
                           const NewRoutineMealPopup(),
+                        ).then(
+                          (value) {
+                            setState(() {});
+                          },
                         );
                       },
                       icon: const Icon(Icons.add),

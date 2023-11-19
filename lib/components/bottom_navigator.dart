@@ -90,6 +90,11 @@ class UBottomNavigator extends StatelessWidget {
             ),
             IconButton(
               onPressed: () async {
+                await getMealsAPI(
+                  context,
+                  user.id!,
+                  user.token!,
+                );
                 await getRoutinesAPI(
                   context,
                   user.id!,

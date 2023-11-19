@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/routine.dart';
 
 Future<void> getRoutinesAPI(
   BuildContext context,

@@ -105,6 +105,7 @@ class _NewMealState extends State<NewMeal> {
                         context,
                         user.token!,
                         user.id!,
+                        widget.id,
                         nameController.text,
                         category!,
                         descriptionController.text,

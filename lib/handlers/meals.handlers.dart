@@ -119,6 +119,7 @@ Future<void> editMealsAPI(
   BuildContext context,
   String sessionToken,
   String userID,
+  String mealID,
   String name,
   String category,
   String description,
@@ -134,6 +135,7 @@ Future<void> editMealsAPI(
   )..headers['Authorization'] = 'Bearer $sessionToken';
 
   var payload = {
+    "Id": mealID,
     "userId": userID,
     "name": name,
     "category": category,
@@ -141,6 +143,8 @@ Future<void> editMealsAPI(
     "preparationMethod": preparationMethod,
     "ingredients": ingredients.map((e) => e.toJson()).toList()
   };
+
+  print(payload);
 
   String payloadEncoded = json.encode(payload);
 
@@ -166,7 +170,6 @@ Future<void> editMealsAPI(
   await request.send().then(
     (response) {
       if (response.statusCode == 201) {
-        print(response.statusCode);
         modalBuilderBottomAnimation(
           context,
           const SimplePopup(
@@ -176,7 +179,6 @@ Future<void> editMealsAPI(
       }
 
       if (response.statusCode == 400) {
-        print(response.statusCode);
         modalBuilderBottomAnimation(
           context,
           const SimplePopup(
@@ -184,6 +186,7 @@ Future<void> editMealsAPI(
           ),
         );
       }
+      print(response.statusCode);
     },
   );
 }

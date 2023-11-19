@@ -36,7 +36,7 @@ class UCard extends StatelessWidget {
               name: title,
               category: category,
               description: description,
-              preparationMethod: '',
+              preparationMethod: preparationMethod,
               ingredientsSelected: ingredients,
               img: imageURL,
             ),
