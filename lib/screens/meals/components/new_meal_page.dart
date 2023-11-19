@@ -291,7 +291,9 @@ class _NewMealState extends State<NewMeal> {
                     (value) {
                       setState(
                         () {
-                          ingredientsSelected = value;
+                          if (value != null) {
+                            ingredientsSelected = value;
+                          }
                         },
                       );
                     },

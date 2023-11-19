@@ -145,16 +145,19 @@ Future<void> editMealsAPI(
 
   request.fields["payload"] = payloadEncoded;
 
-  // Add image file
   if (imageFile != null) {
     var imageStream = http.ByteStream(imageFile.openRead());
     var length = await imageFile.length();
-    var multipartFile = http.MultipartFile('photo', imageStream, length,
-        filename: imageFile.path.split('/').last,
-        contentType: MediaType(
-          "image",
-          imageFile.path.split(".").last,
-        ));
+    var multipartFile = http.MultipartFile(
+      'photo',
+      imageStream,
+      length,
+      filename: imageFile.path.split('/').last,
+      contentType: MediaType(
+        "image",
+        imageFile.path.split(".").last,
+      ),
+    );
 
     request.files.add(multipartFile);
   }
@@ -165,7 +168,7 @@ Future<void> editMealsAPI(
         modalBuilderBottomAnimation(
           context,
           const SimplePopup(
-            message: "Refeição criada com sucesso",
+            message: "Refeição editada com sucesso",
           ),
         );
       }
@@ -174,7 +177,7 @@ Future<void> editMealsAPI(
         modalBuilderBottomAnimation(
           context,
           const SimplePopup(
-            message: "Erro ao criar refeição",
+            message: "Erro ao editar refeição",
           ),
         );
       }
@@ -187,12 +190,10 @@ Future<void> deleteMealAPI(
   String sessionToken,
   String mealID,
 ) async {
-  const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals/';
+  String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals/$mealID';
 
   final response = await http.delete(
-    Uri.parse(apiUrl).replace(queryParameters: {
-      'id': mealID,
-    }),
+    Uri.parse(apiUrl),
     headers: {
       'Authorization': 'Bearer $sessionToken',
     },
