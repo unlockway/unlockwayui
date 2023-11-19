@@ -79,7 +79,6 @@ Future<void> createMealsAPI(
 
   request.fields["payload"] = payloadEncoded;
 
-  // Add image file
   if (imageFile != null) {
     var imageStream = http.ByteStream(imageFile.openRead());
     var length = await imageFile.length();
@@ -129,8 +128,10 @@ Future<void> editMealsAPI(
 ) async {
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals';
 
-  var request = http.MultipartRequest('PUT', Uri.parse(apiUrl))
-    ..headers['Authorization'] = 'Bearer $sessionToken';
+  var request = http.MultipartRequest(
+    'PUT',
+    Uri.parse(apiUrl),
+  )..headers['Authorization'] = 'Bearer $sessionToken';
 
   var payload = {
     "userId": userID,
@@ -165,6 +166,7 @@ Future<void> editMealsAPI(
   await request.send().then(
     (response) {
       if (response.statusCode == 201) {
+        print(response.statusCode);
         modalBuilderBottomAnimation(
           context,
           const SimplePopup(
@@ -174,6 +176,7 @@ Future<void> editMealsAPI(
       }
 
       if (response.statusCode == 400) {
+        print(response.statusCode);
         modalBuilderBottomAnimation(
           context,
           const SimplePopup(
