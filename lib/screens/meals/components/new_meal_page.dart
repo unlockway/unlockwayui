@@ -284,7 +284,9 @@ class _NewMealState extends State<NewMeal> {
                   Navigator.of(context)
                       .push(
                     navigationPageRightAnimation(
-                      FoodSelectionPage(ingredients: ingredientsSelected),
+                      FoodSelectionPage(
+                        ingredients: ingredientsSelected,
+                      ),
                     ),
                   )
                       .then(
@@ -292,6 +294,7 @@ class _NewMealState extends State<NewMeal> {
                       setState(
                         () {
                           if (value != null) {
+                            print(value);
                             ingredientsSelected = value;
                           }
                         },

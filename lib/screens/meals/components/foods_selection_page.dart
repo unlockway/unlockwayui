@@ -27,16 +27,40 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
   UserModel user = userData;
   final searchController = TextEditingController();
 
-  toggleIngredient(FoodModel food, double amount) {
-    SelectedFood selectedFood = SelectedFood(
-      food.idFood,
-      amount,
-    );
-    if (selectedFoods.contains(selectedFood)) {
-      selectedFoods.remove(selectedFood);
+  // toggleIngredient(FoodModel food, double amount) {
+  //   SelectedFood selectedFood = SelectedFood(
+  //     food.idFood,
+  //     amount,
+  //   );
+  //   if (selectedFoods.contains(selectedFood)) {
+  //     selectedFoods.remove(selectedFood);
+  //   } else {
+  //     selectedFoods.add(selectedFood);
+  //   }
+  //   print(selectedFoods);
+  // }
+
+  void toggleIngredient(String id, double amount) {
+    int index = findSelectedFoodById(id);
+    if (index != -1) {
+      setState(() {
+        selectedFoods.removeAt(index);
+      });
     } else {
-      selectedFoods.add(selectedFood);
+      setState(() {
+        selectedFoods.add(SelectedFood(id, amount));
+      });
     }
+    print(selectedFoods);
+  }
+
+  int findSelectedFoodById(String id) {
+    for (int i = 0; i < selectedFoods.length; i++) {
+      if (selectedFoods[i].id == id) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   sumOrSubValues(double value, FoodModel selectedFood) {
@@ -157,9 +181,10 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                           initialValue: initialValue,
                           food: currentIngredient,
                           checked: selected,
-                          onSelectIngredient: (food, amount) {
+                          onSelectIngredient: (id, amount) {
                             setState(() {
-                              toggleIngredient(food, amount);
+                              toggleIngredient(
+                                  currentIngredient.idFood, amount);
                             });
                           },
                           onSumOrSubAmount: sumOrSubValues,
