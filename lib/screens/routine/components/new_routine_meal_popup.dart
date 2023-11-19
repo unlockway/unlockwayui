@@ -207,7 +207,6 @@ class _NewRoutineMealPopupState extends State<NewRoutineMealPopup> {
                   onTap: () {
                     Navigator.pop(
                       context,
-                      [],
                     );
                   },
                 ),
