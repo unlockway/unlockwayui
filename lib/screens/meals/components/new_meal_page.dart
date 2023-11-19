@@ -16,6 +16,7 @@ import 'package:dotted_border/dotted_border.dart';
 class NewMeal extends StatefulWidget {
   const NewMeal({
     super.key,
+    required this.id,
     required this.img,
     required this.name,
     required this.category,
@@ -24,12 +25,13 @@ class NewMeal extends StatefulWidget {
     required this.ingredientsSelected,
   });
 
+  final String id;
   final String? img;
   final String name;
   final String category;
   final String description;
   final String preparationMethod;
-  final List ingredientsSelected;
+  final List<SelectedFood> ingredientsSelected;
 
   @override
   State<NewMeal> createState() => _NewMealState();
@@ -38,14 +40,27 @@ class NewMeal extends StatefulWidget {
 class _NewMealState extends State<NewMeal> {
   UserModel user = userData;
 
-  final nameController = TextEditingController();
-  final categoryController = TextEditingController();
-  final descriptionController = TextEditingController();
-  final preparationMethodController = TextEditingController();
-
+  TextEditingController nameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController preparationMethodController = TextEditingController();
   String selectedImagePath = '';
   List<SelectedFood> ingredientsSelected = [];
   String? category;
+
+  @override
+  void initState() {
+    if (widget.id.isNotEmpty) {
+      nameController.text = widget.name;
+      descriptionController.text = widget.description;
+      preparationMethodController.text = widget.preparationMethod;
+      category = widget.category;
+      ingredientsSelected = widget.ingredientsSelected;
+      if (widget.img != null) {
+        selectedImagePath = widget.img!;
+      }
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +76,11 @@ class _NewMealState extends State<NewMeal> {
                     height: 48,
                     width: double.infinity,
                     onTap: () {
-                      Navigator.of(context).pop();
+                      deleteMealAPI(
+                        context,
+                        user.token!,
+                        widget.id,
+                      );
                     },
                   )
                 : ButtonOutlined(
@@ -76,24 +95,47 @@ class _NewMealState extends State<NewMeal> {
             const SizedBox(
               width: 15,
             ),
-            ButtonFilled(
-              text: "SALVAR",
-              height: 48,
-              width: double.infinity,
-              onTap: () {
-                createMealsAPI(
-                  context,
-                  user.token!,
-                  user.id!,
-                  nameController.text,
-                  category!,
-                  descriptionController.text,
-                  preparationMethodController.text,
-                  ingredientsSelected,
-                  selectedImagePath != '' ? File(selectedImagePath) : null,
-                );
-              },
-            ),
+            widget.name.isNotEmpty
+                ? ButtonFilled(
+                    text: "EDITAR",
+                    height: 48,
+                    width: double.infinity,
+                    onTap: () {
+                      editMealsAPI(
+                        context,
+                        user.token!,
+                        user.id!,
+                        nameController.text,
+                        category!,
+                        descriptionController.text,
+                        preparationMethodController.text,
+                        ingredientsSelected,
+                        selectedImagePath != ''
+                            ? File(selectedImagePath)
+                            : null,
+                      );
+                    },
+                  )
+                : ButtonFilled(
+                    text: "SALVAR",
+                    height: 48,
+                    width: double.infinity,
+                    onTap: () {
+                      createMealsAPI(
+                        context,
+                        user.token!,
+                        user.id!,
+                        nameController.text,
+                        category!,
+                        descriptionController.text,
+                        preparationMethodController.text,
+                        ingredientsSelected,
+                        selectedImagePath != ''
+                            ? File(selectedImagePath)
+                            : null,
+                      );
+                    },
+                  ),
           ],
         ),
       ),

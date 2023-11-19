@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
-
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
@@ -94,49 +93,109 @@ Future<void> createMealsAPI(
     request.files.add(multipartFile);
   }
 
-  await request.send().then((response) {
-    if (response.statusCode == 201) {
-      modalBuilderBottomAnimation(
-        context,
-        const SimplePopup(
-          message: "Refeição criada com sucesso",
-        ),
-      );
-    }
+  await request.send().then(
+    (response) {
+      if (response.statusCode == 201) {
+        modalBuilderBottomAnimation(
+          context,
+          const SimplePopup(
+            message: "Refeição criada com sucesso",
+          ),
+        );
+      }
 
-    if (response.statusCode == 400) {
-      modalBuilderBottomAnimation(
-        context,
-        const SimplePopup(
-          message: "Erro ao criar refeição",
-        ),
-      );
-    }
-  });
+      if (response.statusCode == 400) {
+        modalBuilderBottomAnimation(
+          context,
+          const SimplePopup(
+            message: "Erro ao criar refeição",
+          ),
+        );
+      }
+    },
+  );
+}
+
+Future<void> editMealsAPI(
+  BuildContext context,
+  String sessionToken,
+  String userID,
+  String name,
+  String category,
+  String description,
+  String preparationMethod,
+  List<SelectedFood> ingredients,
+  File? imageFile,
+) async {
+  const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals';
+
+  var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
+    ..headers['Authorization'] = 'Bearer $sessionToken';
+
+  var payload = {
+    "userId": userID,
+    "name": name,
+    "category": category,
+    "description": description,
+    "preparationMethod": preparationMethod,
+    "ingredients": ingredients.map((e) => e.toJson()).toList()
+  };
+
+  String payloadEncoded = json.encode(payload);
+
+  request.fields["payload"] = payloadEncoded;
+
+  // Add image file
+  if (imageFile != null) {
+    var imageStream = http.ByteStream(imageFile.openRead());
+    var length = await imageFile.length();
+    var multipartFile = http.MultipartFile('photo', imageStream, length,
+        filename: imageFile.path.split('/').last,
+        contentType: MediaType(
+          "image",
+          imageFile.path.split(".").last,
+        ));
+
+    request.files.add(multipartFile);
+  }
+
+  await request.send().then(
+    (response) {
+      if (response.statusCode == 201) {
+        modalBuilderBottomAnimation(
+          context,
+          const SimplePopup(
+            message: "Refeição criada com sucesso",
+          ),
+        );
+      }
+
+      if (response.statusCode == 400) {
+        modalBuilderBottomAnimation(
+          context,
+          const SimplePopup(
+            message: "Erro ao criar refeição",
+          ),
+        );
+      }
+    },
+  );
 }
 
 Future<void> deleteMealAPI(
-    BuildContext context, String sessionToken, String mealID) async {
+  BuildContext context,
+  String sessionToken,
+  String mealID,
+) async {
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals/';
 
-  try {
-    final response = await http.delete(
-      Uri.parse(apiUrl).replace(queryParameters: {
-        'id': mealID,
-      }),
-      headers: {
-        'Authorization': 'Bearer $sessionToken',
-        "Content-type": "application/json"
-      },
-    );
-
-    userMeals = json.decode(response.body);
-  } catch (e) {
-    modalBuilderBottomAnimation(
-      context,
-      const SimplePopup(
-        message: "Houve um erro na execução do aplicativo",
-      ),
-    );
-  }
+  final response = await http.delete(
+    Uri.parse(apiUrl).replace(queryParameters: {
+      'id': mealID,
+    }),
+    headers: {
+      'Authorization': 'Bearer $sessionToken',
+    },
+  );
+  print(response.statusCode);
 }

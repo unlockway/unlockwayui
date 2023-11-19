@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/screens/meals/components/new_meal_page.dart';
 
 class UCard extends StatelessWidget {
@@ -22,7 +23,7 @@ class UCard extends StatelessWidget {
   final String idMeal;
   final String category;
   final String preparationMethod;
-  final List ingredients;
+  final List<SelectedFood> ingredients;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,13 @@ class UCard extends StatelessWidget {
         Navigator.of(context).push(
           navigationPageRightAnimation(
             NewMeal(
+              id: idMeal,
               name: title,
               category: category,
               description: description,
               preparationMethod: '',
               ingredientsSelected: ingredients,
-              img: imageURL!,
+              img: imageURL,
             ),
           ),
         );

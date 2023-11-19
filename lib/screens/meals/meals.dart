@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/screens/meals/components/meal_card.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
@@ -160,14 +161,20 @@ class _MealsState extends State<Meals> {
                             itemCount: meals.length,
                             itemBuilder: (context, index) {
                               var actualMeal = meals[index];
-
+                              List<SelectedFood> selectedingredients =
+                                  actualMeal.ingredients.map((e) {
+                                return SelectedFood(
+                                  e['id'],
+                                  e['amount'],
+                                );
+                              }).toList();
                               return UCard(
                                 description: actualMeal.description,
                                 title: actualMeal.name,
                                 imageURL: actualMeal.img,
                                 category: actualMeal.category,
                                 idMeal: actualMeal.idMeal,
-                                ingredients: actualMeal.ingredients,
+                                ingredients: selectedingredients,
                                 preparationMethod: actualMeal.preparationMethod,
                               );
                             },
