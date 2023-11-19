@@ -129,7 +129,7 @@ Future<void> editMealsAPI(
 ) async {
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals';
 
-  var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
+  var request = http.MultipartRequest('PUT', Uri.parse(apiUrl))
     ..headers['Authorization'] = 'Bearer $sessionToken';
 
   var payload = {
