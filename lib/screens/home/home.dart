@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
@@ -33,14 +34,51 @@ class Home extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.asset(
-                          "assets/imgs/thomas.png",
-                          width: 50,
-                          height: 50,
-                        ),
-                      ),
+                      user.photo != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              clipBehavior: Clip.hardEdge,
+                              child: CachedNetworkImage(
+                                imageUrl: user.photo as String,
+                                fit: BoxFit.cover,
+                                width: 64,
+                                height: 64,
+                                placeholder: (context, url) => CircleAvatar(
+                                  backgroundColor: Color(primary),
+                                  child: Text(
+                                    (user.firstName!.substring(0, 1) +
+                                            user.lastName!.substring(0, 1))
+                                        .toUpperCase(),
+                                    style: TextStyle(
+                                      fontFamily: "Inter",
+                                      fontSize: 44.0,
+                                      color: Color(dark),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              width: 80,
+                              height: 80,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Color(primary),
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: Text(
+                                (user.firstName!.substring(0, 1) +
+                                        user.lastName!.substring(0, 1))
+                                    .toUpperCase(),
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontSize: 44.0,
+                                  color: Color(dark),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                       const SizedBox(
                         width: 20,
                       ),

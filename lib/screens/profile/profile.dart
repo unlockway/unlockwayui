@@ -125,7 +125,16 @@ class _UserProfileState extends State<UserProfile> {
                 goals,
                 biotype,
                 sex,
-              );
+              ).then((value) {
+                if (selectedImagePath.isNotEmpty) {
+                  applyUserPhotoHandler(
+                    context,
+                    File(selectedImagePath),
+                    user.id!,
+                    user.token!,
+                  );
+                }
+              });
             },
             child: Text(
               "Salvar".toUpperCase(),
@@ -150,19 +159,56 @@ class _UserProfileState extends State<UserProfile> {
                     context,
                   );
                 },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  clipBehavior: Clip.hardEdge,
-                  child: selectedImagePath.isNotEmpty
-                      ? Image.file(
-                          File(selectedImagePath),
-                          fit: BoxFit.cover,
-                          width: 180,
-                          height: 180,
-                        )
-                      : widget.userPhoto!.isNotEmpty
-                          ? CachedNetworkImage(
+                child: selectedImagePath.isNotEmpty
+                    ? Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            clipBehavior: Clip.hardEdge,
+                            child: Positioned(
+                              child: Image.file(
+                                File(selectedImagePath),
+                                fit: BoxFit.cover,
+                                width: 180,
+                                height: 180,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 5,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                              ),
+                              child: IconButton(
+                                iconSize: 34.0,
+                                onPressed: () {
+                                  setState(() {
+                                    selectedImagePath = '';
+                                  });
+                                },
+                                icon: Icon(
+                                  PhosphorIcons.trash(
+                                    PhosphorIconsStyle.duotone,
+                                  ),
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : widget.userPhoto!.isNotEmpty
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            clipBehavior: Clip.hardEdge,
+                            child: CachedNetworkImage(
                               imageUrl: widget.userPhoto!,
+                              fit: BoxFit.cover,
+                              width: 180,
                               height: 180,
                               placeholder: (context, url) => CircleAvatar(
                                 backgroundColor: Color(primary),
@@ -178,28 +224,28 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                 ),
                               ),
-                            )
-                          : Container(
-                              width: 180,
-                              height: 180,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Color(primary),
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: Text(
-                                (user.firstName!.substring(0, 1) +
-                                        user.lastName!.substring(0, 1))
-                                    .toUpperCase(),
-                                style: TextStyle(
-                                  fontFamily: "Inter",
-                                  fontSize: 44.0,
-                                  color: Color(dark),
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            ),
+                          )
+                        : Container(
+                            width: 180,
+                            height: 180,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Color(primary),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Text(
+                              (user.firstName!.substring(0, 1) +
+                                      user.lastName!.substring(0, 1))
+                                  .toUpperCase(),
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 44.0,
+                                color: Color(dark),
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                ),
+                          ),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 32.0),

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +9,7 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/user.dart';
+import 'package:http_parser/http_parser.dart';
 
 Future<void> updateUserDataHandler(
   BuildContext context,
@@ -47,13 +49,16 @@ Future<void> updateUserDataHandler(
     "firstname": firstname,
     "lastname": lastname,
     "email": email,
-    "password": password,
     "height": height,
     "weight": weight,
     "goals": goalsObject,
     "biotype": biotype,
     "sex": sex,
   };
+
+  if (password.isNotEmpty) {
+    payload["password"] = password;
+  }
 
   var bodyApi = json.encode(payload);
 
@@ -86,6 +91,50 @@ Future<void> updateUserDataHandler(
             .replaceAll(
                 "FormatException: Unexpected character (at character 1)", "")
             .replaceAll("^", ""),
+      ),
+    );
+  }
+}
+
+Future<void> applyUserPhotoHandler(
+  BuildContext context,
+  File photo,
+  String userId,
+  String sessionToken,
+) async {
+  String apiUrl =
+      'https://unlockway.azurewebsites.net/api/v1/user/photo/$userId';
+
+  var request = http.MultipartRequest(
+    'PUT',
+    Uri.parse(apiUrl),
+  )..headers['Authorization'] = 'Bearer $sessionToken';
+
+  var imageStream = http.ByteStream(photo.openRead());
+  var length = await photo.length();
+  var multipartFile = http.MultipartFile(
+    'photo',
+    imageStream,
+    length,
+    filename: photo.path.split('/').last,
+    contentType: MediaType(
+      "image",
+      photo.path.split(".").last,
+    ),
+  );
+
+  request.files.add(multipartFile);
+
+  var stream = await request.send();
+
+  if (stream.statusCode == 200) {
+    var response = await http.Response.fromStream(stream);
+    userData.photo = response.body;
+  } else if (stream.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Erro ao aplicar foto",
       ),
     );
   }

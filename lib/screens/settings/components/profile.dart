@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
@@ -68,12 +69,53 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Expanded(
+              Expanded(
                 flex: 1,
-                child: CircleAvatar(
-                  radius: 64.0,
-                  backgroundImage: AssetImage("assets/imgs/thomas.png"),
-                ),
+                child: user.photo != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        clipBehavior: Clip.hardEdge,
+                        child: CachedNetworkImage(
+                          imageUrl: user.photo as String,
+                          fit: BoxFit.cover,
+                          width: 80,
+                          height: 120,
+                          placeholder: (context, url) => CircleAvatar(
+                            backgroundColor: Color(primary),
+                            child: Text(
+                              (user.firstName!.substring(0, 1) +
+                                      user.lastName!.substring(0, 1))
+                                  .toUpperCase(),
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 44.0,
+                                color: Color(dark),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        width: 80,
+                        height: 80,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Color(primary),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Text(
+                          (user.firstName!.substring(0, 1) +
+                                  user.lastName!.substring(0, 1))
+                              .toUpperCase(),
+                          style: TextStyle(
+                            fontFamily: "Inter",
+                            fontSize: 44.0,
+                            color: Color(dark),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
               ),
               Expanded(
                 flex: 2,
