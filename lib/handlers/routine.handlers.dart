@@ -118,6 +118,68 @@ Future<void> createRoutineAPI(
   }
 }
 
+Future<void> editRoutineAPI(
+  BuildContext context,
+  String userID,
+  String sessionToken,
+  String routineName,
+  bool inUsage,
+  List<RoutineMeal> meals,
+  List<bool> weekRepetitions,
+) async {
+  const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/routines';
+
+  List<Map<String, dynamic>> jsonList =
+      meals.map((meal) => meal.toJson()).toList();
+
+  var finalWeekRepetitions = {
+    "monday": weekRepetitions[0],
+    "tuesday": weekRepetitions[1],
+    "wednesday": weekRepetitions[2],
+    "thursday": weekRepetitions[3],
+    "friday": weekRepetitions[4],
+    "saturday": weekRepetitions[5],
+    "sunday": weekRepetitions[6]
+  };
+
+  var payload = {
+    "name": routineName,
+    "inUsage": inUsage,
+    "meals": jsonList,
+    "weekRepetitions": finalWeekRepetitions,
+  };
+
+  var payloadEncoded = json.encode(payload);
+
+  final response = await http.put(
+    Uri.parse(apiUrl),
+    headers: {
+      'Authorization': 'Bearer $sessionToken',
+    },
+    body: payloadEncoded,
+  );
+
+  print(response.body);
+  print(routine);
+  if (response.statusCode == 201) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Rotina editada com sucesso",
+      ),
+    );
+  }
+
+  if (response.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Erro ao editar rotina",
+      ),
+    );
+  }
+}
+
 Future<void> deleteRoutineAPI(
   BuildContext context,
   String sessionToken,
