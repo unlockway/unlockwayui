@@ -3,6 +3,7 @@ import 'package:multiselect/multiselect.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/user.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({
@@ -15,12 +16,14 @@ class UserProfile extends StatefulWidget {
     required this.email,
     required this.biotype,
     required this.password,
+    required this.sex,
   });
 
   final String firstname;
   final String lastname;
   final double weight;
   final double height;
+  final String sex;
   final List<String> goals;
   final String email;
   final String biotype;
@@ -39,23 +42,42 @@ class _UserProfileState extends State<UserProfile> {
   final senhaController = TextEditingController();
 
   List<String> goals = [];
-  late String biotypeSelected;
+  String sex = "MALE";
+  String biotype = 'ECTOMORPH';
 
   @override
   void initState() {
     super.initState();
-    biotypeSelected = widget.biotype;
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    biotype = widget.biotype;
+    sex = widget.sex;
     firstnameController.text = widget.firstname;
     lastnameController.text = widget.lastname;
     emailController.text = widget.email;
     alturaController.text = widget.height.toString();
     pesoController.text = widget.weight.toString();
     goals = widget.goals;
+  }
 
+  void onBiotypeChange(String? newBiotype) {
+    setState(() {
+      biotype = newBiotype!;
+    });
+  }
+
+  void onGoalsChange(List<String> newGoals) {
+    setState(() {
+      goals = newGoals;
+    });
+  }
+
+  void onSexChange(String? newSex) {
+    setState(() {
+      sex = newSex!;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -80,7 +102,22 @@ class _UserProfileState extends State<UserProfile> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              updateUserDataHandler(
+                context,
+                userData.id!,
+                userData.token!,
+                firstnameController.text,
+                lastnameController.text,
+                emailController.text,
+                senhaController.text,
+                double.parse(alturaController.text),
+                double.parse(pesoController.text),
+                goals,
+                biotype,
+                sex,
+              );
+            },
             child: Text(
               "Salvar".toUpperCase(),
               style: TextStyle(
@@ -142,10 +179,59 @@ class _UserProfileState extends State<UserProfile> {
                             placeholder: "0,00",
                             width: double.infinity,
                             controller: alturaController,
-                            number: false,
+                            number: true,
                           ),
                         )
                       ],
+                    ),
+                    const SizedBox(height: 12.0),
+                    Text(
+                      "Sexo",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.outline,
+                        fontSize: 16,
+                        fontFamily: "Inter",
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 8,
+                      ),
+                      child: DropdownButton<String>(
+                        dropdownColor:
+                            Theme.of(context).colorScheme.onBackground,
+                        borderRadius: BorderRadius.circular(6),
+                        isExpanded: true,
+                        value: sex,
+                        icon: const Icon(Icons.arrow_drop_down),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
+                          fontSize: 16,
+                          fontFamily: "Inter",
+                        ),
+                        onChanged: onSexChange,
+                        underline: Container(
+                          color: Colors.transparent,
+                        ),
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'MALE',
+                            child: Text('Homem'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'FEMALE',
+                            child: Text('Mulher'),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 12.0),
                     Text(
@@ -192,11 +278,7 @@ class _UserProfileState extends State<UserProfile> {
                       selected_values_style: TextStyle(
                         color: Theme.of(context).colorScheme.outline,
                       ),
-                      onChanged: (List<String> x) {
-                        setState(() {
-                          goals = x;
-                        });
-                      },
+                      onChanged: onGoalsChange,
                       options: const [
                         'Manter saúde',
                         'Perder peso',
@@ -238,12 +320,8 @@ class _UserProfileState extends State<UserProfile> {
                             fontSize: 16,
                             fontFamily: "Inter",
                           ),
-                          value: biotypeSelected,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              biotypeSelected = newValue!;
-                            });
-                          },
+                          value: biotype,
+                          onChanged: onBiotypeChange,
                           underline: Container(
                             color: Colors.transparent,
                           ),

@@ -5,8 +5,23 @@ import 'package:unlockway/models/goals.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/profile/profile.dart';
 
-class ProfileSettings extends StatelessWidget {
+class ProfileSettings extends StatefulWidget {
   const ProfileSettings({super.key});
+
+  @override
+  State<ProfileSettings> createState() => _ProfileSettingsState();
+}
+
+class _ProfileSettingsState extends State<ProfileSettings> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +29,8 @@ class ProfileSettings extends StatelessWidget {
 
     return InkWell(
         onTap: () {
-          Navigator.of(context).push(
+          Navigator.of(context)
+              .push(
             navigationPageRightAnimation(
               UserProfile(
                 email: user.email!,
@@ -23,11 +39,15 @@ class ProfileSettings extends StatelessWidget {
                 firstname: user.firstName!,
                 lastname: user.lastName!,
                 height: user.height!,
+                sex: user.sex!,
                 weight: user.weight!,
                 password: "",
               ),
             ),
-          );
+          )
+              .then((value) {
+            setState(() {});
+          });
         },
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(8.0),
