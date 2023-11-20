@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:unlockway/models/relations/meal_ingredients.dart';
 
 class MealsModel {

@@ -70,7 +70,7 @@ class NewMealPopup extends StatelessWidget {
                     id: '',
                     category: '',
                     description: '',
-                    ingredientsSelected: [],
+                    ingredientsSelected: const [],
                     name: '',
                     preparationMethod: '',
                     img: '',

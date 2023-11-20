@@ -4,6 +4,10 @@ import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/routine.handlers.dart';
+import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
+import 'package:unlockway/models/routine.dart';
+
 import 'package:unlockway/screens/routine/components/filter_routine_popup.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 import 'package:unlockway/screens/routine/components/routine_card.dart';
@@ -16,6 +20,28 @@ class Routine extends StatefulWidget {
 }
 
 class _RoutineState extends State<Routine> {
+  List<RoutineModel> routineList = [];
+  bool _isLoading = true;
+
+  void fetchAllRoutines() async {
+    var result = await getRoutinesAPI(context);
+
+    setState(() {
+      routineList = result;
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +50,9 @@ class _RoutineState extends State<Routine> {
           Navigator.of(context).push(
             navigationPageRightAnimation(
               const NewRoutine(
+                routineId: null,
                 inUsage: false,
-                meals: null,
+                meals: [],
                 name: null,
                 weekRepetitions: null,
               ),
@@ -142,75 +169,93 @@ class _RoutineState extends State<Routine> {
       bottomNavigationBar: const UBottomNavigator("Routine"),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: userRoutines.isNotEmpty
-            ? LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return CustomScrollView(
-                    slivers: <Widget>[
-                      SliverToBoxAdapter(
-                        child: ConstrainedBox(
-                          constraints:
-                              BoxConstraints(maxHeight: constraints.maxHeight),
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1,
-                              childAspectRatio: 1.7,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                            ),
-                            shrinkWrap: true,
-                            itemCount: userRoutines.length,
-                            itemBuilder: (context, index) {
-                              var routineIndex = userRoutines[index];
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : routineList.isNotEmpty
+                ? LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) {
+                      return CustomScrollView(
+                        slivers: <Widget>[
+                          SliverToBoxAdapter(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                  maxHeight: constraints.maxHeight),
+                              child: GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 1,
+                                  childAspectRatio: 1.7,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                ),
+                                shrinkWrap: true,
+                                itemCount: routineList.length,
+                                itemBuilder: (context, index) {
+                                  var routineIndex = routineList[index];
 
-                              return RoutineCard(
-                                name: routineIndex.name,
-                                weekRepetitions: routineIndex.weekRepetitions,
-                                calories: routineIndex.totalCaloriesInTheDay,
-                                meals: routineIndex.meals,
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
-                                using: routineIndex.inUsage,
-                              );
-                            },
+                                  List<RoutineMealOnCreation> filteredMeals =
+                                      [];
+                                  for (var element in routineIndex.meals) {
+                                    filteredMeals.add(
+                                      RoutineMealOnCreation(
+                                        idMeal: element.mealId,
+                                        notifyAt: element.notifyAt,
+                                      ),
+                                    );
+                                  }
+
+                                  return RoutineCard(
+                                    routineId: routineIndex.id,
+                                    name: routineIndex.name,
+                                    weekRepetitions:
+                                        routineIndex.weekRepetitions,
+                                    calories:
+                                        routineIndex.totalCaloriesInTheDay,
+                                    meals: filteredMeals,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
+                                    using: routineIndex.inUsage,
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        PhosphorIcons.timer(PhosphorIconsStyle.regular),
+                        size: 150,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 28,
+                        ),
+                        child: Expanded(
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            "Não há rotinas criadas, crie sua primeira rotina para que ela seja listada aqui.",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.outline,
+                              fontFamily: "Inter",
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ),
                     ],
-                  );
-                },
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    PhosphorIcons.timer(PhosphorIconsStyle.regular),
-                    size: 150,
-                    color: Theme.of(context).colorScheme.outline,
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 28,
-                    ),
-                    child: Expanded(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        "Não há rotinas criadas, crie sua primeira rotina para que ela seja listada aqui.",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.outline,
-                          fontFamily: "Inter",
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
       ),
     );
   }

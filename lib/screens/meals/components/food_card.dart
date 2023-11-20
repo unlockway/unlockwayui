@@ -6,8 +6,8 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/screens/meals/components/food_info_popup.dart';
 
-class FoodCard extends StatefulWidget {
-  const FoodCard({
+class IngredientCard extends StatefulWidget {
+  const IngredientCard({
     super.key,
     required this.checked,
     required this.food,
@@ -23,10 +23,10 @@ class FoodCard extends StatefulWidget {
   final double initialValue;
 
   @override
-  State<FoodCard> createState() => _FoodCardState();
+  State<IngredientCard> createState() => _IngredientCardState();
 }
 
-class _FoodCardState extends State<FoodCard> {
+class _IngredientCardState extends State<IngredientCard> {
   TextEditingController amountController = TextEditingController(text: "0");
   String? measureText;
   double quantNumber = 0;
@@ -37,24 +37,24 @@ class _FoodCardState extends State<FoodCard> {
   sumOrSub(String operation) {
     if (selected == true) {
       if (operation == "sum") {
-        if (widget.food.measurement == "AMOUNT") {
+        if (widget.food.measure == "AMOUNT") {
           add = 1;
           quantNumber = quantNumber + add;
           amountController.text = quantNumber.toString();
-        } else if (widget.food.measurement == "MILILITERS" ||
-            widget.food.measurement == "GRAMS") {
+        } else if (widget.food.measure == "MILILITERS" ||
+            widget.food.measure == "GRAMS") {
           add = 100;
           quantNumber = quantNumber + add;
           amountController.text = quantNumber.toString();
         }
       }
       if (operation == "sub" && quantNumber > 0) {
-        if (widget.food.measurement == "AMOUNT") {
+        if (widget.food.measure == "AMOUNT") {
           add = -1;
           quantNumber = quantNumber + add;
           amountController.text = quantNumber.toString();
-        } else if (widget.food.measurement == "MILILITERS" ||
-            widget.food.measurement == "GRAMS") {
+        } else if (widget.food.measure == "MILILITERS" ||
+            widget.food.measure == "GRAMS") {
           add = -100;
           quantNumber = quantNumber + add;
           amountController.text = quantNumber.toString();
@@ -72,11 +72,11 @@ class _FoodCardState extends State<FoodCard> {
     quantNumber = widget.initialValue;
     amountController.text = quantNumber.toString();
 
-    if (widget.food.measurement == "AMOUNT") {
+    if (widget.food.measure == "AMOUNT") {
       measureText = "Quant";
-    } else if (widget.food.measurement == "MILILITERS") {
+    } else if (widget.food.measure == "MILILITERS") {
       measureText = "MLs";
-    } else if (widget.food.measurement == "GRAMS") {
+    } else if (widget.food.measure == "GRAMS") {
       measureText = "Gramas";
     }
   }
@@ -110,7 +110,7 @@ class _FoodCardState extends State<FoodCard> {
                   water: widget.food.water,
                   fats: widget.food.fats,
                   vitamins: widget.food.vitamins,
-                  imgURL: widget.food.imgURL,
+                  imgURL: widget.food.photo,
                   description: widget.food.description,
                   name: widget.food.name,
                 ),
@@ -122,7 +122,7 @@ class _FoodCardState extends State<FoodCard> {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(6)),
                 child: Image.network(
-                  widget.food.imgURL,
+                  widget.food.photo,
                   fit: BoxFit.cover,
                 ),
               ),

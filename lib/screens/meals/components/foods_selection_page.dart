@@ -21,39 +21,52 @@ class FoodSelectionPage extends StatefulWidget {
 }
 
 class _FoodSelectionPageState extends State<FoodSelectionPage> {
-  List<SelectedFood> selectedFoods = [];
   UserModel user = userData;
+
+  List<IngredientModel> ingredientsList = [];
+  bool _isLoading = true;
+
+  List<SelectedFood> selectedIngredients = [];
   final searchController = TextEditingController();
 
-  // toggleIngredient(FoodModel food, double amount) {
-  //   SelectedFood selectedFood = SelectedFood(
-  //     food.idFood,
-  //     amount,
-  //   );
-  //   if (selectedFoods.contains(selectedFood)) {
-  //     selectedFoods.remove(selectedFood);
-  //   } else {
-  //     selectedFoods.add(selectedFood);
-  //   }
-  //   print(selectedFoods);
-  // }
+  void fetchAllIngredients() async {
+    var result = await getIngredientsAPI(context);
+
+    setState(() {
+      ingredientsList = result;
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAllIngredients();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    ingredientsList = [];
+    _isLoading = true;
+  }
 
   void toggleIngredient(String id, double amount) {
     int index = findSelectedFoodById(id);
     if (index != -1) {
       setState(() {
-        selectedFoods.removeAt(index);
+        selectedIngredients.removeAt(index);
       });
     } else {
       setState(() {
-        selectedFoods.add(SelectedFood(id, amount));
+        selectedIngredients.add(SelectedFood(id, amount));
       });
     }
   }
 
   int findSelectedFoodById(String id) {
-    for (int i = 0; i < selectedFoods.length; i++) {
-      if (selectedFoods[i].id == id) {
+    for (int i = 0; i < selectedIngredients.length; i++) {
+      if (selectedIngredients[i].id == id) {
         return i;
       }
     }
@@ -61,8 +74,8 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
   }
 
   sumOrSubValues(double value, IngredientModel selectedFood) {
-    selectedFoods = selectedFoods.map((e) {
-      if (e.id == selectedFood.idFood) {
+    selectedIngredients = selectedIngredients.map((e) {
+      if (e.id == selectedFood.id) {
         e.amount = value;
         return e;
       }
@@ -89,7 +102,7 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
               onTap: () {
                 Navigator.pop(
                   context,
-                  selectedFoods,
+                  selectedIngredients,
                 );
               },
             ),
@@ -114,7 +127,6 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                         method: () async {
                           await getIngredientsByNameAPI(
                             context,
-                            user.token!,
                             searchController.text,
                           );
                           setState(() {});
@@ -145,51 +157,57 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                     ],
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxHeight: constraints.maxHeight - 140,
-                    ),
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1,
-                        childAspectRatio: 2.3,
-                      ),
-                      shrinkWrap: true,
-                      itemCount: ingredients.length,
-                      itemBuilder: (context, index) {
-                        var currentIngredient = ingredients[index];
-                        bool selected = false;
-                        double initialValue = 0.0;
+                (() {
+                  if (_isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return SliverToBoxAdapter(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: constraints.maxHeight - 140,
+                        ),
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            childAspectRatio: 2.3,
+                          ),
+                          shrinkWrap: true,
+                          itemCount: ingredientsList.length,
+                          itemBuilder: (context, index) {
+                            var currentIngredient = ingredientsList[index];
+                            bool selected = false;
+                            double initialValue = 0.0;
 
-                        if (widget.ingredients.isNotEmpty) {
-                          var filteredIngredients = widget.ingredients
-                              .where((e) => e.id == currentIngredient.idFood)
-                              .toList();
+                            if (widget.ingredients.isNotEmpty) {
+                              var filteredIngredients = widget.ingredients
+                                  .where((e) => e.id == currentIngredient.id)
+                                  .toList();
 
-                          if (filteredIngredients.length == 1) {
-                            selected = true;
-                            initialValue = filteredIngredients[0].amount;
-                          }
-                        }
+                              if (filteredIngredients.length == 1) {
+                                selected = true;
+                                initialValue = filteredIngredients[0].amount;
+                              }
+                            }
 
-                        return FoodCard(
-                          initialValue: initialValue,
-                          food: currentIngredient,
-                          checked: selected,
-                          onSelectIngredient: (id, amount) {
-                            setState(() {
-                              toggleIngredient(
-                                  currentIngredient.idFood, amount);
-                            });
+                            return IngredientCard(
+                              initialValue: initialValue,
+                              food: currentIngredient,
+                              checked: selected,
+                              onSelectIngredient: (id, amount) {
+                                setState(() {
+                                  toggleIngredient(
+                                      currentIngredient.id, amount);
+                                });
+                              },
+                              onSumOrSubAmount: sumOrSubValues,
+                            );
                           },
-                          onSumOrSubAmount: sumOrSubValues,
-                        );
-                      },
-                    ),
-                  ),
-                ),
+                        ),
+                      ),
+                    );
+                  }
+                })()
               ],
             );
           },

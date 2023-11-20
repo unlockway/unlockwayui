@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
-import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/history/history.dart';
 import 'package:unlockway/screens/home/home.dart';
 import 'package:unlockway/screens/meals/meals.dart';
@@ -20,8 +18,6 @@ class UBottomNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = userData;
-
     Color home = Theme.of(context).colorScheme.outline;
     Color meal = Theme.of(context).colorScheme.outline;
     Color routine = Theme.of(context).colorScheme.outline;
@@ -96,11 +92,7 @@ class UBottomNavigator extends StatelessWidget {
             IconButton(
               onPressed: () async {
                 await getMealsAPI(context);
-                await getRoutinesAPI(
-                  context,
-                  user.id!,
-                  user.token!,
-                );
+                await getRoutinesAPI(context);
                 navigatePage(
                   context,
                   const Routine(),

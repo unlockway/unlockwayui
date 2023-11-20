@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/meals.dart';
+import 'package:unlockway/screens/routine/components/routine_meal_popup.dart';
 
 class RoutineMealCard extends StatelessWidget {
   const RoutineMealCard({
@@ -11,6 +14,9 @@ class RoutineMealCard extends StatelessWidget {
     required this.hour,
     required this.calories,
     required this.imgURL,
+    required this.removeMethod,
+    required this.editMethod,
+    required this.mealsList,
   });
 
   final String category;
@@ -18,6 +24,9 @@ class RoutineMealCard extends StatelessWidget {
   final String hour;
   final double calories;
   final String? imgURL;
+  final Function? removeMethod;
+  final Function? editMethod;
+  final List<MealsModel> mealsList;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +46,15 @@ class RoutineMealCard extends StatelessWidget {
       categoryText = "Lanche";
     }
     return InkWell(
-      // onTap: () => modalBuilderBottomAnimation(
-      //   context,
-      //   const RoutineMealPopup(saveMethod: saveMethod),
-      // ),
+      onTap: () => modalBuilderBottomAnimation(
+        context,
+        RoutineMealPopup(
+          editMethod: editMethod,
+          saveMethod: null,
+          removeMethod: removeMethod,
+          mealsList: mealsList,
+        ),
+      ),
       child: Container(
         height: 100,
         margin: const EdgeInsets.only(bottom: 16),

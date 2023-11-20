@@ -1,36 +1,51 @@
-class RoutineModel {
-  const RoutineModel(
-    this.idRoutine,
-    this.name,
-    this.meals,
-    this.inUsage,
-    this.weekRepetitions,
-    this.totalCaloriesInTheDay,
-    this.createdAt,
-    this.updatedAt,
-  );
+import 'package:unlockway/models/relations/routine_meal_on_get.dart';
 
-  final String idRoutine;
+class RoutineModel {
+  const RoutineModel({
+    required this.id,
+    required this.name,
+    required this.meals,
+    required this.inUsage,
+    required this.weekRepetitions,
+    required this.totalCaloriesInTheDay,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  final String id;
   final String name;
-  final List meals;
   final bool inUsage;
+  final List<RoutineMealOnGet> meals;
   final List<bool> weekRepetitions;
   final double totalCaloriesInTheDay;
-  final String createdAt;
-  final String updatedAt;
-}
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-class RoutineMeal {
-  RoutineMeal(
-    this.idMeal,
-    this.notifyAt,
-  );
+  factory RoutineModel.fromMap(Map<String, dynamic> map) {
+    List routineMeals = map["meals"];
+    Map<String, bool> weekRepetition = map['weekRepetitions'];
+    List<bool> weekRepetitionsList = weekRepetition.values.toList();
 
-  String idMeal;
-  String notifyAt;
-
-  Map<String, dynamic> toJson() => {
-        'idMeal': idMeal,
-        'notifyAt': notifyAt,
-      };
+    return RoutineModel(
+      id: map['id'],
+      name: map['name'],
+      inUsage: map['inUsage'],
+      meals: routineMeals.map((e) {
+        return RoutineMealOnGet(
+          id: e["id"],
+          notifyAt: e["notifyAt"],
+          mealId: e["mealId"],
+          photo: e["photo"],
+          name: e["name"],
+          description: e["description"],
+          category: e["category"],
+          totalCalories: double.parse(e["totalCalories"]),
+        );
+      }).toList(),
+      weekRepetitions: weekRepetitionsList,
+      totalCaloriesInTheDay: map["totalCaloriesInTheDay"],
+      createdAt: DateTime.parse(map['createdAt'].toString()),
+      updatedAt: DateTime.parse(map['updatedAt'].toString()),
+    );
+  }
 }

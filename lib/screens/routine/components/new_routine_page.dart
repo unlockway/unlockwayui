@@ -5,8 +5,10 @@ import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
-import 'package:unlockway/models/routine.dart';
+import 'package:unlockway/models/meals.dart';
+import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/routine/components/routine_meal_card.dart';
 import 'package:unlockway/screens/routine/components/routine_meal_popup.dart';
@@ -18,12 +20,14 @@ class NewRoutine extends StatefulWidget {
     required this.meals,
     required this.inUsage,
     required this.weekRepetitions,
+    required this.routineId,
   });
 
   final String? name;
-  final List? meals;
+  final List<RoutineMealOnCreation> meals;
   final bool? inUsage;
   final List<bool>? weekRepetitions;
+  final String? routineId;
 
   @override
   State<NewRoutine> createState() => _NewRoutineState();
@@ -32,6 +36,11 @@ class NewRoutine extends StatefulWidget {
 class _NewRoutineState extends State<NewRoutine> {
   UserModel user = userData;
 
+  List<MealsModel> mealsList = [];
+  bool _isLoading = true;
+
+  final nameController = TextEditingController();
+  List<RoutineMealOnCreation> mealsSelectedToRoutine = [];
   List<bool> daysSelected = [
     false,
     false,
@@ -42,8 +51,14 @@ class _NewRoutineState extends State<NewRoutine> {
     false,
   ];
 
-  List<RoutineMeal> routineMeals = [];
-  final nameController = TextEditingController();
+  void fetchAllMeals() async {
+    var result = await getMealsAPI(context);
+
+    setState(() {
+      mealsList = result;
+      _isLoading = false;
+    });
+  }
 
   changeDays(int dayID) {
     daysSelected[dayID] = !daysSelected[dayID];
@@ -51,27 +66,33 @@ class _NewRoutineState extends State<NewRoutine> {
 
   saveToRoutineMeals(String idMeal, String notifyAt) {
     setState(() {
-      routineMeals.add(
-        RoutineMeal(idMeal, notifyAt),
+      mealsSelectedToRoutine.add(
+        RoutineMealOnCreation(idMeal: idMeal, notifyAt: notifyAt),
+      );
+    });
+  }
+
+  removeFromRoutineMeals(String idMeal, String notifyAt) {
+    setState(() {
+      mealsSelectedToRoutine.remove(
+        RoutineMealOnCreation(idMeal: idMeal, notifyAt: notifyAt),
       );
     });
   }
 
   @override
   void initState() {
-    List<RoutineMeal> filteredRoutineMeals = widget.meals!.map((e) {
-      return RoutineMeal(
-        e['idMeal'],
-        e['notifyAt'],
-      );
-    }).toList();
-
+    super.initState();
     if (widget.name != null) {
       nameController.text = widget.name!;
       daysSelected = widget.weekRepetitions!;
-      routineMeals = filteredRoutineMeals;
+      mealsSelectedToRoutine = widget.meals;
     }
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -82,21 +103,24 @@ class _NewRoutineState extends State<NewRoutine> {
           child: widget.name != null
               ? Row(
                   children: [
+                    ButtonOutlined(
+                      text: "EXCLUIR ROTINA",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        deleteRoutineAPI(
+                            context, user.token!, widget.routineId!);
+                      },
+                      color: Color(danger),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
                     ButtonFilled(
                       text: "EDITAR ROTINA",
                       height: 48,
                       width: double.infinity,
                       onTap: () {},
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    ButtonOutlined(
-                      text: "EXCLUIR ROTINA",
-                      height: 48,
-                      width: double.infinity,
-                      onTap: () {},
-                      color: Color(danger),
                     ),
                   ],
                 )
@@ -113,7 +137,7 @@ class _NewRoutineState extends State<NewRoutine> {
                           user.token!,
                           nameController.text,
                           false,
-                          routineMeals,
+                          mealsSelectedToRoutine,
                           daysSelected,
                         );
                       },
@@ -171,44 +195,54 @@ class _NewRoutineState extends State<NewRoutine> {
                     ],
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: routineMeals.isNotEmpty
-                      ? ConstrainedBox(
-                          constraints:
-                              BoxConstraints(maxHeight: constraints.maxHeight),
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1,
-                              childAspectRatio: 2.4,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                            ),
-                            shrinkWrap: true,
-                            itemCount: routineMeals.length,
-                            itemBuilder: (context, index) {
-                              var filteredMeal = userMeals
-                                  .where(
-                                    (element) =>
-                                        element.id ==
-                                        routineMeals[index].idMeal,
-                                  )
-                                  .toList();
+                (() {
+                  if (_isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return SliverToBoxAdapter(
+                      child: mealsSelectedToRoutine.isNotEmpty
+                          ? ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxHeight: constraints.maxHeight - 20,
+                              ),
+                              child: GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 1,
+                                  childAspectRatio: 2.4,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                ),
+                                shrinkWrap: true,
+                                itemCount: mealsSelectedToRoutine.length,
+                                itemBuilder: (context, index) {
+                                  List<MealsModel> filteredMeal = mealsList
+                                      .where((element) =>
+                                          element.id ==
+                                          mealsSelectedToRoutine[index].idMeal)
+                                      .toList();
 
-                              return RoutineMealCard(
-                                category: filteredMeal[0].category,
-                                meal: filteredMeal[0].name,
-                                hour: routineMeals[index].notifyAt.toString(),
-                                calories: filteredMeal[0].totalCalories,
-                                imgURL: filteredMeal[0].photo != null
-                                    ? filteredMeal[0].photo as String
-                                    : "",
-                              );
-                            },
-                          ),
-                        )
-                      : const Text(""),
-                ),
+                                  return RoutineMealCard(
+                                    editMethod: null,
+                                    removeMethod: null,
+                                    category: filteredMeal[0].category,
+                                    meal: filteredMeal[0].name,
+                                    hour: mealsSelectedToRoutine[index]
+                                        .notifyAt
+                                        .toString(),
+                                    mealsList: mealsList,
+                                    calories: filteredMeal[0].totalCalories,
+                                    imgURL: filteredMeal[0].photo != null
+                                        ? filteredMeal[0].photo as String
+                                        : "",
+                                  );
+                                },
+                              ),
+                            )
+                          : const Text(""),
+                    );
+                  }
+                })(),
                 SliverToBoxAdapter(
                   child: Align(
                     alignment: Alignment.centerRight,
@@ -217,8 +251,13 @@ class _NewRoutineState extends State<NewRoutine> {
                         modalBuilderBottomAnimation(
                           context,
                           RoutineMealPopup(
+                            editMethod: null,
+                            mealsList: mealsList,
                             saveMethod: (String idMeal, String notifyAt) {
                               saveToRoutineMeals(idMeal, notifyAt);
+                            },
+                            removeMethod: (String idMeal, String notifyAt) {
+                              removeFromRoutineMeals(idMeal, notifyAt);
                             },
                           ),
                         );

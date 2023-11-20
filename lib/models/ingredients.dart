@@ -1,22 +1,22 @@
 class IngredientModel {
-  const IngredientModel(
-    this.idFood,
-    this.imgURL,
-    this.name,
-    this.measurement,
-    this.description,
-    this.calories,
-    this.proteins,
-    this.water,
-    this.minerals,
-    this.vitamins,
-    this.fats,
-  );
+  const IngredientModel({
+    required this.id,
+    required this.photo,
+    required this.name,
+    required this.measure,
+    required this.description,
+    required this.calories,
+    required this.proteins,
+    required this.water,
+    required this.minerals,
+    required this.vitamins,
+    required this.fats,
+  });
 
-  final String idFood;
-  final String imgURL;
+  final String id;
+  final String photo;
   final String name;
-  final String measurement;
+  final String measure;
   final String description;
   final double calories;
   final double proteins;
@@ -24,6 +24,22 @@ class IngredientModel {
   final String minerals;
   final String vitamins;
   final double fats;
+
+  factory IngredientModel.fromMap(Map<String, dynamic> map) {
+    return IngredientModel(
+      id: map['id'],
+      name: map["name"],
+      description: map["description"],
+      photo: map["photo"],
+      calories: double.parse(map["calories"]),
+      proteins: double.parse(map["proteins"]),
+      water: double.parse(map["water"]),
+      minerals: map["minerals"],
+      vitamins: map["vitamins"],
+      measure: map['measure'],
+      fats: double.parse(map["fats"]),
+    );
+  }
 }
 
 class SelectedFood {

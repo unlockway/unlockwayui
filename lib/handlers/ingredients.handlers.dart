@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:unlockway/components/popups.dart';
@@ -8,39 +9,35 @@ import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/ingredients.dart';
 
-Future<void> getIngredientsAPI(
+Future<List<IngredientModel>> getIngredientsAPI(
   BuildContext context,
-  String sessionToken,
 ) async {
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/ingredients';
 
+  final response = await http.get(Uri.parse(apiUrl), headers: {
+    'Authorization': 'Bearer ${userData.token}',
+    "Content-type": "application/json",
+  });
+
+  List ingredients = json.decode(response.body);
+
   try {
-    final response = await http.get(Uri.parse(apiUrl), headers: {
-      'Authorization': 'Bearer $sessionToken',
-      "Content-type": "application/json",
-    });
-
-    ingredients = json.decode(utf8.decode(response.bodyBytes));
+    return ingredients.map((e) => IngredientModel.fromMap(e)).toList();
   } catch (e) {
-    if (e is http.ClientException) {
-      // Handle network-related errors
-    } else {
-      // Handle other errors
-    }
-
     modalBuilderBottomAnimation(
       context,
       const SimplePopup(
-        message: "Houve um erro na execução do aplicativo",
+        message: "Erro ao buscar os ingredientes",
       ),
     );
   }
+
+  return [];
 }
 
 Future getIngredientsByNameAPI(
   BuildContext context,
-  String sessionToken,
   String name,
 ) async {
   const String apiUrl =
@@ -52,36 +49,20 @@ Future getIngredientsByNameAPI(
         'name': name,
       }),
       headers: {
-        'Authorization': 'Bearer $sessionToken',
+        'Authorization': 'Bearer ${userData.token}',
         "Content-type": "application/json",
       },
     );
 
-    var ingredientList = json.decode(utf8.decode(response.bodyBytes));
+    List ingredientList = json.decode(response.body);
 
-    ingredients = ingredientList.map((ingredient) {
-      return IngredientModel(
-        ingredient["id"],
-        ingredient["photo"],
-        ingredient["name"],
-        ingredient["measure"],
-        ingredient["description"],
-        ingredient["calories"],
-        ingredient["proteins"],
-        ingredient["water"],
-        ingredient["minerals"],
-        ingredient["vitamins"],
-        ingredient["fats"],
-      );
-    }).toList();
+    return ingredientList.map((e) => IngredientModel.fromMap(e)).toList();
   } catch (e) {
     modalBuilderBottomAnimation(
       context,
-      const SimplePopup(
-        message: "Houve um erro na execução do aplicativo",
+      SimplePopup(
+        message: "Erro ao buscar por $name",
       ),
     );
   }
-
-  return ingredients;
 }
