@@ -17,7 +17,7 @@ class EditRoutine extends StatefulWidget {
   });
 
   final List<bool> days;
-  final List<Object> meals;
+  final List meals;
 
   @override
   State<EditRoutine> createState() => _EditRoutineState();

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/data/routine.dart';
 import 'package:unlockway/models/routine.dart';
 
@@ -32,12 +33,15 @@ Future<void> getRoutinesAPI(
     print(userRoutines);
 
     routine = userRoutines.map((entry) {
+      Map<String, bool> weekRepetition = entry['weekRepetitions'];
+      List<bool> weekRepetitionsList = weekRepetition.values.toList();
+
       return RoutineModel(
         entry['id'],
         entry['name'],
         entry['meals'],
         entry['inUsage'],
-        entry['weekRepetitions'],
+        weekRepetitionsList,
         entry['totalCaloriesInTheDay'],
         entry['createdAt'],
         entry['updatedAt'],

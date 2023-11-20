@@ -14,7 +14,7 @@ class RoutineModel {
 
   final String idRoutine;
   final String name;
-  final List<Object> meals;
+  final List meals;
   final bool inUsage;
   final List<bool> weekRepetitions;
   final double totalCaloriesInTheDay;

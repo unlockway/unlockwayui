@@ -19,7 +19,7 @@ class RoutineCard extends StatelessWidget {
   final String name;
   final List<bool> weekRepetitions;
   final double calories;
-  final List<Object> meals;
+  final List meals;
   final Color color;
   final bool using;
 
