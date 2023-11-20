@@ -62,8 +62,8 @@ class _NewRoutineState extends State<NewRoutine> {
   void initState() {
     List<RoutineMeal> filteredRoutineMeals = widget.meals!.map((e) {
       return RoutineMeal(
-        e.idMeal,
-        e.notifyAt,
+        e['idMeal'],
+        e['notifyAt'],
       );
     }).toList();
 
@@ -79,28 +79,48 @@ class _NewRoutineState extends State<NewRoutine> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            ButtonFilled(
-              text: "CRIAR ROTINA",
-              height: 48,
-              width: double.infinity,
-              onTap: () {
-                createRoutineAPI(
-                  context,
-                  user.id!,
-                  user.token!,
-                  nameController.text,
-                  false,
-                  routineMeals,
-                  daysSelected,
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+          margin: const EdgeInsets.all(10),
+          child: widget.name != null
+              ? Row(
+                  children: [
+                    ButtonFilled(
+                      text: "EDITAR ROTINA",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {},
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    ButtonOutlined(
+                      text: "EXCLUIR ROTINA",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {},
+                      color: Color(danger),
+                    ),
+                  ],
+                )
+              : Row(
+                  children: [
+                    ButtonFilled(
+                      text: "CRIAR ROTINA",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        createRoutineAPI(
+                          context,
+                          user.id!,
+                          user.token!,
+                          nameController.text,
+                          false,
+                          routineMeals,
+                          daysSelected,
+                        );
+                      },
+                    ),
+                  ],
+                )),
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: registerAppBar(context),
       body: Container(
