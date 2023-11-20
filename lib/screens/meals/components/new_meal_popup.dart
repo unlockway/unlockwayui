@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/handlers/ingredients.handlers.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/new_meal_page.dart';
 

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/buttons.dart';
@@ -8,12 +6,11 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/meals.dart';
-import 'package:unlockway/data/routine.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
-import 'package:unlockway/screens/routine/components/routine_meal_popup.dart';
 import 'package:unlockway/screens/routine/components/routine_meal_card.dart';
+import 'package:unlockway/screens/routine/components/routine_meal_popup.dart';
 
 class NewRoutine extends StatefulWidget {
   const NewRoutine({
