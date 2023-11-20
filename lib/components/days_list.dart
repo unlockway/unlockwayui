@@ -6,10 +6,12 @@ class DaysList extends StatefulWidget {
     super.key,
     required this.days,
     required this.enable,
+    required this.function,
   });
 
   final List<bool> days;
   final bool enable;
+  final Function? function;
 
   @override
   State<DaysList> createState() => _DaysListState();
@@ -40,6 +42,9 @@ class _DaysListState extends State<DaysList> {
                 ? () {
                     setState(() {
                       dias[0] = !dias[0];
+                      if (widget.function != null) {
+                        widget.function!(0);
+                      }
                     });
                   }
                 : () {},
@@ -78,6 +83,9 @@ class _DaysListState extends State<DaysList> {
                 ? () {
                     setState(() {
                       dias[1] = !dias[1];
+                      if (widget.function != null) {
+                        widget.function!(1);
+                      }
                     });
                   }
                 : () {},
@@ -116,6 +124,9 @@ class _DaysListState extends State<DaysList> {
                 ? () {
                     setState(() {
                       dias[2] = !dias[2];
+                      if (widget.function != null) {
+                        widget.function!(2);
+                      }
                     });
                   }
                 : () {},
@@ -154,6 +165,9 @@ class _DaysListState extends State<DaysList> {
                 ? () {
                     setState(() {
                       dias[3] = !dias[3];
+                      if (widget.function != null) {
+                        widget.function!(3);
+                      }
                     });
                   }
                 : () {},
@@ -192,6 +206,9 @@ class _DaysListState extends State<DaysList> {
                 ? () {
                     setState(() {
                       dias[4] = !dias[4];
+                      if (widget.function != null) {
+                        widget.function!(4);
+                      }
                     });
                   }
                 : () {},
@@ -230,6 +247,9 @@ class _DaysListState extends State<DaysList> {
                 ? () {
                     setState(() {
                       dias[5] = !dias[5];
+                      if (widget.function != null) {
+                        widget.function!(5);
+                      }
                     });
                   }
                 : () {},
@@ -268,6 +288,9 @@ class _DaysListState extends State<DaysList> {
                 ? () {
                     setState(() {
                       dias[6] = !dias[6];
+                      if (widget.function != null) {
+                        widget.function!(6);
+                      }
                     });
                   }
                 : () {},

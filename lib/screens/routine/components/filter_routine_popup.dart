@@ -27,6 +27,7 @@ class FilterRoutinePopup extends StatelessWidget {
               ),
             ),
             const DaysList(
+              function: null,
               days: [
                 false,
                 false,

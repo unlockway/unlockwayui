@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class RoutineModel {
   const RoutineModel(
     this.idRoutine,
@@ -27,9 +29,8 @@ class RoutineMeal {
   );
 
   String idMeal;
-  DateTime notifyAt;
+  String notifyAt;
 
-  // Convert the object to a map
   Map<String, dynamic> toJson() => {
         'idMeal': idMeal,
         'notifyAt': notifyAt,

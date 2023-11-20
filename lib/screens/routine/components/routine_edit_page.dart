@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/days_list.dart';
-import 'package:unlockway/components/popups.dart';
+
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/screens/routine/components/new_routine_meal_popup.dart';
+
 import 'package:unlockway/screens/routine/components/routine_meal_card.dart';
 import 'package:unlockway/screens/routine/routine.dart';
 
@@ -32,10 +32,10 @@ class _EditRoutineState extends State<EditRoutine> {
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       floatingActionButton: TextButton.icon(
         onPressed: () {
-          modalBuilderBottomAnimation(
-            context,
-            const NewRoutineMealPopup(),
-          );
+          // modalBuilderBottomAnimation(
+          //   context,
+          //   const NewRoutineMealPopup(),
+          // );
         },
         icon: const Icon(Icons.add),
         label: Text(
@@ -148,6 +148,7 @@ class _EditRoutineState extends State<EditRoutine> {
               ),
             ),
             DaysList(
+              function: null,
               days: widget.days,
               enable: true,
             ),

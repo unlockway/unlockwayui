@@ -69,6 +69,7 @@ class RoutineCard extends StatelessWidget {
                 ],
               ),
               DaysList(
+                function: null,
                 days: weekRepetitions,
                 enable: false,
               ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/ingredients.handlers.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/user.dart';
@@ -72,6 +73,11 @@ class UBottomNavigator extends StatelessWidget {
             ),
             IconButton(
               onPressed: () async {
+                await getIngredientsAPI(
+                  context,
+                  user.token!,
+                );
+
                 await getMealsAPI(
                   context,
                   user.id!,

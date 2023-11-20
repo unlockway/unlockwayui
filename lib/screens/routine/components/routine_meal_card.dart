@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/routine/components/routine_meal_edit_popup.dart';
+import 'package:unlockway/screens/routine/components/routine_meal_popup.dart';
 
 class RoutineMealCard extends StatelessWidget {
   const RoutineMealCard({
@@ -15,21 +15,36 @@ class RoutineMealCard extends StatelessWidget {
     required this.imgURL,
   });
 
-  final int category;
+  final String category;
   final String meal;
   final String hour;
   final double calories;
-  final String imgURL;
+  final String? imgURL;
 
   @override
   Widget build(BuildContext context) {
+    String categoryText = "";
+
+    if (category == "LUNCH") {
+      categoryText = "Almoço";
+    }
+    if (category == "BREAKFAST") {
+      categoryText = "Café da manhã";
+    }
+    if (category == "DINNER") {
+      categoryText = "Jantar";
+    }
+
+    if (category == "SNACK") {
+      categoryText = "Lanche";
+    }
     return InkWell(
-      onTap: () => modalBuilderBottomAnimation(
-        context,
-        const EditMealRoutinePopup(),
-      ),
+      // onTap: () => modalBuilderBottomAnimation(
+      //   context,
+      //   const RoutineMealPopup(saveMethod: saveMethod),
+      // ),
       child: Container(
-        height: 161,
+        height: 100,
         margin: const EdgeInsets.only(bottom: 16),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.onBackground,
@@ -51,12 +66,18 @@ class RoutineMealCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6),
-                child: Image.network(
-                  imgURL,
-                  fit: BoxFit.fitHeight,
-                  width: 111,
-                  height: 145,
-                ),
+                child: imgURL == null
+                    ? Container(
+                        color: Color(danger),
+                        width: 111,
+                        height: 145,
+                      )
+                    : Image.network(
+                        imgURL!,
+                        fit: BoxFit.fitHeight,
+                        width: 111,
+                        height: 145,
+                      ),
               ),
             ),
             const SizedBox(
@@ -79,7 +100,7 @@ class RoutineMealCard extends StatelessWidget {
                         width: 6,
                       ),
                       Text(
-                        category.toString(),
+                        categoryText,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
                           fontFamily: "Inter",

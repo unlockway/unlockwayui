@@ -4,14 +4,23 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/models/meals.dart';
 
-class NewRoutineMealPopup extends StatefulWidget {
-  const NewRoutineMealPopup({super.key});
+class RoutineMealPopup extends StatefulWidget {
+  const RoutineMealPopup({
+    super.key,
+    required this.saveMethod,
+    // required this.removeMethod,
+    // required this.editMethod,
+  });
+
+  final Function saveMethod;
+  //final Function removeMethod;
+  //final Function editMethod;
 
   @override
-  State<NewRoutineMealPopup> createState() => _NewRoutineMealPopupState();
+  State<RoutineMealPopup> createState() => _RoutineMealPopupState();
 }
 
-class _NewRoutineMealPopupState extends State<NewRoutineMealPopup> {
+class _RoutineMealPopupState extends State<RoutineMealPopup> {
   String? selectedMeal;
   String category = "BREAKFAST";
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -205,6 +214,10 @@ class _NewRoutineMealPopupState extends State<NewRoutineMealPopup> {
                   height: 48,
                   width: double.infinity,
                   onTap: () {
+                    widget.saveMethod(
+                      selectedMeal,
+                      _timeOfDayToString(selectedTime),
+                    );
                     Navigator.pop(
                       context,
                     );
@@ -216,5 +229,11 @@ class _NewRoutineMealPopupState extends State<NewRoutineMealPopup> {
         ),
       ),
     );
+  }
+
+  String _timeOfDayToString(TimeOfDay timeOfDay) {
+    var time = timeOfDay.toString().substring(10);
+    var finalTime = time.split(")");
+    return finalTime[0];
   }
 }

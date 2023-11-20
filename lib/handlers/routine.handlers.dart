@@ -38,3 +38,49 @@ Future<void> getRoutinesAPI(
     );
   }
 }
+
+Future<void> createRoutineAPI(
+  BuildContext context,
+  String userID,
+  String sessionToken,
+  String routineName,
+  bool inUsage,
+  List<RoutineMeal> meals,
+  List<bool> weekRepetitions,
+) async {
+  const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/routines';
+
+  List<Map<String, dynamic>> jsonList =
+      meals.map((meal) => meal.toJson()).toList();
+
+  var finalWeekRepetitions = {
+    "monday": weekRepetitions[0],
+    "tuesday": weekRepetitions[1],
+    "wednesday": weekRepetitions[2],
+    "thursday": weekRepetitions[3],
+    "friday": weekRepetitions[4],
+    "saturday": weekRepetitions[5],
+    "sunday": weekRepetitions[6]
+  };
+
+  var payload = {
+    "name": routineName,
+    "inUsage": inUsage,
+    "meals": jsonList,
+    "weekRepetitions": finalWeekRepetitions,
+  };
+
+  var payloadEncoded = json.encode(payload);
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: {
+      'Authorization': 'Bearer $sessionToken',
+      "Content-type": "application/json"
+    },
+    body: payloadEncoded,
+  );
+
+  print(response.statusCode);
+  print(payloadEncoded);
+}

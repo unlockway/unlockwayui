@@ -36,7 +36,8 @@ Future<void> getIngredientsAPI(
       ),
     );
   }
-  // Handle other errors
+  print(ingredients);
+  print(apiUrl);
 }
 
 Future getIngredientsByNameAPI(

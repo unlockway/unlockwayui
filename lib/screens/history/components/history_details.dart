@@ -71,6 +71,7 @@ class HistoryDetails extends StatelessWidget {
                           ),
                         ),
                         DaysList(
+                          function: null,
                           days: days,
                           enable: false,
                         ),

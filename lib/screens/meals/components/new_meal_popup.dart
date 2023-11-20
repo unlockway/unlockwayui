@@ -66,12 +66,7 @@ class NewMealPopup extends StatelessWidget {
             height: 5,
           ),
           InkWell(
-            onTap: () async {
-              await getIngredientsAPI(
-                context,
-                user.token!,
-              );
-
+            onTap: () {
               Navigator.of(context).push(
                 navigationPageRightAnimation(
                   const NewMeal(
