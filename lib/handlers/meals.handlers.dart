@@ -2,48 +2,33 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:http_parser/http_parser.dart';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
-import 'package:http/http.dart' as http;
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
 
-Future<void> getMealsAPI(
-  BuildContext context,
-  String userID,
-  String sessionToken,
-) async {
+Future<List<MealsModel>> getMealsAPI(BuildContext context) async {
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/meals/findByUserId';
 
   final response = await http.get(
     Uri.parse(apiUrl).replace(queryParameters: {
-      'id': userID,
+      'id': userData.id,
     }),
     headers: {
-      'Authorization': 'Bearer $sessionToken',
+      'Authorization': 'Bearer ${userData.token}',
     },
   );
 
-  userMeals = json.decode(response.body);
+  List mealList = json.decode(response.body);
 
-  meals = userMeals.map((entry) {
-    return MealsModel(
-      entry['id'],
-      entry['name'],
-      entry['photo'],
-      entry['description'],
-      entry['category'],
-      entry['preparationMethod'],
-      entry["ingredients"],
-      entry['totalCalories'],
-      entry['createdAt'],
-      entry['updatedAt'],
-    );
+  return mealList.map((meal) {
+    return MealsModel.fromMap(meal);
   }).toList();
 }
 
@@ -132,7 +117,7 @@ Future<void> editMealsAPI(
   )..headers['Authorization'] = 'Bearer $sessionToken';
 
   var payload = {
-    "Id": mealID,
+    "id": mealID,
     "userId": userID,
     "name": name,
     "category": category,

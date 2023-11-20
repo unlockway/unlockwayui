@@ -57,29 +57,24 @@ Future getIngredientsByNameAPI(
       },
     );
 
-    ingredients = json.decode(utf8.decode(response.bodyBytes));
-    ingredients.map((entry) {
-      return FoodModel(
-        entry["id"],
-        entry["photo"],
-        entry["name"],
-        entry["measure"],
-        entry["description"],
-        entry["calories"],
-        entry["proteins"],
-        entry["water"],
-        entry["minerals"],
-        entry["vitamins"],
-        entry["fats"],
+    var ingredientList = json.decode(utf8.decode(response.bodyBytes));
+
+    ingredients = ingredientList.map((ingredient) {
+      return IngredientModel(
+        ingredient["id"],
+        ingredient["photo"],
+        ingredient["name"],
+        ingredient["measure"],
+        ingredient["description"],
+        ingredient["calories"],
+        ingredient["proteins"],
+        ingredient["water"],
+        ingredient["minerals"],
+        ingredient["vitamins"],
+        ingredient["fats"],
       );
     }).toList();
   } catch (e) {
-    if (e is http.ClientException) {
-      // Do something
-    } else {
-      // Do something
-    }
-
     modalBuilderBottomAnimation(
       context,
       const SimplePopup(

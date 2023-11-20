@@ -1,5 +1,8 @@
 // Primary Color
+import 'package:unlockway/models/ingredients.dart';
+import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
+import 'package:unlockway/models/meals.dart';
 
 var primary = 0xFFD7FF82;
 var primarylight = 0xFFD1F87F;
@@ -22,7 +25,7 @@ var dark = 0xFF595959;
 var danger = 0xFFC33434;
 var success = 0xFF52CC83;
 
-UserModel userData = UserModel();
-List userRoutines = [];
-List userMeals = [];
-List ingredients = [];
+UserModel userData = UserModel(); // keep
+List<RoutineModel> userRoutines = []; // need be removed
+List<MealsModel> userMeals = []; // need be removed
+List<IngredientModel> ingredients = []; // need be removed

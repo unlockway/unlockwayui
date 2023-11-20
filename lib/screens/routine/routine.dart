@@ -4,8 +4,6 @@ import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/data/routine.dart';
-
 import 'package:unlockway/screens/routine/components/filter_routine_popup.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 import 'package:unlockway/screens/routine/components/routine_card.dart';
@@ -144,7 +142,7 @@ class _RoutineState extends State<Routine> {
       bottomNavigationBar: const UBottomNavigator("Routine"),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: routine.isNotEmpty
+        child: userRoutines.isNotEmpty
             ? LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
                   return CustomScrollView(
@@ -162,9 +160,9 @@ class _RoutineState extends State<Routine> {
                               mainAxisSpacing: 10,
                             ),
                             shrinkWrap: true,
-                            itemCount: routine.length,
+                            itemCount: userRoutines.length,
                             itemBuilder: (context, index) {
-                              var routineIndex = routine[index];
+                              var routineIndex = userRoutines[index];
 
                               return RoutineCard(
                                 name: routineIndex.name,

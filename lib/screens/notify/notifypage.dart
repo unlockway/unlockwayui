@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/screens/notify/components/notify_card.dart';
 import 'package:unlockway/screens/notify/components/notifydetails.dart';
-import 'package:unlockway/data/notify.dart';
+import 'package:unlockway/mock/notify.dart';
 
 class NotifyPage extends StatefulWidget {
   const NotifyPage({super.key});

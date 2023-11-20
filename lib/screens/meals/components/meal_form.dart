@@ -1,4 +1,7 @@
 import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -9,12 +12,10 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
-import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
-import 'package:dotted_border/dotted_border.dart';
 
-class NewMeal extends StatefulWidget {
-  const NewMeal({
+class MealForm extends StatefulWidget {
+  const MealForm({
     super.key,
     required this.id,
     required this.img,
@@ -23,6 +24,7 @@ class NewMeal extends StatefulWidget {
     required this.description,
     required this.preparationMethod,
     required this.ingredientsSelected,
+    required this.onSave,
   });
 
   final String id;
@@ -32,14 +34,13 @@ class NewMeal extends StatefulWidget {
   final String description;
   final String preparationMethod;
   final List<SelectedFood> ingredientsSelected;
+  final VoidCallback onSave;
 
   @override
-  State<NewMeal> createState() => _NewMealState();
+  State<MealForm> createState() => _MealFormState();
 }
 
-class _NewMealState extends State<NewMeal> {
-  UserModel user = userData;
-
+class _MealFormState extends State<MealForm> {
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController preparationMethodController = TextEditingController();
@@ -55,9 +56,6 @@ class _NewMealState extends State<NewMeal> {
       preparationMethodController.text = widget.preparationMethod;
       category = widget.category;
       ingredientsSelected = widget.ingredientsSelected;
-      if (widget.img != null) {
-        selectedImagePath = widget.img!;
-      }
     }
     super.initState();
   }
@@ -78,7 +76,7 @@ class _NewMealState extends State<NewMeal> {
                     onTap: () {
                       deleteMealAPI(
                         context,
-                        user.token!,
+                        userData.token!,
                         widget.id,
                       );
                     },
@@ -103,8 +101,8 @@ class _NewMealState extends State<NewMeal> {
                     onTap: () {
                       editMealsAPI(
                         context,
-                        user.token!,
-                        user.id!,
+                        userData.token!,
+                        userData.id!,
                         widget.id,
                         nameController.text,
                         category!,
@@ -114,7 +112,9 @@ class _NewMealState extends State<NewMeal> {
                         selectedImagePath != ''
                             ? File(selectedImagePath)
                             : null,
-                      );
+                      ).then((value) {
+                        widget.onSave();
+                      });
                     },
                   )
                 : ButtonFilled(
@@ -124,8 +124,8 @@ class _NewMealState extends State<NewMeal> {
                     onTap: () {
                       createMealsAPI(
                         context,
-                        user.token!,
-                        user.id!,
+                        userData.token!,
+                        userData.id!,
                         nameController.text,
                         category!,
                         descriptionController.text,
@@ -134,7 +134,9 @@ class _NewMealState extends State<NewMeal> {
                         selectedImagePath != ''
                             ? File(selectedImagePath)
                             : null,
-                      );
+                      ).then((value) {
+                        widget.onSave();
+                      });
                     },
                   ),
           ],
@@ -172,43 +174,55 @@ class _NewMealState extends State<NewMeal> {
                           height: 158,
                         ),
                       )
-                    : DottedBorder(
-                        color: Theme.of(context).colorScheme.onBackground,
-                        borderType: BorderType.RRect,
-                        radius: const Radius.circular(12),
-                        padding: const EdgeInsets.all(6),
-                        dashPattern: const [10, 10],
-                        strokeWidth: 2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          height: 158,
-                          width: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                PhosphorIcons.camera(
-                                  PhosphorIconsStyle.regular,
-                                ),
-                                size: 94.0,
-                                color: Theme.of(context).colorScheme.outline,
+                    : widget.img != ''
+                        ? CachedNetworkImage(
+                            imageUrl: widget.img!,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: 158,
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
+                        : DottedBorder(
+                            color: Theme.of(context).colorScheme.onBackground,
+                            borderType: BorderType.RRect,
+                            radius: const Radius.circular(12),
+                            padding: const EdgeInsets.all(6),
+                            dashPattern: const [10, 10],
+                            strokeWidth: 2,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              Text(
-                                "Escolha uma imagem",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "Inter",
-                                  color: Theme.of(context).colorScheme.outline,
-                                ),
+                              height: 158,
+                              width: double.infinity,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    PhosphorIcons.camera(
+                                      PhosphorIconsStyle.regular,
+                                    ),
+                                    size: 94.0,
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                  ),
+                                  Text(
+                                    "Escolha uma imagem",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: "Inter",
+                                      color:
+                                          Theme.of(context).colorScheme.outline,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
               ),
               const SizedBox(height: 20),
               GenericTextField(

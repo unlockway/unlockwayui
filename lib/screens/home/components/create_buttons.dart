@@ -18,7 +18,9 @@ class CreateButtons extends StatelessWidget {
             onTap: () {
               modalBuilderBottomAnimation(
                 context,
-                const NewMealPopup(),
+                NewMealPopup(
+                  onCreate: () {},
+                ),
               );
             },
             child: Container(

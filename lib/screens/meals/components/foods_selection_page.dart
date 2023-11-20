@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/buttons.dart';
-
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/data/ingredients.dart';
 import 'package:unlockway/handlers/ingredients.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/user.dart';
@@ -62,7 +60,7 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
     return -1;
   }
 
-  sumOrSubValues(double value, FoodModel selectedFood) {
+  sumOrSubValues(double value, IngredientModel selectedFood) {
     selectedFoods = selectedFoods.map((e) {
       if (e.id == selectedFood.idFood) {
         e.amount = value;
@@ -159,9 +157,9 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                         childAspectRatio: 2.3,
                       ),
                       shrinkWrap: true,
-                      itemCount: ingredientsRegistered.length,
+                      itemCount: ingredients.length,
                       itemBuilder: (context, index) {
-                        var currentIngredient = ingredientsRegistered[index];
+                        var currentIngredient = ingredients[index];
                         bool selected = false;
                         double initialValue = 0.0;
 

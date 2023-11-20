@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/data/meals.dart';
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/meals.dart';
 
 class RoutineMealPopup extends StatefulWidget {
@@ -27,7 +27,7 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
   @override
   Widget build(BuildContext context) {
     List<MealsModel> mealsOptions =
-        meals.where((element) => element.category == category).toList();
+        userMeals.where((element) => element.category == category).toList();
 
     return Container(
       margin: const EdgeInsets.all(20),
@@ -138,7 +138,7 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
                 ),
                 items: mealsOptions.map((e) {
                   return DropdownMenuItem(
-                    value: e.idMeal,
+                    value: e.id,
                     child: Text(e.name),
                   );
                 }).toList(),

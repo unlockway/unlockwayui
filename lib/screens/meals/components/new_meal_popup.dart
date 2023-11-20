@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/screens/meals/components/new_meal_page.dart';
+import 'package:unlockway/screens/meals/components/meal_form.dart';
 
 class NewMealPopup extends StatelessWidget {
-  const NewMealPopup({super.key});
+  const NewMealPopup({super.key, required this.onCreate});
+
+  final VoidCallback onCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,7 @@ class NewMealPopup extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 navigationPageRightAnimation(
-                  const NewMeal(
+                  MealForm(
                     id: '',
                     category: '',
                     description: '',
@@ -72,6 +74,7 @@ class NewMealPopup extends StatelessWidget {
                     name: '',
                     preparationMethod: '',
                     img: '',
+                    onSave: onCreate,
                   ),
                 ),
               );

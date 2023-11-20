@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
-import 'package:unlockway/models/ingredients.dart';
-import 'package:unlockway/screens/meals/components/meal_card.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/data/meals.dart';
+import 'package:unlockway/handlers/meals.handlers.dart';
+import 'package:unlockway/models/ingredients.dart';
+import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/screens/meals/components/filter_meal_popup.dart';
+import 'package:unlockway/screens/meals/components/meal_card.dart';
 import 'package:unlockway/screens/meals/components/new_meal_popup.dart';
 
 class Meals extends StatefulWidget {
@@ -17,6 +18,32 @@ class Meals extends StatefulWidget {
 }
 
 class _MealsState extends State<Meals> {
+  List<MealsModel> meals = [];
+  bool _isLoading = true;
+
+  Future<void> fetchMeals() async {
+    List<MealsModel> result = await getMealsAPI(context);
+
+    setState(() {
+      meals = result;
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMeals();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _isLoading = false;
+    meals = [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +51,7 @@ class _MealsState extends State<Meals> {
       floatingActionButton: IconButton(
         onPressed: () => modalBuilderBottomAnimation(
           context,
-          const NewMealPopup(),
+          NewMealPopup(onCreate: fetchMeals),
         ),
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(
@@ -111,7 +138,6 @@ class _MealsState extends State<Meals> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: InkWell(
-                          //borderRadius: BorderRadius.circular(100.0),
                           onTap: () => modalBuilderBottomAnimation(
                             context,
                             const FilterMealPopup(),
@@ -140,81 +166,90 @@ class _MealsState extends State<Meals> {
           right: 10,
           bottom: 40,
         ),
-        child: meals.isNotEmpty
-            ? LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return CustomScrollView(
-                    slivers: <Widget>[
-                      SliverToBoxAdapter(
-                        child: ConstrainedBox(
-                          constraints:
-                              BoxConstraints(maxHeight: constraints.maxHeight),
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.850,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
+        child: _isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : meals.isNotEmpty
+                ? LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) {
+                      return CustomScrollView(
+                        slivers: <Widget>[
+                          SliverToBoxAdapter(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                  maxHeight: constraints.maxHeight),
+                              child: GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.850,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                ),
+                                shrinkWrap: true,
+                                itemCount: meals.length,
+                                itemBuilder: (context, index) {
+                                  var actualMeal = meals[index];
+                                  List<SelectedFood> selectedingredients =
+                                      actualMeal.ingredients.map((e) {
+                                    return SelectedFood(
+                                      e.id,
+                                      e.amount,
+                                    );
+                                  }).toList();
+                                  return UCard(
+                                    description: actualMeal.description,
+                                    title: actualMeal.name,
+                                    imageURL: actualMeal.photo != null
+                                        ? actualMeal.photo as String
+                                        : null,
+                                    category: actualMeal.category,
+                                    idMeal: actualMeal.id,
+                                    ingredients: selectedingredients,
+                                    preparationMethod:
+                                        actualMeal.preparationMethod,
+                                    onEdit: fetchMeals,
+                                  );
+                                },
+                              ),
                             ),
-                            shrinkWrap: true,
-                            itemCount: meals.length,
-                            itemBuilder: (context, index) {
-                              var actualMeal = meals[index];
-                              List<SelectedFood> selectedingredients =
-                                  actualMeal.ingredients.map((e) {
-                                return SelectedFood(
-                                  e['id'],
-                                  e['amount'],
-                                );
-                              }).toList();
-                              return UCard(
-                                description: actualMeal.description,
-                                title: actualMeal.name,
-                                imageURL: actualMeal.img,
-                                category: actualMeal.category,
-                                idMeal: actualMeal.idMeal,
-                                ingredients: selectedingredients,
-                                preparationMethod: actualMeal.preparationMethod,
-                              );
-                            },
+                          ),
+                        ],
+                      );
+                    },
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        PhosphorIcons.bowlFood(PhosphorIconsStyle.regular),
+                        size: 150,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 28,
+                        ),
+                        child: SizedBox(
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            "Não há refeições criadas, crie sua primeira refeição para que ela seja listada aqui.",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.outline,
+                              fontFamily: "Inter",
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ),
                     ],
-                  );
-                },
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    PhosphorIcons.bowlFood(PhosphorIconsStyle.regular),
-                    size: 150,
-                    color: Theme.of(context).colorScheme.outline,
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 28,
-                    ),
-                    child: SizedBox(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        "Não há refeições criadas, crie sua primeira refeição para que ela seja listada aqui.",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.outline,
-                          fontFamily: "Inter",
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
       ),
     );
   }

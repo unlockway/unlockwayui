@@ -1,5 +1,5 @@
-class FoodModel {
-  const FoodModel(
+class IngredientModel {
+  const IngredientModel(
     this.idFood,
     this.imgURL,
     this.name,

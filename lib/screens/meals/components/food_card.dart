@@ -17,9 +17,9 @@ class FoodCard extends StatefulWidget {
   });
 
   final bool checked;
-  final FoodModel food;
-  final Function(FoodModel food, double amount) onSelectIngredient;
-  final Function(double value, FoodModel selectedFood) onSumOrSubAmount;
+  final IngredientModel food;
+  final Function(IngredientModel food, double amount) onSelectIngredient;
+  final Function(double value, IngredientModel selectedFood) onSumOrSubAmount;
   final double initialValue;
 
   @override

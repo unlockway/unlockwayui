@@ -5,7 +5,6 @@ import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
@@ -188,10 +187,10 @@ class _NewRoutineState extends State<NewRoutine> {
                             shrinkWrap: true,
                             itemCount: routineMeals.length,
                             itemBuilder: (context, index) {
-                              var filteredMeal = meals
+                              var filteredMeal = userMeals
                                   .where(
                                     (element) =>
-                                        element.idMeal ==
+                                        element.id ==
                                         routineMeals[index].idMeal,
                                   )
                                   .toList();
@@ -201,7 +200,9 @@ class _NewRoutineState extends State<NewRoutine> {
                                 meal: filteredMeal[0].name,
                                 hour: routineMeals[index].notifyAt.toString(),
                                 calories: filteredMeal[0].totalCalories,
-                                imgURL: filteredMeal[0].img,
+                                imgURL: filteredMeal[0].photo != null
+                                    ? filteredMeal[0].photo as String
+                                    : "",
                               );
                             },
                           ),
