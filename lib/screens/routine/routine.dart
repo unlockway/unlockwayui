@@ -5,6 +5,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/routine.dart';
+import 'package:unlockway/models/routine.dart';
 
 import 'package:unlockway/screens/routine/components/filter_routine_popup.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
@@ -26,8 +27,9 @@ class _RoutineState extends State<Routine> {
           Navigator.of(context).push(
             navigationPageRightAnimation(
               const NewRoutine(
+                routineId: null,
                 inUsage: false,
-                meals: null,
+                meals: [],
                 name: null,
                 weekRepetitions: null,
               ),
@@ -165,12 +167,22 @@ class _RoutineState extends State<Routine> {
                             itemCount: routine.length,
                             itemBuilder: (context, index) {
                               var routineIndex = routine[index];
+                              List<RoutineMeal> filteredMeals = [];
+                              for (var element in routineIndex.meals) {
+                                filteredMeals.add(
+                                  RoutineMeal(
+                                    element['idMeal'].toString(),
+                                    element['notifyAt'].toString(),
+                                  ),
+                                );
+                              }
 
                               return RoutineCard(
+                                routineId: routineIndex.idRoutine,
                                 name: routineIndex.name,
                                 weekRepetitions: routineIndex.weekRepetitions,
                                 calories: routineIndex.totalCaloriesInTheDay,
-                                meals: routineIndex.meals,
+                                meals: filteredMeals,
                                 color:
                                     Theme.of(context).colorScheme.onBackground,
                                 using: routineIndex.inUsage,

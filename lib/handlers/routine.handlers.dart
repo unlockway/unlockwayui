@@ -97,5 +97,41 @@ Future<void> createRoutineAPI(
     body: payloadEncoded,
   );
 
+  print(response.body);
+  print(routine);
+  if (response.statusCode == 201) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Rotina criada com sucesso",
+      ),
+    );
+  }
+
+  if (response.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Erro ao criar rotina",
+      ),
+    );
+  }
+}
+
+Future<void> deleteRoutineAPI(
+  BuildContext context,
+  String sessionToken,
+  String routineID,
+) async {
+  String apiUrl =
+      'https://unlockway.azurewebsites.net/api/v1/routines/$routineID';
+
+  final response = await http.delete(
+    Uri.parse(apiUrl),
+    headers: {
+      'Authorization': 'Bearer $sessionToken',
+    },
+  );
+
   response;
 }

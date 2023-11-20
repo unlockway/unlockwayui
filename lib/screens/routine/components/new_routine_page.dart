@@ -7,6 +7,7 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
+import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/routine/components/routine_meal_card.dart';
@@ -19,12 +20,14 @@ class NewRoutine extends StatefulWidget {
     required this.meals,
     required this.inUsage,
     required this.weekRepetitions,
+    required this.routineId,
   });
 
   final String? name;
-  final List? meals;
+  final List<RoutineMeal> meals;
   final bool? inUsage;
   final List<bool>? weekRepetitions;
+  final String? routineId;
 
   @override
   State<NewRoutine> createState() => _NewRoutineState();
@@ -58,18 +61,20 @@ class _NewRoutineState extends State<NewRoutine> {
     });
   }
 
+  removeFromRoutineMeals(String idMeal, String notifyAt) {
+    setState(() {
+      routineMeals.remove(
+        RoutineMeal(idMeal, notifyAt),
+      );
+    });
+  }
+
   @override
   void initState() {
     if (widget.name != null) {
-      List<RoutineMeal> filteredRoutineMeals = widget.meals!.map((e) {
-        return RoutineMeal(
-          e.idMeal,
-          e.notifyAt,
-        );
-      }).toList();
       nameController.text = widget.name!;
       daysSelected = widget.weekRepetitions!;
-      routineMeals = filteredRoutineMeals;
+      routineMeals = widget.meals;
     }
     super.initState();
   }
@@ -82,21 +87,24 @@ class _NewRoutineState extends State<NewRoutine> {
           child: widget.name != null
               ? Row(
                   children: [
+                    ButtonOutlined(
+                      text: "EXCLUIR ROTINA",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        deleteRoutineAPI(
+                            context, user.token!, widget.routineId!);
+                      },
+                      color: Color(danger),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
                     ButtonFilled(
                       text: "EDITAR ROTINA",
                       height: 48,
                       width: double.infinity,
                       onTap: () {},
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    ButtonOutlined(
-                      text: "EXCLUIR ROTINA",
-                      height: 48,
-                      width: double.infinity,
-                      onTap: () {},
-                      color: Color(danger),
                     ),
                   ],
                 )
@@ -174,8 +182,9 @@ class _NewRoutineState extends State<NewRoutine> {
                 SliverToBoxAdapter(
                   child: routineMeals.isNotEmpty
                       ? ConstrainedBox(
-                          constraints:
-                              BoxConstraints(maxHeight: constraints.maxHeight),
+                          constraints: BoxConstraints(
+                            maxHeight: constraints.maxHeight - 20,
+                          ),
                           child: GridView.builder(
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
@@ -187,15 +196,15 @@ class _NewRoutineState extends State<NewRoutine> {
                             shrinkWrap: true,
                             itemCount: routineMeals.length,
                             itemBuilder: (context, index) {
-                              var filteredMeal = meals
-                                  .where(
-                                    (element) =>
-                                        element.idMeal ==
-                                        routineMeals[index].idMeal,
-                                  )
+                              List<MealsModel> filteredMeal = meals
+                                  .where((element) =>
+                                      element.idMeal ==
+                                      routineMeals[index].idMeal)
                                   .toList();
 
                               return RoutineMealCard(
+                                editMethod: null,
+                                removeMethod: null,
                                 category: filteredMeal[0].category,
                                 meal: filteredMeal[0].name,
                                 hour: routineMeals[index].notifyAt.toString(),
@@ -215,8 +224,12 @@ class _NewRoutineState extends State<NewRoutine> {
                         modalBuilderBottomAnimation(
                           context,
                           RoutineMealPopup(
+                            editMethod: null,
                             saveMethod: (String idMeal, String notifyAt) {
                               saveToRoutineMeals(idMeal, notifyAt);
+                            },
+                            removeMethod: (String idMeal, String notifyAt) {
+                              removeFromRoutineMeals(idMeal, notifyAt);
                             },
                           ),
                         );

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 
 class RoutineCard extends StatelessWidget {
@@ -14,14 +15,16 @@ class RoutineCard extends StatelessWidget {
     required this.meals,
     required this.color,
     required this.using,
+    required this.routineId,
   });
 
   final String name;
   final List<bool> weekRepetitions;
   final double calories;
-  final List meals;
+  final List<RoutineMeal> meals;
   final Color color;
   final bool using;
+  final String routineId;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,7 @@ class RoutineCard extends StatelessWidget {
             context,
             navigationPageRightAnimation(
               NewRoutine(
+                routineId: routineId,
                 name: name,
                 meals: meals,
                 inUsage: using,
@@ -49,9 +53,9 @@ class RoutineCard extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(16),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SvgPicture.asset(

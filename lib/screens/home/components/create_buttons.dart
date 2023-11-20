@@ -82,8 +82,9 @@ class CreateButtons extends StatelessWidget {
               Navigator.of(context).push(
                 navigationPageRightAnimation(
                   const NewRoutine(
+                    routineId: null,
                     inUsage: null,
-                    meals: null,
+                    meals: [],
                     name: null,
                     weekRepetitions: null,
                   ),

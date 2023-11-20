@@ -7,13 +7,13 @@ class RoutineMealPopup extends StatefulWidget {
   const RoutineMealPopup({
     super.key,
     required this.saveMethod,
-    // required this.removeMethod,
-    // required this.editMethod,
+    required this.removeMethod,
+    required this.editMethod,
   });
 
-  final Function saveMethod;
-  //final Function removeMethod;
-  //final Function editMethod;
+  final Function? saveMethod;
+  final Function? removeMethod;
+  final Function? editMethod;
 
   @override
   State<RoutineMealPopup> createState() => _RoutineMealPopupState();
@@ -193,37 +193,69 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
               ),
             ),
             const SizedBox(height: 30),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ButtonOutlined(
-                  text: "CANCELAR",
-                  height: 48,
-                  width: double.infinity,
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                ButtonFilled(
-                  text: "SALVAR",
-                  height: 48,
-                  width: double.infinity,
-                  onTap: () {
-                    widget.saveMethod(
-                      selectedMeal,
-                      _timeOfDayToString(selectedTime),
-                    );
-                    Navigator.pop(
-                      context,
-                    );
-                  },
-                ),
-              ],
-            ),
+            widget.saveMethod == null
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ButtonOutlined(
+                        text: "EXCLUIR",
+                        height: 48,
+                        width: double.infinity,
+                        onTap: () {
+                          widget.removeMethod!(
+                            selectedMeal,
+                            _timeOfDayToString(selectedTime),
+                          );
+                          Navigator.of(context).pop();
+                        },
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      ButtonFilled(
+                        text: "EDITAR",
+                        height: 48,
+                        width: double.infinity,
+                        onTap: () {
+                          Navigator.pop(
+                            context,
+                          );
+                        },
+                      ),
+                    ],
+                  )
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ButtonOutlined(
+                        text: "CANCELAR",
+                        height: 48,
+                        width: double.infinity,
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      ButtonFilled(
+                        text: "SALVAR",
+                        height: 48,
+                        width: double.infinity,
+                        onTap: () {
+                          widget.saveMethod!(
+                            selectedMeal,
+                            _timeOfDayToString(selectedTime),
+                          );
+                          Navigator.pop(
+                            context,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
           ],
         ),
       ),
