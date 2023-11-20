@@ -198,4 +198,6 @@ Future<void> deleteMealAPI(
       'Authorization': 'Bearer $sessionToken',
     },
   );
+
+  response;
 }

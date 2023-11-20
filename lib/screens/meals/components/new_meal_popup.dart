@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/constants.dart';
-import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/new_meal_page.dart';
 
 class NewMealPopup extends StatelessWidget {
@@ -12,8 +10,6 @@ class NewMealPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = userData;
-
     return Container(
       height: 200,
       decoration: const BoxDecoration(

@@ -15,7 +15,16 @@ import 'package:unlockway/screens/routine/components/routine_meal_popup.dart';
 class NewRoutine extends StatefulWidget {
   const NewRoutine({
     super.key,
+    required this.name,
+    required this.meals,
+    required this.inUsage,
+    required this.weekRepetitions,
   });
+
+  final String? name;
+  final List? meals;
+  final bool? inUsage;
+  final List<bool>? weekRepetitions;
 
   @override
   State<NewRoutine> createState() => _NewRoutineState();
@@ -39,7 +48,6 @@ class _NewRoutineState extends State<NewRoutine> {
 
   changeDays(int dayID) {
     daysSelected[dayID] = !daysSelected[dayID];
-    print(daysSelected);
   }
 
   saveToRoutineMeals(String idMeal, String notifyAt) {
@@ -48,35 +56,71 @@ class _NewRoutineState extends State<NewRoutine> {
         RoutineMeal(idMeal, notifyAt),
       );
     });
-    print(routineMeals);
+  }
+
+  @override
+  void initState() {
+    List<RoutineMeal> filteredRoutineMeals = widget.meals!.map((e) {
+      return RoutineMeal(
+        e['idMeal'],
+        e['notifyAt'],
+      );
+    }).toList();
+
+    if (widget.name != null) {
+      nameController.text = widget.name!;
+      daysSelected = widget.weekRepetitions!;
+      routineMeals = filteredRoutineMeals;
+    }
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            ButtonFilled(
-              text: "CRIAR ROTINA",
-              height: 48,
-              width: double.infinity,
-              onTap: () {
-                createRoutineAPI(
-                  context,
-                  user.id!,
-                  user.token!,
-                  nameController.text,
-                  false,
-                  routineMeals,
-                  daysSelected,
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+          margin: const EdgeInsets.all(10),
+          child: widget.name != null
+              ? Row(
+                  children: [
+                    ButtonFilled(
+                      text: "EDITAR ROTINA",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {},
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    ButtonOutlined(
+                      text: "EXCLUIR ROTINA",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {},
+                      color: Color(danger),
+                    ),
+                  ],
+                )
+              : Row(
+                  children: [
+                    ButtonFilled(
+                      text: "CRIAR ROTINA",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        createRoutineAPI(
+                          context,
+                          user.id!,
+                          user.token!,
+                          nameController.text,
+                          false,
+                          routineMeals,
+                          daysSelected,
+                        );
+                      },
+                    ),
+                  ],
+                )),
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: registerAppBar(context),
       body: Container(

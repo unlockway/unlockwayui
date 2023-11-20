@@ -27,10 +27,8 @@ Future<void> getRoutinesAPI(
         'Authorization': 'Bearer $sessionToken',
       },
     );
-    print(response.statusCode);
 
     userRoutines = json.decode(response.body);
-    print(userRoutines);
 
     routine = userRoutines.map((entry) {
       Map<String, bool> weekRepetition = entry['weekRepetitions'];
@@ -47,7 +45,6 @@ Future<void> getRoutinesAPI(
         entry['updatedAt'],
       );
     }).toList();
-    print(routine);
   } catch (e) {
     modalBuilderBottomAnimation(
       context,
