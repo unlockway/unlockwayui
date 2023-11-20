@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class RoutineModel {
   const RoutineModel(
     this.idRoutine,

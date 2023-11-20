@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/buttons.dart';
@@ -8,7 +6,6 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/data/meals.dart';
-import 'package:unlockway/data/routine.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
@@ -18,7 +15,16 @@ import 'package:unlockway/screens/routine/components/routine_meal_card.dart';
 class NewRoutine extends StatefulWidget {
   const NewRoutine({
     super.key,
+    required this.name,
+    required this.meals,
+    required this.inUsage,
+    required this.weekRepetitions,
   });
+
+  final String? name;
+  final List? meals;
+  final bool? inUsage;
+  final List<bool>? weekRepetitions;
 
   @override
   State<NewRoutine> createState() => _NewRoutineState();
@@ -42,7 +48,6 @@ class _NewRoutineState extends State<NewRoutine> {
 
   changeDays(int dayID) {
     daysSelected[dayID] = !daysSelected[dayID];
-    print(daysSelected);
   }
 
   saveToRoutineMeals(String idMeal, String notifyAt) {
@@ -51,7 +56,23 @@ class _NewRoutineState extends State<NewRoutine> {
         RoutineMeal(idMeal, notifyAt),
       );
     });
-    print(routineMeals);
+  }
+
+  @override
+  void initState() {
+    List<RoutineMeal> filteredRoutineMeals = widget.meals!.map((e) {
+      return RoutineMeal(
+        e.idMeal,
+        e.notifyAt,
+      );
+    }).toList();
+
+    if (widget.name != null) {
+      nameController.text = widget.name!;
+      daysSelected = widget.weekRepetitions!;
+      routineMeals = filteredRoutineMeals;
+    }
+    super.initState();
   }
 
   @override

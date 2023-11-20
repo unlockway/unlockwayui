@@ -24,7 +24,12 @@ class _RoutineState extends State<Routine> {
         onPressed: () {
           Navigator.of(context).push(
             navigationPageRightAnimation(
-              const NewRoutine(),
+              const NewRoutine(
+                inUsage: false,
+                meals: null,
+                name: null,
+                weekRepetitions: null,
+              ),
             ),
           );
         },
@@ -151,7 +156,7 @@ class _RoutineState extends State<Routine> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 1,
-                              childAspectRatio: 2,
+                              childAspectRatio: 1.7,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
                             ),
@@ -159,7 +164,7 @@ class _RoutineState extends State<Routine> {
                             itemCount: routine.length,
                             itemBuilder: (context, index) {
                               var routineIndex = routine[index];
-                              print(routineIndex);
+
                               return RoutineCard(
                                 name: routineIndex.name,
                                 weekRepetitions: routineIndex.weekRepetitions,

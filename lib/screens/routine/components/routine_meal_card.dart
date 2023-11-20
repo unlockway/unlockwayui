@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/routine/components/routine_meal_popup.dart';
 
 class RoutineMealCard extends StatelessWidget {
   const RoutineMealCard({

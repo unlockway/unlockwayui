@@ -81,7 +81,12 @@ class CreateButtons extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 navigationPageRightAnimation(
-                  const NewRoutine(),
+                  const NewRoutine(
+                    inUsage: null,
+                    meals: null,
+                    name: null,
+                    weekRepetitions: null,
+                  ),
                 ),
               );
             },

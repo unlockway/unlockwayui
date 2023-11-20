@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/data/meals.dart';
 import 'package:unlockway/data/routine.dart';
 import 'package:unlockway/models/routine.dart';
 
@@ -27,10 +26,8 @@ Future<void> getRoutinesAPI(
         'Authorization': 'Bearer $sessionToken',
       },
     );
-    print(response.statusCode);
 
     userRoutines = json.decode(response.body);
-    print(userRoutines);
 
     routine = userRoutines.map((entry) {
       Map<String, bool> weekRepetition = entry['weekRepetitions'];
@@ -47,7 +44,6 @@ Future<void> getRoutinesAPI(
         entry['updatedAt'],
       );
     }).toList();
-    print(routine);
   } catch (e) {
     modalBuilderBottomAnimation(
       context,
