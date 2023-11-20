@@ -42,6 +42,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                 sex: user.sex!,
                 weight: user.weight!,
                 password: "",
+                userPhoto: user.photo == null ? "" : user.photo as String,
               ),
             ),
           )

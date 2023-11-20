@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/text_field.dart';
@@ -6,18 +10,18 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/user.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({
-    super.key,
-    required this.firstname,
-    required this.lastname,
-    required this.weight,
-    required this.height,
-    required this.goals,
-    required this.email,
-    required this.biotype,
-    required this.password,
-    required this.sex,
-  });
+  const UserProfile(
+      {super.key,
+      required this.firstname,
+      required this.lastname,
+      required this.weight,
+      required this.height,
+      required this.goals,
+      required this.email,
+      required this.biotype,
+      required this.password,
+      required this.sex,
+      required this.userPhoto});
 
   final String firstname;
   final String lastname;
@@ -28,12 +32,15 @@ class UserProfile extends StatefulWidget {
   final String email;
   final String biotype;
   final String password;
+  final String? userPhoto;
 
   @override
   State<UserProfile> createState() => _UserProfileState();
 }
 
 class _UserProfileState extends State<UserProfile> {
+  var user = userData;
+
   final firstnameController = TextEditingController();
   final lastnameController = TextEditingController();
   final pesoController = TextEditingController();
@@ -44,6 +51,8 @@ class _UserProfileState extends State<UserProfile> {
   List<String> goals = [];
   String sex = "MALE";
   String biotype = 'ECTOMORPH';
+
+  String selectedImagePath = '';
 
   @override
   void initState() {
@@ -135,9 +144,62 @@ class _UserProfileState extends State<UserProfile> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const CircleAvatar(
-                radius: 84.0,
-                backgroundImage: AssetImage("assets/imgs/thomas.png"),
+              InkWell(
+                onTap: () {
+                  userPhotoModal(
+                    context,
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  clipBehavior: Clip.hardEdge,
+                  child: selectedImagePath.isNotEmpty
+                      ? Image.file(
+                          File(selectedImagePath),
+                          fit: BoxFit.cover,
+                          width: 180,
+                          height: 180,
+                        )
+                      : widget.userPhoto!.isNotEmpty
+                          ? CachedNetworkImage(
+                              imageUrl: widget.userPhoto!,
+                              height: 180,
+                              placeholder: (context, url) => CircleAvatar(
+                                backgroundColor: Color(primary),
+                                child: Text(
+                                  (user.firstName!.substring(0, 1) +
+                                          user.lastName!.substring(0, 1))
+                                      .toUpperCase(),
+                                  style: TextStyle(
+                                    fontFamily: "Inter",
+                                    fontSize: 44.0,
+                                    color: Color(dark),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              width: 180,
+                              height: 180,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Color(primary),
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: Text(
+                                (user.firstName!.substring(0, 1) +
+                                        user.lastName!.substring(0, 1))
+                                    .toUpperCase(),
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontSize: 44.0,
+                                  color: Color(dark),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                ),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 32.0),
@@ -374,6 +436,166 @@ class _UserProfileState extends State<UserProfile> {
           ),
         ),
       ),
+    );
+  }
+
+  pickFromCamera() async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 10);
+    if (file != null) {
+      return file.path;
+    } else {
+      return '';
+    }
+  }
+
+  pickFromGallery() async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 10);
+    if (file != null) {
+      return file.path;
+    } else {
+      return '';
+    }
+  }
+
+  Future<void> userPhotoModal(BuildContext context) async {
+    return showModalBottomSheet<void>(
+      enableDrag: true,
+      context: context,
+      useSafeArea: true,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      elevation: 0,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              width: 180,
+              height: 6,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.onBackground,
+                borderRadius: BorderRadius.circular(9999),
+              ),
+            ),
+            Container(
+              height: 200,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              margin: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () async {
+                      selectedImagePath = await pickFromCamera();
+
+                      if (selectedImagePath != '') {
+                        setState(() {});
+                      } else {}
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      width: double.infinity,
+                      height: 95,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          topRight: Radius.circular(8),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Icon(
+                              PhosphorIcons.camera(PhosphorIconsStyle.regular),
+                              size: 60.0,
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                          ),
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              "Tirar Foto",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      selectedImagePath = await pickFromGallery();
+
+                      if (selectedImagePath != '') {
+                        setState(() {});
+                      } else {}
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      width: double.infinity,
+                      height: 95,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(8),
+                          bottomRight: Radius.circular(8),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Icon(
+                              PhosphorIcons.images(PhosphorIconsStyle.regular),
+                              size: 60.0,
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                          ),
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              "Foto da Galeria",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
