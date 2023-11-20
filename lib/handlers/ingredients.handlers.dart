@@ -36,8 +36,6 @@ Future<void> getIngredientsAPI(
       ),
     );
   }
-  print(ingredients);
-  print(apiUrl);
 }
 
 Future getIngredientsByNameAPI(
@@ -89,8 +87,6 @@ Future getIngredientsByNameAPI(
       ),
     );
   }
-  print(ingredients);
-  print(apiUrl);
 
   return ingredients;
 }

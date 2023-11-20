@@ -139,23 +139,43 @@ class _RoutineState extends State<Routine> {
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: routine.isNotEmpty
-            ? SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: List.generate(
-                    routine.length,
-                    (i) {
-                      return RoutineCard(
-                        name: routine[i].name,
-                        weekRepetitions: routine[i].weekRepetitions,
-                        calories: routine[i].totalCaloriesInTheDay,
-                        meals: routine[i].meals,
-                        color: Theme.of(context).colorScheme.onBackground,
-                        using: routine[i].inUsage,
-                      );
-                    },
-                  ),
-                ),
+            ? LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return CustomScrollView(
+                    slivers: <Widget>[
+                      SliverToBoxAdapter(
+                        child: ConstrainedBox(
+                          constraints:
+                              BoxConstraints(maxHeight: constraints.maxHeight),
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1,
+                              childAspectRatio: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                            ),
+                            shrinkWrap: true,
+                            itemCount: routine.length,
+                            itemBuilder: (context, index) {
+                              var routineIndex = routine[index];
+                              print(routineIndex);
+                              return RoutineCard(
+                                name: routineIndex.name,
+                                weekRepetitions: routineIndex.weekRepetitions,
+                                calories: routineIndex.totalCaloriesInTheDay,
+                                meals: routineIndex.meals,
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                                using: routineIndex.inUsage,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,

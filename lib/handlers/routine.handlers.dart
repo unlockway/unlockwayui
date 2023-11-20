@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/data/meals.dart';
+import 'package:unlockway/data/routine.dart';
 import 'package:unlockway/models/routine.dart';
 
 Future<void> getRoutinesAPI(
@@ -17,18 +19,35 @@ Future<void> getRoutinesAPI(
       'https://unlockway.azurewebsites.net/api/v1/routines/userId'; // Substitua pelo seu endpoint da API
 
   try {
-    var bodyApi = json.encode(userID);
-
-    final response = await http.post(
-      Uri.parse(apiUrl),
+    final response = await http.get(
+      Uri.parse(apiUrl).replace(queryParameters: {
+        'id': userID,
+      }),
       headers: {
         'Authorization': 'Bearer $sessionToken',
-        "Content-type": "application/json"
       },
-      body: bodyApi,
     );
+    print(response.statusCode);
 
     userRoutines = json.decode(response.body);
+    print(userRoutines);
+
+    routine = userRoutines.map((entry) {
+      Map<String, bool> weekRepetition = entry['weekRepetitions'];
+      List<bool> weekRepetitionsList = weekRepetition.values.toList();
+
+      return RoutineModel(
+        entry['id'],
+        entry['name'],
+        entry['meals'],
+        entry['inUsage'],
+        weekRepetitionsList,
+        entry['totalCaloriesInTheDay'],
+        entry['createdAt'],
+        entry['updatedAt'],
+      );
+    }).toList();
+    print(routine);
   } catch (e) {
     modalBuilderBottomAnimation(
       context,
@@ -81,6 +100,5 @@ Future<void> createRoutineAPI(
     body: payloadEncoded,
   );
 
-  print(response.statusCode);
-  print(payloadEncoded);
+  response;
 }

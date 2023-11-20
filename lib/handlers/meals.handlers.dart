@@ -45,9 +45,6 @@ Future<void> getMealsAPI(
       entry['updatedAt'],
     );
   }).toList();
-
-  print(response.statusCode);
-  print(userMeals);
 }
 
 Future<void> createMealsAPI(
@@ -144,8 +141,6 @@ Future<void> editMealsAPI(
     "ingredients": ingredients.map((e) => e.toJson()).toList()
   };
 
-  print(payload);
-
   String payloadEncoded = json.encode(payload);
 
   request.fields["payload"] = payloadEncoded;
@@ -186,7 +181,6 @@ Future<void> editMealsAPI(
           ),
         );
       }
-      print(response.statusCode);
     },
   );
 }
@@ -204,5 +198,4 @@ Future<void> deleteMealAPI(
       'Authorization': 'Bearer $sessionToken',
     },
   );
-  print(response.statusCode);
 }

@@ -51,7 +51,6 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
         selectedFoods.add(SelectedFood(id, amount));
       });
     }
-    print(selectedFoods);
   }
 
   int findSelectedFoodById(String id) {
