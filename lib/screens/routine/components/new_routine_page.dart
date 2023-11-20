@@ -60,14 +60,13 @@ class _NewRoutineState extends State<NewRoutine> {
 
   @override
   void initState() {
-    List<RoutineMeal> filteredRoutineMeals = widget.meals!.map((e) {
-      return RoutineMeal(
-        e['idMeal'],
-        e['notifyAt'],
-      );
-    }).toList();
-
     if (widget.name != null) {
+      List<RoutineMeal> filteredRoutineMeals = widget.meals!.map((e) {
+        return RoutineMeal(
+          e.idMeal,
+          e.notifyAt,
+        );
+      }).toList();
       nameController.text = widget.name!;
       daysSelected = widget.weekRepetitions!;
       routineMeals = filteredRoutineMeals;
