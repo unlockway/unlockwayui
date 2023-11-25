@@ -25,7 +25,7 @@ Future<List<RoutineModel>> getRoutinesAPI(
     },
   );
 
-  var routineList = json.decode(response.body);
+  List routineList = json.decode(response.body);
 
   return routineList.map((routine) {
     return RoutineModel.fromMap(routine);
