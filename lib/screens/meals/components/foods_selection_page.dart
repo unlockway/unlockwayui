@@ -157,57 +157,60 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                     ],
                   ),
                 ),
-                (() {
-                  if (_isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else {
-                    return SliverToBoxAdapter(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: constraints.maxHeight - 140,
+                _isLoading
+                    ? SliverToBoxAdapter(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                              maxHeight: constraints.maxHeight - 140),
+                          child:
+                              const Center(child: CircularProgressIndicator()),
                         ),
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            childAspectRatio: 2.3,
+                      )
+                    : SliverToBoxAdapter(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxHeight: constraints.maxHeight - 140,
                           ),
-                          shrinkWrap: true,
-                          itemCount: ingredientsList.length,
-                          itemBuilder: (context, index) {
-                            var currentIngredient = ingredientsList[index];
-                            bool selected = false;
-                            double initialValue = 0.0;
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1,
+                              childAspectRatio: 2.3,
+                            ),
+                            shrinkWrap: true,
+                            itemCount: ingredientsList.length,
+                            itemBuilder: (context, index) {
+                              var currentIngredient = ingredientsList[index];
+                              bool selected = false;
+                              double initialValue = 0.0;
 
-                            if (widget.ingredients.isNotEmpty) {
-                              var filteredIngredients = widget.ingredients
-                                  .where((e) => e.id == currentIngredient.id)
-                                  .toList();
+                              if (widget.ingredients.isNotEmpty) {
+                                var filteredIngredients = widget.ingredients
+                                    .where((e) => e.id == currentIngredient.id)
+                                    .toList();
 
-                              if (filteredIngredients.length == 1) {
-                                selected = true;
-                                initialValue = filteredIngredients[0].amount;
+                                if (filteredIngredients.length == 1) {
+                                  selected = true;
+                                  initialValue = filteredIngredients[0].amount;
+                                }
                               }
-                            }
 
-                            return IngredientCard(
-                              initialValue: initialValue,
-                              food: currentIngredient,
-                              checked: selected,
-                              onSelectIngredient: (id, amount) {
-                                setState(() {
-                                  toggleIngredient(
-                                      currentIngredient.id, amount);
-                                });
-                              },
-                              onSumOrSubAmount: sumOrSubValues,
-                            );
-                          },
+                              return IngredientCard(
+                                initialValue: initialValue,
+                                food: currentIngredient,
+                                checked: selected,
+                                onSelectIngredient: (id, amount) {
+                                  setState(() {
+                                    toggleIngredient(
+                                        currentIngredient.id, amount);
+                                  });
+                                },
+                                onSumOrSubAmount: sumOrSubValues,
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    );
-                  }
-                })()
+                      )
               ],
             );
           },

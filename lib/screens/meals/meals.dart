@@ -191,7 +191,7 @@ class _MealsState extends State<Meals> {
                                 shrinkWrap: true,
                                 itemCount: meals.length,
                                 itemBuilder: (context, index) {
-                                  var actualMeal = meals[index];
+                                  MealsModel actualMeal = meals[index];
                                   List<SelectedFood> selectedingredients =
                                       actualMeal.ingredients.map((e) {
                                     return SelectedFood(
@@ -202,9 +202,7 @@ class _MealsState extends State<Meals> {
                                   return UCard(
                                     description: actualMeal.description,
                                     title: actualMeal.name,
-                                    imageURL: actualMeal.photo != null
-                                        ? actualMeal.photo as String
-                                        : null,
+                                    imageURL: actualMeal.photo,
                                     category: actualMeal.category,
                                     idMeal: actualMeal.id,
                                     ingredients: selectedingredients,

@@ -16,7 +16,7 @@ class MealsModel {
 
   final String id;
   final String name;
-  final Object? photo;
+  final String? photo;
   final String description;
   final String category;
   final String preparationMethod;

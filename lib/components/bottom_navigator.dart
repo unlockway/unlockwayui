@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/handlers/meals.handlers.dart';
-import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/screens/history/history.dart';
 import 'package:unlockway/screens/home/home.dart';
 import 'package:unlockway/screens/meals/meals.dart';
@@ -68,16 +66,6 @@ class UBottomNavigator extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                // await getIngredientsAPI(
-                //   context,
-                //   user.token!,
-                // );
-
-                // await getMealsAPI(
-                //   context,
-                //   user.id!,
-                //   user.token!,
-                // );
                 navigatePage(
                   context,
                   const Meals(),
@@ -91,8 +79,6 @@ class UBottomNavigator extends StatelessWidget {
             ),
             IconButton(
               onPressed: () async {
-                await getMealsAPI(context);
-                await getRoutinesAPI(context);
                 navigatePage(
                   context,
                   const Routine(),

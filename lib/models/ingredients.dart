@@ -31,13 +31,13 @@ class IngredientModel {
       name: map["name"],
       description: map["description"],
       photo: map["photo"],
-      calories: double.parse(map["calories"]),
-      proteins: double.parse(map["proteins"]),
-      water: double.parse(map["water"]),
+      calories: map["calories"],
+      proteins: map["proteins"],
+      water: map["water"],
       minerals: map["minerals"],
       vitamins: map["vitamins"],
       measure: map['measure'],
-      fats: double.parse(map["fats"]),
+      fats: map["fats"],
     );
   }
 }

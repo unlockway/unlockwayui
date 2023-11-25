@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/ingredients.dart';
@@ -58,22 +59,24 @@ class UCard extends StatelessWidget {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(6)),
-              child: imageURL == null
-                  ? Container(
-                      height: 125,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Colors.amber,
-                      ),
-                    )
-                  : Image.network(
-                      imageURL!,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 125,
-                    ),
-            ),
+                borderRadius: const BorderRadius.all(Radius.circular(6)),
+                child: imageURL == null
+                    ? Container(
+                        height: 125,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Colors.amber,
+                        ),
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: imageURL!,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: 125,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )),
             Container(
               margin: const EdgeInsets.only(top: 6.00),
               padding: const EdgeInsets.symmetric(horizontal: 12.0),

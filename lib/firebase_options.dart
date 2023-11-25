@@ -7,13 +7,14 @@ import 'package:flutter/foundation.dart'
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
 /// Example:
-/// ```dart
+///
 /// import 'firebase_options.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
-/// ```
+///
+
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -44,38 +45,42 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyADY1o9m4mld-p8UMi1bjIhSZFXtHxaIEw',
-    appId: '1:181133610636:web:67a9bd10f12511d1dcb5a9',
-    messagingSenderId: '181133610636',
-    projectId: 'unlockway-9085f',
-    authDomain: 'unlockway-9085f.firebaseapp.com',
-    storageBucket: 'unlockway-9085f.appspot.com',
-    measurementId: 'G-86GTHD241L',
+    apiKey: 'AIzaSyCEiv8S6b3GXlzK746_zxiF2xeUXXgLPG8',
+    appId: '1:531448568433:web:c8a062a83553622c2e59d0',
+    messagingSenderId: '531448568433',
+    projectId: 'unlockwayapp',
+    authDomain: 'unlockwayapp.firebaseapp.com',
+    storageBucket: 'unlockwayapp.appspot.com',
+    measurementId: 'G-EXY3CXLHD0',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDbAXRHZgOdFzRq69C2PSAwWnff0INA7G0',
-    appId: '1:181133610636:android:f9dd3fdfaf964395dcb5a9',
-    messagingSenderId: '181133610636',
-    projectId: 'unlockway-9085f',
-    storageBucket: 'unlockway-9085f.appspot.com',
+    apiKey: 'AIzaSyBvHgENG5xSM2II_iJOUTAbQGRXmKLczJM',
+    appId: '1:531448568433:android:994df8ebc1f9fc292e59d0',
+    messagingSenderId: '531448568433',
+    projectId: 'unlockwayapp',
+    storageBucket: 'unlockwayapp.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBXLx5oKmXcWZHqeexPi77JeX_izkBYpnE',
-    appId: '1:181133610636:ios:6d68961463b94f90dcb5a9',
-    messagingSenderId: '181133610636',
-    projectId: 'unlockway-9085f',
-    storageBucket: 'unlockway-9085f.appspot.com',
+    apiKey: 'AIzaSyAy79pFoJjT3B8FAn5AUckGbP0_XZAe7_s',
+    appId: '1:531448568433:ios:0d41b727b82e55e42e59d0',
+    messagingSenderId: '531448568433',
+    projectId: 'unlockwayapp',
+    storageBucket: 'unlockwayapp.appspot.com',
+    iosClientId:
+        '531448568433-p9o5sei06qqb27kvks7sefmpk7nhd51f.apps.googleusercontent.com',
     iosBundleId: 'com.example.unlockway',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBXLx5oKmXcWZHqeexPi77JeX_izkBYpnE',
-    appId: '1:181133610636:ios:6d68961463b94f90dcb5a9',
-    messagingSenderId: '181133610636',
-    projectId: 'unlockway-9085f',
-    storageBucket: 'unlockway-9085f.appspot.com',
+    apiKey: 'AIzaSyAy79pFoJjT3B8FAn5AUckGbP0_XZAe7_s',
+    appId: '1:531448568433:ios:0d41b727b82e55e42e59d0',
+    messagingSenderId: '531448568433',
+    projectId: 'unlockwayapp',
+    storageBucket: 'unlockwayapp.appspot.com',
+    iosClientId:
+        '531448568433-p9o5sei06qqb27kvks7sefmpk7nhd51f.apps.googleusercontent.com',
     iosBundleId: 'com.example.unlockway',
   );
 }

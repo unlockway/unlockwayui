@@ -39,7 +39,7 @@ class RoutineModel {
           name: e["name"],
           description: e["description"],
           category: e["category"],
-          totalCalories: double.parse(e["totalCalories"]),
+          totalCalories: e["totalCalories"],
         );
       }).toList(),
       weekRepetitions: weekRepetitionsList,
