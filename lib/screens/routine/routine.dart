@@ -35,11 +35,15 @@ class _RoutineState extends State<Routine> {
   @override
   void initState() {
     super.initState();
+    fetchAllRoutines();
   }
 
   @override
   void dispose() {
     super.dispose();
+
+    _isLoading = false;
+    routineList = [];
   }
 
   @override

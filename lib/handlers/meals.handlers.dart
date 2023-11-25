@@ -12,7 +12,9 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
 
-Future<List<MealsModel>> getMealsAPI(BuildContext context) async {
+Future<List<MealsModel>> getMealsAPI(
+  BuildContext context,
+) async {
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/meals/findByUserId';
 

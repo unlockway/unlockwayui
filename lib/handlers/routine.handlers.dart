@@ -10,35 +10,26 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
 
-Future getRoutinesAPI(
+Future<List<RoutineModel>> getRoutinesAPI(
   BuildContext context,
 ) async {
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/routines/userId';
 
-  try {
-    final response = await http.get(
-      Uri.parse(apiUrl).replace(queryParameters: {
-        'id': userData.id,
-      }),
-      headers: {
-        'Authorization': 'Bearer ${userData.token}',
-      },
-    );
+  final response = await http.get(
+    Uri.parse(apiUrl).replace(queryParameters: {
+      'id': userData.id,
+    }),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+    },
+  );
 
-    var routineList = json.decode(response.body);
+  var routineList = json.decode(response.body);
 
-    return routineList.map((routine) {
-      return RoutineModel.fromMap(routine);
-    }).toList();
-  } catch (e) {
-    modalBuilderBottomAnimation(
-      context,
-      const SimplePopup(
-        message: "Houve um erro na execução do aplicativo",
-      ),
-    );
-  }
+  return routineList.map((routine) {
+    return RoutineModel.fromMap(routine);
+  }).toList();
 }
 
 Future<void> createRoutineAPI(

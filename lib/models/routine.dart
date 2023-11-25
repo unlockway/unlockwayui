@@ -23,7 +23,8 @@ class RoutineModel {
 
   factory RoutineModel.fromMap(Map<String, dynamic> map) {
     List routineMeals = map["meals"];
-    Map<String, bool> weekRepetition = map['weekRepetitions'];
+    Map<String, bool> weekRepetition =
+        Map<String, bool>.from(map['weekRepetitions']);
     List<bool> weekRepetitionsList = weekRepetition.values.toList();
 
     return RoutineModel(
