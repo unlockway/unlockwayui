@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/meals.dart';
 
 class RoutineMealPopup extends StatefulWidget {
@@ -208,9 +209,8 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
                             selectedMeal,
                             _timeOfDayToString(selectedTime),
                           );
-                          Navigator.of(context).pop();
                         },
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Color(danger),
                       ),
                       const SizedBox(
                         width: 20,
