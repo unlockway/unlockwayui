@@ -95,12 +95,11 @@ Future<void> createRoutineAPI(
 
 Future<void> editRoutineAPI(
   BuildContext context,
-  String userID,
-  String sessionToken,
   String routineName,
   bool inUsage,
   List<RoutineMealOnCreation> meals,
   List<bool> weekRepetitions,
+  String routineID,
 ) async {
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/routines';
 
@@ -118,6 +117,7 @@ Future<void> editRoutineAPI(
   };
 
   var payload = {
+    "id": routineID,
     "name": routineName,
     "inUsage": inUsage,
     "meals": jsonList,
@@ -125,14 +125,18 @@ Future<void> editRoutineAPI(
   };
 
   var payloadEncoded = json.encode(payload);
-
+  print(payloadEncoded);
   final response = await http.put(
     Uri.parse(apiUrl),
     headers: {
-      'Authorization': 'Bearer $sessionToken',
+      'Authorization': 'Bearer ${userData.token}',
+      "Content-type": "application/json",
     },
     body: payloadEncoded,
   );
+
+  print(response.statusCode);
+  print(response.body);
 
   if (response.statusCode == 201) {
     modalBuilderBottomAnimation(
@@ -146,8 +150,8 @@ Future<void> editRoutineAPI(
   if (response.statusCode == 400) {
     modalBuilderBottomAnimation(
       context,
-      const SimplePopup(
-        message: "Erro ao editar rotina",
+      SimplePopup(
+        message: "Erro ao editar rotina: ${response.body}",
       ),
     );
   }

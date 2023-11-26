@@ -83,6 +83,7 @@ class _NewRoutineState extends State<NewRoutine> {
   @override
   void initState() {
     super.initState();
+    fetchAllMeals();
     if (widget.name != null) {
       nameController.text = widget.name!;
       daysSelected = widget.weekRepetitions!;
@@ -120,7 +121,16 @@ class _NewRoutineState extends State<NewRoutine> {
                       text: "EDITAR ROTINA",
                       height: 48,
                       width: double.infinity,
-                      onTap: () {},
+                      onTap: () {
+                        editRoutineAPI(
+                          context,
+                          nameController.text,
+                          false,
+                          mealsSelectedToRoutine,
+                          daysSelected,
+                          widget.routineId!,
+                        );
+                      },
                     ),
                   ],
                 )
@@ -197,7 +207,16 @@ class _NewRoutineState extends State<NewRoutine> {
                 ),
                 (() {
                   if (_isLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return SliverToBoxAdapter(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: constraints.maxHeight - 20,
+                        ),
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    );
                   } else {
                     return SliverToBoxAdapter(
                       child: mealsSelectedToRoutine.isNotEmpty
@@ -209,7 +228,7 @@ class _NewRoutineState extends State<NewRoutine> {
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 1,
-                                  childAspectRatio: 2.4,
+                                  childAspectRatio: 1.8,
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10,
                                 ),
@@ -224,7 +243,10 @@ class _NewRoutineState extends State<NewRoutine> {
 
                                   return RoutineMealCard(
                                     editMethod: null,
-                                    removeMethod: null,
+                                    removeMethod:
+                                        (String idMeal, String notifyAt) {
+                                      removeFromRoutineMeals(idMeal, notifyAt);
+                                    },
                                     category: filteredMeal[0].category,
                                     meal: filteredMeal[0].name,
                                     hour: mealsSelectedToRoutine[index]

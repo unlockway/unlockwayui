@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -84,11 +85,14 @@ class RoutineMealCard extends StatelessWidget {
                         width: 111,
                         height: 145,
                       )
-                    : Image.network(
-                        imgURL!,
+                    : CachedNetworkImage(
+                        imageUrl: imgURL!,
                         fit: BoxFit.fitHeight,
                         width: 111,
                         height: 145,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
               ),
             ),
