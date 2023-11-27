@@ -18,8 +18,8 @@ Future<Map> getHomeAnalysysAPI(BuildContext context) async {
         'Authorization': 'Bearer $sessionToken',
       });
 
-  print(response.body);
-  print(response.statusCode);
+  // print(response.body);
+  // print(response.statusCode);
   var analysisResult = json.decode(response.body);
 
   return analysisResult;

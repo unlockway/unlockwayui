@@ -125,7 +125,9 @@ Future<void> editRoutineAPI(
   };
 
   var payloadEncoded = json.encode(payload);
-  print(payloadEncoded);
+
+  // print(payloadEncoded);
+
   final response = await http.put(
     Uri.parse(apiUrl),
     headers: {
@@ -135,8 +137,8 @@ Future<void> editRoutineAPI(
     body: payloadEncoded,
   );
 
-  print(response.statusCode);
-  print(response.body);
+  // print(response.statusCode);
+  // print(response.body);
 
   if (response.statusCode == 201) {
     modalBuilderBottomAnimation(

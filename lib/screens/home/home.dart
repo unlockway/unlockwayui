@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +39,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     fetchAnalysis();
-    print(homeData);
+    // print(homeData);
   }
 
   @override
