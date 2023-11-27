@@ -20,7 +20,7 @@ Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
   // print(response.statusCode);
   var historyList = json.decode(response.body);
 
-  return historyList.map((meal) {
-    return HistoryModel.fromMap(meal);
+  return historyList.map((history) {
+    return HistoryModel.fromMap(history);
   }).toList();
 }
