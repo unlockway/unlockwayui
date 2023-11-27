@@ -5,19 +5,22 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/models/ingredients.dart';
 
-Future<List> getIngredientsAPI(BuildContext context) async {
+Future<Map> getHomeAnalysysAPI(BuildContext context) async {
   var sessionToken = userData.token;
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/analysis';
 
-  final response = await http.get(Uri.parse(apiUrl), headers: {
-    'Authorization': 'Bearer $sessionToken',
-  });
+  final response = await http.get(
+      Uri.parse(apiUrl).replace(queryParameters: {
+        'userId': userData.id,
+      }),
+      headers: {
+        'Authorization': 'Bearer $sessionToken',
+      });
 
-  List analysisResult = json.decode(response.body);
+  print(response.body);
+  print(response.statusCode);
+  var analysisResult = json.decode(response.body);
 
-  return analysisResult.map((ingredient) {
-    return IngredientModel.fromMap(ingredient);
-  }).toList();
+  return analysisResult;
 }

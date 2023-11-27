@@ -4,16 +4,49 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/home.handlers.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
 import 'package:unlockway/screens/home/components/home_graph.dart';
 import 'package:unlockway/screens/home/components/next_meals.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({
     super.key,
   });
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  Map homeData = {};
+  bool _isLoading = true;
+
+  Future<void> fetchAnalysis() async {
+    Map result = await getHomeAnalysysAPI(context);
+
+    setState(() {
+      homeData = result;
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAnalysis();
+    print(homeData);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _isLoading = false;
+    homeData = {};
+  }
 
   @override
   Widget build(BuildContext context) {
