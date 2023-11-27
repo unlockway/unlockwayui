@@ -154,7 +154,7 @@ class _HistoryState extends State<History> {
                             child: GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
+                                crossAxisCount: 1,
                                 childAspectRatio: 0.850,
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
