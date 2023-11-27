@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/ingredients.dart';
 
-Future<List<IngredientModel>> getIngredientsAPI(BuildContext context) async {
+Future<List> getIngredientsAPI(BuildContext context) async {
   var sessionToken = userData.token;
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/analysis';
 
@@ -15,9 +15,9 @@ Future<List<IngredientModel>> getIngredientsAPI(BuildContext context) async {
     'Authorization': 'Bearer $sessionToken',
   });
 
-  List ingredientsList = json.decode(response.body);
+  List analysisResult = json.decode(response.body);
 
-  return ingredientsList.map((ingredient) {
+  return analysisResult.map((ingredient) {
     return IngredientModel.fromMap(ingredient);
   }).toList();
 }
