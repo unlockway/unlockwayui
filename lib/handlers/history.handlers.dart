@@ -18,7 +18,7 @@ Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
 
   // print(response.body);
   // print(response.statusCode);
-  var historyList = json.decode(response.body);
+  List historyList = json.decode(response.body);
 
   return historyList.map((history) {
     return HistoryModel.fromMap(history);
