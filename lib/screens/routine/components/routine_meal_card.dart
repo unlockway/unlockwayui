@@ -79,9 +79,9 @@ class RoutineMealCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6),
-                child: imgURL == null
+                child: imgURL == null || imgURL == ""
                     ? Container(
-                        color: Color(danger),
+                        color: Theme.of(context).colorScheme.background,
                         width: 111,
                         height: 145,
                       )
@@ -97,7 +97,7 @@ class RoutineMealCard extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 6,
+              width: 3,
             ),
             Expanded(
               child: Column(
@@ -167,6 +167,7 @@ class RoutineMealCard extends StatelessWidget {
                       ),
                       Text(
                         hour,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
                           fontFamily: "Inter",

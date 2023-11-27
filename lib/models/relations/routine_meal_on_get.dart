@@ -13,7 +13,7 @@ class RoutineMealOnGet {
   final String id;
   final String mealId;
   final String notifyAt;
-  final String photo;
+  final String? photo;
   final String name;
   final String description;
   final String category;

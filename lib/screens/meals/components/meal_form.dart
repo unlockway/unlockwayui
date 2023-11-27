@@ -174,7 +174,7 @@ class _MealFormState extends State<MealForm> {
                           height: 158,
                         ),
                       )
-                    : widget.img != ''
+                    : widget.img != null
                         ? CachedNetworkImage(
                             imageUrl: widget.img!,
                             fit: BoxFit.cover,
