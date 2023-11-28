@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "181133610636-i5e68d4tng03b1ird73rbelo1t3e3hgf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fatec.unlockway",
+            "certificate_hash": "986fc2aaf72a5f52774e47d4783215cfd91c60c4"
+          }
+        },
+        {
           "client_id": "181133610636-3mr6degm9f7192el13fm2kathl27pi2i.apps.googleusercontent.com",
           "client_type": 3
         }

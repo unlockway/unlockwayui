@@ -5,17 +5,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/components/popups.dart';
-import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/home.dart';
+import 'package:unlockway/screens/register/register.dart';
 
-Future<void> loginAPI(
-  BuildContext context,
-  String email,
-  String password,
-) async {
+Future<void> loginGoogleAPI(
+  BuildContext context, {
+  required String? email,
+  required String? name,
+  required String? password,
+  required String? photoURL,
+}) async {
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/auth/authenticate';
 
@@ -40,10 +41,14 @@ Future<void> loginAPI(
       const Home(),
     );
   } catch (e) {
-    modalBuilderBottomAnimation(
+    Navigator.push(
       context,
-      SimplePopup(
-        message: e.toString(),
+      navigationPageRightAnimation(
+        RegisterScreen(
+          googleName: name,
+          googleEmail: email,
+          googlePhoto: photoURL,
+        ),
       ),
     );
   }

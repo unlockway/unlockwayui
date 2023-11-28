@@ -9,7 +9,16 @@ import 'package:unlockway/screens/register/inputs/step1.dart';
 import 'package:unlockway/screens/register/inputs/step2.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  const RegisterScreen({
+    super.key,
+    required this.googleName,
+    required this.googleEmail,
+    required this.googlePhoto,
+  });
+
+  final String? googleName;
+  final String? googleEmail;
+  final String? googlePhoto;
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();

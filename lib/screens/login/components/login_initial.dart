@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
-
+import 'package:unlockway/handlers/google_auth.dart';
 import 'package:unlockway/screens/login/components/login_popup.dart';
 import 'package:unlockway/screens/register/register.dart';
 
@@ -15,8 +17,21 @@ class InitialLogin extends StatefulWidget {
 }
 
 class _InitialLoginState extends State<InitialLogin> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  User? user;
+
   final email = TextEditingController();
   final password = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    auth.authStateChanges().listen((event) {
+      setState(() {
+        user = event;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +85,11 @@ class _InitialLoginState extends State<InitialLogin> {
                   onTap: () {
                     Navigator.of(context).push(
                       navigationPageRightAnimation(
-                        const RegisterScreen(),
+                        const RegisterScreen(
+                          googleEmail: null,
+                          googleName: null,
+                          googlePhoto: null,
+                        ),
                       ),
                     );
                   },
@@ -104,12 +123,70 @@ class _InitialLoginState extends State<InitialLogin> {
                     ),
                   ],
                 ),
-                const GoogleButton(),
+                InkWell(
+                  onTap: handleGoogleSignIn,
+                  child: Container(
+                    width: 240,
+                    height: 48.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context).colorScheme.outline,
+                          spreadRadius: 0.5,
+                          blurRadius: 1,
+                          offset: const Offset(0, 1),
+                        )
+                      ],
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/imgs/google.png",
+                            height: 30,
+                            width: 30,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            "Entrar com Google",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ],
     );
+  }
+
+  void handleGoogleSignIn() {
+    try {
+      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+      auth.signInWithProvider(googleAuthProvider).then((value) {}).then(
+            (value) => loginGoogleAPI(
+              context,
+              email: user!.email,
+              name: user!.displayName,
+              password: user!.uid,
+              photoURL: user!.photoURL,
+            ),
+          );
+    } catch (e) {
+      print(e);
+    }
   }
 }
