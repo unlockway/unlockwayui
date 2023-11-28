@@ -51,17 +51,21 @@ class _RoutineState extends State<Routine> {
     return Scaffold(
       floatingActionButton: IconButton(
         onPressed: () {
-          Navigator.of(context).push(
-            navigationPageRightAnimation(
-              const NewRoutine(
-                routineId: null,
-                inUsage: false,
-                meals: [],
-                name: null,
-                weekRepetitions: null,
-              ),
-            ),
-          );
+          Navigator.of(context)
+              .push(
+                navigationPageRightAnimation(
+                  const NewRoutine(
+                    routineId: null,
+                    inUsage: false,
+                    meals: [],
+                    name: null,
+                    weekRepetitions: null,
+                  ),
+                ),
+              )
+              .then(
+                (value) => fetchAllRoutines(),
+              );
         },
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(
@@ -210,6 +214,7 @@ class _RoutineState extends State<Routine> {
                                   }
 
                                   return RoutineCard(
+                                    fetchRoutine: fetchAllRoutines,
                                     routineId: routineIndex.id,
                                     name: routineIndex.name,
                                     weekRepetitions:

@@ -11,6 +11,7 @@ import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
 import 'package:unlockway/screens/home/components/home_graph.dart';
 import 'package:unlockway/screens/home/components/next_meals.dart';
+import 'package:unlockway/screens/home/components/no_routine.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 
 class Home extends StatefulWidget {
@@ -62,7 +63,11 @@ class _HomeState extends State<Home> {
           child: SafeArea(
             child: Container(
               margin: const EdgeInsets.only(
-                  bottom: 0, left: 20, right: 20, top: 10),
+                bottom: 0,
+                left: 20,
+                right: 20,
+                top: 10,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -170,83 +175,86 @@ class _HomeState extends State<Home> {
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.all(13),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 16,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Próximas Refeições",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.outline,
-                    fontFamily: "Inter",
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              const NextMeals(),
-              const SizedBox(
-                height: 16,
-              ),
-              const CreateButtons(),
-              const SizedBox(
-                height: 32,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "CALORIAS POR DIA",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.outline,
-                    fontFamily: "Inter",
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const HomeGraph(
-                data: [
-                  10,
-                  20,
-                  30,
-                  40,
-                  50,
-                  60,
-                  70,
-                ],
-              ),
-              SizedBox(
-                child: Row(
+          child: _isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    SvgPicture.asset(
-                      "assets/svgs/logo_mini.svg",
-                      height: 24,
-                      width: 24,
-                    ),
                     const SizedBox(
-                      width: 20,
+                      height: 16,
                     ),
-                    Expanded(
+                    homeData['routines'] == 0
+                        ? const NoRoutineCard()
+                        : Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Próximas Refeições",
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                    fontFamily: "Inter",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              const NextMeals(),
+                            ],
+                          ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const CreateButtons(),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
                       child: Text(
-                        "Acompanha sua porcentagem de progresso conforme gerencia seus melhores hábitos.",
+                        "CALORIAS POR DIA",
                         style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 12,
-                            color: Theme.of(context).colorScheme.outline),
+                          color: Theme.of(context).colorScheme.outline,
+                          fontFamily: "Inter",
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    )
+                    ),
+                    HomeGraph(
+                      data: homeData['weekCalories'],
+                    ),
+                    SizedBox(
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/svgs/logo_mini.svg",
+                            height: 24,
+                            width: 24,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Text(
+                              "Acompanha sua porcentagem de progresso conforme gerencia seus melhores hábitos.",
+                              style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontSize: 12,
+                                  color: Theme.of(context).colorScheme.outline),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );

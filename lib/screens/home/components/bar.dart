@@ -4,7 +4,7 @@ class Bar extends StatelessWidget {
   const Bar(
       {super.key, required this.data, required this.color, required this.day});
 
-  final double data;
+  final double? data;
   final Color color;
   final String day;
 
@@ -16,16 +16,17 @@ class Bar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          data.toString(),
+          data == null ? '' : data.toString(),
           style: TextStyle(
-              color: Theme.of(context).colorScheme.outline,
-              fontFamily: "Inter",
-              fontSize: 8,
-              fontWeight: FontWeight.bold),
+            color: Theme.of(context).colorScheme.outline,
+            fontFamily: "Inter",
+            fontSize: 8,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Container(
           width: 30,
-          height: data,
+          height: data ?? 30,
           decoration: BoxDecoration(
             color: color,
             borderRadius: const BorderRadius.only(

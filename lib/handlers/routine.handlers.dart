@@ -4,11 +4,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
+import 'package:unlockway/screens/routine/routine.dart';
 
 Future<List<RoutineModel>> getRoutinesAPI(
   BuildContext context,
@@ -79,6 +81,13 @@ Future<void> createRoutineAPI(
       context,
       const SimplePopup(
         message: "Rotina criada com sucesso",
+      ),
+    ).then(
+      (value) => Navigator.push(
+        context,
+        navigationPageLeftAnimation(
+          const Routine(),
+        ),
       ),
     );
   }
@@ -174,5 +183,28 @@ Future<void> deleteRoutineAPI(
     },
   );
 
-  response;
+  if (response.statusCode == 200) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Rotina excluida com sucesso",
+      ),
+    ).then(
+      (value) => Navigator.push(
+        context,
+        navigationPageLeftAnimation(
+          const Routine(),
+        ),
+      ),
+    );
+  }
+
+  if (response.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      SimplePopup(
+        message: "Erro ao excluir rotina: ${response.body}",
+      ),
+    );
+  }
 }

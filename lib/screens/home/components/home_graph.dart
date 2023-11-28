@@ -44,13 +44,49 @@ class HomeGraph extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Bar(data: 40, color: Color(primary), day: "S"),
-                    Bar(data: 40, color: Color(primary), day: "T"),
-                    Bar(data: 30, color: Color(primary), day: "Q"),
-                    Bar(data: 40, color: Color(primary), day: "Q"),
-                    Bar(data: 100, color: Color(primary), day: "S"),
-                    Bar(data: 100, color: Color(primary), day: "S"),
-                    Bar(data: 100, color: Color(primary), day: "D"),
+                    Bar(
+                      data: data[0],
+                      color: data[0] == null
+                          ? Theme.of(context).colorScheme.onBackground
+                          : Color(primary),
+                      day: "S",
+                    ),
+                    Bar(
+                        data: data[1],
+                        color: data[1] == null
+                            ? Theme.of(context).colorScheme.onBackground
+                            : Color(primary),
+                        day: "T"),
+                    Bar(
+                        data: data[2],
+                        color: data[2] == null
+                            ? Theme.of(context).colorScheme.onBackground
+                            : Color(primary),
+                        day: "Q"),
+                    Bar(
+                        data: data[3],
+                        color: data[3] == null
+                            ? Theme.of(context).colorScheme.onBackground
+                            : Color(primary),
+                        day: "Q"),
+                    Bar(
+                        data: data[4],
+                        color: data[4] == null
+                            ? Theme.of(context).colorScheme.onBackground
+                            : Color(primary),
+                        day: "S"),
+                    Bar(
+                        data: data[5],
+                        color: data[5] == null
+                            ? Theme.of(context).colorScheme.onBackground
+                            : Color(primary),
+                        day: "S"),
+                    Bar(
+                        data: data[6],
+                        color: data[6] == null
+                            ? Theme.of(context).colorScheme.onBackground
+                            : Color(primary),
+                        day: "D"),
                   ],
                 ),
               ),

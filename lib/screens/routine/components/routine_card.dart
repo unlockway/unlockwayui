@@ -16,8 +16,10 @@ class RoutineCard extends StatelessWidget {
     required this.color,
     required this.using,
     required this.routineId,
+    required this.fetchRoutine,
   });
 
+  final Function() fetchRoutine;
   final String name;
   final List<bool> weekRepetitions;
   final double calories;
@@ -44,6 +46,8 @@ class RoutineCard extends StatelessWidget {
                 weekRepetitions: weekRepetitions,
               ),
             ),
+          ).then(
+            (value) => fetchRoutine,
           );
         },
         child: Container(

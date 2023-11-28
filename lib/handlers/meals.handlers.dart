@@ -6,11 +6,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
+import 'package:unlockway/screens/meals/meals.dart';
 
 Future<List<MealsModel>> getMealsAPI(
   BuildContext context,
@@ -83,6 +85,13 @@ Future<void> createMealsAPI(
           context,
           const SimplePopup(
             message: "Refeição criada com sucesso",
+          ),
+        ).then(
+          (value) => Navigator.push(
+            context,
+            navigationPageLeftAnimation(
+              const Meals(),
+            ),
           ),
         );
       }
@@ -186,5 +195,28 @@ Future<void> deleteMealAPI(
     },
   );
 
-  response;
+  if (response.statusCode == 200) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Refeição excluida com sucesso",
+      ),
+    ).then(
+      (value) => Navigator.push(
+        context,
+        navigationPageLeftAnimation(
+          const Meals(),
+        ),
+      ),
+    );
+  }
+
+  if (response.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Erro ao excluir refeição",
+      ),
+    );
+  }
 }
