@@ -72,11 +72,16 @@ class _NewRoutineState extends State<NewRoutine> {
     });
   }
 
-  removeFromRoutineMeals(String idMeal, String notifyAt) {
+  removeFromRoutineMeals(int index) {
     setState(() {
-      mealsSelectedToRoutine.remove(
-        RoutineMealOnCreation(idMeal: idMeal, notifyAt: notifyAt),
-      );
+      mealsSelectedToRoutine.removeAt(index);
+    });
+  }
+
+  editFromRoutineMeals(String idMeal, String notifyAt, int index) {
+    setState(() {
+      mealsSelectedToRoutine[index] =
+          RoutineMealOnCreation(idMeal: idMeal, notifyAt: notifyAt);
     });
   }
 
@@ -242,10 +247,15 @@ class _NewRoutineState extends State<NewRoutine> {
                                       .toList();
 
                                   return RoutineMealCard(
-                                    editMethod: null,
-                                    removeMethod:
-                                        (String idMeal, String notifyAt) {
-                                      removeFromRoutineMeals(idMeal, notifyAt);
+                                    index: index,
+                                    mealId: filteredMeal[0].id,
+                                    editMethod: (String idMeal, String notifyAt,
+                                        int index) {
+                                      editFromRoutineMeals(
+                                          idMeal, notifyAt, index);
+                                    },
+                                    removeMethod: (int index) {
+                                      removeFromRoutineMeals(index);
                                     },
                                     category: filteredMeal[0].category,
                                     meal: filteredMeal[0].name,
@@ -273,13 +283,30 @@ class _NewRoutineState extends State<NewRoutine> {
                         modalBuilderBottomAnimation(
                           context,
                           RoutineMealPopup(
-                            editMethod: null,
+                            index: null,
+                            mealId: null,
+                            category: '',
+                            hour: TimeOfDay.now(),
+                            selectedMeal: '',
                             mealsList: mealsList,
-                            saveMethod: (String idMeal, String notifyAt) {
-                              saveToRoutineMeals(idMeal, notifyAt);
+                            editMethod:
+                                (String idMeal, String notifyAt, int index) {
+                              editFromRoutineMeals(
+                                idMeal,
+                                notifyAt,
+                                index,
+                              );
                             },
-                            removeMethod: (String idMeal, String notifyAt) {
-                              removeFromRoutineMeals(idMeal, notifyAt);
+                            saveMethod: (String idMeal, String notifyAt) {
+                              saveToRoutineMeals(
+                                idMeal,
+                                notifyAt,
+                              );
+                            },
+                            removeMethod: (int index) {
+                              removeFromRoutineMeals(
+                                index,
+                              );
                             },
                           ),
                         );

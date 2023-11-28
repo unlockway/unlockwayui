@@ -10,6 +10,8 @@ import 'package:unlockway/screens/routine/components/routine_meal_popup.dart';
 class RoutineMealCard extends StatelessWidget {
   const RoutineMealCard({
     super.key,
+    required this.index,
+    required this.mealId,
     required this.category,
     required this.meal,
     required this.hour,
@@ -20,13 +22,15 @@ class RoutineMealCard extends StatelessWidget {
     required this.mealsList,
   });
 
+  final int? index;
+  final String? mealId;
   final String category;
   final String meal;
   final String hour;
   final double calories;
   final String? imgURL;
-  final Function? removeMethod;
-  final Function? editMethod;
+  final Function(int index)? removeMethod;
+  final Function editMethod;
   final List<MealsModel> mealsList;
 
   @override
@@ -47,15 +51,37 @@ class RoutineMealCard extends StatelessWidget {
       categoryText = "Lanche";
     }
     return InkWell(
-      onTap: () => modalBuilderBottomAnimation(
-        context,
-        RoutineMealPopup(
-          editMethod: editMethod,
-          saveMethod: null,
-          removeMethod: removeMethod,
-          mealsList: mealsList,
-        ),
-      ),
+      onTap: () {
+        List<String> selectedHour = hour.split(':');
+
+        modalBuilderBottomAnimation(
+          context,
+          RoutineMealPopup(
+            index: index,
+            mealId: mealId,
+            selectedMeal: meal,
+            category: category,
+            hour: TimeOfDay(
+              hour: int.parse(selectedHour[0]),
+              minute: int.parse(
+                selectedHour[1],
+              ),
+            ),
+            editMethod: (String idMeal, String notifyAt, int index) {
+              editMethod(
+                idMeal,
+                notifyAt,
+                index,
+              );
+            },
+            saveMethod: null,
+            removeMethod: (int index) {
+              removeMethod!(index);
+            },
+            mealsList: mealsList,
+          ),
+        );
+      },
       child: Container(
         height: 100,
         margin: const EdgeInsets.only(bottom: 16),

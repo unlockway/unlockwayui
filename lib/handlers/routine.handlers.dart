@@ -146,10 +146,10 @@ Future<void> editRoutineAPI(
     body: payloadEncoded,
   );
 
-  // print(response.statusCode);
-  // print(response.body);
+  print(response.statusCode);
+  print(response.body);
 
-  if (response.statusCode == 201) {
+  if (response.statusCode == 201 || response.statusCode == 200) {
     modalBuilderBottomAnimation(
       context,
       const SimplePopup(

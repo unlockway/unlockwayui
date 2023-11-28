@@ -6,15 +6,26 @@ import 'package:unlockway/models/meals.dart';
 class RoutineMealPopup extends StatefulWidget {
   const RoutineMealPopup({
     super.key,
+    required this.index,
+    required this.mealId,
     required this.saveMethod,
     required this.removeMethod,
     required this.editMethod,
     required this.mealsList,
+    required this.category,
+    required this.hour,
+    required this.selectedMeal,
   });
 
+  final int? index;
+  final String? mealId;
   final Function? saveMethod;
-  final Function? removeMethod;
-  final Function? editMethod;
+  final Function(int index) removeMethod;
+  final Function(String idMeal, String notifyAt, int index) editMethod;
+  final String? selectedMeal;
+  final String category;
+  final TimeOfDay hour;
+
   final List<MealsModel> mealsList;
 
   @override
@@ -25,6 +36,16 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
   String? selectedMeal;
   String category = "BREAKFAST";
   TimeOfDay selectedTime = TimeOfDay.now();
+
+  @override
+  void initState() {
+    if (widget.mealId != null) {
+      category = widget.category;
+      selectedMeal = widget.mealId;
+      selectedTime = widget.hour;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -205,10 +226,7 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
                         height: 48,
                         width: double.infinity,
                         onTap: () {
-                          widget.removeMethod!(
-                            selectedMeal,
-                            _timeOfDayToString(selectedTime),
-                          );
+                          widget.removeMethod(widget.index!);
                         },
                         color: Color(danger),
                       ),
@@ -220,9 +238,12 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
                         height: 48,
                         width: double.infinity,
                         onTap: () {
-                          Navigator.pop(
-                            context,
+                          widget.editMethod(
+                            selectedMeal!,
+                            _timeOfDayToString(selectedTime),
+                            widget.index!,
                           );
+                          Navigator.pop(context);
                         },
                       ),
                     ],
