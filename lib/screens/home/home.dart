@@ -183,18 +183,21 @@ class _HomeState extends State<Home> {
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    homeData['meals'] == 0 || homeData['routines'] == 0
-                        ? PendingActions(
+                    if (homeData['meals'] == 0 || homeData['routines'] == 0)
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          PendingActions(
                             meals: homeData['meals'],
                             routines: homeData['routines'],
-                          )
-                        : const Text(""),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                        ],
+                      ),
                     homeData['routines'] == 0
                         ? const NoRoutineCard()
                         : Column(

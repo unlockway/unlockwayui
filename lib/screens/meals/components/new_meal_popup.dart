@@ -73,7 +73,7 @@ class NewMealPopup extends StatelessWidget {
                     ingredientsSelected: const [],
                     name: '',
                     preparationMethod: '',
-                    img: '',
+                    img: null,
                     onSave: onCreate,
                   ),
                 ),
