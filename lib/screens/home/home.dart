@@ -12,6 +12,7 @@ import 'package:unlockway/screens/home/components/create_buttons.dart';
 import 'package:unlockway/screens/home/components/home_graph.dart';
 import 'package:unlockway/screens/home/components/next_meals.dart';
 import 'package:unlockway/screens/home/components/no_routine.dart';
+import 'package:unlockway/screens/home/components/pending_actions.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 
 class Home extends StatefulWidget {
@@ -182,6 +183,15 @@ class _HomeState extends State<Home> {
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    homeData['meals'] == 0 || homeData['routines'] == 0
+                        ? PendingActions(
+                            meals: homeData['meals'],
+                            routines: homeData['routines'],
+                          )
+                        : const Text(""),
                     const SizedBox(
                       height: 16,
                     ),
