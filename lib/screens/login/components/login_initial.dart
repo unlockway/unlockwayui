@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/buttons.dart';
@@ -186,7 +185,13 @@ class _InitialLoginState extends State<InitialLogin> {
             ),
           );
     } catch (e) {
-      print(e);
+      navigationPageRightAnimation(
+        RegisterScreen(
+          googleName: user!.displayName,
+          googleEmail: user!.email,
+          googlePhoto: user!.photoURL,
+        ),
+      );
     }
   }
 }

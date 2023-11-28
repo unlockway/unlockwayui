@@ -49,6 +49,9 @@ dependencies:
   http_parser: ^4.0.2
   shimmer: ^3.0.0
   firebase_messaging: ^14.7.5
+  shared_preferences: ^2.2.2
+  connectivity_plus: ^5.0.2
+  get: ^4.6.6
 
 dev_dependencies:
   flutter_test:

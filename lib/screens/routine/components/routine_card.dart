@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 
@@ -111,7 +112,11 @@ class RoutineCard extends StatelessWidget {
                                   color: Color(darkBgdark),
                                 ),
                               )),
-                    onPressed: () {},
+                    onPressed: () {
+                      changeUsedRoutine(context, routineId).then(
+                        (value) => fetchRoutine,
+                      );
+                    },
                     child: Text(
                       using ? "USANDO" : "USAR",
                       style: TextStyle(

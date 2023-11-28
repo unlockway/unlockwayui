@@ -32,6 +32,12 @@ class _RoutineState extends State<Routine> {
     });
   }
 
+  changeUsedRoutine(String userId, String routineId) {
+    setState(() {
+      fetchAllRoutines();
+    });
+  }
+
   @override
   void initState() {
     super.initState();

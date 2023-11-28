@@ -146,9 +146,6 @@ Future<void> editRoutineAPI(
     body: payloadEncoded,
   );
 
-  print(response.statusCode);
-  print(response.body);
-
   if (response.statusCode == 201 || response.statusCode == 200) {
     modalBuilderBottomAnimation(
       context,
@@ -207,4 +204,17 @@ Future<void> deleteRoutineAPI(
       ),
     );
   }
+}
+
+Future<void> changeUsedRoutine(BuildContext context, String routineId) async {
+  const String apiUrl =
+      'https://unlockway.azurewebsites.net/api/v1/routines/use';
+
+  final response = await http.put(Uri.parse(apiUrl), headers: {
+    'Authorization': 'Bearer ${userData.token}',
+  }, body: {
+    "user": userData.id,
+    "routine": routineId,
+  });
+  response;
 }
