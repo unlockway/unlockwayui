@@ -23,3 +23,4 @@ var danger = 0xFFC33434;
 var success = 0xFF52CC83;
 
 UserModel userData = UserModel(); // keep
+String? fcmToken;

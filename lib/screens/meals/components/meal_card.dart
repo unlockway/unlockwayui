@@ -83,23 +83,32 @@ class UCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Row(
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontFamily: "Signika",
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.outline,
-                      fontSize: 19.02,
-                    ),
-                  ),
-                  Text(
-                    subtitle ?? "",
-                    style: const TextStyle(
-                      fontFamily: "Roboto",
-                      fontSize: 14.0,
+                  Expanded(
+                    flex: 200,
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontFamily: "Signika",
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.outline,
+                        fontSize: 19.02,
+                      ),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 1,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      subtitle ?? "",
+                      style: const TextStyle(
+                        fontFamily: "Roboto",
+                        fontSize: 14.0,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
