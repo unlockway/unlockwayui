@@ -87,7 +87,7 @@ class _InitialLoginState extends State<InitialLogin> {
                         const RegisterScreen(
                           googleEmail: null,
                           googleName: null,
-                          googlePhoto: null,
+                          googleId: null,
                         ),
                       ),
                     );
@@ -181,15 +181,14 @@ class _InitialLoginState extends State<InitialLogin> {
               email: user!.email,
               name: user!.displayName,
               password: user!.uid,
-              photoURL: user!.photoURL,
             ),
           );
     } catch (e) {
       navigationPageRightAnimation(
         RegisterScreen(
-          googleName: user!.displayName,
+          googleName: user!.displayName.toString(),
           googleEmail: user!.email,
-          googlePhoto: user!.photoURL,
+          googleId: user!.uid,
         ),
       );
     }

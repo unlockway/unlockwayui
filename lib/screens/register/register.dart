@@ -13,12 +13,12 @@ class RegisterScreen extends StatefulWidget {
     super.key,
     required this.googleName,
     required this.googleEmail,
-    required this.googlePhoto,
+    required this.googleId,
   });
 
   final String? googleName;
   final String? googleEmail;
-  final String? googlePhoto;
+  final String? googleId;
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -41,8 +41,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void initState() {
+    if (widget.googleEmail == null) {
+      currentStep = 1;
+    } else {
+      List<String> actualName = widget.googleName!.split("");
+
+      if (actualName.length > 1) {
+        firstNameController.text = actualName[0];
+        lastNameController.text = actualName[1];
+      }
+      currentStep = 1;
+      emailController.text = widget.googleEmail!;
+      confirmPasswordController.text = widget.googleId!;
+      passwordController.text = widget.googleId!;
+    }
+
     super.initState();
-    currentStep = 1;
   }
 
   @override

@@ -13,7 +13,6 @@ class NetworkController extends GetxController {
 
   void _updateConnectionStatus(ConnectivityResult connectivityResult) {
     if (connectivityResult == ConnectivityResult.none) {
-      print("Sem net");
       Get.rawSnackbar(
           messageText: const Text('CONECTE SEU DISPOSITIVO NA INTERNET',
               style: TextStyle(color: Colors.white, fontSize: 14)),
