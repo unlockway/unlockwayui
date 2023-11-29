@@ -192,6 +192,7 @@ class ConsumeMealDialog extends StatelessWidget {
                       routineId,
                       mealId,
                     );
+                    Navigator.pop(context);
                   }),
             ],
           )

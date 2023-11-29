@@ -31,7 +31,11 @@ class Bar extends StatelessWidget {
         ),
         Container(
           width: 30,
-          height: height ?? 30,
+          height: height == null
+              ? 30
+              : height!.isNaN
+                  ? 30
+                  : height,
           decoration: BoxDecoration(
             color: color,
             borderRadius: const BorderRadius.only(

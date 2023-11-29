@@ -14,9 +14,7 @@ class NotifyDetails extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).push(
-              _createRoute(),
-            );
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_ios),
           color: Theme.of(context).colorScheme.outline,
