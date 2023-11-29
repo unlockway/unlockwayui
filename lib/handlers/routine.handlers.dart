@@ -226,3 +226,27 @@ Future<void> changeUsedRoutine(BuildContext context, String routineId) async {
 
   response;
 }
+
+Future<List<RoutineModel>> getRoutineByNameAPI(
+  BuildContext context,
+  String name,
+) async {
+  const String apiUrl =
+      'https://unlockway.azurewebsites.net/api/v1/routines/findByName';
+
+  final response = await http.get(
+    Uri.parse(apiUrl).replace(queryParameters: {
+      'userId': userData.id,
+      'name': name,
+    }),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+    },
+  );
+
+  List routineList = json.decode(response.body);
+
+  return routineList.map((routine) {
+    return RoutineModel.fromMap(routine);
+  }).toList();
+}

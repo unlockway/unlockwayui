@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/buttons.dart';
@@ -22,7 +24,7 @@ class FoodSelectionPage extends StatefulWidget {
 
 class _FoodSelectionPageState extends State<FoodSelectionPage> {
   UserModel user = userData;
-
+  Timer? _debounceTimer;
   List<IngredientModel> ingredientsList = [];
   bool _isLoading = true;
 
@@ -123,19 +125,47 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                       const SizedBox(
                         height: 6,
                       ),
-                      SearchTextField(
-                        method: () async {
-                          await getIngredientsByNameAPI(
-                            context,
-                            searchController.text,
-                          );
-                          setState(() {});
-                        },
-                        title: "Pesquisar Alimento",
-                        placeholder: "EX: Maçã",
-                        width: double.infinity,
-                        controller: searchController,
-                        number: false,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              onChanged: (value) {
+                                _onTextChanged(value);
+                              },
+                              cursorColor:
+                                  const Color.fromARGB(255, 155, 155, 155),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                              decoration: InputDecoration(
+                                enabled: true,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                filled: true,
+                                fillColor:
+                                    Theme.of(context).colorScheme.onBackground,
+                                contentPadding: const EdgeInsets.all(10.0),
+                                hintText: "Buscar",
+                                suffixIcon: Icon(
+                                  Icons.search,
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.transparent),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                hintStyle: TextStyle(
+                                  color: Theme.of(context).colorScheme.outline,
+                                  fontWeight: FontWeight.w100,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 16,
@@ -217,5 +247,17 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
         ),
       ),
     );
+  }
+
+  void _onTextChanged(String value) {
+    _debounceTimer?.cancel();
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+      List<IngredientModel> resultName =
+          await getIngredientsByNameAPI(context, value);
+      setState(() {
+        ingredientsList = resultName;
+      });
+    });
   }
 }

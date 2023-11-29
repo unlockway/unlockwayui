@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
@@ -19,6 +21,7 @@ class Routine extends StatefulWidget {
 class _RoutineState extends State<Routine> {
   List<RoutineModel> routineList = [];
   bool _isLoading = true;
+  Timer? _debounceTimer;
 
   void fetchAllRoutines() async {
     var result = await getRoutinesAPI(context);
@@ -111,6 +114,9 @@ class _RoutineState extends State<Routine> {
                   children: [
                     Flexible(
                       child: TextField(
+                        onChanged: (value) {
+                          _onTextChanged(value);
+                        },
                         cursorColor: const Color.fromARGB(255, 155, 155, 155),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
@@ -243,5 +249,16 @@ class _RoutineState extends State<Routine> {
                   ),
       ),
     );
+  }
+
+  void _onTextChanged(String value) {
+    _debounceTimer?.cancel();
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+      List<RoutineModel> resultName = await getRoutineByNameAPI(context, value);
+      setState(() {
+        routineList = resultName;
+      });
+    });
   }
 }

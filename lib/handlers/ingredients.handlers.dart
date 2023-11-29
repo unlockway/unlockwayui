@@ -32,17 +32,17 @@ Future<List<IngredientModel>> getIngredientsByNameAPI(
 
   final response = await http.get(
     Uri.parse(apiUrl).replace(queryParameters: {
+      'userId': userData.id,
       'name': name,
     }),
     headers: {
       'Authorization': 'Bearer ${userData.token}',
-      "Content-type": "application/json",
     },
   );
 
-  List ingredientsList = json.decode(response.body);
+  List ingredientList = json.decode(response.body);
 
-  return ingredientsList.map((ingredient) {
+  return ingredientList.map((ingredient) {
     return IngredientModel.fromMap(ingredient);
   }).toList();
 }

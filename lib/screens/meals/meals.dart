@@ -236,9 +236,9 @@ class _MealsState extends State<Meals> {
   void _onTextChanged(String value) {
     _debounceTimer?.cancel();
 
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      setState(() async {
-        List<MealsModel> resultName = await getMealsByNameAPI(context, value);
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+      List<MealsModel> resultName = await getMealsByNameAPI(context, value);
+      setState(() {
         meals = resultName;
       });
     });
