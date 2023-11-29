@@ -15,6 +15,7 @@ class NotifyPage extends StatefulWidget {
 
 class _NotifyPageState extends State<NotifyPage> {
   List<NotifyModel> notify = [];
+  int notifyLenght = 0;
   bool _isLoading = true;
 
   Future<void> fetchNotify() async {
@@ -22,6 +23,7 @@ class _NotifyPageState extends State<NotifyPage> {
 
     setState(() {
       notify = result;
+      notifyLenght = notify.length;
       _isLoading = false;
     });
   }
@@ -38,6 +40,7 @@ class _NotifyPageState extends State<NotifyPage> {
 
     _isLoading = false;
     notify = [];
+    notifyLenght = 0;
   }
 
   @override
@@ -54,7 +57,7 @@ class _NotifyPageState extends State<NotifyPage> {
         ),
         backgroundColor: Theme.of(context).colorScheme.onBackground,
         title: Text(
-          "NOTIFICAÇÕES(${notify.length})",
+          "NOTIFICAÇÕES($notifyLenght)",
           style: TextStyle(
               color: Theme.of(context).colorScheme.outline,
               fontFamily: "Inter",
