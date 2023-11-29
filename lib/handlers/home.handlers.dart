@@ -18,8 +18,6 @@ Future<Map<String, dynamic>> getHomeAnalysysAPI(BuildContext context) async {
         'Authorization': 'Bearer $sessionToken',
       });
 
-  (response.body);
-
   var analysisResult = json.decode(response.body);
 
   return analysisResult;

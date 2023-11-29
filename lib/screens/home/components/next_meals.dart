@@ -4,44 +4,36 @@ import 'package:unlockway/screens/home/components/home_meal_card.dart';
 class NextMeals extends StatelessWidget {
   const NextMeals({
     super.key,
-    //required this.meals,
+    required this.meals,
+    required this.routineId,
+    required this.method,
   });
 
-  //final List<Object> meals;
+  final List meals;
+  final String routineId;
+  final Function(String routineId, String mealId) method;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: double.infinity,
       height: 250,
       child: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        children: const [
-          HomeMealCard(
-            description:
-                "Descrição do alimento irá aqui. contendo informações de carboidratos e proteinas talvez.",
-            hour: "7:00",
-            category: "Almoço",
-            imageUrl:
-                "https://www.receiteria.com.br/wp-content/uploads/receitas-de-almoco-rapido-1-730x449.jpg",
-          ),
-          HomeMealCard(
-            description:
-                "Descrição do alimento irá aqui. contendo informações de carboidratos e proteinas talvez.",
-            hour: "7:00",
-            category: "Almoço",
-            imageUrl:
-                "https://www.receiteria.com.br/wp-content/uploads/receitas-de-almoco-rapido-1-730x449.jpg",
-          ),
-          HomeMealCard(
-            description:
-                "Descrição do alimento irá aqui. contendo informações de carboidratos e proteinas talvez.",
-            hour: "7:00",
-            category: "Almoço",
-            imageUrl:
-                "https://www.receiteria.com.br/wp-content/uploads/receitas-de-almoco-rapido-1-730x449.jpg",
-          ),
-        ],
+        children: meals.map((meal) {
+          return HomeMealCard(
+            method: (String routineId, String mealId) {
+              method(routineId, mealId);
+            },
+            mealId: meal['id'],
+            routineId: routineId,
+            description: meal['description'],
+            hour: meal['notifyAt'],
+            category: meal['category'],
+            imageUrl: meal['photo'],
+          );
+        }).toList(),
       ),
     );
   }

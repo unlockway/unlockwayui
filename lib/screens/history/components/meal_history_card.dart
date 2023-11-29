@@ -1,19 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MealHistoryCard extends StatelessWidget {
   const MealHistoryCard({
     super.key,
-    required this.svg,
     required this.title,
     required this.description,
     required this.img,
+    required this.ingested,
   });
 
-  final String svg;
   final String title;
   final String description;
-  final String img;
+  final String? img;
+  final bool ingested;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,26 @@ class MealHistoryCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              img,
-              width: 80,
-              height: 80,
-            ),
-          ),
+          img == null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: const BoxDecoration(
+                      color: Colors.amber,
+                    ),
+                  ),
+                )
+              : CachedNetworkImage(
+                  imageUrl: img!,
+                  fit: BoxFit.cover,
+                  width: 80,
+                  height: 80,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
           const SizedBox(
             width: 8,
           ),
@@ -55,6 +68,9 @@ class MealHistoryCard extends StatelessWidget {
                     fontFamily: "Inter",
                     fontSize: 23.04,
                   ),
+                ),
+                const SizedBox(
+                  height: 6,
                 ),
                 Text(
                   description,
@@ -72,9 +88,9 @@ class MealHistoryCard extends StatelessWidget {
             width: 8,
           ),
           SvgPicture.asset(
-            svg,
-            height: 32,
-            width: 32,
+            ingested ? "assets/svgs/ok.svg" : "assets/svgs/no.svg",
+            height: 40,
+            width: 40,
           ),
         ],
       ),

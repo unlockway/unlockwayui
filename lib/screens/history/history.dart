@@ -163,7 +163,6 @@ class _HistoryState extends State<History> {
                               itemCount: history.length,
                               itemBuilder: (context, index) {
                                 HistoryModel actualHistory = history[index];
-
                                 return HistoryCard(
                                   name: actualHistory.routineName,
                                   weekRepetitions: actualHistory.days,

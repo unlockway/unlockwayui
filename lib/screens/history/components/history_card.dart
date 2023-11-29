@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/models/relations/history_meal.dart';
 import 'package:unlockway/screens/history/components/history_details.dart';
 
 class HistoryCard extends StatelessWidget {
@@ -16,14 +17,18 @@ class HistoryCard extends StatelessWidget {
   });
 
   final String name;
-  final List<bool> weekRepetitions;
+  final Map weekRepetitions;
   final double calories;
   final String date;
-  final List<Object> meals;
+  final List<HistoryMealOnGet> meals;
   final Color color;
 
   @override
   Widget build(BuildContext context) {
+    List dias;
+
+    dias = weekRepetitions.values.toList();
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
@@ -49,8 +54,8 @@ class HistoryCard extends StatelessWidget {
               Navigator.of(context).push(
                 navigationPageRightAnimation(
                   HistoryDetails(
-                    ingestedMeals: const [],
-                    days: weekRepetitions,
+                    ingestedMeals: meals,
+                    days: dias,
                     name: name,
                     color: color,
                     calories: calories,
@@ -80,7 +85,7 @@ class HistoryCard extends StatelessWidget {
                   ),
                   DaysList(
                     function: null,
-                    days: weekRepetitions,
+                    days: dias,
                     enable: false,
                   ),
                   Row(

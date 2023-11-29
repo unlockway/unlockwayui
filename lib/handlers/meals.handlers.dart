@@ -198,7 +198,6 @@ Future<void> editMealsAPI(
             ),
           ),
         );
-        ;
       }
 
       if (response.statusCode == 400) {

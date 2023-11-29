@@ -52,7 +52,7 @@ class _NotifyPageState extends State<NotifyPage> {
         ),
         backgroundColor: Theme.of(context).colorScheme.onBackground,
         title: Text(
-          "NOTIFICAÇÕES(6)",
+          "NOTIFICAÇÕES(${notify.length})",
           style: TextStyle(
               color: Theme.of(context).colorScheme.outline,
               fontFamily: "Inter",
@@ -102,19 +102,24 @@ class _NotifyPageState extends State<NotifyPage> {
                           itemCount: notify.length,
                           itemBuilder: (context, index) {
                             NotifyModel actualNotification = notify[index];
+                            List<String> date =
+                                actualNotification.date.split(":");
 
-                            return NotifyCard(
-                              description: actualNotification.description,
-                              date: "dsadsads",
-                              func: () {
-                                Navigator.of(context).push(
-                                  _createRouteTwo(
-                                    actualNotification.description,
-                                    actualNotification.title,
-                                  ),
-                                );
-                              },
-                            );
+                            return actualNotification.read == false
+                                ? NotifyCard(
+                                    id: actualNotification.id,
+                                    description: actualNotification.description,
+                                    date: date[0],
+                                    func: () {
+                                      Navigator.of(context).push(
+                                        _createRouteTwo(
+                                          actualNotification.description,
+                                          actualNotification.title,
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : const Text("");
                           },
                         ),
                       ),

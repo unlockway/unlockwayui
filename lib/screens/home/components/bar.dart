@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
 class Bar extends StatelessWidget {
-  const Bar(
-      {super.key, required this.data, required this.color, required this.day});
+  const Bar({
+    super.key,
+    required this.data,
+    required this.color,
+    required this.day,
+    required this.height,
+  });
 
   final double? data;
+  final double? height;
   final Color color;
   final String day;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment:
-          MainAxisAlignment.end, // Alinha a Column na parte inferior
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
@@ -26,7 +31,7 @@ class Bar extends StatelessWidget {
         ),
         Container(
           width: 30,
-          height: data ?? 30,
+          height: height ?? 30,
           decoration: BoxDecoration(
             color: color,
             borderRadius: const BorderRadius.only(

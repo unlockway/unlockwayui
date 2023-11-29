@@ -6,7 +6,7 @@ class Line extends StatelessWidget {
     required this.number,
   });
 
-  final int number;
+  final num number;
 
   @override
   Widget build(BuildContext context) {
