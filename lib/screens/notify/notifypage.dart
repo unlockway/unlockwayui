@@ -104,18 +104,22 @@ class _NotifyPageState extends State<NotifyPage> {
                             NotifyModel actualNotification = notify[index];
                             List<String> date =
                                 actualNotification.date.split(":");
-                            return NotifyCard(
-                              description: actualNotification.description,
-                              date: date[0],
-                              func: () {
-                                Navigator.of(context).push(
-                                  _createRouteTwo(
-                                    actualNotification.description,
-                                    actualNotification.title,
-                                  ),
-                                );
-                              },
-                            );
+
+                            return actualNotification.read == false
+                                ? NotifyCard(
+                                    id: actualNotification.id,
+                                    description: actualNotification.description,
+                                    date: date[0],
+                                    func: () {
+                                      Navigator.of(context).push(
+                                        _createRouteTwo(
+                                          actualNotification.description,
+                                          actualNotification.title,
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : const Text("");
                           },
                         ),
                       ),
