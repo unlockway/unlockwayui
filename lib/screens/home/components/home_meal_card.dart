@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/handlers/history.handlers.dart';
 
 class HomeMealCard extends StatelessWidget {
   const HomeMealCard({
@@ -43,8 +42,6 @@ class HomeMealCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        print(mealId);
-        print(routineId);
         modalBuilderBottomAnimation(
           context,
           ConsumeMealDialog(

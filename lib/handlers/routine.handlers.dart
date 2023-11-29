@@ -49,8 +49,6 @@ Future<Map<String, dynamic>> getRoutineOnUseAPI(
     },
   );
 
-  print(response.body);
-  print(response.statusCode);
   var routineList = json.decode(response.body);
 
   return routineList;

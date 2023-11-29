@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/days_list.dart';
-import 'package:unlockway/models/history.dart';
+
 import 'package:unlockway/models/relations/history_meal.dart';
 import 'package:unlockway/screens/history/components/meal_history_card.dart';
 
