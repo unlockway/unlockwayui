@@ -27,7 +27,7 @@ class HomeMealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String actualCategory = "";
     if (category == 'BREAKFAST') {
-      actualCategory = "Café da manhã";
+      actualCategory = "Café";
     }
     if (category == 'LUNCH') {
       actualCategory = 'Almoço';
