@@ -13,6 +13,21 @@ class HomeGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    num totalSum = data.fold(0, (sum, element) => sum + (element ?? 0));
+    num seventyFivePercent = totalSum * 0.75;
+    num twentyFivePercent = totalSum * 0.25;
+
+    List percentageList = [];
+
+    for (var number in data) {
+      if (number != null) {
+        double percentage = (number / totalSum) * 160;
+        percentageList.add(percentage);
+      } else {
+        percentageList.add(null);
+      }
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(
         vertical: 10,
@@ -21,15 +36,15 @@ class HomeGraph extends StatelessWidget {
       height: 200,
       child: Stack(
         children: [
-          const Positioned.fill(
+          Positioned.fill(
             left: 0,
             top: -80,
-            child: Line(number: 3000),
+            child: Line(number: seventyFivePercent),
           ),
-          const Positioned.fill(
+          Positioned.fill(
             left: 0,
             top: 50,
-            child: Line(number: 2000),
+            child: Line(number: twentyFivePercent),
           ),
           Row(
             children: [
@@ -46,44 +61,51 @@ class HomeGraph extends StatelessWidget {
                   children: [
                     Bar(
                       data: data[0],
-                      color: data[0] == null
+                      height: percentageList[0],
+                      color: percentageList[0] == null
                           ? Theme.of(context).colorScheme.onBackground
                           : Color(primary),
                       day: "S",
                     ),
                     Bar(
                         data: data[1],
-                        color: data[1] == null
+                        height: percentageList[1],
+                        color: percentageList[1] == null
                             ? Theme.of(context).colorScheme.onBackground
                             : Color(primary),
                         day: "T"),
                     Bar(
                         data: data[2],
-                        color: data[2] == null
+                        height: percentageList[2],
+                        color: percentageList[2] == null
                             ? Theme.of(context).colorScheme.onBackground
                             : Color(primary),
                         day: "Q"),
                     Bar(
                         data: data[3],
-                        color: data[3] == null
+                        height: percentageList[3],
+                        color: percentageList[3] == null
                             ? Theme.of(context).colorScheme.onBackground
                             : Color(primary),
                         day: "Q"),
                     Bar(
                         data: data[4],
-                        color: data[4] == null
+                        height: percentageList[4],
+                        color: percentageList[4] == null
                             ? Theme.of(context).colorScheme.onBackground
                             : Color(primary),
                         day: "S"),
                     Bar(
                         data: data[5],
-                        color: data[5] == null
+                        height: percentageList[5],
+                        color: percentageList[5] == null
                             ? Theme.of(context).colorScheme.onBackground
                             : Color(primary),
                         day: "S"),
                     Bar(
                         data: data[6],
-                        color: data[6] == null
+                        height: percentageList[6],
+                        color: percentageList[6] == null
                             ? Theme.of(context).colorScheme.onBackground
                             : Color(primary),
                         day: "D"),
