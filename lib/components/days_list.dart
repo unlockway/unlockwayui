@@ -9,7 +9,7 @@ class DaysList extends StatefulWidget {
     required this.function,
   });
 
-  final List<bool> days;
+  final List days;
   final bool enable;
   final Function? function;
 

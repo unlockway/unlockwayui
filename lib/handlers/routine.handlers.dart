@@ -34,6 +34,28 @@ Future<List<RoutineModel>> getRoutinesAPI(
   }).toList();
 }
 
+Future<Map<String, dynamic>> getRoutineOnUseAPI(
+  BuildContext context,
+) async {
+  const String apiUrl =
+      'https://unlockway.azurewebsites.net/api/v1/routines/inusage';
+
+  final response = await http.get(
+    Uri.parse(apiUrl).replace(queryParameters: {
+      'userId': userData.id,
+    }),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+    },
+  );
+
+  print(response.body);
+  print(response.statusCode);
+  var routineList = json.decode(response.body);
+
+  return routineList;
+}
+
 Future<void> createRoutineAPI(
   BuildContext context,
   String userID,

@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
+import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
 import 'package:unlockway/screens/home/components/home_graph.dart';
@@ -26,15 +28,28 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Map homeData = {};
+  Map actualRoutine = {};
   bool _isLoading = true;
 
   Future<void> fetchAnalysis() async {
     Map result = await getHomeAnalysysAPI(context);
-
+    Map resultRoutine = await getRoutineOnUseAPI(context);
     setState(() {
       homeData = result;
+      actualRoutine = resultRoutine;
       _isLoading = false;
     });
+  }
+
+  ingestMeal(
+    String routineId,
+    String mealId,
+  ) async {
+    await getHistoryIngestedAPI(
+      context,
+      routineId,
+      mealId,
+    ).then((value) => fetchAnalysis());
   }
 
   @override
@@ -217,7 +232,12 @@ class _HomeState extends State<Home> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              const NextMeals(),
+                              NextMeals(
+                                  meals: actualRoutine['meals'],
+                                  routineId: actualRoutine['id'],
+                                  method: (String routineId, String mealId) {
+                                    ingestMeal(routineId, mealId);
+                                  }),
                             ],
                           ),
                     const SizedBox(
