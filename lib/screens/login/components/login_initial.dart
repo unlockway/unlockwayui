@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,8 +7,10 @@ import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/handlers/google_auth.dart';
+import 'package:unlockway/handlers/login.handlers.dart';
 import 'package:unlockway/screens/login/components/login_popup.dart';
 import 'package:unlockway/screens/register/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InitialLogin extends StatefulWidget {
   const InitialLogin({super.key});
@@ -30,6 +34,21 @@ class _InitialLoginState extends State<InitialLogin> {
         user = event;
       });
     });
+    getUserLogged();
+  }
+
+  getUserLogged() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('Email');
+    final String? password = prefs.getString('Password');
+
+    if (email != null || email != "") {
+      loginAPI(
+        context,
+        email!,
+        password!,
+      );
+    }
   }
 
   @override

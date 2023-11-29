@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -8,6 +10,7 @@ import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/screens/settings/components/options.dart';
 import 'package:unlockway/screens/settings/components/profile.dart';
 import 'package:unlockway/screens/settings/components/theme_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -144,7 +147,13 @@ class _SettingsState extends State<Settings> {
                     SettingsOption(
                       icon: PhosphorIcons.signOut(PhosphorIconsStyle.regular),
                       label: "Desconectar",
-                      onTap: () {
+                      onTap: () async {
+                        final SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+
+                        await prefs.remove('Email');
+                        await prefs.remove('Password');
+
                         Navigator.of(context).push(
                           navigationPageLeftAnimation(
                             const Login(),

@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:unlockway/components/navigation.dart';
@@ -34,6 +34,10 @@ Future<void> loginAPI(
     Map<Object?, Object?> user = json.decode(response.body);
 
     userData = UserModel.fromMap(user);
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('Email', userData.email!);
+    await prefs.setString('Password', password);
 
     navigatePage(
       context,

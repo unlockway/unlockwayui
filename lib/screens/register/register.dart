@@ -150,7 +150,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onChangeGoals: onGoalsChange,
                           onChangeSex: onSexChange,
                         );
-                        ;
                       }()),
                       const SizedBox(
                         height: 20,
