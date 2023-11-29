@@ -44,6 +44,9 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
   void initState() {
     super.initState();
     fetchAllIngredients();
+    if (widget.ingredients.isNotEmpty) {
+      selectedIngredients = widget.ingredients;
+    }
   }
 
   @override
