@@ -68,15 +68,20 @@ class RoutineCard extends StatelessWidget {
                     width: 32,
                     height: 32,
                   ),
-                  Text(
-                    "Rotina: $name",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.outline,
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
+                  )
                 ],
               ),
               DaysList(
