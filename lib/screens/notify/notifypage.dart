@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/handlers/notify.handlers.dart';
+import 'package:unlockway/models/notify.dart';
 import 'package:unlockway/screens/notify/components/notify_card.dart';
 import 'package:unlockway/screens/notify/components/notifydetails.dart';
-import 'package:unlockway/mock/notify.dart';
 
 class NotifyPage extends StatefulWidget {
   const NotifyPage({super.key});
@@ -11,6 +12,32 @@ class NotifyPage extends StatefulWidget {
 }
 
 class _NotifyPageState extends State<NotifyPage> {
+  List<NotifyModel> notify = [];
+  bool _isLoading = true;
+
+  Future<void> fetchNotify() async {
+    List<NotifyModel> result = await getNotifyAPI(context);
+
+    setState(() {
+      notify = result;
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchNotify();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _isLoading = false;
+    notify = [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,66 +61,68 @@ class _NotifyPageState extends State<NotifyPage> {
         ),
         centerTitle: true,
       ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return CustomScrollView(
-            slivers: <Widget>[
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 50,
-                  width: double.infinity,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Marcar todas como lidas",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return CustomScrollView(
+                  slivers: <Widget>[
+                    SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 50,
+                        width: double.infinity,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Marcar todas como lidas",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: constraints.maxHeight - 60,
-                  ),
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      childAspectRatio: 5,
-                    ),
-                    shrinkWrap: true,
-                    itemCount: notify.length,
-                    itemBuilder: (context, index) {
-                      for (var index in notify) {
-                        return NotifyCard(
-                          icon: index.icon,
-                          description: index.description,
-                          date: index.date,
-                          func: () {
-                            Navigator.of(context).push(
-                              _createRouteTwo(
-                                index.description,
-                                index.title,
-                              ),
+                    SliverToBoxAdapter(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: constraints.maxHeight - 60,
+                        ),
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            childAspectRatio: 5,
+                          ),
+                          shrinkWrap: true,
+                          itemCount: notify.length,
+                          itemBuilder: (context, index) {
+                            NotifyModel actualNotification = notify[index];
+
+                            return NotifyCard(
+                              description: actualNotification.description,
+                              date: "dsadsads",
+                              func: () {
+                                Navigator.of(context).push(
+                                  _createRouteTwo(
+                                    actualNotification.description,
+                                    actualNotification.title,
+                                  ),
+                                );
+                              },
                             );
                           },
-                        );
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
     );
   }
 }

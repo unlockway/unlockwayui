@@ -36,6 +36,30 @@ Future<List<MealsModel>> getMealsAPI(
   }).toList();
 }
 
+Future<List<MealsModel>> getMealsByNameAPI(
+  BuildContext context,
+  String name,
+) async {
+  const String apiUrl =
+      'https://unlockway.azurewebsites.net/api/v1/meals/findByName';
+
+  final response = await http.get(
+    Uri.parse(apiUrl).replace(queryParameters: {
+      'userId': userData.id,
+      'name': name,
+    }),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+    },
+  );
+
+  List mealList = json.decode(response.body);
+
+  return mealList.map((meal) {
+    return MealsModel.fromMap(meal);
+  }).toList();
+}
+
 Future<void> createMealsAPI(
   BuildContext context,
   String sessionToken,

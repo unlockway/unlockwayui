@@ -11,14 +11,12 @@ import 'package:unlockway/screens/register/inputs/step2.dart';
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({
     super.key,
-    required this.googleName,
     required this.googleEmail,
-    required this.googlePhoto,
+    required this.googleId,
   });
 
-  final String? googleName;
   final String? googleEmail;
-  final String? googlePhoto;
+  final String? googleId;
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -41,8 +39,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void initState() {
+    if (widget.googleEmail == null) {
+      currentStep = 1;
+    } else {
+      currentStep = 3;
+      emailController.text = widget.googleEmail!;
+      confirmPasswordController.text = widget.googleId!;
+      passwordController.text = widget.googleId!;
+    }
+
     super.initState();
-    currentStep = 1;
   }
 
   @override
@@ -124,10 +130,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onChangeSex: onSexChange,
                           );
                         }
-                        return RegisterStep2(
-                          emailController: emailController,
-                          passwordController: passwordController,
-                          confirmPasswordController: confirmPasswordController,
+                        if (currentStep == 2) {
+                          return RegisterStep2(
+                            emailController: emailController,
+                            passwordController: passwordController,
+                            confirmPasswordController:
+                                confirmPasswordController,
+                          );
+                        }
+                        return RegisterStep1(
+                          firstNameController: firstNameController,
+                          lastNameController: lastNameController,
+                          weightController: weightController,
+                          heightController: heightController,
+                          biotype: biotype,
+                          goals: goals,
+                          sex: sex,
+                          onChangeBiotype: onBiotypeChange,
+                          onChangeGoals: onGoalsChange,
+                          onChangeSex: onSexChange,
                         );
                       }()),
                       const SizedBox(
@@ -159,34 +180,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             color: Colors.transparent,
                             child: InkWell(
                               onTap: () => {
-                                if (currentStep == 1)
-                                  {goToNextStep()}
+                                if (currentStep == 3)
+                                  {
+                                    registerAPI(
+                                      context,
+                                      firstNameController.text,
+                                      lastNameController.text,
+                                      emailController.text,
+                                      passwordController.text,
+                                      double.parse(heightController.text),
+                                      double.parse(weightController.text),
+                                      goals,
+                                      biotype,
+                                      sex,
+                                    )
+                                  }
                                 else
                                   {
-                                    if (passwordController.text !=
-                                        confirmPasswordController.text)
-                                      {
-                                        modalBuilderBottomAnimation(
-                                          context,
-                                          const SimplePopup(
-                                            message: "Senhas não coincidêm",
-                                          ),
-                                        )
-                                      }
+                                    if (currentStep == 1)
+                                      {goToNextStep()}
                                     else
                                       {
-                                        registerAPI(
-                                          context,
-                                          firstNameController.text,
-                                          lastNameController.text,
-                                          emailController.text,
-                                          passwordController.text,
-                                          double.parse(heightController.text),
-                                          double.parse(weightController.text),
-                                          goals,
-                                          biotype,
-                                          sex,
-                                        )
+                                        if (passwordController.text !=
+                                            confirmPasswordController.text)
+                                          {
+                                            modalBuilderBottomAnimation(
+                                              context,
+                                              const SimplePopup(
+                                                message: "Senhas não coincidêm",
+                                              ),
+                                            )
+                                          }
+                                        else
+                                          {
+                                            registerAPI(
+                                              context,
+                                              firstNameController.text,
+                                              lastNameController.text,
+                                              emailController.text,
+                                              passwordController.text,
+                                              double.parse(
+                                                  heightController.text),
+                                              double.parse(
+                                                  weightController.text),
+                                              goals,
+                                              biotype,
+                                              sex,
+                                            )
+                                          }
                                       }
                                   }
                               },
@@ -194,7 +235,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    currentStep == 1 ? "Seguir" : "Confirmar",
+                                    currentStep == 3
+                                        ? "Confirmar"
+                                        : currentStep == 1
+                                            ? "Seguir"
+                                            : "Confirmar",
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,

@@ -1,13 +1,19 @@
 class NotifyModel {
-  const NotifyModel(
-    this.title,
-    this.icon,
-    this.description,
-    this.date,
-  );
+  const NotifyModel({
+    required this.title,
+    required this.description,
+    required this.read,
+  });
 
   final String title;
-  final String icon;
+  final bool read;
   final String description;
-  final String date;
+
+  factory NotifyModel.fromMap(Map<String, dynamic> map) {
+    return NotifyModel(
+      title: map['title'],
+      description: map['description'],
+      read: map['read'],
+    );
+  }
 }

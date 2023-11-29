@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -9,6 +11,7 @@ import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/screens/settings/components/options.dart';
 import 'package:unlockway/screens/settings/components/profile.dart';
 import 'package:unlockway/screens/settings/components/theme_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -86,66 +89,6 @@ class _SettingsState extends State<Settings> {
                 child: Column(
                   children: [
                     SettingsOption(
-                      icon: PhosphorIcons.key(PhosphorIconsStyle.regular),
-                      label: "Privacidade",
-                      onTap: () {},
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(6),
-                        topRight: Radius.circular(6),
-                      ),
-                    ),
-                    // InkWell(
-                    //   onTap: onToggleAlert,
-                    //   splashColor: Colors.transparent,
-                    //   highlightColor: Colors.transparent,
-                    //   child: Container(
-                    //     margin: const EdgeInsets.only(top: 1.0),
-                    //     padding: const EdgeInsets.all(16),
-                    //     width: double.infinity,
-                    //     decoration: BoxDecoration(
-                    //       color: Theme.of(context).colorScheme.onBackground,
-                    //     ),
-                    //     child: Row(
-                    //       mainAxisSize: MainAxisSize.max,
-                    //       children: [
-                    //         Icon(PhosphorIcons.bell(PhosphorIconsStyle.regular),
-                    //             color: Theme.of(context).colorScheme.outline),
-                    //         const SizedBox(width: 16.0),
-                    //         FittedBox(
-                    //           fit: BoxFit.fitWidth,
-                    //           child: Text(
-                    //             "Permitir Alertas".toUpperCase(),
-                    //             style: TextStyle(
-                    //               fontFamily: "Inter",
-                    //               fontWeight: FontWeight.bold,
-                    //               fontSize: 16,
-                    //               color: Theme.of(context).colorScheme.outline,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //         const Spacer(),
-                    //         SizedBox(
-                    //           height: 28.0,
-                    //           child: Switch(
-                    //             activeColor: Color(primary),
-                    //             inactiveTrackColor: Color(darkBg),
-                    //             activeTrackColor: Color(primary),
-                    //             thumbColor: MaterialStatePropertyAll(
-                    //               isAlertsAccepted
-                    //                   ? Color(darkBg)
-                    //                   : Color(lightBgdark),
-                    //             ),
-                    //             value: isAlertsAccepted,
-                    //             onChanged: (value) {
-                    //               onToggleAlert();
-                    //             },
-                    //           ),
-                    //         )
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    SettingsOption(
                       icon: PhosphorIcons.sun(PhosphorIconsStyle.regular),
                       label: "Tema",
                       onTap: () {
@@ -155,7 +98,13 @@ class _SettingsState extends State<Settings> {
                     SettingsOption(
                       icon: PhosphorIcons.signOut(PhosphorIconsStyle.regular),
                       label: "Desconectar",
-                      onTap: () {
+                      onTap: () async {
+                        final SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+
+                        await prefs.remove('Email');
+                        await prefs.remove('Password');
+
                         logout();
                       },
                       iconColor: Color(danger),

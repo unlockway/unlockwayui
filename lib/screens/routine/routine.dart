@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
-
-import 'package:unlockway/screens/routine/components/filter_routine_popup.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 import 'package:unlockway/screens/routine/components/routine_card.dart';
 
@@ -141,33 +138,6 @@ class _RoutineState extends State<Routine> {
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.outline,
                             fontWeight: FontWeight.w100,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Material(
-                      type: MaterialType.transparency,
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onBackground,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: InkWell(
-                          //borderRadius: BorderRadius.circular(100.0),
-                          onTap: () => modalBuilderBottomAnimation(
-                            context,
-                            const FilterRoutinePopup(),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Icon(
-                              Icons.filter_list,
-                              size: 25.0,
-                              color: Theme.of(context).colorScheme.outline,
-                            ),
                           ),
                         ),
                       ),

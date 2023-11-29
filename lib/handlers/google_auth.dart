@@ -15,7 +15,6 @@ Future<void> loginGoogleAPI(
   required String? email,
   required String? name,
   required String? password,
-  required String? photoURL,
 }) async {
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/auth/authenticate';
@@ -45,9 +44,8 @@ Future<void> loginGoogleAPI(
       context,
       navigationPageRightAnimation(
         RegisterScreen(
-          googleName: name,
+          googleId: password,
           googleEmail: email,
-          googlePhoto: photoURL,
         ),
       ),
     );

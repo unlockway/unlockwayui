@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
@@ -6,7 +8,6 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
-import 'package:unlockway/screens/meals/components/filter_meal_popup.dart';
 import 'package:unlockway/screens/meals/components/meal_card.dart';
 import 'package:unlockway/screens/meals/components/new_meal_popup.dart';
 
@@ -18,8 +19,10 @@ class Meals extends StatefulWidget {
 }
 
 class _MealsState extends State<Meals> {
+  TextEditingController searchController = TextEditingController();
   List<MealsModel> meals = [];
   bool _isLoading = true;
+  Timer? _debounceTimer;
 
   Future<void> fetchMeals() async {
     List<MealsModel> result = await getMealsAPI(context);
@@ -39,7 +42,8 @@ class _MealsState extends State<Meals> {
   @override
   void dispose() {
     super.dispose();
-
+    searchController.dispose();
+    _debounceTimer?.cancel();
     _isLoading = false;
     meals = [];
   }
@@ -96,6 +100,10 @@ class _MealsState extends State<Meals> {
                   children: [
                     Flexible(
                       child: TextField(
+                        onChanged: (value) {
+                          print('Searching for: $value');
+                          _onTextChanged(value);
+                        },
                         cursorColor: const Color.fromARGB(255, 155, 155, 155),
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
@@ -123,32 +131,6 @@ class _MealsState extends State<Meals> {
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.outline,
                             fontWeight: FontWeight.w100,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Material(
-                      type: MaterialType.transparency,
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onBackground,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: InkWell(
-                          onTap: () => modalBuilderBottomAnimation(
-                            context,
-                            const FilterMealPopup(),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Icon(
-                              Icons.filter_list,
-                              size: 25.0,
-                              color: Theme.of(context).colorScheme.outline,
-                            ),
                           ),
                         ),
                       ),
@@ -250,5 +232,14 @@ class _MealsState extends State<Meals> {
                   ),
       ),
     );
+  }
+
+  void _onTextChanged(String value) {
+    print('Searching for: $value');
+    _debounceTimer?.cancel();
+    print('Searching for: $value');
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      print('Searching for: $value');
+    });
   }
 }
