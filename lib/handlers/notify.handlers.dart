@@ -9,7 +9,7 @@ Future<List<NotifyModel>> getNotifyAPI(
   BuildContext context,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/meals/findByUserId';
+      'https://unlockway.azurewebsites.net/api/v1/notifications/findByUserId';
 
   final response = await http.get(
     Uri.parse(apiUrl).replace(queryParameters: {

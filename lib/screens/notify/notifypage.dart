@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:unlockway/handlers/notify.handlers.dart';
 import 'package:unlockway/models/notify.dart';
@@ -69,28 +71,16 @@ class _NotifyPageState extends State<NotifyPage> {
               builder: (BuildContext context, BoxConstraints constraints) {
                 return CustomScrollView(
                   slivers: <Widget>[
-                    SliverToBoxAdapter(
+                    const SliverToBoxAdapter(
                       child: SizedBox(
-                        height: 50,
+                        height: 15,
                         width: double.infinity,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Marcar todas como lidas",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                     SliverToBoxAdapter(
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
-                          maxHeight: constraints.maxHeight - 60,
+                          maxHeight: constraints.maxHeight - 15,
                         ),
                         child: GridView.builder(
                           gridDelegate:
@@ -103,17 +93,23 @@ class _NotifyPageState extends State<NotifyPage> {
                           itemBuilder: (context, index) {
                             NotifyModel actualNotification = notify[index];
                             List<String> date =
-                                actualNotification.date.split(":");
+                                actualNotification.date.split("T");
 
                             return actualNotification.read == false
                                 ? NotifyCard(
                                     id: actualNotification.id,
-                                    description: actualNotification.description,
+                                    description: utf8
+                                        .decode(actualNotification
+                                            .description.codeUnits)
+                                        .toString(),
                                     date: date[0],
                                     func: () {
                                       Navigator.of(context).push(
                                         _createRouteTwo(
-                                          actualNotification.description,
+                                          utf8
+                                              .decode(actualNotification
+                                                  .description.codeUnits)
+                                              .toString(),
                                           actualNotification.title,
                                         ),
                                       );
