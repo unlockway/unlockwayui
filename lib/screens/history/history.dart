@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
-import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/models/history.dart';
-import 'package:unlockway/screens/history/components/filter_history_popup.dart';
 import 'package:unlockway/screens/history/components/history_card.dart';
 
 class History extends StatefulWidget {
