@@ -104,7 +104,6 @@ class _MealsState extends State<Meals> {
                     Flexible(
                       child: TextField(
                         onChanged: (value) {
-                          print('Searching for: $value');
                           _onTextChanged(value);
                         },
                         cursorColor: const Color.fromARGB(255, 155, 155, 155),
@@ -238,11 +237,13 @@ class _MealsState extends State<Meals> {
   }
 
   void _onTextChanged(String value) {
-    print('Searching for: $value');
     _debounceTimer?.cancel();
-    print('Searching for: $value');
+
     _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      print('Searching for: $value');
+      setState(() async {
+        List<MealsModel> resultName = await getMealsByNameAPI(context, value);
+        meals = resultName;
+      });
     });
   }
 }
