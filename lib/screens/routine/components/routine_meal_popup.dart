@@ -227,6 +227,9 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
                         width: double.infinity,
                         onTap: () {
                           widget.removeMethod(widget.index!);
+                          Navigator.pop(
+                            context,
+                          );
                         },
                         color: Color(danger),
                       ),

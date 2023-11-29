@@ -91,18 +91,22 @@ class HomeMealCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    width: 16,
+                    width: 8.0,
                   ),
-                  Text(
-                    actualCategory,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: "Inter",
-                      fontSize: 16.0,
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      actualCategory,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Inter",
+                        fontSize: 16.0,
+                        overflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      fontWeight: FontWeight.bold,
                     ),
-                    maxLines: 1,
                   ),
                 ],
               ),

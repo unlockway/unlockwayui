@@ -8,6 +8,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/handlers/user.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/home.dart';
 
@@ -43,6 +44,34 @@ Future<void> loginAPI(
       context,
       const Home(),
     );
+
+    if (userData.id != null) {
+      String? mMass;
+      String? mHealth;
+      String? lWeight;
+
+      if (userData.goals?.gainMuscularMass == true) mMass = 'Ganhar músculo';
+      if (userData.goals?.maintainHealth == true) mHealth = "Manter saúde";
+      if (userData.goals?.loseWeight == true) lWeight = 'Perder peso';
+
+      updateUserDataHandler(
+        null,
+        userData.id!,
+        userData.token!,
+        userData.firstName!,
+        userData.lastName!,
+        userData.email!,
+        '',
+        userData.height!,
+        userData.weight!,
+        [mMass, mHealth, lWeight]
+            .where((e) => e != null)
+            .map((e) => e!)
+            .toList(),
+        userData.biotype!,
+        userData.sex!,
+      );
+    }
   } catch (e) {
     modalBuilderBottomAnimation(
       context,

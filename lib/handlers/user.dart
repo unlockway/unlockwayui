@@ -12,7 +12,7 @@ import 'package:unlockway/models/user.dart';
 import 'package:http_parser/http_parser.dart';
 
 Future<void> updateUserDataHandler(
-  BuildContext context,
+  BuildContext? context,
   String userId,
   String sessionToken,
   String firstname,
@@ -31,13 +31,9 @@ Future<void> updateUserDataHandler(
   bool mHealth = false;
   bool lWeight = false;
 
-  if (goals.contains('Ganhar músculo')) {
-    mMass = true;
-  } else if (goals.contains('Manter saúde')) {
-    mHealth = true;
-  } else if (goals.contains('Perder peso')) {
-    lWeight = true;
-  }
+  if (goals.contains('Ganhar músculo')) mMass = true;
+  if (goals.contains('Manter saúde')) mHealth = true;
+  if (goals.contains('Perder peso')) lWeight = true;
 
   var goalsObject = {
     "gainMuscularMass": mMass,
@@ -54,6 +50,7 @@ Future<void> updateUserDataHandler(
     "goals": goalsObject,
     "biotype": biotype,
     "sex": sex,
+    "deviceToken": fcmToken
   };
 
   if (password.isNotEmpty) {
@@ -77,22 +74,26 @@ Future<void> updateUserDataHandler(
 
       userData = UserModel.fromMap(user);
 
-      modalBuilderBottomAnimation(
-        context,
-        const SimplePopup(message: "Usuário atualizado"),
-      );
+      if (context != null) {
+        modalBuilderBottomAnimation(
+          context,
+          const SimplePopup(message: "Usuário atualizado"),
+        );
+      }
     });
   } catch (error) {
-    modalBuilderBottomAnimation(
-      context,
-      SimplePopup(
-        message: error
-            .toString()
-            .replaceAll(
-                "FormatException: Unexpected character (at character 1)", "")
-            .replaceAll("^", ""),
-      ),
-    );
+    if (context != null) {
+      modalBuilderBottomAnimation(
+        context,
+        SimplePopup(
+          message: error
+              .toString()
+              .replaceAll(
+                  "FormatException: Unexpected character (at character 1)", "")
+              .replaceAll("^", ""),
+        ),
+      );
+    }
   }
 }
 
