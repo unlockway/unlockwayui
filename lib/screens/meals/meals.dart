@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/screens/meals/components/meal_card.dart';
+import 'package:unlockway/screens/meals/components/meal_form.dart';
 import 'package:unlockway/screens/meals/components/new_meal_popup.dart';
 
 class Meals extends StatefulWidget {
@@ -53,10 +55,24 @@ class _MealsState extends State<Meals> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       floatingActionButton: IconButton(
-        onPressed: () => modalBuilderBottomAnimation(
-          context,
-          NewMealPopup(onCreate: fetchMeals),
-        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            navigationPageRightAnimation(
+              MealForm(
+                id: '',
+                category: '',
+                description: '',
+                ingredientsSelected: const [],
+                name: '',
+                preparationMethod: '',
+                img: null,
+                onSave: () {
+                  fetchMeals();
+                },
+              ),
+            ),
+          );
+        },
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll(
             Color(primarydark),
