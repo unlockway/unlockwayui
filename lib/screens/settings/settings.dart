@@ -12,6 +12,7 @@ import 'package:unlockway/screens/settings/components/options.dart';
 import 'package:unlockway/screens/settings/components/profile.dart';
 import 'package:unlockway/screens/settings/components/theme_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -21,6 +22,8 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  final Uri _url =
+      Uri.parse('https://thaylanfe.github.io/thaylanfeh.github.io/');
   bool isAlertsAccepted = true;
 
   void onToggleAlert() {
@@ -130,7 +133,9 @@ class _SettingsState extends State<Settings> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () => setState(() {
+                          _launchInBrowser(_url);
+                        }),
                         child: Text(
                           "Termos de Uso".toUpperCase(),
                           style: TextStyle(
@@ -159,5 +164,14 @@ class _SettingsState extends State<Settings> {
         ),
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
   }
 }
