@@ -98,7 +98,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       )
                     : Container(
                         width: 80,
-                        height: 80,
+                        height: 120,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: Color(primary),
@@ -110,7 +110,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                               .toUpperCase(),
                           style: TextStyle(
                             fontFamily: "Inter",
-                            fontSize: 44.0,
+                            fontSize: 32.0,
                             color: Color(dark),
                             fontWeight: FontWeight.bold,
                           ),

@@ -19,14 +19,16 @@ class FirebaseApi {
 
     fcmToken = await messaging.getToken();
 
+    print("FCM TOKEN: $fcmToken");
+
     // Listen to events
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("\nNOTIFICATION\n\n");
-      // print("Title: ${message.notification?.title}");
-      // print("body: ${message.notification?.body}");
-      // print("Payload: ${message.data}");
+      print("Title: ${message.notification?.title}");
+      print("body: ${message.notification?.body}");
+      print("Payload: ${message.data}");
     });
   }
 }
@@ -34,7 +36,7 @@ class FirebaseApi {
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("\nBACKGROUND NOTIFICATION\n\n");
-  // print("Title: ${message.notification?.title}");
-  // print("body: ${message.notification?.body}");
-  // print("Payload: ${message.data}");
+  print("Title: ${message.notification?.title}");
+  print("body: ${message.notification?.body}");
+  print("Payload: ${message.data}");
 }

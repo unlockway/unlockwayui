@@ -55,6 +55,7 @@ Future<void> registerAPI(
     "goals": goalsObject,
     "biotype": biotype,
     "sex": sex,
+    "deviceToken": fcmToken
   };
 
   var bodyApi = json.encode(payload);

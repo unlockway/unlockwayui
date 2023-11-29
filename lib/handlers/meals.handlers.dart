@@ -166,7 +166,15 @@ Future<void> editMealsAPI(
           const SimplePopup(
             message: "Refeição editada com sucesso",
           ),
+        ).then(
+          (value) => Navigator.push(
+            context,
+            navigationPageLeftAnimation(
+              const Meals(),
+            ),
+          ),
         );
+        ;
       }
 
       if (response.statusCode == 400) {

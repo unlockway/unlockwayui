@@ -309,7 +309,7 @@ class _NewMealState extends State<NewMeal> {
 
   pickFromCamera() async {
     XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 10);
+        .pickImage(source: ImageSource.camera, imageQuality: 50);
     if (file != null) {
       return file.path;
     } else {
@@ -319,7 +319,7 @@ class _NewMealState extends State<NewMeal> {
 
   pickFromGallery() async {
     XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 10);
+        .pickImage(source: ImageSource.gallery, imageQuality: 50);
     if (file != null) {
       return file.path;
     } else {

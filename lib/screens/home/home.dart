@@ -41,7 +41,6 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     fetchAnalysis();
-    // print(homeData);
   }
 
   @override
@@ -114,7 +113,7 @@ class _HomeState extends State<Home> {
                                     .toUpperCase(),
                                 style: TextStyle(
                                   fontFamily: "Inter",
-                                  fontSize: 44.0,
+                                  fontSize: 32.0,
                                   color: Color(dark),
                                   fontWeight: FontWeight.bold,
                                 ),

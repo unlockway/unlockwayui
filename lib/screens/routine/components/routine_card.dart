@@ -114,7 +114,7 @@ class RoutineCard extends StatelessWidget {
                               )),
                     onPressed: () {
                       changeUsedRoutine(context, routineId).then(
-                        (value) => fetchRoutine,
+                        (value) => fetchRoutine(),
                       );
                     },
                     child: Text(
