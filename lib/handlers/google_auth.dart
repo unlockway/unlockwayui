@@ -45,7 +45,6 @@ Future<void> loginGoogleAPI(
       navigationPageRightAnimation(
         RegisterScreen(
           googleId: password,
-          googleName: name,
           googleEmail: email,
         ),
       ),

@@ -86,7 +86,6 @@ class _InitialLoginState extends State<InitialLogin> {
                       navigationPageRightAnimation(
                         const RegisterScreen(
                           googleEmail: null,
-                          googleName: null,
                           googleId: null,
                         ),
                       ),
@@ -186,7 +185,6 @@ class _InitialLoginState extends State<InitialLogin> {
     } catch (e) {
       navigationPageRightAnimation(
         RegisterScreen(
-          googleName: user!.displayName.toString(),
           googleEmail: user!.email,
           googleId: user!.uid,
         ),
