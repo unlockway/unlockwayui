@@ -112,8 +112,10 @@ Future<void> editRoutineAPI(
 ) async {
   const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/routines';
 
-  List<Map<String, dynamic>> jsonList =
-      meals.map((meal) => meal.toJson()).toList();
+  List<Map<String, dynamic>> jsonList = meals.map((meal) {
+    if (meal.notifyAt!.length == 5) meal.notifyAt = "${meal.notifyAt}:00";
+    return meal.toJson();
+  }).toList();
 
   var finalWeekRepetitions = {
     "monday": weekRepetitions[0],
@@ -135,8 +137,6 @@ Future<void> editRoutineAPI(
 
   var payloadEncoded = json.encode(payload);
 
-  // print(payloadEncoded);
-
   final response = await http.put(
     Uri.parse(apiUrl),
     headers: {
@@ -146,20 +146,25 @@ Future<void> editRoutineAPI(
     body: payloadEncoded,
   );
 
-  if (response.statusCode == 201 || response.statusCode == 200) {
+  if (response.statusCode == 200) {
     modalBuilderBottomAnimation(
       context,
       const SimplePopup(
         message: "Rotina editada com sucesso",
       ),
+    ).then(
+      (value) => Navigator.push(
+        context,
+        navigationPageLeftAnimation(
+          const Routine(),
+        ),
+      ),
     );
-  }
-
-  if (response.statusCode == 400) {
+  } else if (response.statusCode == 400) {
     modalBuilderBottomAnimation(
       context,
-      SimplePopup(
-        message: "Erro ao editar rotina: ${response.body}",
+      const SimplePopup(
+        message: "Erro ao editar rotina",
       ),
     );
   }
@@ -210,11 +215,14 @@ Future<void> changeUsedRoutine(BuildContext context, String routineId) async {
   const String apiUrl =
       'https://unlockway.azurewebsites.net/api/v1/routines/use';
 
-  final response = await http.put(Uri.parse(apiUrl), headers: {
-    'Authorization': 'Bearer ${userData.token}',
-  }, body: {
-    "user": userData.id,
-    "routine": routineId,
-  });
+  final response = await http.put(
+      Uri.parse(apiUrl).replace(queryParameters: {
+        "user": userData.id,
+        "routine": routineId,
+      }),
+      headers: {
+        'Authorization': 'Bearer ${userData.token}',
+      });
+
   response;
 }

@@ -115,7 +115,10 @@ class _NewRoutineState extends State<NewRoutine> {
                       width: double.infinity,
                       onTap: () {
                         deleteRoutineAPI(
-                            context, user.token!, widget.routineId!);
+                          context,
+                          user.token!,
+                          widget.routineId!,
+                        );
                       },
                       color: Color(danger),
                     ),
@@ -130,7 +133,7 @@ class _NewRoutineState extends State<NewRoutine> {
                         editRoutineAPI(
                           context,
                           nameController.text,
-                          false,
+                          widget.inUsage!,
                           mealsSelectedToRoutine,
                           daysSelected,
                           widget.routineId!,

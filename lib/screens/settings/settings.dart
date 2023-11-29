@@ -6,6 +6,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/login/login.dart';
 import 'package:unlockway/screens/settings/components/options.dart';
 import 'package:unlockway/screens/settings/components/profile.dart';
@@ -26,6 +27,16 @@ class _SettingsState extends State<Settings> {
     setState(() {
       isAlertsAccepted = !isAlertsAccepted;
     });
+  }
+
+  void logout() {
+    userData = UserModel();
+
+    Navigator.of(context).push(
+      navigationPageLeftAnimation(
+        const Login(),
+      ),
+    );
   }
 
   @override
@@ -94,11 +105,7 @@ class _SettingsState extends State<Settings> {
                         await prefs.remove('Email');
                         await prefs.remove('Password');
 
-                        Navigator.of(context).push(
-                          navigationPageLeftAnimation(
-                            const Login(),
-                          ),
-                        );
+                        logout();
                       },
                       iconColor: Color(danger),
                       borderRadius: const BorderRadius.only(

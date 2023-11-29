@@ -10,18 +10,19 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/user.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile(
-      {super.key,
-      required this.firstname,
-      required this.lastname,
-      required this.weight,
-      required this.height,
-      required this.goals,
-      required this.email,
-      required this.biotype,
-      required this.password,
-      required this.sex,
-      required this.userPhoto});
+  const UserProfile({
+    super.key,
+    required this.firstname,
+    required this.lastname,
+    required this.weight,
+    required this.height,
+    required this.goals,
+    required this.email,
+    required this.biotype,
+    required this.password,
+    required this.sex,
+    required this.userPhoto,
+  });
 
   final String firstname;
   final String lastname;
@@ -487,7 +488,7 @@ class _UserProfileState extends State<UserProfile> {
 
   pickFromCamera() async {
     XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 10);
+        .pickImage(source: ImageSource.camera, imageQuality: 50);
     if (file != null) {
       return file.path;
     } else {
@@ -497,7 +498,7 @@ class _UserProfileState extends State<UserProfile> {
 
   pickFromGallery() async {
     XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 10);
+        .pickImage(source: ImageSource.gallery, imageQuality: 50);
     if (file != null) {
       return file.path;
     } else {
