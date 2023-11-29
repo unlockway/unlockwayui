@@ -4,13 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 class NotifyCard extends StatefulWidget {
   const NotifyCard({
     super.key,
-    required this.icon,
     required this.description,
     required this.date,
     required this.func,
   });
 
-  final String icon;
   final String description;
   final String date;
   final Function() func;

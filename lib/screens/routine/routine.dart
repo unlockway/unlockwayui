@@ -145,33 +145,6 @@ class _RoutineState extends State<Routine> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Material(
-                      type: MaterialType.transparency,
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onBackground,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: InkWell(
-                          //borderRadius: BorderRadius.circular(100.0),
-                          onTap: () => modalBuilderBottomAnimation(
-                            context,
-                            const FilterRoutinePopup(),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Icon(
-                              Icons.filter_list,
-                              size: 25.0,
-                              color: Theme.of(context).colorScheme.outline,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ],

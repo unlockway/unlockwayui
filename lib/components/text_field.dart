@@ -93,12 +93,12 @@ class _SearchTextFieldState extends State<SearchTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       onChanged: (value) {
+        print("Vai?");
         _debounce?.cancel();
         _debounce = Timer(const Duration(milliseconds: 500), () {
-          widget.method;
+          print("Foi!!!!");
+          widget.method();
         });
-
-        setState(() {});
       },
       keyboardType: widget.number
           ? const TextInputType.numberWithOptions(decimal: true)
