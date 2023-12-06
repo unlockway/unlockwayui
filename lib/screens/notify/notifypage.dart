@@ -101,18 +101,12 @@ class _NotifyPageState extends State<NotifyPage> {
                             return actualNotification.read == false
                                 ? NotifyCard(
                                     id: actualNotification.id,
-                                    description: utf8
-                                        .decode(actualNotification
-                                            .description.codeUnits)
-                                        .toString(),
+                                    description: actualNotification.description,
                                     date: date[0],
                                     func: () {
                                       Navigator.of(context).push(
                                         _createRouteTwo(
-                                          utf8
-                                              .decode(actualNotification
-                                                  .description.codeUnits)
-                                              .toString(),
+                                          actualNotification.description,
                                           actualNotification.title,
                                         ),
                                       );

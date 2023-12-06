@@ -49,12 +49,16 @@ class NotifyDetails extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Text(
-                text,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.outline,
-                  fontFamily: "Inter",
-                  fontSize: 16,
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  text,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                    fontFamily: "Inter",
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),

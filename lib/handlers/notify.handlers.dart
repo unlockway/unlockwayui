@@ -24,7 +24,7 @@ Future<List<NotifyModel>> getNotifyAPI(
   if (response.statusCode == 200) {
     String responseBody = utf8.decode(response.bodyBytes);
 
-    List<dynamic> notifyList = json.decode(responseBody);
+    List notifyList = json.decode(responseBody);
 
     List<NotifyModel> notify = notifyList.map((notify) {
       return NotifyModel.fromMap(notify);
