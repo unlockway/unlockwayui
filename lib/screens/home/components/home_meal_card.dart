@@ -120,7 +120,7 @@ class HomeMealCard extends StatelessWidget {
                   description,
                   style: TextStyle(
                     overflow: TextOverflow.ellipsis,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.outline,
                     fontSize: 12,
                     fontFamily: "Inter",
                   ),
