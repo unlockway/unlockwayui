@@ -1,25 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/screens/meals/components/new_meal_popup.dart';
+import 'package:unlockway/handlers/meals.handlers.dart';
+import 'package:unlockway/models/meals.dart';
+import 'package:unlockway/screens/meals/components/meal_form.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 
-class CreateButtons extends StatelessWidget {
+class CreateButtons extends StatefulWidget {
   const CreateButtons({super.key});
 
   @override
+  State<CreateButtons> createState() => _CreateButtonsState();
+}
+
+class _CreateButtonsState extends State<CreateButtons> {
+  @override
   Widget build(BuildContext context) {
+    List<MealsModel> meals = [];
+    bool isLoading = true;
+
+    Future<void> fetchMeals() async {
+      List<MealsModel> result = await getMealsAPI(context);
+
+      setState(() {
+        meals = result;
+        isLoading = false;
+      });
+    }
+
     return Row(
       children: [
         Expanded(
           child: InkWell(
             onTap: () {
-              modalBuilderBottomAnimation(
-                context,
-                NewMealPopup(
-                  onCreate: () {},
+              Navigator.of(context).push(
+                navigationPageRightAnimation(
+                  MealForm(
+                    id: '',
+                    category: '',
+                    description: '',
+                    ingredientsSelected: const [],
+                    name: '',
+                    preparationMethod: '',
+                    img: null,
+                    onSave: () {
+                      fetchMeals();
+                    },
+                  ),
                 ),
               );
             },
