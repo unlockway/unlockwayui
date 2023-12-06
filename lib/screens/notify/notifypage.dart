@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:unlockway/handlers/notify.handlers.dart';
 import 'package:unlockway/models/notify.dart';
