@@ -20,7 +20,7 @@ class InitialLogin extends StatefulWidget {
 }
 
 class _InitialLoginState extends State<InitialLogin> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  //final FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
 
   final email = TextEditingController();
@@ -29,12 +29,12 @@ class _InitialLoginState extends State<InitialLogin> {
   @override
   void initState() {
     super.initState();
-    auth.authStateChanges().listen((event) {
-      setState(() {
-        user = event;
-      });
-    });
-    getUserLogged();
+    // auth.authStateChanges().listen((event) {
+    //   setState(() {
+    //     user = event;
+    //   });
+    // });
+    // getUserLogged();
   }
 
   getUserLogged() async {
@@ -141,7 +141,7 @@ class _InitialLoginState extends State<InitialLogin> {
                   ],
                 ),
                 InkWell(
-                  onTap: handleGoogleSignIn,
+                  onTap: () {}, //handleGoogleSignIn,
                   child: Container(
                     width: 240,
                     height: 48.0,
@@ -190,24 +190,24 @@ class _InitialLoginState extends State<InitialLogin> {
     );
   }
 
-  void handleGoogleSignIn() {
-    try {
-      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
-      auth.signInWithProvider(googleAuthProvider).then((value) {}).then(
-            (value) => loginGoogleAPI(
-              context,
-              email: user!.email,
-              name: user!.displayName,
-              password: user!.uid,
-            ),
-          );
-    } catch (e) {
-      navigationPageRightAnimation(
-        RegisterScreen(
-          googleEmail: user!.email,
-          googleId: user!.uid,
-        ),
-      );
-    }
-  }
+  // void handleGoogleSignIn() {
+  //   try {
+  //     GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+  //     auth.signInWithProvider(googleAuthProvider).then((value) {}).then(
+  //           (value) => loginGoogleAPI(
+  //             context,
+  //             email: user!.email,
+  //             name: user!.displayName,
+  //             password: user!.uid,
+  //           ),
+  //         );
+  //   } catch (e) {
+  //     navigationPageRightAnimation(
+  //       RegisterScreen(
+  //         googleEmail: user!.email,
+  //         googleId: user!.uid,
+  //       ),
+  //     );
+  //   }
+  // }
 }

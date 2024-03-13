@@ -10,19 +10,19 @@ import 'firebase_options.dart';
 import 'dependency_injection.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ),
-  );
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   const SystemUiOverlayStyle(
+  //     statusBarColor: Colors.transparent,
+  //   ),
+  // );
 
-  await FirebaseApi().initNotifications();
+  // await FirebaseApi().initNotifications();
 
   runApp(
     ChangeNotifierProvider(
@@ -30,7 +30,7 @@ Future<void> main() async {
       child: const MyApp(),
     ),
   );
-  DependencyInjection.init();
+//  DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {

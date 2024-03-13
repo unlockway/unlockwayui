@@ -23,10 +23,7 @@ class _CreateButtonsState extends State<CreateButtons> {
     Future<void> fetchMeals() async {
       List<MealsModel> result = await getMealsAPI(context);
 
-      setState(() {
-        meals = result;
-        isLoading = false;
-      });
+      setState(() {});
     }
 
     return Row(
