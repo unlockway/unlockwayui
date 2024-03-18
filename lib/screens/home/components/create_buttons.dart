@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/handlers/meals.handlers.dart';
-import 'package:unlockway/models/meals.dart';
+//import 'package:unlockway/handlers/meals.handlers.dart';
+//import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/screens/meals/components/meal_form.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 
@@ -17,11 +17,11 @@ class CreateButtons extends StatefulWidget {
 class _CreateButtonsState extends State<CreateButtons> {
   @override
   Widget build(BuildContext context) {
-    List<MealsModel> meals = [];
-    bool isLoading = true;
+    //List<MealsModel> meals = [];
+    //bool isLoading = true;
 
     Future<void> fetchMeals() async {
-      List<MealsModel> result = await getMealsAPI(context);
+      //List<MealsModel> result = await getMealsAPI(context);
 
       setState(() {});
     }

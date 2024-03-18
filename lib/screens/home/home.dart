@@ -59,15 +59,15 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    fetchAnalysis();
+    //  fetchAnalysis();
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    _isLoading = false;
-    homeData = {};
+    //_isLoading = false;
+    //homeData = {};
   }
 
   @override

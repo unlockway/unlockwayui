@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/handlers/login.handlers.dart';
+import 'package:unlockway/screens/home/home.dart';
 
 class LoginPopup extends StatelessWidget {
   const LoginPopup({super.key});
@@ -58,11 +60,15 @@ class LoginPopup extends StatelessWidget {
                     height: 48.0,
                     width: 600.0,
                     onTap: () {
-                      loginAPI(
+                      navigatePage(
                         context,
-                        emailController.text,
-                        senhaController.text,
+                        const Home(),
                       );
+                      // loginAPI(
+                      //   context,
+                      //   emailController.text,
+                      //   senhaController.text,
+                      // );
                     },
                   ),
                 ],
