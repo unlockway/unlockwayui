@@ -89,10 +89,10 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.onBackground,
+        backgroundColor: Theme.of(context).colorScheme.onSurface,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -181,8 +181,7 @@ class _UserProfileState extends State<UserProfile> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Theme.of(context).colorScheme.onSurface,
                               ),
                               child: IconButton(
                                 iconSize: 34.0,
@@ -306,15 +305,14 @@ class _UserProfileState extends State<UserProfile> {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                       padding: const EdgeInsets.symmetric(
                         vertical: 4,
                         horizontal: 8,
                       ),
                       child: DropdownButton<String>(
-                        dropdownColor:
-                            Theme.of(context).colorScheme.onBackground,
+                        dropdownColor: Theme.of(context).colorScheme.onSurface,
                         borderRadius: BorderRadius.circular(6),
                         isExpanded: true,
                         value: sex,
@@ -362,7 +360,7 @@ class _UserProfileState extends State<UserProfile> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6),
                           borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.onBackground,
+                            color: Theme.of(context).colorScheme.onSurface,
                             width: 2,
                           ),
                         ),
@@ -380,8 +378,8 @@ class _UserProfileState extends State<UserProfile> {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         filled: true,
-                        fillColor: Theme.of(context).colorScheme.onBackground,
-                        focusColor: Theme.of(context).colorScheme.onBackground,
+                        fillColor: Theme.of(context).colorScheme.onSurface,
+                        focusColor: Theme.of(context).colorScheme.onSurface,
                       ),
                       enabled: true,
                       selected_values_style: TextStyle(
@@ -409,7 +407,7 @@ class _UserProfileState extends State<UserProfile> {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                       padding: const EdgeInsets.symmetric(
                         vertical: 4,
@@ -417,7 +415,7 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                       child: DropdownButton<String>(
                           dropdownColor:
-                              Theme.of(context).colorScheme.onBackground,
+                              Theme.of(context).colorScheme.onSurface,
                           hint: const Text("EX: Endomorfo"),
                           borderRadius: BorderRadius.circular(6),
                           isExpanded: true,
@@ -511,7 +509,7 @@ class _UserProfileState extends State<UserProfile> {
       enableDrag: true,
       context: context,
       useSafeArea: true,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       elevation: 0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -528,7 +526,7 @@ class _UserProfileState extends State<UserProfile> {
               width: 180,
               height: 6,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.onBackground,
+                color: Theme.of(context).colorScheme.onSurface,
                 borderRadius: BorderRadius.circular(9999),
               ),
             ),
@@ -556,7 +554,7 @@ class _UserProfileState extends State<UserProfile> {
                       width: double.infinity,
                       height: 95,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8),
@@ -605,7 +603,7 @@ class _UserProfileState extends State<UserProfile> {
                       width: double.infinity,
                       height: 95,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                         borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(8),
                           bottomRight: Radius.circular(8),

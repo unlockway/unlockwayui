@@ -90,7 +90,7 @@ class _IngredientCardState extends State<IngredientCard> {
       decoration: BoxDecoration(
         border: Border.all(
           width: 2,
-          color: Theme.of(context).colorScheme.onBackground,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -193,8 +193,7 @@ class _IngredientCardState extends State<IngredientCard> {
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(6),
                                 ),
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Theme.of(context).colorScheme.onSurface,
                               ),
                             ),
                     ),
@@ -230,8 +229,7 @@ class _IngredientCardState extends State<IngredientCard> {
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(6),
                                 ),
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Theme.of(context).colorScheme.onSurface,
                               ),
                               child: Icon(
                                 PhosphorIcons.minus(PhosphorIconsStyle.regular),
@@ -274,9 +272,9 @@ class _IngredientCardState extends State<IngredientCard> {
                                 ),
                                 filled: true,
                                 fillColor:
-                                    Theme.of(context).colorScheme.onBackground,
+                                    Theme.of(context).colorScheme.onSurface,
                                 focusColor:
-                                    Theme.of(context).colorScheme.onBackground,
+                                    Theme.of(context).colorScheme.onSurface,
                               ),
                               style: TextStyle(
                                 fontFamily: "Inter",
@@ -300,8 +298,7 @@ class _IngredientCardState extends State<IngredientCard> {
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(6),
                                 ),
-                                color:
-                                    Theme.of(context).colorScheme.onBackground,
+                                color: Theme.of(context).colorScheme.onSurface,
                               ),
                               child: Icon(
                                 PhosphorIcons.plus(PhosphorIconsStyle.regular),

@@ -44,7 +44,7 @@ class _NotifyPageState extends State<NotifyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -53,7 +53,7 @@ class _NotifyPageState extends State<NotifyPage> {
           icon: const Icon(Icons.arrow_back_ios),
           color: Theme.of(context).colorScheme.outline,
         ),
-        backgroundColor: Theme.of(context).colorScheme.onBackground,
+        backgroundColor: Theme.of(context).colorScheme.onSurface,
         title: Text(
           "NOTIFICAÇÕES($notifyLenght)",
           style: TextStyle(
