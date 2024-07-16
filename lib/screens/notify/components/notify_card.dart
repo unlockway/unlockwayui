@@ -8,12 +8,14 @@ class NotifyCard extends StatefulWidget {
     required this.description,
     required this.date,
     required this.func,
+    required this.read,
   });
 
   final String id;
   final String description;
   final String date;
   final Function() func;
+  final bool read;
 
   @override
   State<NotifyCard> createState() => _NotifyCardState();
@@ -22,16 +24,18 @@ class NotifyCard extends StatefulWidget {
 class _NotifyCardState extends State<NotifyCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      padding: const EdgeInsets.all(16),
-      width: double.infinity,
-      height: 74,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.onSurface,
-      ),
-      child: InkWell(
-        onTap: widget.func,
+    return InkWell(
+      onTap: widget.func,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 1),
+        padding: const EdgeInsets.all(16),
+        width: double.infinity,
+        height: 74,
+        decoration: BoxDecoration(
+          color: widget.read
+              ? Theme.of(context).colorScheme.onSurfaceVariant
+              : Theme.of(context).colorScheme.onSurface,
+        ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

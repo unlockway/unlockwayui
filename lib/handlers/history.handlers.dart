@@ -10,15 +10,12 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/history.dart';
 
 Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
-  var sessionToken = userData.token;
-  //String apiUrl =
-  //    'https://unlockway.azurewebsites.net/api/v1/history/${userData.id}';
-
+  // var sessionToken = userData.token;
   String apiUrl = 'http://localhost:8080/history/get';
 
   final response = await http.get(Uri.parse(apiUrl), headers: {
-    'Authorization': 'Bearer $sessionToken',
-    'Accept-Charset': 'UTF-8', // Adicionado Accept-Charset
+    //  'Authorization': 'Bearer $sessionToken',
+    //  'Accept-Charset': 'UTF-8', // Adicionado Accept-Charset
   });
 
   if (response.statusCode == 200) {
@@ -27,7 +24,6 @@ Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
 
     // Agora, você pode decodificar o JSON
     List<dynamic> historyList = json.decode(responseBody);
-
     // Mapeia os dados para a lista de objetos HistoryModel
     List<HistoryModel> history = historyList.map((history) {
       return HistoryModel.fromMap(history);

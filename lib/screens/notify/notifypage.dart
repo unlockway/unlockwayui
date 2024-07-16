@@ -97,20 +97,84 @@ class _NotifyPageState extends State<NotifyPage> {
                                 actualNotification.date.split("T");
 
                             return actualNotification.read == false
-                                ? NotifyCard(
-                                    id: actualNotification.id,
-                                    description: actualNotification.description,
-                                    date: date[0],
-                                    func: () {
-                                      Navigator.of(context).push(
-                                        _createRouteTwo(
-                                          actualNotification.description,
-                                          actualNotification.title,
-                                        ),
-                                      );
+                                ? Dismissible(
+                                    key: Key(actualNotification.id),
+                                    onDismissed: (direction) {
+                                      setState(() {
+                                        notify.removeAt(index);
+                                        notifyLenght = notify.length;
+                                      });
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text(
+                                            '${actualNotification.title} dismissed'),
+                                      ));
                                     },
+                                    background: Container(
+                                      color: Colors.red,
+                                      alignment: Alignment.centerRight,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: const Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    child: NotifyCard(
+                                      read: actualNotification.read,
+                                      id: actualNotification.id,
+                                      description:
+                                          actualNotification.description,
+                                      date: date[0],
+                                      func: () {
+                                        Navigator.of(context).push(
+                                          _createRouteTwo(
+                                            actualNotification.description,
+                                            actualNotification.title,
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   )
-                                : const Text("");
+                                : Dismissible(
+                                    key: Key(actualNotification.id),
+                                    onDismissed: (direction) {
+                                      setState(() {
+                                        notify.removeAt(index);
+                                        notifyLenght = notify.length;
+                                      });
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text(
+                                            '${actualNotification.title} dismissed'),
+                                      ));
+                                    },
+                                    background: Container(
+                                      color: Colors.red,
+                                      alignment: Alignment.centerRight,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: const Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    child: NotifyCard(
+                                      read: actualNotification.read,
+                                      id: actualNotification.id,
+                                      description:
+                                          actualNotification.description,
+                                      date: date[0],
+                                      func: () {
+                                        Navigator.of(context).push(
+                                          _createRouteTwo(
+                                            actualNotification.description,
+                                            actualNotification.title,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
                           },
                         ),
                       ),

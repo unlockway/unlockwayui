@@ -6,7 +6,9 @@ import 'package:unlockway/models/history.dart';
 import 'package:unlockway/screens/history/components/history_card.dart';
 
 class History extends StatefulWidget {
-  const History({super.key});
+  const History({
+    super.key,
+  });
 
   @override
   State<History> createState() => _HistoryState();
@@ -77,42 +79,30 @@ class _HistoryState extends State<History> {
               child: CircularProgressIndicator(),
             )
           : history.isNotEmpty
-              ? LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    return CustomScrollView(
-                      slivers: <Widget>[
-                        SliverToBoxAdapter(
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                                maxHeight: constraints.maxHeight),
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 1,
-                                childAspectRatio: 0.850,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                              ),
-                              shrinkWrap: true,
-                              itemCount: history.length,
-                              itemBuilder: (context, index) {
-                                HistoryModel actualHistory = history[index];
-                                return HistoryCard(
-                                  name: actualHistory.routineName,
-                                  weekRepetitions: actualHistory.days,
-                                  calories: actualHistory.calories,
-                                  date: actualHistory.date,
-                                  meals: actualHistory.ingestedMeals,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1,
+                      childAspectRatio: 1.6,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    shrinkWrap: true,
+                    itemCount: history.length,
+                    itemBuilder: (context, index) {
+                      HistoryModel actualHistory = history[index];
+                      return HistoryCard(
+                        name: actualHistory.routineName,
+                        weekRepetitions: actualHistory.days,
+                        calories: actualHistory.calories,
+                        date: actualHistory.date,
+                        meals: actualHistory.ingestedMeals,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      );
+                    },
+                  ),
                 )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -127,9 +117,7 @@ class _HistoryState extends State<History> {
                       height: 16,
                     ),
                     Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 28,
-                      ),
+                      margin: const EdgeInsets.symmetric(horizontal: 28),
                       child: SizedBox(
                         child: Text(
                           textAlign: TextAlign.center,

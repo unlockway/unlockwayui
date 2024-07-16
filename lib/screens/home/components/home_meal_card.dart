@@ -26,17 +26,23 @@ class HomeMealCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String actualCategory = "";
+    Color cardColor = Theme.of(context).colorScheme.onSurface;
+
     if (category == 'BREAKFAST') {
       actualCategory = "Café";
+      cardColor = const Color(0xFF565536);
     }
     if (category == 'LUNCH') {
       actualCategory = 'Almoço';
+      cardColor = const Color(0xFF563836);
     }
     if (category == 'DINNER') {
       actualCategory = 'Jantar';
+      cardColor = const Color(0xFF325751);
     }
     if (category == 'SNACK') {
       actualCategory = 'Lanche';
+      cardColor = const Color(0xFF565536);
     }
     List actualHour = hour!.split(":00");
 
@@ -54,12 +60,11 @@ class HomeMealCard extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.only(right: 16),
         width: 177,
         height: 219,
         padding: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onSurface,
+          color: cardColor,
           borderRadius: const BorderRadius.all(
             Radius.circular(6),
           ),
@@ -87,7 +92,7 @@ class HomeMealCard extends StatelessWidget {
                       fontFamily: "Signika",
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.outline,
-                      fontSize: 19.02,
+                      fontSize: 24,
                     ),
                   ),
                   const SizedBox(
@@ -102,7 +107,6 @@ class HomeMealCard extends StatelessWidget {
                         fontFamily: "Inter",
                         fontSize: 16.0,
                         overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -118,9 +122,9 @@ class HomeMealCard extends StatelessWidget {
                 width: double.infinity,
                 child: Text(
                   description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     overflow: TextOverflow.ellipsis,
-                    color: Theme.of(context).colorScheme.outline,
+                    color: Colors.white,
                     fontSize: 12,
                     fontFamily: "Inter",
                   ),

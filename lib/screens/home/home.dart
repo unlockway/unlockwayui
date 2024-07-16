@@ -17,6 +17,7 @@ import 'package:unlockway/screens/home/components/next_meals.dart';
 import 'package:unlockway/screens/home/components/no_routine.dart';
 import 'package:unlockway/screens/home/components/pending_actions.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
+import 'package:badges/badges.dart' as badges;
 
 class Home extends StatefulWidget {
   const Home({
@@ -29,7 +30,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late HomeDataModel homeData = const HomeDataModel(
-      meals: 0, routines: 0, notifications: 0, weekCalories: []);
+    meals: 0,
+    routines: 0,
+    notifications: 0,
+    weekCalories: [],
+  );
   dynamic actualRoutine;
   bool _isLoading = true;
 
@@ -57,7 +62,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    print(userData.firstName);
+
     fetchAnalysis();
   }
 
@@ -158,38 +163,51 @@ class _HomeState extends State<Home> {
                       )
                     ],
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        navigationPageRightAnimation(
-                          const NotifyPage(),
-                        ),
-                      );
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(
-                        homeData.notifications == 0
-                            ? Theme.of(context).colorScheme.onSurface
-                            : Color(danger),
-                      ),
-                      padding: const WidgetStatePropertyAll(
-                        EdgeInsets.all(8),
-                      ),
-                      shape: WidgetStatePropertyAll(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
+                  badges.Badge(
+                    position: badges.BadgePosition.topEnd(top: -3, end: -3),
+                    showBadge: true,
+                    ignorePointer: false,
+                    onTap: () {},
+                    badgeStyle: badges.BadgeStyle(
+                      shape: badges.BadgeShape.circle,
+                      badgeColor: homeData.notifications > 0
+                          ? Color(danger)
+                          : Colors.transparent,
+                      padding: const EdgeInsets.all(5),
+                      borderRadius: BorderRadius.circular(4),
+                      elevation: 0,
                     ),
-                    icon: homeData.notifications == 0
-                        ? Icon(
-                            Icons.notifications_none_outlined,
-                            color: Theme.of(context).colorScheme.outline,
-                          )
-                        : Icon(
-                            Icons.notifications_active,
-                            color: Theme.of(context).colorScheme.outline,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          navigationPageRightAnimation(
+                            const NotifyPage(),
                           ),
+                        );
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(
+                          Theme.of(context).colorScheme.onSurface,
+                        ),
+                        padding: const WidgetStatePropertyAll(
+                          EdgeInsets.all(8),
+                        ),
+                        shape: WidgetStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                      icon: homeData.notifications == 0
+                          ? Icon(
+                              Icons.notifications_none_outlined,
+                              color: Theme.of(context).colorScheme.outline,
+                            )
+                          : Icon(
+                              Icons.notifications_active,
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                    ),
                   ),
                 ],
               ),

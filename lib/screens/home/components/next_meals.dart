@@ -18,22 +18,27 @@ class NextMeals extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 250,
-      child: ListView(
+      child: ListView.separated(
+        itemCount: meals.length,
+        separatorBuilder: (context, index) => const SizedBox(
+          width: 10,
+        ),
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        children: meals.map((meal) {
+        itemBuilder: (ctx, index) {
+          var meal = meals[index];
           return HomeMealCard(
             method: (String routineId, String mealId) {
               method(routineId, mealId);
             },
+            description: meal["description"],
+            category: meal["category"],
+            hour: meal['notifyAt'],
+            imageUrl: meal['photo'],
             mealId: meal['id'],
             routineId: routineId,
-            description: meal['description'],
-            hour: meal['notifyAt'],
-            category: meal['category'],
-            imageUrl: meal['photo'],
           );
-        }).toList(),
+        },
       ),
     );
   }
