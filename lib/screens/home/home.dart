@@ -9,6 +9,7 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
+import 'package:unlockway/models/homeData.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
 import 'package:unlockway/screens/home/components/home_graph.dart';
@@ -27,16 +28,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Map homeData = {
-    "meals": 0,
-    "routines": 0,
-    "notifications": 0,
-  };
+  late HomeDataModel homeData = const HomeDataModel(
+      meals: 0, routines: 0, notifications: 0, weekCalories: []);
   dynamic actualRoutine;
   bool _isLoading = true;
 
   Future<void> fetchAnalysis() async {
-    Map result = await getHomeAnalysysAPI(context);
+    HomeDataModel result = await getHomeAnalysysAPI(context);
     dynamic resultRoutine = await getRoutineOnUseAPI(context);
     setState(() {
       homeData = result;
@@ -59,15 +57,15 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    //  fetchAnalysis();
+    print(userData.firstName);
+    fetchAnalysis();
   }
 
   @override
   void dispose() {
     super.dispose();
 
-    //_isLoading = false;
-    //homeData = {};
+    _isLoading = false;
   }
 
   @override
@@ -170,7 +168,7 @@ class _HomeState extends State<Home> {
                     },
                     style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(
-                        homeData['notifications'] == 0
+                        homeData.notifications == 0
                             ? Theme.of(context).colorScheme.onSurface
                             : Color(danger),
                       ),
@@ -183,7 +181,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    icon: homeData['notifications'] == 0
+                    icon: homeData.notifications == 0
                         ? Icon(
                             Icons.notifications_none_outlined,
                             color: Theme.of(context).colorScheme.outline,
@@ -208,15 +206,15 @@ class _HomeState extends State<Home> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (homeData['meals'] == 0 || homeData['routines'] == 0)
+                    if (homeData.meals == 0 || homeData.routines == 0)
                       Column(
                         children: [
                           const SizedBox(
                             height: 16,
                           ),
                           PendingActions(
-                            meals: homeData['meals'],
-                            routines: homeData['routines'],
+                            meals: homeData.meals,
+                            routines: homeData.routines,
                           ),
                           const SizedBox(
                             height: 16,
@@ -244,7 +242,7 @@ class _HomeState extends State<Home> {
                                 height: 16,
                               ),
                               NextMeals(
-                                  meals: actualRoutine['meals'],
+                                  meals: actualRoutine["meals"],
                                   routineId: actualRoutine['id'],
                                   method: (String routineId, String mealId) {
                                     ingestMeal(routineId, mealId);
@@ -271,7 +269,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     HomeGraph(
-                      data: homeData['weekCalories'],
+                      data: homeData.weekCalories,
                     ),
                     SizedBox(
                       child: Row(

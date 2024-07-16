@@ -13,8 +13,10 @@ import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/screens/routine/routine.dart';
 
 Future<List<RoutineModel>> getRoutinesAPI(BuildContext context) async {
-  const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/routines/userId';
+  // const String apiUrl =
+  //     'https://unlockway.azurewebsites.net/api/v1/routines/userId';
+
+  const String apiUrl = 'http://localhost:8080/routines/get';
 
   final uri = Uri.parse(apiUrl).replace(queryParameters: {'id': userData.id});
 
@@ -46,8 +48,10 @@ Future<List<RoutineModel>> getRoutinesAPI(BuildContext context) async {
 }
 
 Future<dynamic> getRoutineOnUseAPI(BuildContext context) async {
-  const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/routines/inusage';
+  // const String apiUrl =
+  //    'https://unlockway.azurewebsites.net/api/v1/routines/inusage';
+
+  const String apiUrl = 'http://localhost:8080/routines/getOnUse';
 
   final uri =
       Uri.parse(apiUrl).replace(queryParameters: {'userId': userData.id});

@@ -25,8 +25,9 @@ Future<void> loginAPI(
       ),
     );
   } else {
-    const String apiUrl =
-        'https://unlockway.azurewebsites.net/api/v1/auth/authenticate';
+    //const String apiUrl =
+    //  'https://unlockway.azurewebsites.net/api/v1/auth/authenticate';
+    const String apiUrl = 'http://localhost:8080/user/login';
 
     Map payload = {
       "email": email,
@@ -44,6 +45,7 @@ Future<void> loginAPI(
           body: body);
 
       Map<Object?, Object?> user = json.decode(response.body);
+      print(user);
 
       userData = UserModel.fromMap(user);
 
