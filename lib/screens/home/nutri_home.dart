@@ -18,18 +18,17 @@ import 'package:unlockway/screens/home/components/no_routine.dart';
 import 'package:unlockway/screens/home/components/pending_actions.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:fl_chart/fl_chart.dart';
 
-class Home extends StatefulWidget {
-  const Home({
+class NutriHome extends StatefulWidget {
+  const NutriHome({
     super.key,
   });
 
   @override
-  State<Home> createState() => _HomeState();
+  State<NutriHome> createState() => _NutriHomeState();
 }
 
-class _HomeState extends State<Home> {
+class _NutriHomeState extends State<NutriHome> {
   late HomeDataModel homeData = const HomeDataModel(
     meals: 0,
     routines: 0,
@@ -287,19 +286,9 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 300,
-                      child: BarChart(
-                        swapAnimationDuration:
-                            const Duration(milliseconds: 150), // Optional
-                        swapAnimationCurve: Curves.linear, // Optional
-                        BarChartData(barGroups: []),
-                      ),
+                    HomeGraph(
+                      data: homeData.weekCalories,
                     ),
-                    //  HomeGraph(
-                    //    data: homeData.weekCalories,
-                    // ),
                     SizedBox(
                       child: Row(
                         children: [
