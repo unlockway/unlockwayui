@@ -16,6 +16,7 @@ import 'package:unlockway/screens/home/components/home_graph.dart';
 import 'package:unlockway/screens/home/components/next_meals.dart';
 import 'package:unlockway/screens/home/components/no_routine.dart';
 import 'package:unlockway/screens/home/components/pending_actions.dart';
+import 'package:unlockway/screens/home/components/weekly_bar_chart.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:fl_chart/fl_chart.dart';
@@ -287,16 +288,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 300,
-                      child: BarChart(
-                        swapAnimationDuration:
-                            const Duration(milliseconds: 150), // Optional
-                        swapAnimationCurve: Curves.linear, // Optional
-                        BarChartData(barGroups: []),
-                      ),
-                    ),
+                    WeeklyBarChart(weeklyValues: homeData.weekCalories),
                     //  HomeGraph(
                     //    data: homeData.weekCalories,
                     // ),

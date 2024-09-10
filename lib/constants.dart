@@ -23,6 +23,7 @@ var darker = 0xFF212121;
 var dark = 0xFF595959;
 var danger = 0xFFC33434;
 var success = 0xFF52CC83;
+var blue = 0xFF457B9D;
 
 UserModel userData = UserModel(); // keep
 String? fcmToken;
