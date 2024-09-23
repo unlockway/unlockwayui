@@ -5,7 +5,7 @@ import 'package:unlockway/constants.dart';
 class WeeklyBarChart extends StatelessWidget {
   final List<double?> weeklyValues;
 
-  WeeklyBarChart({required this.weeklyValues});
+  const WeeklyBarChart({super.key, required this.weeklyValues});
 
   @override
   Widget build(BuildContext context) {
@@ -108,12 +108,12 @@ class WeeklyBarChart extends StatelessWidget {
             getDrawingHorizontalLine: (value) {
               if ((value - twentyFivePercent).abs() < 0.1 ||
                   (value - seventyFivePercent).abs() < 0.1) {
-                return FlLine(
+                return const FlLine(
                   color: Colors.grey,
                   strokeWidth: 1,
                 );
               }
-              return FlLine(
+              return const FlLine(
                 color: Colors.transparent,
               );
             },

@@ -25,7 +25,8 @@ Future<void> updateUserDataHandler(
   String biotype,
   String sex,
 ) async {
-  String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/user/$userId';
+  String apiUrl =
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/user/$userId';
 
   bool mMass = false;
   bool mHealth = false;
@@ -104,7 +105,7 @@ Future<void> applyUserPhotoHandler(
   String sessionToken,
 ) async {
   String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/user/photo/$userId';
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/user/photo/$userId';
 
   var request = http.MultipartRequest(
     'PUT',

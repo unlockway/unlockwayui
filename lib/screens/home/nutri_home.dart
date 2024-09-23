@@ -9,7 +9,7 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
-import 'package:unlockway/models/homeData.dart';
+import 'package:unlockway/models/home_data.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
 import 'package:unlockway/screens/home/components/home_graph.dart';

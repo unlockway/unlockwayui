@@ -25,7 +25,7 @@ Future<void> registerAPI(
   String sex,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/auth/register';
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/auth/register';
 
   bool mMass = false;
   bool mHealth = false;

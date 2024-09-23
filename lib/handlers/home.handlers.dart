@@ -5,10 +5,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/models/homeData.dart';
+import 'package:unlockway/models/home_data.dart';
 
 Future<HomeDataModel> getHomeAnalysysAPI(BuildContext context) async {
-  const String apiUrl = 'http://localhost:8080/home/homeData';
+  const String apiUrl =
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/home/homeData';
 
   final response = await http.get(
     Uri.parse(apiUrl),

@@ -15,10 +15,10 @@ import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/screens/meals/meals.dart';
 
 Future<List<MealsModel>> getMealsAPI(BuildContext context) async {
-  //const String apiUrl =
-  //    'https://unlockway.azurewebsites.net/api/v1/meals/findByUserId';
+  const String apiUrl =
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/meals/findByUserId';
 
-  const String apiUrl = 'http://localhost:8080/dishes/get';
+  //const String apiUrl = 'http://localhost:8080/dishes/get';
 
   final uri = Uri.parse(apiUrl).replace(queryParameters: {'id': userData.id});
 

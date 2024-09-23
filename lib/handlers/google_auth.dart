@@ -17,7 +17,7 @@ Future<void> loginGoogleAPI(
   required String? password,
 }) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/auth/authenticate';
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/auth/authenticate';
 
   Map payload = {
     "email": email,
