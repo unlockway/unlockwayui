@@ -6,16 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
-import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/home_data.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
-import 'package:unlockway/screens/home/components/home_graph.dart';
-import 'package:unlockway/screens/home/components/next_meals.dart';
-import 'package:unlockway/screens/home/components/no_routine.dart';
-import 'package:unlockway/screens/home/components/pending_actions.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -29,34 +23,18 @@ class NutriHome extends StatefulWidget {
 }
 
 class _NutriHomeState extends State<NutriHome> {
-  late HomeDataModel homeData = const HomeDataModel(
-    meals: 0,
-    routines: 0,
-    notifications: 0,
-    weekCalories: [],
-  );
+  late NutriHomeDataModel homeData =
+      const NutriHomeDataModel(notifications: 0, clients: []);
   dynamic actualRoutine;
   bool _isLoading = true;
 
   Future<void> fetchAnalysis() async {
-    HomeDataModel result = await getHomeAnalysysAPI(context);
-    dynamic resultRoutine = await getRoutineOnUseAPI(context);
+    NutriHomeDataModel result = await getNutriHomeAnalysysAPI(context);
+
     setState(() {
       homeData = result;
-      actualRoutine = resultRoutine;
       _isLoading = false;
     });
-  }
-
-  ingestMeal(
-    String routineId,
-    String mealId,
-  ) async {
-    await getHistoryIngestedAPI(
-      context,
-      routineId,
-      mealId,
-    ).then((value) => fetchAnalysis());
   }
 
   @override
@@ -79,7 +57,7 @@ class _NutriHomeState extends State<NutriHome> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      bottomNavigationBar: const UBottomNavigator("Home"),
+      bottomNavigationBar: const NutriBottomNavigator(),
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(100),
           child: SafeArea(
@@ -130,9 +108,10 @@ class _NutriHomeState extends State<NutriHome> {
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: Text(
-                                (user.firstName!.substring(0, 1) +
-                                        user.lastName!.substring(0, 1))
-                                    .toUpperCase(),
+                                "Teste",
+                                //  (user.firstName!.substring(0, 1) +
+                                // user.lastName!.substring(0, 1))
+                                //      .toUpperCase(),
                                 style: TextStyle(
                                   fontFamily: "Inter",
                                   fontSize: 32.0,
@@ -224,49 +203,6 @@ class _NutriHomeState extends State<NutriHome> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (homeData.meals == 0 || homeData.routines == 0)
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          PendingActions(
-                            meals: homeData.meals,
-                            routines: homeData.routines,
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                        ],
-                      ),
-                    actualRoutine == null
-                        ? const NoRoutineCard()
-                        : Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Próximas Refeições",
-                                  style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
-                                    fontFamily: "Inter",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              NextMeals(
-                                  meals: actualRoutine["meals"],
-                                  routineId: actualRoutine['id'],
-                                  method: (String routineId, String mealId) {
-                                    ingestMeal(routineId, mealId);
-                                  }),
-                            ],
-                          ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -285,9 +221,6 @@ class _NutriHomeState extends State<NutriHome> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                    HomeGraph(
-                      data: homeData.weekCalories,
                     ),
                     SizedBox(
                       child: Row(

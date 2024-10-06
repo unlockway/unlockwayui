@@ -25,9 +25,9 @@ Future<void> loginAPI(
       ),
     );
   } else {
-    const String apiUrl =
-        'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/auth/authenticate';
-    //const String apiUrl = 'http://localhost:8080/user/login';
+    //const String apiUrl =
+    //    'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/auth/authenticate';
+    const String apiUrl = 'http://localhost:8080/user/login';
 
     Map payload = {
       "email": email,
@@ -45,6 +45,8 @@ Future<void> loginAPI(
           body: body);
 
       Map<Object?, Object?> user = json.decode(response.body);
+
+      print(response.body);
 
       userData = UserModel.fromMap(user);
 

@@ -1,3 +1,5 @@
+import 'package:unlockway/models/user.dart';
+
 class HomeDataModel {
   const HomeDataModel({
     required this.meals,
@@ -27,6 +29,32 @@ class HomeDataModel {
       routines: map['routines'],
       notifications: map['notifications'],
       weekCalories: weekCaloriesList,
+    );
+  }
+}
+
+class NutriHomeDataModel {
+  const NutriHomeDataModel({
+    required this.notifications,
+    required this.clients,
+  });
+
+  final int notifications;
+  final List<UserModel?> clients;
+
+  factory NutriHomeDataModel.fromMap(Map<String, dynamic> map) {
+    List<dynamic> userListDynamic = map['userList'];
+    List<UserModel?> userList = userListDynamic.map((user) {
+      if (user == null) {
+        return null;
+      } else {
+        return UserModel.fromMap(user as Map<String, dynamic>);
+      }
+    }).toList();
+
+    return NutriHomeDataModel(
+      notifications: map['notifications'],
+      clients: userList,
     );
   }
 }

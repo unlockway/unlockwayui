@@ -7,7 +7,7 @@ typedef GoalsCallback = void Function(List<String> goals);
 typedef BiotypeCallback = void Function(String? biotype);
 typedef SexCallback = void Function(String? sex);
 
-class RegisterStep1 extends StatelessWidget {
+class RegisterStep1 extends StatefulWidget {
   const RegisterStep1({
     super.key,
     required this.firstNameController,
@@ -35,6 +35,14 @@ class RegisterStep1 extends StatelessWidget {
   final SexCallback onChangeSex;
 
   @override
+  State<RegisterStep1> createState() => _RegisterStep1State();
+}
+
+class _RegisterStep1State extends State<RegisterStep1> {
+  bool isNutritionist = false;
+  final TextEditingController crnController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,21 +52,17 @@ class RegisterStep1 extends StatelessWidget {
           title: "Nome",
           width: double.infinity,
           number: false,
-          controller: firstNameController,
+          controller: widget.firstNameController,
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         GenericTextField(
           placeholder: "Insira seu sobrenome, ex: Fernandes",
           title: "Sobrenome",
           width: double.infinity,
           number: false,
-          controller: lastNameController,
+          controller: widget.lastNameController,
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         Row(
           children: [
             Flexible(
@@ -66,27 +70,23 @@ class RegisterStep1 extends StatelessWidget {
                 placeholder: "Ex: 88",
                 title: "Peso",
                 width: 200,
-                controller: weightController,
+                controller: widget.weightController,
                 number: true,
               ),
             ),
-            const SizedBox(
-              width: 30,
-            ),
+            const SizedBox(width: 30),
             Flexible(
               child: GenericTextField(
                 placeholder: "Ex: 1,70",
                 title: "Altura",
                 width: 200,
-                controller: heightController,
+                controller: widget.heightController,
                 number: true,
               ),
             ),
           ],
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         Text(
           "Sexo",
           style: TextStyle(
@@ -101,15 +101,12 @@ class RegisterStep1 extends StatelessWidget {
             borderRadius: BorderRadius.circular(6),
             color: Theme.of(context).colorScheme.onSurface,
           ),
-          padding: const EdgeInsets.symmetric(
-            vertical: 4,
-            horizontal: 8,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           child: DropdownButton<String>(
             dropdownColor: Theme.of(context).colorScheme.onSurface,
             borderRadius: BorderRadius.circular(6),
             isExpanded: true,
-            value: sex,
+            value: widget.sex,
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             elevation: 16,
@@ -118,25 +115,15 @@ class RegisterStep1 extends StatelessWidget {
               fontSize: 16,
               fontFamily: "Inter",
             ),
-            onChanged: onChangeSex,
-            underline: Container(
-              color: Colors.transparent,
-            ),
+            onChanged: widget.onChangeSex,
+            underline: Container(color: Colors.transparent),
             items: const [
-              DropdownMenuItem(
-                value: 'MALE',
-                child: Text('Homem'),
-              ),
-              DropdownMenuItem(
-                value: 'FEMALE',
-                child: Text('Mulher'),
-              ),
+              DropdownMenuItem(value: 'MALE', child: Text('Homem')),
+              DropdownMenuItem(value: 'FEMALE', child: Text('Mulher')),
             ],
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         Text(
           "Meta",
           style: TextStyle(
@@ -161,35 +148,57 @@ class RegisterStep1 extends StatelessWidget {
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Color(darkBgdark),
-              ),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            enabled: true,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Color(primarydark),
-              ),
+              borderSide: BorderSide(color: Color(darkBgdark)),
               borderRadius: BorderRadius.circular(6),
             ),
             filled: true,
             fillColor: Theme.of(context).colorScheme.onSurface,
-            focusColor: Theme.of(context).colorScheme.onSurface,
           ),
           enabled: true,
           selected_values_style: TextStyle(
             color: Theme.of(context).colorScheme.outline,
           ),
-          onChanged: onChangeGoals,
+          onChanged: widget.onChangeGoals,
           options: const [
             'Manter saúde',
             'Perder peso',
             'Ganhar músculo',
           ],
-          selectedValues: goals,
+          selectedValues: widget.goals,
           whenEmpty: 'Diga-nos qual seu objetivo',
         ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            Switch(
+              value: isNutritionist,
+              onChanged: (bool value) {
+                setState(() {
+                  isNutritionist = value;
+                });
+              },
+            ),
+            const Text(
+              "Nutricionista?",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+        if (isNutritionist)
+          Column(
+            children: [
+              const SizedBox(height: 20),
+              GenericTextField(
+                placeholder: "Insira seu CRN",
+                title: "CRN",
+                width: double.infinity,
+                number: true,
+                controller: crnController,
+              ),
+            ],
+          ),
         const SizedBox(height: 20),
         Text(
           "Biotipo",
@@ -205,16 +214,13 @@ class RegisterStep1 extends StatelessWidget {
             borderRadius: BorderRadius.circular(6),
             color: Theme.of(context).colorScheme.onSurface,
           ),
-          padding: const EdgeInsets.symmetric(
-            vertical: 4,
-            horizontal: 8,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           child: DropdownButton<String>(
             dropdownColor: Theme.of(context).colorScheme.onSurface,
             hint: const Text("EX: Endomorfo"),
             borderRadius: BorderRadius.circular(6),
             isExpanded: true,
-            value: biotype,
+            value: widget.biotype,
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             elevation: 16,
@@ -223,23 +229,12 @@ class RegisterStep1 extends StatelessWidget {
               fontSize: 16,
               fontFamily: "Inter",
             ),
-            onChanged: onChangeBiotype,
-            underline: Container(
-              color: Colors.transparent,
-            ),
+            onChanged: widget.onChangeBiotype,
+            underline: Container(color: Colors.transparent),
             items: const [
-              DropdownMenuItem(
-                value: 'ECTOMORPH',
-                child: Text('Ectomorfo'),
-              ),
-              DropdownMenuItem(
-                value: 'ENDOMORPH',
-                child: Text('Endomorfo'),
-              ),
-              DropdownMenuItem(
-                value: 'MESOMORPH',
-                child: Text('Mesomorfo'),
-              ),
+              DropdownMenuItem(value: 'ECTOMORPH', child: Text('Ectomorfo')),
+              DropdownMenuItem(value: 'ENDOMORPH', child: Text('Endomorfo')),
+              DropdownMenuItem(value: 'MESOMORPH', child: Text('Mesomorfo')),
             ],
           ),
         ),
