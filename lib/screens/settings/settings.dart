@@ -33,7 +33,7 @@ class _SettingsState extends State<Settings> {
   }
 
   void logout() {
-    userData = UserModel();
+    userData = UserModel(nutritionist: false);
 
     Navigator.of(context).push(
       navigationPageLeftAnimation(

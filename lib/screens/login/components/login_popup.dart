@@ -60,15 +60,15 @@ class LoginPopup extends StatelessWidget {
                     height: 48.0,
                     width: 600.0,
                     onTap: () {
-                      navigatePage(
+                      // navigatePage(
+                      //    context,
+                      //   const NutriHome(),
+                      //  );
+                      loginAPI(
                         context,
-                        const NutriHome(),
+                        emailController.text,
+                        senhaController.text,
                       );
-                      // loginAPI(
-                      //  context,
-                      //  emailController.text,
-                      //  senhaController.text,
-                      //);
                     },
                   ),
                 ],

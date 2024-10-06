@@ -3,8 +3,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/components/nutri_bottom_navigator.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
 import 'package:unlockway/models/home_data.dart';
@@ -57,7 +57,7 @@ class _NutriHomeState extends State<NutriHome> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      bottomNavigationBar: const NutriBottomNavigator(),
+      bottomNavigationBar: const NutriBottomNavigator("Home"),
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(100),
           child: SafeArea(
@@ -108,10 +108,9 @@ class _NutriHomeState extends State<NutriHome> {
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: Text(
-                                "Teste",
-                                //  (user.firstName!.substring(0, 1) +
-                                // user.lastName!.substring(0, 1))
-                                //      .toUpperCase(),
+                                (user.firstName!.substring(0, 1) +
+                                        user.lastName!.substring(0, 1))
+                                    .toUpperCase(),
                                 style: TextStyle(
                                   fontFamily: "Inter",
                                   fontSize: 32.0,

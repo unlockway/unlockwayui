@@ -11,6 +11,7 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/user.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/home.dart';
+import 'package:unlockway/screens/home/nutri_home.dart';
 
 Future<void> loginAPI(
   BuildContext context,
@@ -46,7 +47,7 @@ Future<void> loginAPI(
 
       Map<Object?, Object?> user = json.decode(response.body);
 
-      print(response.body);
+      print("Usuário:${response.body}");
 
       userData = UserModel.fromMap(user);
 
@@ -54,9 +55,11 @@ Future<void> loginAPI(
       await prefs.setString('Email', userData.email!);
       await prefs.setString('Password', password);
 
+      bool isNutri = userData.nutritionist ?? false;
+
       navigatePage(
         context,
-        const Home(),
+        userData.nutritionist ? const NutriHome() : const Home(),
       );
 
       if (userData.id != null) {

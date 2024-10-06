@@ -18,5 +18,6 @@ List<UserModel> dummyUsers = [
     sex: "Male", // Replace with user's sex
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
+    nutritionist: false,
   ),
 ];

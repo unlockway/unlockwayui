@@ -1,21 +1,25 @@
+import 'dart:ffi';
+
 import 'package:unlockway/models/goals.dart';
 
 class UserModel {
-  UserModel(
-      {this.id,
-      this.photo,
-      this.firstName,
-      this.lastName,
-      this.token,
-      this.email,
-      this.height,
-      this.weight,
-      this.goals,
-      this.biotype,
-      this.createdAt,
-      this.updatedAt,
-      this.imc,
-      this.sex});
+  UserModel({
+    this.id,
+    this.photo,
+    this.firstName,
+    this.lastName,
+    this.token,
+    this.email,
+    this.height,
+    this.weight,
+    this.goals,
+    this.biotype,
+    this.createdAt,
+    this.updatedAt,
+    this.imc,
+    this.sex,
+    required this.nutritionist,
+  });
 
   String? id;
   Object? photo;
@@ -31,6 +35,7 @@ class UserModel {
   String? sex;
   DateTime? createdAt;
   DateTime? updatedAt;
+  bool nutritionist;
 
   factory UserModel.fromMap(Map<Object?, Object?> map) {
     var goals = map["goals"] as Map<Object?, Object?>;
@@ -52,6 +57,7 @@ class UserModel {
         loseWeight: goals["loseWeight"] as bool,
       ),
       biotype: map["biotype"] as String,
+      nutritionist: map["nutritionist"] as bool,
       createdAt: DateTime.parse(map['createdAt'] as String),
       updatedAt: DateTime.parse(map['updatedAt'] as String),
     );
