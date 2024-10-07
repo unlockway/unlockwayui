@@ -2,14 +2,13 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/nutri_bottom_navigator.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
 import 'package:unlockway/models/home_data.dart';
 import 'package:unlockway/models/user.dart';
-import 'package:unlockway/screens/home/components/create_buttons.dart';
+import 'package:unlockway/screens/home/components/client_card.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -205,44 +204,32 @@ class _NutriHomeState extends State<NutriHome> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const CreateButtons(),
-                    const SizedBox(
-                      height: 32,
-                    ),
                     Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.center,
                       child: Text(
-                        "CALORIAS POR DIA",
+                        "Lista de Clientes",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.outline,
                           fontFamily: "Inter",
-                          fontSize: 12,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/svgs/logo_mini.svg",
-                            height: 24,
-                            width: 24,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Text(
-                              "Acompanha sua porcentagem de progresso conforme gerencia seus melhores hábitos.",
-                              style: TextStyle(
-                                  fontFamily: "Inter",
-                                  fontSize: 12,
-                                  color: Theme.of(context).colorScheme.outline),
-                            ),
-                          )
-                        ],
-                      ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: homeData.clients.length,
+                      itemBuilder: (context, index) {
+                        UserModel client = homeData.clients[index]!;
+
+                        return ClientCard(user: client);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 32,
                     ),
                   ],
                 ),
