@@ -55,8 +55,6 @@ Future<void> loginAPI(
       await prefs.setString('Email', userData.email!);
       await prefs.setString('Password', password);
 
-      bool isNutri = userData.nutritionist ?? false;
-
       navigatePage(
         context,
         userData.nutritionist ? const NutriHome() : const Home(),

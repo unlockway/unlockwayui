@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/screens/home/home.dart';
+import 'package:unlockway/screens/home/nutri_home.dart';
+import 'package:unlockway/screens/settings/nutri_settings.dart';
 import 'package:unlockway/screens/settings/settings.dart';
 
 class NutriBottomNavigator extends StatelessWidget {
@@ -43,7 +45,7 @@ class NutriBottomNavigator extends StatelessWidget {
               onPressed: () {
                 navigatePage(
                   context,
-                  const Home(),
+                  const NutriHome(),
                 );
               },
               icon: Icon(
@@ -56,7 +58,7 @@ class NutriBottomNavigator extends StatelessWidget {
               onPressed: () {
                 navigatePage(
                   context,
-                  const Settings(),
+                  const NutriSettings(),
                 );
               },
               icon: Icon(

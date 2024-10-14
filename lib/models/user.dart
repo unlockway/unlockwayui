@@ -37,6 +37,29 @@ class UserModel {
   DateTime? updatedAt;
   bool nutritionist;
 
+  List<String> getGoalsAsText(Goals? goals) {
+    List<String> goalsText = [];
+    if (goals != null) {
+      if (goals.gainMuscularMass) goalsText.add("Ganhar massa muscular");
+      if (goals.loseWeight) goalsText.add("Perder peso");
+      if (goals.maintainHealth) goalsText.add("Manter Saúde");
+    }
+    return goalsText;
+  }
+
+  String getBiotypeAsText(String? biotype) {
+    switch (biotype) {
+      case "ENDOMORPH":
+        return "Endomorfo";
+      case "ECTOMORPH":
+        return "Ectomorfo";
+      case "MESOMORPH":
+        return "Mesomorfo";
+      default:
+        return "Biotipo desconhecido";
+    }
+  }
+
   factory UserModel.fromMap(Map<Object?, Object?> map) {
     var goals = map["goals"] as Map<Object?, Object?>;
 
