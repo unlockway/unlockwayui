@@ -221,7 +221,9 @@ class _NutriHomeState extends State<NutriHome> {
               )),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        margin: const EdgeInsets.all(13),
+        margin: const EdgeInsets.symmetric(
+          horizontal: 13,
+        ),
         child: _isLoading
             ? const Center(
                 child: CircularProgressIndicator(),

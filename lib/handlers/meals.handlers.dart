@@ -269,3 +269,71 @@ Future<void> deleteMealAPI(
     );
   }
 }
+
+Future<List<MealsModel>> getPatientMealsAPI(
+  BuildContext context,
+  String patientId,
+) async {
+  //const String apiUrl =
+  //    'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/meals/findByUserId';
+
+  const String apiUrl = 'http://localhost:8080/dishes/get';
+
+  final uri = Uri.parse(apiUrl).replace(queryParameters: {'id': patientId});
+
+  final response = await http.get(
+    uri,
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Accept-Charset': 'UTF-8',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    List<dynamic> mealList = json.decode(responseBody);
+
+    List<MealsModel> meals = mealList.map((meal) {
+      return MealsModel.fromMap(meal);
+    }).toList();
+
+    return meals;
+  } else {
+    throw Exception('Falha na solicitação: ${response.statusCode}');
+  }
+}
+
+Future<List<MealsModel>> getPatientMealsByNameAPI(
+  BuildContext context,
+  String name,
+  String patientId,
+) async {
+  const String apiUrl =
+      'https://unlockway.azurewebsites.net/api/v1/meals/findByName';
+
+  final response = await http.get(
+    Uri.parse(apiUrl).replace(queryParameters: {
+      'patientId': patientId,
+      'name': name,
+    }),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Accept-Charset': 'UTF-8',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    List<dynamic> mealList = json.decode(responseBody);
+
+    List<MealsModel> meals = mealList.map((meal) {
+      return MealsModel.fromMap(meal);
+    }).toList();
+
+    return meals;
+  } else {
+    throw Exception('Falha na solicitação: ${response.statusCode}');
+  }
+}

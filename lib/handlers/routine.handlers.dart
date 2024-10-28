@@ -310,3 +310,38 @@ Future<List<RoutineModel>> getRoutineByNameAPI(
     throw Exception('Falha na solicitação: ${response.statusCode}');
   }
 }
+
+Future<List<RoutineModel>> getPatientRoutinesAPI(BuildContext context) async {
+  //const String apiUrl =
+  //    'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/userId';
+
+  const String apiUrl = 'http://localhost:8080/routines/get';
+
+  final uri = Uri.parse(apiUrl).replace(queryParameters: {'id': userData.id});
+
+  final response = await http.get(
+    uri,
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Accept-Charset': 'UTF-8', // Adicionado Accept-Charset
+    },
+  );
+
+  if (response.statusCode == 200) {
+    // Use o utf8.decode para garantir que a codificação seja interpretada corretamente
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    // Agora, você pode decodificar o JSON
+    List<dynamic> routineList = json.decode(responseBody);
+
+    // Mapeia os dados para a lista de objetos RoutineModel
+    List<RoutineModel> routines = routineList.map((routine) {
+      return RoutineModel.fromMap(routine);
+    }).toList();
+
+    return routines;
+  } else {
+    // Se a solicitação não foi bem-sucedida, trate o erro (por exemplo, lançar uma exceção)
+    throw Exception('Falha na solicitação: ${response.statusCode}');
+  }
+}

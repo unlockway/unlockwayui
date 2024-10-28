@@ -8,8 +8,8 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/home_data.dart';
 
 Future<HomeDataModel> getHomeAnalysysAPI(BuildContext context) async {
-  const String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/home/homeData';
+  String apiUrl =
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/user/analysis/${userData.id}';
 
   final response = await http.get(
     Uri.parse(apiUrl),
@@ -25,7 +25,9 @@ Future<HomeDataModel> getHomeAnalysysAPI(BuildContext context) async {
 
     return HomeDataModel.fromMap(responseData);
   } else {
-    throw Exception('Falha na solicitação: ${response.statusCode}');
+    throw Exception(
+      'Falha na solicitação: ${response.statusCode}, ${userData.id}, ${userData.token}',
+    );
   }
 }
 

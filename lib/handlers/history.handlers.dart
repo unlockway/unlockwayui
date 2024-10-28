@@ -12,7 +12,7 @@ import 'package:unlockway/models/history.dart';
 Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
   var sessionToken = userData.token;
   String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/history/get';
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/history/${userData.id}';
 
   final response = await http.get(Uri.parse(apiUrl), headers: {
     'Authorization': 'Bearer $sessionToken',

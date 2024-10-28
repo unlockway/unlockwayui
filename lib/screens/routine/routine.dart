@@ -229,18 +229,14 @@ class _RoutineState extends State<Routine> {
                         height: 16,
                       ),
                       Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 28,
-                        ),
-                        child: Expanded(
-                          child: Text(
-                            textAlign: TextAlign.center,
-                            "Não há rotinas criadas, crie sua primeira rotina para que ela seja listada aqui.",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.outline,
-                              fontFamily: "Inter",
-                              fontSize: 18,
-                            ),
+                        margin: const EdgeInsets.symmetric(horizontal: 28),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "Não há rotinas criadas, crie sua primeira rotina para que ela seja listada aqui.",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
+                            fontFamily: "Inter",
+                            fontSize: 18,
                           ),
                         ),
                       ),

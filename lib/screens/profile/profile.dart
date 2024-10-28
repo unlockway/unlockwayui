@@ -352,8 +352,8 @@ class _UserProfileState extends State<UserProfile> {
                     const SizedBox(height: 5),
                     DropDownMultiSelect(
                       decoration: InputDecoration(
-                        hintStyle: const TextStyle(
-                          color: Color(0xFF616B7C),
+                        hintStyle: TextStyle(
+                          color: Color(primary),
                           fontFamily: "Inter",
                           fontSize: 16,
                         ),

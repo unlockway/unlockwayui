@@ -135,8 +135,8 @@ class _RegisterStep1State extends State<RegisterStep1> {
         const SizedBox(height: 5),
         DropDownMultiSelect(
           decoration: InputDecoration(
-            hintStyle: const TextStyle(
-              color: Color(0xFF616B7C),
+            hintStyle: TextStyle(
+              color: Theme.of(context).colorScheme.outline,
               fontFamily: "Inter",
               fontSize: 16,
             ),
@@ -148,7 +148,8 @@ class _RegisterStep1State extends State<RegisterStep1> {
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(darkBgdark)),
+              borderSide:
+                  BorderSide(color: Theme.of(context).colorScheme.onSurface),
               borderRadius: BorderRadius.circular(6),
             ),
             filled: true,
@@ -166,6 +167,34 @@ class _RegisterStep1State extends State<RegisterStep1> {
           ],
           selectedValues: widget.goals,
           whenEmpty: 'Diga-nos qual seu objetivo',
+          menuItembuilder: (option) => Container(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Checkbox(
+                  value: widget.goals.contains(option),
+                  onChanged: (bool? value) {
+                    setState(() {
+                      if (value == true) {
+                        widget.goals.add(option);
+                      } else {
+                        widget.goals.remove(option);
+                      }
+                      widget.onChangeGoals(widget.goals);
+                    });
+                  },
+                ),
+                Text(
+                  option,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                    fontSize: 16,
+                    fontFamily: "Inter",
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
         const SizedBox(height: 20),
         Row(
