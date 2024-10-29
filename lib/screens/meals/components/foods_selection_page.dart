@@ -207,8 +207,9 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                           child: GridView.builder(
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisSpacing: 16,
                               crossAxisCount: 1,
-                              childAspectRatio: 2.3,
+                              childAspectRatio: 3,
                             ),
                             shrinkWrap: true,
                             itemCount: ingredientsList.length,

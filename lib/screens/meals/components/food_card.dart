@@ -95,9 +95,6 @@ class _IngredientCardState extends State<IngredientCard> {
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(
-        vertical: 8,
-      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -133,186 +130,195 @@ class _IngredientCardState extends State<IngredientCard> {
             width: 10,
           ),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        widget.food.name,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.outline,
-                          fontSize: 19,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.bold,
+            child: Container(
+              height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          widget.food.name,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
+                            fontSize: 19,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        widget.onSelectIngredient(
-                          widget.food,
-                          quantNumber,
-                        );
-                        setState(
-                          () {
-                            if (selected == true) {
-                              selected = !selected;
-                              quantNumber = 0;
-                              amountController.text = quantNumber.toString();
-                            } else {
-                              selected = !selected;
-                            }
-                          },
-                        );
-                      },
-                      child: selected
-                          ? Container(
-                              padding: const EdgeInsets.all(3),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(6),
-                                ),
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              child: Icon(
-                                PhosphorIcons.check(PhosphorIconsStyle.regular),
-                                size: 24.0,
-                                color: Color(darkBg),
-                              ),
-                            )
-                          : Container(
-                              width: 30,
-                              height: 30,
-                              padding: const EdgeInsets.all(3),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(6),
-                                ),
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                            ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      child: Text(
-                        measureText!,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.outline,
-                          fontSize: 14,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 122,
-                      child: Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                sumOrSub("sub");
-                              });
+                      InkWell(
+                        onTap: () {
+                          widget.onSelectIngredient(
+                            widget.food,
+                            quantNumber,
+                          );
+                          setState(
+                            () {
+                              if (selected == true) {
+                                selected = !selected;
+                                quantNumber = 0;
+                                amountController.text = quantNumber.toString();
+                              } else {
+                                selected = !selected;
+                              }
                             },
-                            child: Container(
-                              padding: const EdgeInsets.all(3),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(6),
+                          );
+                        },
+                        child: selected
+                            ? Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(6),
+                                  ),
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
-                                color: Theme.of(context).colorScheme.onSurface,
+                                child: Icon(
+                                  PhosphorIcons.check(
+                                      PhosphorIconsStyle.regular),
+                                  size: 24.0,
+                                  color: Color(darkBg),
+                                ),
+                              )
+                            : Container(
+                                width: 30,
+                                height: 30,
+                                padding: const EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(6),
+                                  ),
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
                               ),
-                              child: Icon(
-                                PhosphorIcons.minus(PhosphorIconsStyle.regular),
-                                size: 24.0,
-                                color: Theme.of(context).colorScheme.outline,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        child: Text(
+                          measureText!,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
+                            fontSize: 14,
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 122,
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  sumOrSub("sub");
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(6),
+                                  ),
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                                child: Icon(
+                                  PhosphorIcons.minus(
+                                      PhosphorIconsStyle.regular),
+                                  size: 24.0,
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 1,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              controller: amountController,
-                              textAlign: TextAlign.center,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                  RegExp(r'^\d+\.?\d{0,2}'),
+                            const SizedBox(
+                              width: 1,
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                controller: amountController,
+                                textAlign: TextAlign.center,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d{0,2}'),
+                                  ),
+                                ],
+                                cursorColor:
+                                    Theme.of(context).colorScheme.outline,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  contentPadding: const EdgeInsets.all(12),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(darkBgdark)),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(primarydark)),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  hintText: "0",
+                                  hintStyle: const TextStyle(
+                                    color: Color(0xFF616B7C),
+                                    fontSize: 14,
+                                  ),
+                                  filled: true,
+                                  fillColor:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  focusColor:
+                                      Theme.of(context).colorScheme.onSurface,
                                 ),
-                              ],
-                              cursorColor:
-                                  Theme.of(context).colorScheme.outline,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                contentPadding: const EdgeInsets.all(12),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Color(darkBgdark)),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Color(primarydark)),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                hintText: "0",
-                                hintStyle: const TextStyle(
-                                  color: Color(0xFF616B7C),
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  color: Theme.of(context).colorScheme.outline,
                                   fontSize: 14,
                                 ),
-                                filled: true,
-                                fillColor:
-                                    Theme.of(context).colorScheme.onSurface,
-                                focusColor:
-                                    Theme.of(context).colorScheme.onSurface,
-                              ),
-                              style: TextStyle(
-                                fontFamily: "Inter",
-                                color: Theme.of(context).colorScheme.outline,
-                                fontSize: 14,
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 1,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                sumOrSub("sum");
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(3),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(6),
+                            const SizedBox(
+                              width: 1,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  sumOrSub("sum");
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(6),
+                                  ),
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
                                 ),
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              child: Icon(
-                                PhosphorIcons.plus(PhosphorIconsStyle.regular),
-                                size: 24.0,
-                                color: Theme.of(context).colorScheme.outline,
+                                child: Icon(
+                                  PhosphorIcons.plus(
+                                      PhosphorIconsStyle.regular),
+                                  size: 24.0,
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

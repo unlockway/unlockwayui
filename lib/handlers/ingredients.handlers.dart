@@ -42,7 +42,7 @@ Future<List<IngredientModel>> getIngredientsByNameAPI(
   String name,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/ingredients/findByName';
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/meals/findByName';
 
   final uri = Uri.parse(apiUrl).replace(queryParameters: {
     'userId': userData.id,
