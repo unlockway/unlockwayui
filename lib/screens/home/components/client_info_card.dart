@@ -73,34 +73,6 @@ class ClientInfoCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                user.email!,
-                style: TextStyle(
-                  fontFamily: "Inter",
-                  fontSize: 16.0,
-                  color: Theme.of(context).colorScheme.outline,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              Text.rich(
-                TextSpan(
-                  text: "Objetivos: ",
-                  style: TextStyle(
-                    fontFamily: "Inter",
-                    fontSize: 14.0,
-                    color: Theme.of(context).colorScheme.outline,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: user.getGoalsAsText(user.goals).join(', '),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               Text.rich(
                 TextSpan(
                   text: "Biótipo: ",

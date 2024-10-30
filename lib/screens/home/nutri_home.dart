@@ -73,7 +73,8 @@ class _NutriHomeState extends State<NutriHome> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      bottomNavigationBar: const NutriBottomNavigator("Home"),
+      bottomNavigationBar:
+          showClientInfo ? null : const NutriBottomNavigator("Home"),
       appBar: showClientInfo && selectedUser != null
           ? AppBar(
               leading: IconButton(

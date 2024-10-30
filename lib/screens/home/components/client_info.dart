@@ -59,13 +59,21 @@ class _ClientInfoState extends State<ClientInfo> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ButtonFilled(
-                        text: "Rotinas", height: 120, width: 120, onTap: () {}),
-                    ButtonFilled(
-                        text: "Refeições",
+                        text: "Rotinas e Refeições",
                         height: 120,
-                        width: 120,
+                        width: 165,
+                        onTap: () {}),
+                    ButtonFilled(
+                        text: "Recomendações",
+                        height: 120,
+                        width: 165,
                         onTap: () {}),
                   ],
+                ),
+                const SizedBox(height: 8),
+                SizedBox(
+                  child: ButtonFilled(
+                      text: "Histórico", height: 120, width: 165, onTap: () {}),
                 ),
                 const SizedBox(height: 30),
                 const WeeklyBarChart(
