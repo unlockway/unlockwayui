@@ -55,29 +55,21 @@ class _ClientInfoState extends State<ClientInfo> {
               children: [
                 ClientInfoCard(user: widget.user),
                 const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ButtonFilled(
-                        text: "Rotinas e Refeições",
-                        height: 120,
-                        width: 165,
-                        onTap: () {}),
-                    ButtonFilled(
-                        text: "Recomendações",
-                        height: 120,
-                        width: 165,
-                        onTap: () {}),
-                  ],
-                ),
+                ButtonFilled(
+                    text: "Detalhes do Paciente",
+                    height: 120,
+                    width: double.infinity,
+                    onTap: () {}),
                 const SizedBox(height: 8),
-                SizedBox(
-                  child: ButtonFilled(
-                      text: "Histórico", height: 120, width: 165, onTap: () {}),
-                ),
-                const SizedBox(height: 30),
+                ButtonFilled(
+                    text: "Recomendações",
+                    height: 120,
+                    width: double.infinity,
+                    onTap: () {}),
+                const SizedBox(height: 80),
                 const WeeklyBarChart(
-                    weeklyValues: [10, 20, 30, 4000, 50, 60, 7000]),
+                  weeklyValues: [10, 20, 30, 4000, 50, 60, 7000],
+                ),
               ],
             ),
     );

@@ -45,31 +45,35 @@ class LoginPopup extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ButtonOutlined(
-                    text: "Cancelar",
-                    height: 48.0,
-                    width: 600.0,
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    color: Theme.of(context).colorScheme.primary,
+                  Flexible(
+                    child: ButtonOutlined(
+                      text: "Cancelar",
+                      height: 48.0,
+                      width: 200,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                   const SizedBox(width: 10),
-                  ButtonFilled(
-                    text: "Entrar",
-                    height: 48.0,
-                    width: 600.0,
-                    onTap: () {
-                      //  navigatePage(
-                      //     context,
-                      //    const NutriHome(),
-                      //   );
-                      loginAPI(
-                        context,
-                        emailController.text,
-                        senhaController.text,
-                      );
-                    },
+                  Flexible(
+                    child: ButtonFilled(
+                      text: "Entrar",
+                      height: 48.0,
+                      width: 200,
+                      onTap: () {
+                        //  navigatePage(
+                        //     context,
+                        //    const NutriHome(),
+                        //   );
+                        loginAPI(
+                          context,
+                          emailController.text,
+                          senhaController.text,
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

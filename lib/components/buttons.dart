@@ -18,36 +18,34 @@ class ButtonFilled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Container(
-        width: width,
-        height: 48,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            gradient: LinearGradient(colors: [
-              Color(primary),
-              const Color.fromARGB(255, 171, 216, 77)
-            ]),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 1.5),
-                blurRadius: 1.5,
-              ),
-            ]),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: onTap,
-            child: Center(
-              child: Text(
-                text,
-                style: TextStyle(
-                  color: Color(darkBgdark),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: "Inter",
-                ),
+    return Container(
+      width: width,
+      height: 48,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          gradient: LinearGradient(colors: [
+            Color(primary),
+            const Color.fromARGB(255, 171, 216, 77)
+          ]),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(0.0, 1.5),
+              blurRadius: 1.5,
+            ),
+          ]),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Color(darkBgdark),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                fontFamily: "Inter",
               ),
             ),
           ),
@@ -75,31 +73,29 @@ class ButtonOutlined extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            width: 2,
-            color: color,
-          ),
-          color: Colors.black.withOpacity(0),
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        border: Border.all(
+          width: 2,
+          color: color,
         ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: onTap,
-            child: Center(
-              child: Text(
-                text,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: color,
-                  fontFamily: "Inter",
-                ),
+        color: Colors.black.withOpacity(0),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: color,
+                fontFamily: "Inter",
               ),
             ),
           ),
