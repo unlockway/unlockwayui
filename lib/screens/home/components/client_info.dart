@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/constants.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/meals.dart';
@@ -9,6 +8,7 @@ import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/client_info_card.dart';
 import 'package:unlockway/screens/home/components/weekly_bar_chart.dart';
+import 'package:unlockway/screens/recommendations/recommendations.dart';
 
 class ClientInfo extends StatefulWidget {
   final UserModel user;
@@ -29,7 +29,8 @@ class _ClientInfoState extends State<ClientInfo> {
 
   Future<void> fetchClientInfo() async {
     List<MealsModel> mealResult = await getPatientMealsAPI(context, "");
-    List<RoutineModel> routineResult = await getPatientRoutinesAPI(context);
+    List<RoutineModel> routineResult =
+        await getPatientRoutinesAPI(context, widget.user);
 
     setState(() {
       userMeals = mealResult;
@@ -65,7 +66,13 @@ class _ClientInfoState extends State<ClientInfo> {
                     text: "Recomendações",
                     height: 120,
                     width: double.infinity,
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        navigationPageRightAnimation(
+                          Recommendations(patient: widget.user),
+                        ),
+                      );
+                    }),
                 const SizedBox(height: 80),
                 const WeeklyBarChart(
                   weeklyValues: [10, 20, 30, 4000, 50, 60, 7000],

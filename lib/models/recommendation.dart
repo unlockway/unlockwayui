@@ -12,11 +12,13 @@ class RecommendationModel {
     required this.updatedAt,
     required this.mealSuggestions,
     required this.routineSuggestions,
+    required this.description,
   });
 
   final String id;
   final String idNutritionist;
   final String idPatient;
+  final String description;
   final String patientComment;
   final String status;
   final List<MealSuggestion> mealSuggestions;
@@ -29,6 +31,7 @@ class RecommendationModel {
       id: map['id'],
       idNutritionist: map['idNutritionist'],
       idPatient: map['idPatient'],
+      description: map['description'],
       patientComment: map['patientComment'],
       status: map['status'],
       mealSuggestions: List<MealSuggestion>.from(

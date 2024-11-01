@@ -10,6 +10,7 @@ import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/routine/routine.dart';
 
 Future<List<RoutineModel>> getRoutinesAPI(BuildContext context) async {
@@ -311,13 +312,16 @@ Future<List<RoutineModel>> getRoutineByNameAPI(
   }
 }
 
-Future<List<RoutineModel>> getPatientRoutinesAPI(BuildContext context) async {
+Future<List<RoutineModel>> getPatientRoutinesAPI(
+    BuildContext context, UserModel patient) async {
   //const String apiUrl =
   //    'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/userId';
 
   const String apiUrl = 'http://localhost:8080/routines/get';
 
-  final uri = Uri.parse(apiUrl).replace(queryParameters: {'id': userData.id});
+  final uri = Uri.parse(apiUrl).replace(queryParameters: {
+    'id': patient.id,
+  });
 
   final response = await http.get(
     uri,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multiselect/multiselect.dart';
 import 'package:unlockway/components/text_field.dart';
-import 'package:unlockway/constants.dart';
 
 typedef GoalsCallback = void Function(List<String> goals);
 typedef BiotypeCallback = void Function(String? biotype);

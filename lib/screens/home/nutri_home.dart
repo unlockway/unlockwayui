@@ -77,13 +77,22 @@ class _NutriHomeState extends State<NutriHome> {
           showClientInfo ? null : const NutriBottomNavigator("Home"),
       appBar: showClientInfo && selectedUser != null
           ? AppBar(
-              leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
+              centerTitle: true,
+              title: Text(
+                "PACIENTE",
+                style: TextStyle(
                   color: Theme.of(context).colorScheme.outline,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Inter",
                 ),
+              ),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                color: Theme.of(context).colorScheme.outline,
                 onPressed: _onBackButtonPressed,
               ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
             )
           : PreferredSize(
               preferredSize: const Size.fromHeight(100),
@@ -307,9 +316,8 @@ class _NutriHomeState extends State<NutriHome> {
                               ),
                             ],
                           ),
-                          SingleChildScrollView(
+                          Expanded(
                             child: ListView.builder(
-                              shrinkWrap: true,
                               itemCount: homeData.clients.length,
                               itemBuilder: (context, index) {
                                 UserModel client = homeData.clients[index]!;

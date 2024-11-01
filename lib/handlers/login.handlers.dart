@@ -47,8 +47,6 @@ Future<void> loginAPI(
 
       Map<Object?, Object?> user = json.decode(response.body);
 
-      print("Usuário:${response.body}");
-
       userData = UserModel.fromMap(user);
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -21,10 +21,10 @@ class PatientMeals extends StatefulWidget {
   final UserModel patient;
 
   @override
-  State<PatientMeals> createState() => _MealsState();
+  State<PatientMeals> createState() => _PatientMealsState();
 }
 
-class _MealsState extends State<PatientMeals> {
+class _PatientMealsState extends State<PatientMeals> {
   late UserModel patient;
   TextEditingController searchController = TextEditingController();
   List<MealsModel> meals = [];

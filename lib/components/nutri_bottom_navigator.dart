@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/screens/home/home.dart';
 import 'package:unlockway/screens/home/nutri_home.dart';
 import 'package:unlockway/screens/settings/nutri_settings.dart';
-import 'package:unlockway/screens/settings/settings.dart';
 
 class NutriBottomNavigator extends StatelessWidget {
   const NutriBottomNavigator(this.atual, {super.key});

@@ -130,7 +130,7 @@ class _IngredientCardState extends State<IngredientCard> {
             width: 10,
           ),
           Expanded(
-            child: Container(
+            child: SizedBox(
               height: 100,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

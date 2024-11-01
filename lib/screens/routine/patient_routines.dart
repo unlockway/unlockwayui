@@ -8,23 +8,29 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 import 'package:unlockway/screens/routine/components/routine_card.dart';
 
-class ClientRoutine extends StatefulWidget {
-  const ClientRoutine({super.key});
+class PatientRoutine extends StatefulWidget {
+  const PatientRoutine({
+    super.key,
+    required this.patient,
+  });
+
+  final UserModel patient;
 
   @override
-  State<ClientRoutine> createState() => _ClientRoutineState();
+  State<PatientRoutine> createState() => _PatientRoutineState();
 }
 
-class _ClientRoutineState extends State<ClientRoutine> {
+class _PatientRoutineState extends State<PatientRoutine> {
   List<RoutineModel> routineList = [];
   bool _isLoading = true;
   Timer? _debounceTimer;
 
   void fetchAllRoutines() async {
-    var result = await getRoutinesAPI(context);
+    var result = await getPatientRoutinesAPI(context, widget.patient);
 
     setState(() {
       routineList = result;
