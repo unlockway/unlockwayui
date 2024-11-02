@@ -97,23 +97,31 @@ class Recommendations extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 16,
+              ),
               Expanded(
                 child: ListView.builder(
+                  shrinkWrap: true,
                   itemCount:
                       10, // Replace with the actual number of recommendations
                   itemBuilder: (context, index) {
-                    return RecommendationCard(
-                      recommendation: RecommendationModel(
-                        id: 'id_$index',
-                        idNutritionist: 'nutritionist_$index',
-                        idPatient: 'patient_$index',
-                        description: 'Description $index',
-                        patientComment: 'Comment $index',
-                        status: 'Status $index',
-                        mealSuggestions: [],
-                        routineSuggestions: [],
-                        createdAt: DateTime.now(),
-                        updatedAt: DateTime.now(),
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: RecommendationCard(
+                        recommendation: RecommendationModel(
+                          id: 'id_$index',
+                          idNutritionist: 'nutritionist_$index',
+                          idPatient: 'patient_$index',
+                          description:
+                              'Description DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription $index',
+                          patientComment: 'Comment $index',
+                          status: 'Status $index',
+                          mealSuggestions: [],
+                          routineSuggestions: [],
+                          createdAt: DateTime.now(),
+                          updatedAt: DateTime.now(),
+                        ),
                       ),
                     );
                   },
