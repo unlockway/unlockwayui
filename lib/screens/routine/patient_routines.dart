@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/components/patient_bottom_navigator.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
+import 'package:unlockway/screens/recommendations/recommendations.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 import 'package:unlockway/screens/routine/components/routine_card.dart';
 
@@ -61,108 +63,87 @@ class _PatientRoutineState extends State<PatientRoutine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: IconButton(
-        onPressed: () {
-          Navigator.of(context)
-              .push(
-                navigationPageRightAnimation(
-                  const NewRoutine(
-                    routineId: null,
-                    inUsage: false,
-                    meals: [],
-                    name: null,
-                    weekRepetitions: null,
-                  ),
-                ),
-              )
-              .then(
-                (value) => fetchAllRoutines(),
-              );
-        },
-        style: ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(
-            Color(primarydark),
-          ),
-          iconColor:
-              WidgetStatePropertyAll(Theme.of(context).colorScheme.outline),
-        ),
-        iconSize: 24,
-        icon: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(150),
-        child: SafeArea(
-          child: Container(
-            margin:
-                const EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 10),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 5,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "ROTINAS",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Inter",
-                        color: Theme.of(context).colorScheme.outline),
+        child: AppBar(
+          centerTitle: true,
+          title: Text(
+            "ROTINAS",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.outline,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Inter",
+            ),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Theme.of(context).colorScheme.outline,
+            onPressed: () {
+              navigatePage(context, Recommendations(patient: widget.patient));
+            },
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: SafeArea(
+            child: Container(
+              margin: const EdgeInsets.only(
+                  bottom: 10, left: 10, right: 10, top: 60),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: TextField(
-                        onChanged: (value) {
-                          _onTextChanged(value);
-                        },
-                        cursorColor: const Color.fromARGB(255, 155, 155, 155),
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                        decoration: InputDecoration(
-                          enabled: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true,
-                          fillColor: Theme.of(context).colorScheme.onSurface,
-                          contentPadding: const EdgeInsets.all(10.0),
-                          hintText: "Buscar",
-                          suffixIcon: Icon(
-                            Icons.search,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: TextField(
+                          onChanged: (value) {
+                            _onTextChanged(value);
+                          },
+                          cursorColor: const Color.fromARGB(255, 155, 155, 155),
+                          style: TextStyle(
                             color: Theme.of(context).colorScheme.outline,
                           ),
-                          border: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: Colors.transparent),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          hintStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.outline,
-                            fontWeight: FontWeight.w100,
+                          decoration: InputDecoration(
+                            enabled: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: Theme.of(context).colorScheme.onSurface,
+                            contentPadding: const EdgeInsets.all(10.0),
+                            hintText: "Buscar",
+                            suffixIcon: Icon(
+                              Icons.search,
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.outline,
+                              fontWeight: FontWeight.w100,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
-      bottomNavigationBar: const UBottomNavigator("Routine"),
+      bottomNavigationBar:
+          PatientBottomNavigator("Routine", patient: widget.patient),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: _isLoading

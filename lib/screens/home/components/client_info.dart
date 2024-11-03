@@ -8,6 +8,7 @@ import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/client_info_card.dart';
 import 'package:unlockway/screens/home/components/weekly_bar_chart.dart';
+import 'package:unlockway/screens/meals/patient_meals.dart';
 import 'package:unlockway/screens/recommendations/recommendations.dart';
 
 class ClientInfo extends StatefulWidget {
@@ -60,7 +61,13 @@ class _ClientInfoState extends State<ClientInfo> {
                     text: "Detalhes do Paciente",
                     height: 120,
                     width: double.infinity,
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        navigationPageRightAnimation(
+                          PatientMeals(patient: widget.user),
+                        ),
+                      );
+                    }),
                 const SizedBox(height: 8),
                 ButtonFilled(
                     text: "Recomendações",

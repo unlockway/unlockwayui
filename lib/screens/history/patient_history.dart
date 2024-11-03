@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/bottom_navigator.dart';
+import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/components/patient_bottom_navigator.dart';
 import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/models/history.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/history/components/history_card.dart';
+import 'package:unlockway/screens/recommendations/recommendations.dart';
 
 class PatientHistory extends StatefulWidget {
   const PatientHistory({
@@ -50,33 +53,25 @@ class _PatientHistoryState extends State<PatientHistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(150),
-        child: SafeArea(
-          child: Container(
-            margin:
-                const EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 10),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 5,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "HISTÓRICO",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Inter",
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "HISTÓRICO",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.outline,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Inter",
           ),
         ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: Theme.of(context).colorScheme.outline,
+          onPressed: () {
+            navigatePage(context, Recommendations(patient: widget.patient));
+          },
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: _isLoading
           ? const Center(
@@ -136,7 +131,8 @@ class _PatientHistoryState extends State<PatientHistory> {
                     ),
                   ],
                 ),
-      bottomNavigationBar: const UBottomNavigator("History"),
+      bottomNavigationBar:
+          PatientBottomNavigator("History", patient: widget.patient),
     );
   }
 }
