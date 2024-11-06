@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/recommendations/components/recommendation_card.dart';
+import 'package:unlockway/screens/recommendations/new_recommendation.dart';
 
 import '../../models/recommendation.dart';
 
@@ -88,7 +90,14 @@ class Recommendations extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          navigationPageRightAnimation(
+                            NewRecommendation(patient: patient),
+                          ),
+                        );
+                      },
                       icon: Icon(
                         Icons.add,
                         color: Theme.of(context).colorScheme.onPrimary,
