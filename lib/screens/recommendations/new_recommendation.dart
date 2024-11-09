@@ -131,7 +131,7 @@ class _NewRecommendationState extends State<NewRecommendation> {
                 TextButton(
                   onPressed: () {},
                   child: const Text(
-                    "VER TODOS",
+                    "VER TODAS",
                     style: TextStyle(
                       color: Color(0xFF1CF3B6),
                       fontWeight: FontWeight.w100,
@@ -158,7 +158,7 @@ class _NewRecommendationState extends State<NewRecommendation> {
                 TextButton(
                   onPressed: () {},
                   child: const Text(
-                    "VER TODOS",
+                    "VER TODAS",
                     style: TextStyle(
                       color: Color(0xFF1CF3B6),
                       fontWeight: FontWeight.w100,

@@ -13,8 +13,8 @@ import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-class NewMeal extends StatefulWidget {
-  const NewMeal({
+class PatientNewMeal extends StatefulWidget {
+  const PatientNewMeal({
     super.key,
     required this.id,
     required this.category,
@@ -34,10 +34,10 @@ class NewMeal extends StatefulWidget {
   final File selectedImage;
 
   @override
-  State<NewMeal> createState() => _NewMealState();
+  State<PatientNewMeal> createState() => _PatientNewMealState();
 }
 
-class _NewMealState extends State<NewMeal> {
+class _PatientNewMealState extends State<PatientNewMeal> {
   @override
   void initState() {
     super.initState();

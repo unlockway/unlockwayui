@@ -70,76 +70,47 @@ class _MealFormState extends State<MealForm> {
         child: Row(
           children: [
             widget.name.isNotEmpty
-                ? ButtonOutlined(
-                    color: Color(danger),
-                    text: "EXCLUIR",
-                    height: 48,
-                    width: double.infinity,
-                    onTap: () {
-                      deleteMealAPI(
-                        context,
-                        userData.token!,
-                        widget.id,
-                      );
-                    },
+                ? Flexible(
+                    child: ButtonOutlined(
+                      color: Color(danger),
+                      text: "EXCLUIR",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        deleteMealAPI(
+                          context,
+                          userData.token!,
+                          widget.id,
+                        );
+                      },
+                    ),
                   )
-                : ButtonOutlined(
-                    color: Theme.of(context).colorScheme.primary,
-                    text: "CANCELAR",
-                    height: 48,
-                    width: double.infinity,
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
+                : Flexible(
+                    child: ButtonOutlined(
+                      color: Theme.of(context).colorScheme.primary,
+                      text: "CANCELAR",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
             const SizedBox(
               width: 15,
             ),
             widget.name.isNotEmpty
-                ? ButtonFilled(
-                    text: "EDITAR",
-                    height: 48,
-                    width: double.infinity,
-                    onTap: () {
-                      editMealsAPI(
-                        context,
-                        userData.token!,
-                        userData.id!,
-                        widget.id,
-                        nameController.text,
-                        category!,
-                        descriptionController.text,
-                        preparationMethodController.text,
-                        ingredientsSelected,
-                        selectedImagePath != ''
-                            ? File(selectedImagePath)
-                            : null,
-                      ).then((value) {
-                        widget.onSave();
-                      });
-                    },
-                  )
-                : ButtonFilled(
-                    text: "SALVAR",
-                    height: 48,
-                    width: double.infinity,
-                    onTap: () {
-                      if (nameController.text == "" ||
-                          descriptionController.text == "" ||
-                          preparationMethodController.text == "" ||
-                          category == null ||
-                          ingredientsSelected.isEmpty) {
-                        modalBuilderBottomAnimation(
-                          context,
-                          const SimplePopup(
-                            message: "Preencha todos os campos",
-                          ),
-                        );
-                      } else {
-                        createMealsAPI(
+                ? Flexible(
+                    child: ButtonFilled(
+                      text: "EDITAR",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        editMealsAPI(
                           context,
                           userData.token!,
                           userData.id!,
+                          widget.id,
                           nameController.text,
                           category!,
                           descriptionController.text,
@@ -151,8 +122,45 @@ class _MealFormState extends State<MealForm> {
                         ).then((value) {
                           widget.onSave();
                         });
-                      }
-                    },
+                      },
+                    ),
+                  )
+                : Flexible(
+                    child: ButtonFilled(
+                      text: "SALVAR",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        if (nameController.text == "" ||
+                            descriptionController.text == "" ||
+                            preparationMethodController.text == "" ||
+                            category == null ||
+                            ingredientsSelected.isEmpty) {
+                          modalBuilderBottomAnimation(
+                            context,
+                            const SimplePopup(
+                              message: "Preencha todos os campos",
+                            ),
+                          );
+                        } else {
+                          createMealsAPI(
+                            context,
+                            userData.token!,
+                            userData.id!,
+                            nameController.text,
+                            category!,
+                            descriptionController.text,
+                            preparationMethodController.text,
+                            ingredientsSelected,
+                            selectedImagePath != ''
+                                ? File(selectedImagePath)
+                                : null,
+                          ).then((value) {
+                            widget.onSave();
+                          });
+                        }
+                      },
+                    ),
                   ),
           ],
         ),
