@@ -31,13 +31,41 @@ class _NewRecommendationState extends State<NewRecommendation> {
           children: [
             OutlinedButton(
               onPressed: () {},
-              child: Text("Cancelar"),
-              style: ButtonStyle(),
+              child: Text(
+                "Cancelar",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: ButtonStyle(
+                padding: WidgetStateProperty.all(
+                  EdgeInsets.all(16),
+                ),
+                side: WidgetStateProperty.all(
+                  BorderSide(color: Theme.of(context).colorScheme.error),
+                ),
+              ),
             ),
             OutlinedButton(
               onPressed: () {},
-              child: Text("Criar Sugestão"),
-              style: ButtonStyle(),
+              child: Text(
+                "Criar Sugestão",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: ButtonStyle(
+                padding: WidgetStateProperty.all(
+                  EdgeInsets.all(16),
+                ),
+                side: WidgetStateProperty.all(
+                  BorderSide(color: Theme.of(context).colorScheme.primary),
+                ),
+              ),
             ),
           ],
         ),
@@ -82,18 +110,14 @@ class _NewRecommendationState extends State<NewRecommendation> {
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.outline),
                 ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.add,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    "VER TODOS",
+                    style: TextStyle(
+                      color: Color(0xFF1CF3B6),
+                      fontWeight: FontWeight.w100,
+                      fontSize: 20,
                     ),
                   ),
                 ),
@@ -113,18 +137,14 @@ class _NewRecommendationState extends State<NewRecommendation> {
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.outline),
                 ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.add,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    "VER TODOS",
+                    style: TextStyle(
+                      color: Color(0xFF1CF3B6),
+                      fontWeight: FontWeight.w100,
+                      fontSize: 20,
                     ),
                   ),
                 ),
