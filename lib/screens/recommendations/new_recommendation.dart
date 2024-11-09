@@ -23,14 +23,32 @@ class _NewRecommendationState extends State<NewRecommendation> {
     List<RoutineSuggestion> routineSuggestions;
 
     return Scaffold(
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 80,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              style: ButtonStyle(
+                padding: WidgetStateProperty.all(
+                  const EdgeInsets.all(16),
+                ),
+                side: WidgetStateProperty.all(
+                  BorderSide(
+                    color: Theme.of(context).colorScheme.error,
+                    width: 2, // Increased border width
+                  ),
+                ),
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8), // Border radius
+                  ),
+                ),
+              ),
               child: Text(
                 "Cancelar",
                 style: TextStyle(
@@ -39,31 +57,31 @@ class _NewRecommendationState extends State<NewRecommendation> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              style: ButtonStyle(
-                padding: WidgetStateProperty.all(
-                  EdgeInsets.all(16),
-                ),
-                side: WidgetStateProperty.all(
-                  BorderSide(color: Theme.of(context).colorScheme.error),
-                ),
-              ),
             ),
             OutlinedButton(
               onPressed: () {},
+              style: ButtonStyle(
+                padding: WidgetStateProperty.all(
+                  const EdgeInsets.all(16),
+                ),
+                side: WidgetStateProperty.all(
+                  BorderSide(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2, // Increased border width
+                  ),
+                ),
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8), // Border radius
+                  ),
+                ),
+              ),
               child: Text(
                 "Criar Sugestão",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                ),
-              ),
-              style: ButtonStyle(
-                padding: WidgetStateProperty.all(
-                  EdgeInsets.all(16),
-                ),
-                side: WidgetStateProperty.all(
-                  BorderSide(color: Theme.of(context).colorScheme.primary),
                 ),
               ),
             ),
