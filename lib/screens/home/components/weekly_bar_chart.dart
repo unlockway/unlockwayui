@@ -48,11 +48,11 @@ class WeeklyBarChart extends StatelessWidget {
             Color barColor;
 
             if (value >= seventyFivePercent) {
-              barColor = Color(primary);
-            } else if (value <= twentyFivePercent) {
               barColor = Color(danger);
-            } else {
+            } else if (value <= twentyFivePercent) {
               barColor = Color(blue);
+            } else {
+              barColor = Color(primary);
             }
 
             return BarChartGroupData(
@@ -117,8 +117,25 @@ class WeeklyBarChart extends StatelessWidget {
                 color: Colors.transparent,
               );
             },
+            getDrawingVerticalLine: (value) {
+              return const FlLine(
+                color: Colors.transparent,
+              );
+            },
           ),
-          borderData: FlBorderData(show: false),
+          borderData: FlBorderData(
+            show: true,
+            border: Border(
+              bottom: BorderSide(
+                color: Theme.of(context).colorScheme.onSurface,
+                width: 2,
+              ),
+              right: BorderSide(
+                color: Theme.of(context).colorScheme.onSurface,
+                width: 2,
+              ),
+            ),
+          ),
         ),
       ),
     );

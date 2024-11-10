@@ -55,6 +55,50 @@ class ButtonFilled extends StatelessWidget {
   }
 }
 
+class ButtonFilledDanger extends StatelessWidget {
+  const ButtonFilledDanger({
+    super.key,
+    required this.text,
+    required this.height,
+    required this.width,
+    required this.onTap,
+  });
+
+  final String text;
+  final double height;
+  final double width;
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Color(danger),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          child: Center(
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                fontFamily: "Inter",
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class ButtonOutlined extends StatelessWidget {
   const ButtonOutlined({
     super.key,

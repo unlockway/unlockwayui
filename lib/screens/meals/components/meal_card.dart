@@ -4,8 +4,8 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/screens/meals/components/meal_form.dart';
 
-class UCard extends StatelessWidget {
-  const UCard({
+class MealCard extends StatelessWidget {
+  const MealCard({
     super.key,
     required this.description,
     required this.title,

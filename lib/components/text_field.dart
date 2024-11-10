@@ -263,3 +263,46 @@ class TextFieldMultline extends StatelessWidget {
     );
   }
 }
+
+class TextFieldSimpleMultline extends StatelessWidget {
+  const TextFieldSimpleMultline({
+    super.key,
+    required this.title,
+    required this.width,
+    required this.controller,
+  });
+
+  final String title;
+  final double width;
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      minLines: 8,
+      maxLines: 20,
+      cursorColor: Theme.of(context).colorScheme.outline,
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(darkBgdark)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(primarydark)),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        hintStyle: const TextStyle(
+          color: Color(0xFF616B7C),
+        ),
+        filled: true,
+        fillColor: Theme.of(context).colorScheme.onSurface,
+        focusColor: Theme.of(context).colorScheme.onSurface,
+      ),
+      style: TextStyle(
+        fontFamily: "Inter",
+        color: Theme.of(context).colorScheme.outline,
+      ),
+    );
+  }
+}

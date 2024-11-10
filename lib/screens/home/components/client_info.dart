@@ -80,7 +80,7 @@ class _ClientInfoState extends State<ClientInfo> {
                         ),
                       );
                     }),
-                const SizedBox(height: 80),
+                const SizedBox(height: 50),
                 const WeeklyBarChart(
                   weeklyValues: [10, 20, 30, 4000, 50, 60, 7000],
                 ),

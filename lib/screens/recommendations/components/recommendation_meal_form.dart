@@ -1,60 +1,66 @@
 import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/app_bar.dart';
 import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/components/popups.dart';
+import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
-import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
-import 'package:dotted_border/dotted_border.dart';
 
-class PatientNewMeal extends StatefulWidget {
-  const PatientNewMeal({
+class RecommendationMealForm extends StatefulWidget {
+  const RecommendationMealForm({
     super.key,
     required this.id,
-    required this.category,
-    required this.selectedFoods,
+    required this.img,
     required this.name,
-    required this.preparationMethod,
+    required this.category,
     required this.description,
-    required this.selectedImage,
+    required this.preparationMethod,
+    required this.ingredientsSelected,
+    required this.onSave,
   });
 
   final String id;
-  final String category;
-  final List selectedFoods;
+  final String? img;
   final String name;
-  final String preparationMethod;
+  final String category;
   final String description;
-  final File selectedImage;
+  final String preparationMethod;
+  final List<SelectedFood> ingredientsSelected;
+  final VoidCallback onSave;
 
   @override
-  State<PatientNewMeal> createState() => _PatientNewMealState();
+  State<RecommendationMealForm> createState() => _RecommendationMealFormState();
 }
 
-class _PatientNewMealState extends State<PatientNewMeal> {
+class _RecommendationMealFormState extends State<RecommendationMealForm> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController preparationMethodController = TextEditingController();
+  String selectedImagePath = '';
+  List<SelectedFood> ingredientsSelected = [];
+  String? category;
+
   @override
   void initState() {
+    if (widget.id.isNotEmpty) {
+      nameController.text = widget.name;
+      descriptionController.text = widget.description;
+      preparationMethodController.text = widget.preparationMethod;
+      category = widget.category;
+      ingredientsSelected = widget.ingredientsSelected;
+    }
     super.initState();
   }
-
-  UserModel user = userData;
-  final List<String> selectedFoods = [];
-
-  String selectedImagePath = '';
-  final categoriaController = TextEditingController();
-  final nomeController = TextEditingController();
-  final descriptionController = TextEditingController();
-  final preparationMethodController = TextEditingController();
-  List<Object> ingredients = [];
-  String? category;
-  List<SelectedFood> ingredientsSelected = [];
-  double ingredientsTotalCalories = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,42 +69,83 @@ class _PatientNewMealState extends State<PatientNewMeal> {
         margin: const EdgeInsets.all(10),
         child: Row(
           children: [
-            ButtonOutlined(
-              color: Color(danger),
-              text: "EXCLUIR",
-              height: 48,
-              width: double.infinity,
-              onTap: () {
-                deleteMealAPI(
-                  context,
-                  user.token!,
-                  widget.id,
-                );
-              },
+            Flexible(
+              child: ButtonOutlined(
+                color: Theme.of(context).colorScheme.primary,
+                text: "CANCELAR",
+                height: 48,
+                width: double.infinity,
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
             const SizedBox(
               width: 15,
             ),
-            Flexible(
-              child: ButtonFilled(
-                text: "SALVAR",
-                height: 48,
-                width: double.infinity,
-                onTap: () {
-                  createMealsAPI(
-                    context,
-                    user.token!,
-                    user.id!,
-                    nomeController.text,
-                    category!,
-                    descriptionController.text,
-                    preparationMethodController.text,
-                    ingredientsSelected,
-                    selectedImagePath != '' ? File(selectedImagePath) : null,
-                  );
-                },
-              ),
-            ),
+            widget.name.isNotEmpty
+                ? Flexible(
+                    child: ButtonFilled(
+                      text: "EDITAR",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        editMealsAPI(
+                          context,
+                          userData.token!,
+                          userData.id!,
+                          widget.id,
+                          nameController.text,
+                          category!,
+                          descriptionController.text,
+                          preparationMethodController.text,
+                          ingredientsSelected,
+                          selectedImagePath != ''
+                              ? File(selectedImagePath)
+                              : null,
+                        ).then((value) {
+                          widget.onSave();
+                        });
+                      },
+                    ),
+                  )
+                : Flexible(
+                    child: ButtonFilled(
+                      text: "SALVAR",
+                      height: 48,
+                      width: double.infinity,
+                      onTap: () {
+                        if (nameController.text == "" ||
+                            descriptionController.text == "" ||
+                            preparationMethodController.text == "" ||
+                            category == null ||
+                            ingredientsSelected.isEmpty) {
+                          modalBuilderBottomAnimation(
+                            context,
+                            const SimplePopup(
+                              message: "Preencha todos os campos",
+                            ),
+                          );
+                        } else {
+                          createMealsAPI(
+                            context,
+                            userData.token!,
+                            userData.id!,
+                            nameController.text,
+                            category!,
+                            descriptionController.text,
+                            preparationMethodController.text,
+                            ingredientsSelected,
+                            selectedImagePath != ''
+                                ? File(selectedImagePath)
+                                : null,
+                          ).then((value) {
+                            widget.onSave();
+                          });
+                        }
+                      },
+                    ),
+                  ),
           ],
         ),
       ),
@@ -129,54 +176,67 @@ class _PatientNewMealState extends State<PatientNewMeal> {
                         ),
                         child: Image.file(
                           File(selectedImagePath),
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.contain,
                           width: double.infinity,
                           height: 158,
                         ),
                       )
-                    : DottedBorder(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        borderType: BorderType.RRect,
-                        radius: const Radius.circular(12),
-                        padding: const EdgeInsets.all(6),
-                        dashPattern: const [10, 10],
-                        strokeWidth: 2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          height: 158,
-                          width: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                PhosphorIcons.camera(
-                                    PhosphorIconsStyle.regular),
-                                size: 94.0,
-                                color: Theme.of(context).colorScheme.outline,
+                    : widget.img != null
+                        ? CachedNetworkImage(
+                            imageUrl: widget.img!,
+                            fit: BoxFit.contain,
+                            width: double.infinity,
+                            height: 158,
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
+                        : DottedBorder(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            borderType: BorderType.RRect,
+                            radius: const Radius.circular(12),
+                            padding: const EdgeInsets.all(6),
+                            dashPattern: const [10, 10],
+                            strokeWidth: 2,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              Text(
-                                "Escolha uma imagem",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "Inter",
-                                  color: Theme.of(context).colorScheme.outline,
-                                ),
+                              height: 158,
+                              width: double.infinity,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    PhosphorIcons.camera(
+                                      PhosphorIconsStyle.regular,
+                                    ),
+                                    size: 94.0,
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                  ),
+                                  Text(
+                                    "Escolha uma imagem",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: "Inter",
+                                      color:
+                                          Theme.of(context).colorScheme.outline,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
               ),
               const SizedBox(height: 20),
               GenericTextField(
                 title: "Nome",
                 placeholder: "Insira o nome da refeição",
                 width: double.infinity,
-                controller: nomeController,
+                controller: nameController,
                 number: false,
               ),
               const SizedBox(height: 20),
@@ -220,17 +280,24 @@ class _PatientNewMealState extends State<PatientNewMeal> {
                   underline: Container(
                     color: Colors.transparent,
                   ),
-                  items: <String>[
-                    'Café da manhã',
-                    'Almoço',
-                    'Jantar',
-                    'Lanche',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'BREAKFAST',
+                      child: Text('Café da manhã'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'LUNCH',
+                      child: Text('Almoço'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'DINNER',
+                      child: Text('Jantar'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'SNACK',
+                      child: Text('Lanche'),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
@@ -239,19 +306,20 @@ class _PatientNewMealState extends State<PatientNewMeal> {
                   Navigator.of(context)
                       .push(
                     navigationPageRightAnimation(
-                      FoodSelectionPage(ingredients: ingredientsSelected),
+                      FoodSelectionPage(
+                        ingredients: ingredientsSelected,
+                      ),
                     ),
                   )
                       .then(
                     (value) {
-                      if (value.isNotEmpty) {
-                        setState(
-                          () {
-                            ingredientsTotalCalories = 0;
+                      setState(
+                        () {
+                          if (value != null) {
                             ingredientsSelected = value;
-                          },
-                        );
-                      }
+                          }
+                        },
+                      );
                     },
                   );
                 },

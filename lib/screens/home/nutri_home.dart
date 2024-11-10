@@ -4,12 +4,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/nutri_bottom_navigator.dart';
+import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
 import 'package:unlockway/models/home_data.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/client_card.dart';
 import 'package:unlockway/screens/home/components/client_info.dart';
+import 'package:unlockway/screens/home/components/delete_patient_popup.dart';
+import 'package:unlockway/screens/home/components/new_patient_popup.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -91,6 +94,24 @@ class _NutriHomeState extends State<NutriHome> {
                 color: Theme.of(context).colorScheme.outline,
                 onPressed: _onBackButtonPressed,
               ),
+              actions: [
+                Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: IconButton(
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(Color(danger)),
+                    ),
+                    icon: const Icon(Icons.link_off),
+                    color: Theme.of(context).colorScheme.outline,
+                    onPressed: () {
+                      modalBuilderBottomAnimation(
+                        context,
+                        const DeletePatientPopup(),
+                      );
+                    },
+                  ),
+                ),
+              ],
               backgroundColor: Colors.transparent,
               elevation: 0,
             )
@@ -311,6 +332,30 @@ class _NutriHomeState extends State<NutriHome> {
                                           Theme.of(context).colorScheme.outline,
                                       fontWeight: FontWeight.w100,
                                     ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                child: IconButton(
+                                  onPressed: () {
+                                    modalBuilderBottomAnimation(
+                                      context,
+                                      const NewPatientPopup(),
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.add,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
                                   ),
                                 ),
                               ),

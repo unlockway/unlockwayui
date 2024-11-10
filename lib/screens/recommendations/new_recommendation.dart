@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/models/meal_suggestion.dart';
 import 'package:unlockway/models/routine_suggestion.dart';
 import 'package:unlockway/models/user.dart';
+import 'package:unlockway/screens/recommendations/recommendation_meals.dart';
 
 class NewRecommendation extends StatefulWidget {
   const NewRecommendation({
@@ -21,6 +23,7 @@ class _NewRecommendationState extends State<NewRecommendation> {
   Widget build(BuildContext context) {
     List<MealSuggestion> mealSuggestions;
     List<RoutineSuggestion> routineSuggestions;
+    final descriptionController = TextEditingController();
 
     return Scaffold(
       bottomNavigationBar: SizedBox(
@@ -129,7 +132,16 @@ class _NewRecommendationState extends State<NewRecommendation> {
                       color: Theme.of(context).colorScheme.outline),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      navigationPageRightAnimation(
+                        RecommendationMeals(
+                          patient: widget.patient,
+                        ),
+                      ),
+                    );
+                  },
                   child: const Text(
                     "VER TODAS",
                     style: TextStyle(
@@ -170,6 +182,26 @@ class _NewRecommendationState extends State<NewRecommendation> {
             ),
             const SizedBox(
               height: 30,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Descrição",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.outline,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            TextFieldSimpleMultline(
+              title: "Descrição",
+              width: double.infinity,
+              controller: descriptionController,
             ),
           ],
         ),

@@ -22,16 +22,8 @@ class ClientCard extends StatelessWidget {
         margin: const EdgeInsets.only(top: 10),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.onSecondary,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).colorScheme.shadow,
-              blurRadius: 10,
-              offset: const Offset(0, 4), // Deslocamento para baixo (somente Y)
-              spreadRadius: 0, // Mantém a sombra concentrada na parte de baixo
-            ),
-          ],
         ),
         child: Row(
           children: [
