@@ -45,7 +45,7 @@ class _NewRecommendationState extends State<NewRecommendation> {
                 ),
                 shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8), // Border radius
+                    borderRadius: BorderRadius.circular(12), // Border radius
                   ),
                 ),
               ),
@@ -72,7 +72,7 @@ class _NewRecommendationState extends State<NewRecommendation> {
                 ),
                 shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8), // Border radius
+                    borderRadius: BorderRadius.circular(12), // Border radius
                   ),
                 ),
               ),
