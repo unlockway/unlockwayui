@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
@@ -26,40 +25,51 @@ class NewRecommendation extends StatefulWidget {
 }
 
 class _NewRecommendationState extends State<NewRecommendation> {
+  List<MealsModel> mealsList = [];
+  List<RoutineModel> routineList = [];
+  int selectedPage = 0;
+  late List<MealSuggestion> mealSuggestions;
+  late List<RoutineSuggestion> routineSuggestions;
+  final descriptionController = TextEditingController();
+  bool _isLoading = true;
+
+  Future<void> fetchMealsAndRoutines() async {
+    List<MealsModel> resultMeals = await getPatientMealsAPI(
+      context,
+      widget.patient.id!,
+    );
+
+    List<RoutineModel> resultRoutines = await getPatientRoutinesAPI(
+      context,
+      widget.patient,
+    );
+
+    setState(() {
+      mealsList = resultMeals;
+      routineList = resultRoutines;
+      _isLoading = false;
+    });
+  }
+
+  void changePage(int page) {
+    setState(() {
+      selectedPage = page;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMealsAndRoutines();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<MealsModel> mealsList = [];
-    List<RoutineModel> routineList = [];
-    int selectedPage = 0;
-    List<MealSuggestion> mealSuggestions;
-    List<RoutineSuggestion> routineSuggestions;
-    final descriptionController = TextEditingController();
-    bool _isLoading = true;
-
-    Future<void> fetchMealsAndRoutines() async {
-      List<MealsModel> resultMeals = await getPatientMealsAPI(
-        context,
-        widget.patient.id!,
-      );
-
-      List<RoutineModel> resultRoutines = await getPatientRoutinesAPI(
-        context,
-        widget.patient,
-      );
-
-      setState(() {
-        mealsList = resultMeals;
-        routineList = resultRoutines;
-        _isLoading = false;
-      });
-    }
-
-    void changePage(int page) {
-      setState(() {
-        selectedPage = page;
-      });
-    }
-
     return Scaffold(
       bottomNavigationBar: SizedBox(
         height: 80,
@@ -151,101 +161,115 @@ class _NewRecommendationState extends State<NewRecommendation> {
         elevation: 0,
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: selectedPage == 0
-          ? Container(
-              margin: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-                top: 16,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Refeições",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.outline),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          changePage(1);
-                        },
-                        child: const Text(
-                          "VER TODAS",
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        child: selectedPage == 0
+            ? Container(
+                key: const ValueKey(0),
+                margin: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 16,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Refeições",
                           style: TextStyle(
-                            color: Color(0xFF1CF3B6),
-                            fontWeight: FontWeight.w100,
-                            fontSize: 20,
+                              fontSize: 20,
+                              fontFamily: "Inter",
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.outline),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            changePage(1);
+                          },
+                          child: const Text(
+                            "VER TODAS",
+                            style: TextStyle(
+                              color: Color(0xFF1CF3B6),
+                              fontWeight: FontWeight.w100,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Rotinas",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.outline),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          changePage(2);
-                        },
-                        child: const Text(
-                          "VER TODAS",
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Rotinas",
                           style: TextStyle(
-                            color: Color(0xFF1CF3B6),
-                            fontWeight: FontWeight.w100,
-                            fontSize: 20,
+                              fontSize: 20,
+                              fontFamily: "Inter",
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.outline),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            changePage(2);
+                          },
+                          child: const Text(
+                            "VER TODAS",
+                            style: TextStyle(
+                              color: Color(0xFF1CF3B6),
+                              fontWeight: FontWeight.w100,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Descrição",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.outline,
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Descrição",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextFieldSimpleMultline(
+                      title: "Descrição",
+                      width: double.infinity,
+                      controller: descriptionController,
+                    ),
+                  ],
+                ),
+              )
+            : selectedPage == 1
+                ? RecommendationMeals(
+                    key: const ValueKey(1),
+                    meals: mealsList,
+                  )
+                : RecommendationRoutines(
+                    key: const ValueKey(2),
+                    routines: routineList,
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFieldSimpleMultline(
-                    title: "Descrição",
-                    width: double.infinity,
-                    controller: descriptionController,
-                  ),
-                ],
-              ),
-            )
-          : selectedPage == 1
-              ? RecommendationMeals(
-                  meals: mealsList,
-                )
-              : RecommendationRoutines(routines: routineList),
+      ),
     );
   }
 }

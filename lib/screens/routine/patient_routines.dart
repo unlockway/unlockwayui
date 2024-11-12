@@ -2,16 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:unlockway/components/bottom_navigator.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/patient_bottom_navigator.dart';
-import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/recommendations/recommendations.dart';
-import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 import 'package:unlockway/screens/routine/components/routine_card.dart';
 
 class PatientRoutine extends StatefulWidget {

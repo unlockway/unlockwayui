@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/components/text_field.dart';
-import 'package:unlockway/constants.dart';
 
 class DeletePatientPopup extends StatelessWidget {
   const DeletePatientPopup({super.key});
