@@ -61,6 +61,7 @@ class _RoutineState extends State<Routine> {
               .push(
                 navigationPageRightAnimation(
                   const NewRoutine(
+                    patientMeals: null,
                     routineId: null,
                     inUsage: false,
                     meals: [],

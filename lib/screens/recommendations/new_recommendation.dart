@@ -1,7 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/meal_suggestion.dart';
@@ -9,14 +10,13 @@ import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/routine_suggestion.dart';
 import 'package:unlockway/models/user.dart';
+import 'package:unlockway/screens/meals/components/meal_form.dart';
 import 'package:unlockway/screens/recommendations/recommendation_meals.dart';
 import 'package:unlockway/screens/recommendations/recommendation_routines.dart';
+import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 
 class NewRecommendation extends StatefulWidget {
-  const NewRecommendation({
-    super.key,
-    required this.patient,
-  });
+  const NewRecommendation({super.key, required this.patient});
 
   final UserModel patient;
 
@@ -71,71 +71,6 @@ class _NewRecommendationState extends State<NewRecommendation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: 80,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            OutlinedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              style: ButtonStyle(
-                padding: WidgetStateProperty.all(
-                  const EdgeInsets.all(16),
-                ),
-                side: WidgetStateProperty.all(
-                  BorderSide(
-                    color: Theme.of(context).colorScheme.error,
-                    width: 2, // Increased border width
-                  ),
-                ),
-                shape: WidgetStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // Border radius
-                  ),
-                ),
-              ),
-              child: Text(
-                "Cancelar",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.error,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            OutlinedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                padding: WidgetStateProperty.all(
-                  const EdgeInsets.all(16),
-                ),
-                side: WidgetStateProperty.all(
-                  BorderSide(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2, // Increased border width
-                  ),
-                ),
-                shape: WidgetStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // Border radius
-                  ),
-                ),
-              ),
-              child: Text(
-                "Criar Sugestão",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -164,112 +99,230 @@ class _NewRecommendationState extends State<NewRecommendation> {
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         transitionBuilder: (Widget child, Animation<double> animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
+          return FadeTransition(opacity: animation, child: child);
         },
         child: selectedPage == 0
             ? Container(
                 key: const ValueKey(0),
-                margin: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 16,
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Refeições",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.outline),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            changePage(1);
-                          },
-                          child: const Text(
-                            "VER TODAS",
-                            style: TextStyle(
-                              color: Color(0xFF1CF3B6),
-                              fontWeight: FontWeight.w100,
-                              fontSize: 20,
+                margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Refeições",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  changePage(1);
+                                },
+                                child: const Text(
+                                  "VER TODAS",
+                                  style: TextStyle(
+                                    color: Color(0xFF1CF3B6),
+                                    fontWeight: FontWeight.w100,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 30),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Rotinas",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  changePage(2);
+                                },
+                                child: const Text(
+                                  "VER TODAS",
+                                  style: TextStyle(
+                                    color: Color(0xFF1CF3B6),
+                                    fontWeight: FontWeight.w100,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 30),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Descrição",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: "Inter",
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Rotinas",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.outline),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            changePage(2);
-                          },
-                          child: const Text(
-                            "VER TODAS",
-                            style: TextStyle(
-                              color: Color(0xFF1CF3B6),
-                              fontWeight: FontWeight.w100,
-                              fontSize: 20,
-                            ),
+                          const SizedBox(height: 8),
+                          TextFieldSimpleMultline(
+                            title: "Descrição",
+                            width: double.infinity,
+                            controller: descriptionController,
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Descrição",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    TextFieldSimpleMultline(
-                      title: "Descrição",
-                      width: double.infinity,
-                      controller: descriptionController,
-                    ),
-                  ],
-                ),
               )
             : selectedPage == 1
-                ? RecommendationMeals(
-                    key: const ValueKey(1),
-                    meals: mealsList,
-                  )
+                ? RecommendationMeals(key: const ValueKey(1), meals: mealsList)
                 : RecommendationRoutines(
                     key: const ValueKey(2),
                     routines: routineList,
                   ),
       ),
+      bottomNavigationBar: selectedPage == 0
+          ? SizedBox(
+              height: 80,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.all(16),
+                      ),
+                      side: MaterialStateProperty.all(
+                        BorderSide(
+                          color: Theme.of(context).colorScheme.error,
+                          width: 2,
+                        ),
+                      ),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      "Cancelar",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.all(16),
+                      ),
+                      side: MaterialStateProperty.all(
+                        BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 2,
+                        ),
+                      ),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      "Criar Sugestão",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : null,
+      floatingActionButton: selectedPage == 1
+          ? IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  navigationPageRightAnimation(
+                    MealForm(
+                      patient: widget.patient,
+                      id: '',
+                      category: '',
+                      description: '',
+                      ingredientsSelected: const [],
+                      name: '',
+                      preparationMethod: '',
+                      img: null,
+                      onSave: () {
+                        () {};
+                      },
+                    ),
+                  ),
+                );
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  Color(primarydark),
+                ),
+                iconColor: WidgetStatePropertyAll(
+                    Theme.of(context).colorScheme.outline),
+              ),
+              iconSize: 24,
+              icon: const Icon(Icons.add),
+            )
+          : selectedPage == 2
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(
+                          navigationPageRightAnimation(
+                            NewRoutine(
+                              patientMeals: mealsList,
+                              routineId: null,
+                              inUsage: false,
+                              meals: [],
+                              name: null,
+                              weekRepetitions: null,
+                            ),
+                          ),
+                        )
+                        .then(
+                          (value) {},
+                        );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      Color(primarydark),
+                    ),
+                    iconColor: WidgetStatePropertyAll(
+                        Theme.of(context).colorScheme.outline),
+                  ),
+                  iconSize: 24,
+                  icon: const Icon(Icons.add),
+                )
+              : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

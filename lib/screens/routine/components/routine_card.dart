@@ -40,6 +40,7 @@ class RoutineCard extends StatelessWidget {
             context,
             navigationPageRightAnimation(
               NewRoutine(
+                patientMeals: null,
                 routineId: routineId,
                 name: name,
                 meals: meals,

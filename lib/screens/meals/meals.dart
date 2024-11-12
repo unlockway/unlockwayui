@@ -57,6 +57,7 @@ class _MealsState extends State<Meals> {
           Navigator.of(context).push(
             navigationPageRightAnimation(
               MealForm(
+                patient: null,
                 id: '',
                 category: '',
                 description: '',

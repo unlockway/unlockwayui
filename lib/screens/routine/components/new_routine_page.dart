@@ -21,6 +21,7 @@ class NewRoutine extends StatefulWidget {
     required this.inUsage,
     required this.weekRepetitions,
     required this.routineId,
+    required this.patientMeals,
   });
 
   final String? name;
@@ -28,6 +29,7 @@ class NewRoutine extends StatefulWidget {
   final bool? inUsage;
   final List<bool>? weekRepetitions;
   final String? routineId;
+  final List<MealsModel>? patientMeals;
 
   @override
   State<NewRoutine> createState() => _NewRoutineState();
@@ -54,6 +56,15 @@ class _NewRoutineState extends State<NewRoutine> {
   void fetchAllMeals() async {
     var result = await getMealsAPI(context);
 
+    setState(() {
+      mealsList = result;
+      _isLoading = false;
+    });
+  }
+
+  void fetchAllPatientMeals() async {
+    var result = widget.patientMeals!;
+    print(widget.patientMeals!.length);
     setState(() {
       mealsList = result;
       _isLoading = false;
@@ -88,7 +99,8 @@ class _NewRoutineState extends State<NewRoutine> {
   @override
   void initState() {
     super.initState();
-    fetchAllMeals();
+
+    widget.patientMeals != null ? fetchAllPatientMeals() : fetchAllMeals();
     if (widget.name != null) {
       nameController.text = widget.name!;
       daysSelected = widget.weekRepetitions!;
@@ -109,56 +121,62 @@ class _NewRoutineState extends State<NewRoutine> {
           child: widget.name != null
               ? Row(
                   children: [
-                    ButtonOutlined(
-                      text: "EXCLUIR ROTINA",
-                      height: 48,
-                      width: double.infinity,
-                      onTap: () {
-                        deleteRoutineAPI(
-                          context,
-                          user.token!,
-                          widget.routineId!,
-                        );
-                      },
-                      color: Color(danger),
+                    Flexible(
+                      child: ButtonOutlined(
+                        text: "EXCLUIR ROTINA",
+                        height: 48,
+                        width: double.infinity,
+                        onTap: () {
+                          deleteRoutineAPI(
+                            context,
+                            user.token!,
+                            widget.routineId!,
+                          );
+                        },
+                        color: Color(danger),
+                      ),
                     ),
                     const SizedBox(
                       width: 20,
                     ),
-                    ButtonFilled(
-                      text: "EDITAR ROTINA",
-                      height: 48,
-                      width: double.infinity,
-                      onTap: () {
-                        editRoutineAPI(
-                          context,
-                          nameController.text,
-                          widget.inUsage!,
-                          mealsSelectedToRoutine,
-                          daysSelected,
-                          widget.routineId!,
-                        );
-                      },
+                    Flexible(
+                      child: ButtonFilled(
+                        text: "EDITAR ROTINA",
+                        height: 48,
+                        width: double.infinity,
+                        onTap: () {
+                          editRoutineAPI(
+                            context,
+                            nameController.text,
+                            widget.inUsage!,
+                            mealsSelectedToRoutine,
+                            daysSelected,
+                            widget.routineId!,
+                          );
+                        },
+                      ),
                     ),
                   ],
                 )
               : Row(
                   children: [
-                    ButtonFilled(
-                      text: "CRIAR ROTINA",
-                      height: 48,
-                      width: double.infinity,
-                      onTap: () {
-                        createRoutineAPI(
-                          context,
-                          user.id!,
-                          user.token!,
-                          nameController.text,
-                          false,
-                          mealsSelectedToRoutine,
-                          daysSelected,
-                        );
-                      },
+                    Flexible(
+                      child: ButtonFilled(
+                        text: "CRIAR ROTINA",
+                        height: 48,
+                        width: double.infinity,
+                        onTap: () {
+                          createRoutineAPI(
+                            context,
+                            user.id!,
+                            user.token!,
+                            nameController.text,
+                            false,
+                            mealsSelectedToRoutine,
+                            daysSelected,
+                          );
+                        },
+                      ),
                     ),
                   ],
                 )),

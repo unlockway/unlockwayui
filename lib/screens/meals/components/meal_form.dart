@@ -14,6 +14,7 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
+import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
 
 class MealForm extends StatefulWidget {
@@ -27,6 +28,7 @@ class MealForm extends StatefulWidget {
     required this.preparationMethod,
     required this.ingredientsSelected,
     required this.onSave,
+    required this.patient,
   });
 
   final String id;
@@ -37,6 +39,7 @@ class MealForm extends StatefulWidget {
   final String preparationMethod;
   final List<SelectedFood> ingredientsSelected;
   final VoidCallback onSave;
+  final UserModel? patient;
 
   @override
   State<MealForm> createState() => _MealFormState();
@@ -69,7 +72,7 @@ class _MealFormState extends State<MealForm> {
         margin: const EdgeInsets.all(10),
         child: Row(
           children: [
-            widget.name.isNotEmpty
+            (widget.name.isNotEmpty && widget.patient != null)
                 ? Flexible(
                     child: ButtonOutlined(
                       color: Color(danger),

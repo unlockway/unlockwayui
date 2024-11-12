@@ -100,16 +100,18 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
         ),
         child: Row(
           children: [
-            ButtonFilled(
-              text: "ESCOLHER",
-              height: 48,
-              width: double.infinity,
-              onTap: () {
-                Navigator.pop(
-                  context,
-                  selectedIngredients,
-                );
-              },
+            Flexible(
+              child: ButtonFilled(
+                text: "ESCOLHER",
+                height: 48,
+                width: double.infinity,
+                onTap: () {
+                  Navigator.pop(
+                    context,
+                    selectedIngredients,
+                  );
+                },
+              ),
             ),
           ],
         ),

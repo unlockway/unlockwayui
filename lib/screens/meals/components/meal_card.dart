@@ -35,6 +35,7 @@ class MealCard extends StatelessWidget {
         Navigator.of(context).push(
           navigationPageRightAnimation(
             MealForm(
+              patient: null,
               id: idMeal,
               name: title,
               category: category,
