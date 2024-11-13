@@ -254,7 +254,7 @@ class _NewRoutineState extends State<NewRoutine> {
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 1,
-                                  childAspectRatio: 1.8,
+                                  childAspectRatio: 2.3,
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10,
                                 ),

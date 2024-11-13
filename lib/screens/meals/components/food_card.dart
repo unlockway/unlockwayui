@@ -41,24 +41,30 @@ class _IngredientCardState extends State<IngredientCard> {
         if (widget.food.measure == "AMOUNT") {
           add = 1;
           quantNumber = quantNumber + add;
-          amountController.text = quantNumber.toString();
+          amountController.text = quantNumber.toInt().toString();
         } else if (widget.food.measure == "MILILITERS" ||
             widget.food.measure == "GRAMS") {
           add = 100;
           quantNumber = quantNumber + add;
-          amountController.text = quantNumber.toString();
+          amountController.text = quantNumber.toInt().toString();
         }
       }
-      if (operation == "sub" && quantNumber > 0) {
+      if (operation == "sub") {
         if (widget.food.measure == "AMOUNT") {
           add = -1;
           quantNumber = quantNumber + add;
-          amountController.text = quantNumber.toString();
+          if (quantNumber < 0) {
+            quantNumber = 0; // Definindo 0 se o valor ficar negativo
+          }
+          amountController.text = quantNumber.toInt().toString();
         } else if (widget.food.measure == "MILILITERS" ||
             widget.food.measure == "GRAMS") {
           add = -100;
           quantNumber = quantNumber + add;
-          amountController.text = quantNumber.toString();
+          if (quantNumber < 0) {
+            quantNumber = 0; // Definindo 0 se o valor ficar negativo
+          }
+          amountController.text = quantNumber.toInt().toString();
         }
       }
       widget.onSumOrSubAmount(quantNumber, widget.food);
@@ -71,7 +77,7 @@ class _IngredientCardState extends State<IngredientCard> {
     selected = widget.checked;
 
     quantNumber = widget.initialValue;
-    amountController.text = quantNumber.toString();
+    amountController.text = quantNumber.toInt().toString();
 
     if (widget.food.measure == "AMOUNT") {
       measureText = "Quant";
@@ -284,6 +290,19 @@ class _IngredientCardState extends State<IngredientCard> {
                                   color: Theme.of(context).colorScheme.outline,
                                   fontSize: 14,
                                 ),
+                                onChanged: (value) {
+                                  // Remove any decimals and update the value as an integer
+                                  if (value.contains('.')) {
+                                    value = value.split(
+                                        '.')[0]; // Remove the decimal part
+                                  }
+                                  amountController.text =
+                                      value; // Set the formatted value
+                                  amountController.selection =
+                                      TextSelection.collapsed(
+                                          offset: value
+                                              .length); // Keep the cursor at the end
+                                },
                               ),
                             ),
                             const SizedBox(

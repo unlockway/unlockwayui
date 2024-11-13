@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/recommendations/components/recommendation_card.dart';
-import 'package:unlockway/screens/recommendations/new_recommendation.dart';
+import 'package:unlockway/screens/recommendations/recommendation.dart';
 
 import '../../models/recommendation.dart';
 
@@ -94,7 +94,10 @@ class Recommendations extends StatelessWidget {
                         Navigator.push(
                           context,
                           navigationPageRightAnimation(
-                            NewRecommendation(patient: patient),
+                            Recommendation(
+                              recommendation: null,
+                              patient: patient,
+                            ),
                           ),
                         );
                       },
@@ -118,6 +121,7 @@ class Recommendations extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: RecommendationCard(
+                        patient: patient,
                         recommendation: RecommendationModel(
                           id: 'id_$index',
                           idNutritionist: 'nutritionist_$index',

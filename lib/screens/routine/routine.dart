@@ -197,6 +197,7 @@ class _RoutineState extends State<Routine> {
                                   }
 
                                   return RoutineCard(
+                                    patientMeals: null,
                                     fetchRoutine: fetchAllRoutines,
                                     routineId: routineIndex.id,
                                     name: routineIndex.name,

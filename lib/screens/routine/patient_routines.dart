@@ -180,6 +180,7 @@ class _PatientRoutineState extends State<PatientRoutine> {
                                   }
 
                                   return RoutineCard(
+                                    patientMeals: null,
                                     fetchRoutine: fetchAllRoutines,
                                     routineId: routineIndex.id,
                                     name: routineIndex.name,

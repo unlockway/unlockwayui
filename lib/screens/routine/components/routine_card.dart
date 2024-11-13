@@ -4,6 +4,7 @@ import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
+import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 
@@ -18,6 +19,7 @@ class RoutineCard extends StatelessWidget {
     required this.using,
     required this.routineId,
     required this.fetchRoutine,
+    required this.patientMeals,
   });
 
   final Function() fetchRoutine;
@@ -28,6 +30,7 @@ class RoutineCard extends StatelessWidget {
   final Color color;
   final bool using;
   final String routineId;
+  final List<MealsModel>? patientMeals;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,7 @@ class RoutineCard extends StatelessWidget {
             context,
             navigationPageRightAnimation(
               NewRoutine(
-                patientMeals: null,
+                patientMeals: patientMeals,
                 routineId: routineId,
                 name: name,
                 meals: meals,

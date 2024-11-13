@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
+import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/screens/routine/components/routine_card.dart';
@@ -11,9 +12,11 @@ class RecommendationRoutines extends StatefulWidget {
   const RecommendationRoutines({
     super.key,
     required this.routines,
+    required this.patientMeals,
   });
 
   final List<RoutineModel> routines;
+  final List<MealsModel> patientMeals;
 
   @override
   State<RecommendationRoutines> createState() => _RecommendationRoutinesState();
@@ -90,6 +93,7 @@ class _RecommendationRoutinesState extends State<RecommendationRoutines> {
                               }
 
                               return RoutineCard(
+                                patientMeals: widget.patientMeals,
                                 fetchRoutine: () {},
                                 routineId: routineIndex.id,
                                 name: routineIndex.name,
