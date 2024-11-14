@@ -119,6 +119,35 @@ class _RecommendationState extends State<Recommendation> {
                     : SingleChildScrollView(
                         child: Column(
                           children: [
+                            widget.recommendation != null
+                                ? Row(
+                                    children: [
+                                      Text.rich(
+                                        TextSpan(
+                                          text: "STATUS: ",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontFamily: "Inter",
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .outline,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                                  widget.recommendation!.status,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                            const SizedBox(height: 30),
                             widget.recommendation == null
                                 ? Row(
                                     mainAxisAlignment:
