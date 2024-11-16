@@ -27,5 +27,5 @@ var danger = 0xFFC33434;
 var success = 0xFF52CC83;
 var blue = 0xFF457B9D;
 
-UserModel userData = UserModel(nutritionist: false); // keep
+UserModel userData = UserModel(); // keep
 String? fcmToken;

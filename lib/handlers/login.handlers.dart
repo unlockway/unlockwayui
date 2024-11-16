@@ -48,7 +48,11 @@ Future<void> loginAPI(
       Map<Object?, Object?> user = json.decode(response.body);
       print(user);
 
-      userData = UserModel.fromMap(user);
+      if (user['cfn'] == null || user['cfn'] == '') {
+        userData = UserModel.fromMap(user);
+      } else {
+        userData = UserModel.fromMapSimple(user);
+      }
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('Email', userData.email!);
@@ -56,7 +60,7 @@ Future<void> loginAPI(
 
       navigatePage(
         context,
-        userData.nutritionist ? const NutriHome() : const Home(),
+        userData.cfnToken != null ? const NutriHome() : const Home(),
       );
 
       if (userData.id != null) {

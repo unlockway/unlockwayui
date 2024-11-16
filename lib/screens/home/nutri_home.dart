@@ -33,7 +33,7 @@ class _NutriHomeState extends State<NutriHome> {
   bool showClientInfo = false;
   UserModel? selectedUser;
 
-  Future<void> fetchAnalysis() async {
+  Future<void> fetchClients() async {
     NutriHomeDataModel result = await getNutriHomeAnalysysAPI(context);
 
     setState(() {
@@ -46,7 +46,7 @@ class _NutriHomeState extends State<NutriHome> {
   void initState() {
     super.initState();
 
-    fetchAnalysis();
+    fetchClients();
   }
 
   @override

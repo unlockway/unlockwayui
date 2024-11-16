@@ -1,4 +1,3 @@
-
 import 'package:unlockway/models/goals.dart';
 
 class UserModel {
@@ -17,7 +16,7 @@ class UserModel {
     this.updatedAt,
     this.imc,
     this.sex,
-    required this.nutritionist,
+    this.cfnToken,
   });
 
   String? id;
@@ -34,7 +33,7 @@ class UserModel {
   String? sex;
   DateTime? createdAt;
   DateTime? updatedAt;
-  bool nutritionist;
+  String? cfnToken;
 
   List<String> getGoalsAsText(Goals? goals) {
     List<String> goalsText = [];
@@ -79,12 +78,36 @@ class UserModel {
         loseWeight: goals["loseWeight"] as bool? ?? false,
       ),
       biotype: map["biotype"] as String?,
-      nutritionist: map["nutritionist"] as bool? ??
-          false, // Verifica se o valor é nulo e define um padrão
+      cfnToken: map["cfn"] != null
+          ? map["cfn"] as String?
+          : null, // Adiciona a verificação para cfn
       createdAt: DateTime.tryParse(map['createdAt'] as String? ?? '') ??
           DateTime.now(),
       updatedAt: DateTime.tryParse(map['updatedAt'] as String? ?? '') ??
           DateTime.now(),
+    );
+  }
+
+  factory UserModel.fromMapSimple(Map<Object?, Object?> map) {
+    return UserModel(
+      id: map['id'] as String?,
+      firstName: map['firstname'] as String?,
+      lastName: map['lastname'] as String?,
+      photo: map["photo"],
+      email: map["email"] as String?,
+      cfnToken: map["cfn"] as String?, // Apenas o cfn é lido
+      token: map["token"] as String?,
+      createdAt: DateTime.tryParse(map['createdAt'] as String? ?? '') ??
+          DateTime.now(),
+      updatedAt: DateTime.tryParse(map['updatedAt'] as String? ?? '') ??
+          DateTime.now(),
+      // Todos os outros campos ficam como nulos
+      height: null,
+      weight: null,
+      imc: null,
+      goals: null,
+      biotype: null,
+      sex: null,
     );
   }
 }
