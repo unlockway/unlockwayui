@@ -20,7 +20,8 @@ Future<List<MealsModel>> getMealsAPI(BuildContext context) async {
 
   //const String apiUrl = 'http://localhost:8080/dishes/get';
 
-  final uri = Uri.parse(apiUrl).replace(queryParameters: {'id': userData.id});
+  final uri =
+      Uri.parse(apiUrl).replace(queryParameters: {'patientId': userData.id});
 
   final response = await http.get(
     uri,

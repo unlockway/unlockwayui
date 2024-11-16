@@ -14,6 +14,7 @@ class WeeklyBarChart extends StatelessWidget {
         .reduce((a, b) => a > b ? a : b);
     final double twentyFivePercent = maxValue * 0.25;
     final double seventyFivePercent = maxValue * 0.75;
+    final bool isAllZeroOrNull = allZeroOrNull(weeklyValues);
 
     return SizedBox(
       width: double.infinity,
@@ -68,40 +69,57 @@ class WeeklyBarChart extends StatelessWidget {
               ],
             );
           }),
-          titlesData: FlTitlesData(
-            show: true,
-            topTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-            rightTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: bottomTitles,
-                reservedSize: 42,
-              ),
-            ),
-            leftTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                reservedSize: 40,
-                interval:
-                    twentyFivePercent, // Garante que seja mostrado a cada 25%
-                getTitlesWidget: (value, meta) {
-                  if ((value - twentyFivePercent).abs() < 0.1) {
-                    return leftTitles(
-                        twentyFivePercent.round().toString(), meta);
-                  } else if ((value - seventyFivePercent).abs() < 0.1) {
-                    return leftTitles(
-                        seventyFivePercent.round().toString(), meta);
-                  }
-                  return Container(); // Esconde outros valores
-                },
-              ),
-            ),
-          ),
+          titlesData: isAllZeroOrNull
+              ? FlTitlesData(
+                  show: true,
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: bottomTitles,
+                      reservedSize: 42,
+                    ),
+                  ),
+                )
+              : FlTitlesData(
+                  show: true,
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: bottomTitles,
+                      reservedSize: 42,
+                    ),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 40,
+                      interval:
+                          twentyFivePercent, // Garante que seja mostrado a cada 25%
+                      getTitlesWidget: (value, meta) {
+                        if ((value - twentyFivePercent).abs() < 0.1) {
+                          return leftTitles(
+                              twentyFivePercent.round().toString(), meta);
+                        } else if ((value - seventyFivePercent).abs() < 0.1) {
+                          return leftTitles(
+                              seventyFivePercent.round().toString(), meta);
+                        }
+                        return Container(); // Esconde outros valores
+                      },
+                    ),
+                  ),
+                ),
           gridData: FlGridData(
             show: true,
             drawVerticalLine: false,
@@ -170,5 +188,9 @@ class WeeklyBarChart extends StatelessWidget {
       space: 8,
       child: text,
     );
+  }
+
+  bool allZeroOrNull(List<double?> values) {
+    return values.every((value) => value == null || value == 0.0);
   }
 }
