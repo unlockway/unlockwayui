@@ -19,12 +19,14 @@ class RegisterStep1 extends StatefulWidget {
     required this.onChangeBiotype,
     required this.onChangeGoals,
     required this.onChangeSex,
+    required this.cfnController,
   });
 
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
   final TextEditingController weightController;
   final TextEditingController heightController;
+  final TextEditingController cfnController;
   final String biotype;
   final String sex;
   final List<String> goals;
@@ -39,7 +41,6 @@ class RegisterStep1 extends StatefulWidget {
 
 class _RegisterStep1State extends State<RegisterStep1> {
   bool isNutritionist = false;
-  final TextEditingController crnController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -202,6 +203,9 @@ class _RegisterStep1State extends State<RegisterStep1> {
               value: isNutritionist,
               onChanged: (bool value) {
                 setState(() {
+                  if (value == false) {
+                    widget.cfnController.clear();
+                  }
                   isNutritionist = value;
                 });
               },
@@ -219,11 +223,11 @@ class _RegisterStep1State extends State<RegisterStep1> {
             children: [
               const SizedBox(height: 20),
               GenericTextField(
-                placeholder: "Insira seu CRN",
-                title: "CRN",
+                placeholder: "Insira o número do seu registro CFN",
+                title: "CFN",
                 width: double.infinity,
                 number: true,
-                controller: crnController,
+                controller: widget.cfnController,
               ),
             ],
           ),

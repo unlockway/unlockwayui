@@ -30,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var lastNameController = TextEditingController();
   var weightController = TextEditingController();
   var heightController = TextEditingController();
+  var cfnController = TextEditingController();
   bool isFetching = false;
 
   String biotype = "ECTOMORPH";
@@ -100,6 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       goals,
       biotype,
       sex,
+      cfnController.text,
     );
     setState(() => isFetching = true);
   }
@@ -136,6 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       (() {
                         if (currentStep == 1) {
                           return RegisterStep1(
+                            cfnController: cfnController,
                             firstNameController: firstNameController,
                             lastNameController: lastNameController,
                             weightController: weightController,
@@ -157,6 +160,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           );
                         }
                         return RegisterStep1(
+                          cfnController: cfnController,
                           firstNameController: firstNameController,
                           lastNameController: lastNameController,
                           weightController: weightController,
@@ -202,19 +206,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (currentStep == 3)
                                           {
                                             registerAPI(
-                                              context,
-                                              firstNameController.text,
-                                              lastNameController.text,
-                                              emailController.text,
-                                              passwordController.text,
-                                              double.parse(
-                                                  heightController.text),
-                                              double.parse(
-                                                  weightController.text),
-                                              goals,
-                                              biotype,
-                                              sex,
-                                            )
+                                                context,
+                                                firstNameController.text,
+                                                lastNameController.text,
+                                                emailController.text,
+                                                passwordController.text,
+                                                double.parse(
+                                                    heightController.text),
+                                                double.parse(
+                                                    weightController.text),
+                                                goals,
+                                                biotype,
+                                                sex,
+                                                cfnController.text)
                                           }
                                         else
                                           {

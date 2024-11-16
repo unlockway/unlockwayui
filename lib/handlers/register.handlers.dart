@@ -23,9 +23,11 @@ Future<void> registerAPI(
   List<String> goals,
   String biotype,
   String sex,
+  String cfnToken,
 ) async {
-  const String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/auth/register';
+  String apiUrl = cfnToken != ""
+      ? "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-nutritionist"
+      : "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-patient";
 
   bool mMass = false;
   bool mHealth = false;
@@ -45,18 +47,28 @@ Future<void> registerAPI(
     "loseWeight": lWeight,
   };
 
-  var payload = {
-    "firstname": firstname,
-    "lastname": lastname,
-    "email": email,
-    "password": password,
-    "height": height,
-    "weight": weight,
-    "goals": goalsObject,
-    "biotype": biotype,
-    "sex": sex,
-    "deviceToken": fcmToken
-  };
+  var payload = cfnToken != ""
+      ? {
+          "firstname": firstname,
+          "lastname": lastname,
+          "email": email,
+          "password": password,
+          "height": height,
+          "weight": weight,
+          "goals": goalsObject,
+          "biotype": biotype,
+          "sex": sex,
+          "deviceToken": fcmToken
+        }
+      : {
+          "firstname": firstname,
+          "lastname": lastname,
+          "photo": "",
+          "email": "string",
+          "password": "string",
+          "cfn": "string",
+          "deviceToken": "string"
+        };
 
   var bodyApi = json.encode(payload);
 

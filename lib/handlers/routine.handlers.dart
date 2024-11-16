@@ -15,7 +15,7 @@ import 'package:unlockway/screens/routine/routine.dart';
 
 Future<List<RoutineModel>> getRoutinesAPI(BuildContext context) async {
   const String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/userId';
+      'https://unlockwayapi.azurewebsites.net/api/v2/routines/patientId';
 
   //const String apiUrl = 'http://localhost:8080/routines/get';
 
@@ -50,7 +50,7 @@ Future<List<RoutineModel>> getRoutinesAPI(BuildContext context) async {
 
 Future<dynamic> getRoutineOnUseAPI(BuildContext context) async {
   const String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/inusage';
+      'https://unlockwayapi.azurewebsites.net/api/v2/routines/inusage';
 
   //const String apiUrl = 'http://localhost:8080/routines/getOnUse';
 
@@ -69,9 +69,10 @@ Future<dynamic> getRoutineOnUseAPI(BuildContext context) async {
 
   String responseBody = utf8.decode(response.bodyBytes);
 
-  if (responseBody == "Não há rotinas em uso") {
+  if (responseBody == "") {
     routineList = null;
   } else {
+    print(responseBody);
     routineList = json.decode(responseBody);
   }
 

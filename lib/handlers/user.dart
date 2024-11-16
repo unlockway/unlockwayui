@@ -26,7 +26,7 @@ Future<void> updateUserDataHandler(
   String sex,
 ) async {
   String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/user/$userId';
+      'https://unlockwayapi.azurewebsites.net/api/v2/patient/$userId';
 
   bool mMass = false;
   bool mHealth = false;
