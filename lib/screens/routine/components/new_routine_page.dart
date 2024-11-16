@@ -64,7 +64,7 @@ class _NewRoutineState extends State<NewRoutine> {
 
   void fetchAllPatientMeals() async {
     var result = widget.patientMeals!;
-    print(widget.patientMeals!.length);
+
     setState(() {
       mealsList = result;
       _isLoading = false;

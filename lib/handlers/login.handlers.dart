@@ -46,7 +46,6 @@ Future<void> loginAPI(
           body: body);
 
       Map<Object?, Object?> user = json.decode(response.body);
-      print(user);
 
       if (user['cfn'] == null || user['cfn'] == '') {
         userData = UserModel.fromMap(user);

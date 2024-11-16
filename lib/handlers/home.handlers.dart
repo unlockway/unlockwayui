@@ -15,8 +15,6 @@ Future<HomeDataModel> getHomeAnalysysAPI(BuildContext context) async {
     queryParameters: {'patientId': userData.id},
   );
 
-  print(userData.token);
-
   final response = await http.get(
     apiUri,
     headers: {
@@ -27,7 +25,7 @@ Future<HomeDataModel> getHomeAnalysysAPI(BuildContext context) async {
 
   if (response.statusCode == 200) {
     String responseBody = utf8.decode(response.bodyBytes);
-    print(responseBody);
+
     Map<String, dynamic> responseData = json.decode(responseBody);
 
     return HomeDataModel.fromMap(responseData);

@@ -72,7 +72,6 @@ Future<dynamic> getRoutineOnUseAPI(BuildContext context) async {
   if (responseBody == "") {
     routineList = null;
   } else {
-    print(responseBody);
     routineList = json.decode(responseBody);
   }
 

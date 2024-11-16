@@ -289,16 +289,16 @@ class _RecommendationState extends State<Recommendation> {
                     child: OutlinedButton(
                       onPressed: () {},
                       style: ButtonStyle(
-                        padding: MaterialStateProperty.all(
+                        padding: WidgetStateProperty.all(
                           const EdgeInsets.all(16),
                         ),
-                        side: MaterialStateProperty.all(
+                        side: WidgetStateProperty.all(
                           BorderSide(
                             color: Color(danger),
                             width: 2,
                           ),
                         ),
-                        shape: MaterialStateProperty.all(
+                        shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -326,16 +326,16 @@ class _RecommendationState extends State<Recommendation> {
                           Navigator.of(context).pop();
                         },
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all(
+                          padding: WidgetStateProperty.all(
                             const EdgeInsets.all(16),
                           ),
-                          side: MaterialStateProperty.all(
+                          side: WidgetStateProperty.all(
                             BorderSide(
                               color: Theme.of(context).colorScheme.error,
                               width: 2,
                             ),
                           ),
-                          shape: MaterialStateProperty.all(
+                          shape: WidgetStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -353,16 +353,16 @@ class _RecommendationState extends State<Recommendation> {
                       OutlinedButton(
                         onPressed: () {},
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all(
+                          padding: WidgetStateProperty.all(
                             const EdgeInsets.all(16),
                           ),
-                          side: MaterialStateProperty.all(
+                          side: WidgetStateProperty.all(
                             BorderSide(
                               color: Theme.of(context).colorScheme.primary,
                               width: 2,
                             ),
                           ),
-                          shape: MaterialStateProperty.all(
+                          shape: WidgetStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -422,7 +422,7 @@ class _RecommendationState extends State<Recommendation> {
                           patientMeals: mealsList,
                           routineId: null,
                           inUsage: false,
-                          meals: [],
+                          meals: const [],
                           name: null,
                           weekRepetitions: null,
                         ),
@@ -458,7 +458,6 @@ class _RecommendationState extends State<Recommendation> {
 
     // Adiciona a sugestão à lista de mealSuggestions
     mealSuggestions.add(suggestion);
-    print(mealSuggestions.length);
 
     // Atualiza o estado da página
     setState(() {

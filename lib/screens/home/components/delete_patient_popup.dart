@@ -6,7 +6,7 @@ class DeletePatientPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailController = TextEditingController();
+    // final emailController = TextEditingController();
 
     return Container(
       decoration: const BoxDecoration(
