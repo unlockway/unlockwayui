@@ -62,38 +62,42 @@ Future<void> loginAPI(
         userData.cfnToken != null ? const NutriHome() : const Home(),
       );
 
-      if (userData.id != null) {
-        String? mMass;
-        String? mHealth;
-        String? lWeight;
+      if (user['cfn'] == null || user['cfn'] == '') {
+        if (userData.id != null) {
+          String? mMass;
+          String? mHealth;
+          String? lWeight;
 
-        if (userData.goals?.gainMuscularMass == true) mMass = 'Ganhar músculo';
-        if (userData.goals?.maintainHealth == true) mHealth = "Manter saúde";
-        if (userData.goals?.loseWeight == true) lWeight = 'Perder peso';
+          if (userData.goals?.gainMuscularMass == true) {
+            mMass = 'Ganhar músculo';
+          }
+          if (userData.goals?.maintainHealth == true) mHealth = "Manter saúde";
+          if (userData.goals?.loseWeight == true) lWeight = 'Perder peso';
 
-        updateUserDataHandler(
-          null,
-          userData.id!,
-          userData.token!,
-          userData.firstName!,
-          userData.lastName!,
-          userData.email!,
-          '',
-          userData.height!,
-          userData.weight!,
-          [mMass, mHealth, lWeight]
-              .where((e) => e != null)
-              .map((e) => e!)
-              .toList(),
-          userData.biotype!,
-          userData.sex!,
-        );
-      }
+          updateUserDataHandler(
+            null,
+            userData.id!,
+            userData.token!,
+            userData.firstName!,
+            userData.lastName!,
+            userData.email!,
+            '',
+            userData.height!,
+            userData.weight!,
+            [mMass, mHealth, lWeight]
+                .where((e) => e != null)
+                .map((e) => e!)
+                .toList(),
+            userData.biotype!,
+            userData.sex!,
+          );
+        }
+      } else {}
     } catch (e) {
       modalBuilderBottomAnimation(
         context,
-        const SimplePopup(
-          message: "Email ou senha incorretos",
+        SimplePopup(
+          message: "Email ou senha incorretos, $e",
         ),
       );
     }
