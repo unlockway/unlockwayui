@@ -252,9 +252,10 @@ class _NewRoutineState extends State<NewRoutine> {
                               ),
                               child: GridView.builder(
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                    SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 1,
-                                  childAspectRatio: 2.3,
+                                  childAspectRatio: constraints.maxWidth /
+                                      (constraints.maxHeight / 3.5),
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10,
                                 ),

@@ -147,34 +147,21 @@ class _MealFormState extends State<MealForm> {
                             ),
                           );
                         } else {
-                          widget.onRecommendation != null
-                              ? widget.onRecommendation!(
-                                  MealsModel(
-                                    id: widget.id,
-                                    name: nameController.text,
-                                    category: category!,
-                                    description: descriptionController.text,
-                                    preparationMethod:
-                                        preparationMethodController.text,
-                                    ingredients: ingredientsSelected,
-                                    photo: selectedImagePath,
-                                  ),
-                                )
-                              : createMealsAPI(
-                                  context,
-                                  userData.token!,
-                                  userData.id!,
-                                  nameController.text,
-                                  category!,
-                                  descriptionController.text,
-                                  preparationMethodController.text,
-                                  ingredientsSelected,
-                                  selectedImagePath != ''
-                                      ? File(selectedImagePath)
-                                      : null,
-                                ).then((value) {
-                                  widget.onSave();
-                                });
+                          createMealsAPI(
+                            context,
+                            userData.token!,
+                            userData.id!,
+                            nameController.text,
+                            category!,
+                            descriptionController.text,
+                            preparationMethodController.text,
+                            ingredientsSelected,
+                            selectedImagePath != ''
+                                ? File(selectedImagePath)
+                                : null,
+                          ).then((value) {
+                            widget.onSave();
+                          });
                         }
                       },
                     ),

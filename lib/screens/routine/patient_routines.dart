@@ -161,7 +161,7 @@ class _PatientRoutineState extends State<PatientRoutine> {
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 1,
-                                  childAspectRatio: 1.6,
+                                  childAspectRatio: 2,
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10,
                                 ),
