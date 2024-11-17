@@ -7,6 +7,7 @@ import 'package:unlockway/components/nutri_bottom_navigator.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
+import 'package:unlockway/handlers/nutri.handlers.dart';
 import 'package:unlockway/models/home_data.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/client_card.dart';
@@ -26,18 +27,17 @@ class NutriHome extends StatefulWidget {
 }
 
 class _NutriHomeState extends State<NutriHome> {
-  late NutriHomeDataModel homeData =
-      const NutriHomeDataModel(notifications: 0, clients: []);
+  late List<UserModel> patients;
   dynamic actualRoutine;
   bool _isLoading = true;
   bool showClientInfo = false;
   UserModel? selectedUser;
 
   Future<void> fetchClients() async {
-    NutriHomeDataModel result = await getNutriHomeAnalysysAPI(context);
+    List<UserModel> result = await getPatientsAPI(context);
 
     setState(() {
-      homeData = result;
+      patients = result;
       _isLoading = false;
     });
   }
@@ -207,44 +207,36 @@ class _NutriHomeState extends State<NutriHome> {
                         onTap: () {},
                         badgeStyle: badges.BadgeStyle(
                           shape: badges.BadgeShape.circle,
-                          badgeColor: homeData.notifications > 0
-                              ? Color(danger)
-                              : Colors.transparent,
+                          badgeColor: Colors.transparent,
                           padding: const EdgeInsets.all(5),
                           borderRadius: BorderRadius.circular(4),
                           elevation: 0,
                         ),
                         child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              navigationPageRightAnimation(
-                                const NotifyPage(),
-                              ),
-                            );
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll(
-                              Theme.of(context).colorScheme.onSurface,
-                            ),
-                            padding: const WidgetStatePropertyAll(
-                              EdgeInsets.all(8),
-                            ),
-                            shape: WidgetStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
-                          icon: homeData.notifications == 0
-                              ? Icon(
-                                  Icons.notifications_none_outlined,
-                                  color: Theme.of(context).colorScheme.outline,
-                                )
-                              : Icon(
-                                  Icons.notifications_active,
-                                  color: Theme.of(context).colorScheme.outline,
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                navigationPageRightAnimation(
+                                  const NotifyPage(),
                                 ),
-                        ),
+                              );
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll(
+                                Theme.of(context).colorScheme.onSurface,
+                              ),
+                              padding: const WidgetStatePropertyAll(
+                                EdgeInsets.all(8),
+                              ),
+                              shape: WidgetStatePropertyAll(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                            icon: Icon(
+                              Icons.notifications_none_outlined,
+                              color: Theme.of(context).colorScheme.outline,
+                            )),
                       ),
                     ],
                   ),
@@ -363,9 +355,9 @@ class _NutriHomeState extends State<NutriHome> {
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemCount: homeData.clients.length,
+                              itemCount: patients.length,
                               itemBuilder: (context, index) {
-                                UserModel client = homeData.clients[index]!;
+                                UserModel client = patients[index];
 
                                 return ClientCard(
                                   user: client,

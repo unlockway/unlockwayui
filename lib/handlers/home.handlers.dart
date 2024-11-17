@@ -35,27 +35,3 @@ Future<HomeDataModel> getHomeAnalysysAPI(BuildContext context) async {
     );
   }
 }
-
-Future<NutriHomeDataModel> getNutriHomeAnalysysAPI(BuildContext context) async {
-  //const String apiUrl =
-  //  'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/home/homeData';
-
-  const String apiUrl = 'http://localhost:8080/home/nutriHomeData';
-
-  final response = await http.get(
-    Uri.parse(apiUrl),
-    headers: {
-      'Authorization': 'Bearer ${userData.token}',
-      'Accept-Charset': 'UTF-8',
-    },
-  );
-
-  if (response.statusCode == 200) {
-    String responseBody = utf8.decode(response.bodyBytes);
-    Map<String, dynamic> responseData = json.decode(responseBody)['data'];
-
-    return NutriHomeDataModel.fromMap(responseData);
-  } else {
-    throw Exception('Falha na solicitação: ${response.statusCode}');
-  }
-}
