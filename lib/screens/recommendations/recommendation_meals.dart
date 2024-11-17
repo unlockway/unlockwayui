@@ -12,8 +12,10 @@ class RecommendationMeals extends StatefulWidget {
   const RecommendationMeals({
     super.key,
     required this.meals,
+    required this.addMealFunc,
   });
 
+  final Function(MealsModel) addMealFunc;
   final List<MealsModel> meals;
 
   @override
@@ -107,6 +109,9 @@ class _RecommendationMealsState extends State<RecommendationMeals> {
                               ingredients: selectedingredients,
                               preparationMethod: actualMeal.preparationMethod,
                               onEdit: () {},
+                              onRecommendation: (meal) {
+                                widget.addMealFunc(meal);
+                              },
                             );
                           },
                         ),

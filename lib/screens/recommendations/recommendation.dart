@@ -64,6 +64,20 @@ class _RecommendationState extends State<Recommendation> {
     });
   }
 
+  void addMealtoList(MealsModel meal) {
+    setState(() {
+      mealsList.add(meal);
+      selectedPage = 0;
+    });
+  }
+
+  void addRoutineToList(RoutineModel routine) {
+    setState(() {
+      routineList.add(routine);
+      selectedPage = 0;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -270,7 +284,11 @@ class _RecommendationState extends State<Recommendation> {
                       ),
               )
             : selectedPage == 1
-                ? RecommendationMeals(key: const ValueKey(1), meals: mealsList)
+                ? RecommendationMeals(
+                    key: const ValueKey(1),
+                    meals: mealsList,
+                    addMealFunc: addMealtoList,
+                  )
                 : RecommendationRoutines(
                     patientMeals: mealsList,
                     key: const ValueKey(2),
@@ -389,7 +407,6 @@ class _RecommendationState extends State<Recommendation> {
                     .push(
                       navigationPageRightAnimation(
                         MealForm(
-                          patient: widget.patient,
                           id: '',
                           category: '',
                           description: '',
@@ -398,6 +415,7 @@ class _RecommendationState extends State<Recommendation> {
                           preparationMethod: '',
                           img: null,
                           onSave: () {},
+                          onRecommendation: addMealtoList,
                         ),
                       ),
                     )

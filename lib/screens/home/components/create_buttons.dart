@@ -34,7 +34,6 @@ class _CreateButtonsState extends State<CreateButtons> {
               Navigator.of(context).push(
                 navigationPageRightAnimation(
                   MealForm(
-                    patient: null,
                     id: '',
                     category: '',
                     description: '',

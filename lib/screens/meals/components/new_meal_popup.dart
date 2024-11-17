@@ -67,7 +67,6 @@ class NewMealPopup extends StatelessWidget {
               Navigator.of(context).push(
                 navigationPageRightAnimation(
                   MealForm(
-                    patient: null,
                     id: '',
                     category: '',
                     description: '',
