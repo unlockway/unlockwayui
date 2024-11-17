@@ -72,7 +72,7 @@ class _MealFormState extends State<MealForm> {
         margin: const EdgeInsets.all(10),
         child: Row(
           children: [
-            (widget.name.isNotEmpty && widget.patient != null)
+            (widget.name.isNotEmpty || widget.patient != null)
                 ? Flexible(
                     child: ButtonOutlined(
                       color: Color(danger),
