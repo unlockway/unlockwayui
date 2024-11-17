@@ -18,11 +18,11 @@ class HistoryModel {
   final Map days;
 
   factory HistoryModel.fromMap(Map<String, dynamic> map) {
-    List historyMeals = map['ingestedMeals'];
+    List historyMeals = map['meals'];
     return HistoryModel(
       idRoutine: map['idRoutine'],
-      routineName: map['routineName'],
-      calories: map['calories'],
+      routineName: map['name'],
+      calories: map['totalCaloriesInTheDay'],
       date: map['date'],
       ingestedMeals: historyMeals.map((e) {
         return HistoryMealOnGet(
@@ -37,7 +37,7 @@ class HistoryModel {
           totalCalories: e['totalCalories'],
         );
       }).toList(),
-      days: map['days'],
+      days: map['weekRepetitions'],
     );
   }
 }

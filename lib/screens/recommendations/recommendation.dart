@@ -4,6 +4,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
+import 'package:unlockway/handlers/nutri.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/meal_suggestion.dart';
 import 'package:unlockway/models/meals.dart';

@@ -1,5 +1,7 @@
 // ignore_for_file: unused_field, use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
@@ -9,6 +11,7 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
 import 'package:unlockway/handlers/nutri.handlers.dart';
 import 'package:unlockway/models/home_data.dart';
+import 'package:unlockway/models/patient.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/client_card.dart';
 import 'package:unlockway/screens/home/components/client_info.dart';
@@ -27,14 +30,16 @@ class NutriHome extends StatefulWidget {
 }
 
 class _NutriHomeState extends State<NutriHome> {
-  late List<UserModel> patients;
+  TextEditingController emailController = TextEditingController();
+  late List<PatientUserModel> patients;
   dynamic actualRoutine;
   bool _isLoading = true;
   bool showClientInfo = false;
-  UserModel? selectedUser;
+  PatientUserModel? selectedUser;
+  Timer? _debounceTimer;
 
   Future<void> fetchClients() async {
-    List<UserModel> result = await getPatientsAPI(context);
+    List<PatientUserModel> result = await getPatientsAPI(context);
 
     setState(() {
       patients = result;
@@ -56,10 +61,12 @@ class _NutriHomeState extends State<NutriHome> {
     _isLoading = false;
   }
 
-  void _onClientCardTap(UserModel user) {
+  void _onClientCardTap(PatientUserModel user) {
     setState(() {
       showClientInfo = true;
       selectedUser = user;
+      print(selectedUser);
+      print(selectedUser!.relationId);
     });
   }
 
@@ -68,6 +75,22 @@ class _NutriHomeState extends State<NutriHome> {
       showClientInfo = false;
       selectedUser = null;
     });
+  }
+
+  void _deletePatient() async {
+    Navigator.of(context, rootNavigator: true).pop('dialog');
+    await deletePatientAPI(context, selectedUser!.relationId!);
+    fetchClients();
+    setState(() {
+      showClientInfo = false;
+      selectedUser = null;
+    });
+  }
+
+  void _linkNewPatient() async {
+    Navigator.of(context, rootNavigator: true).pop('dialog');
+    await linkNewPatientAPI(context, emailController.text);
+    fetchClients();
   }
 
   @override
@@ -106,7 +129,9 @@ class _NutriHomeState extends State<NutriHome> {
                     onPressed: () {
                       modalBuilderBottomAnimation(
                         context,
-                        const DeletePatientPopup(),
+                        DeletePatientPopup(
+                          deleteFunction: _deletePatient,
+                        ),
                       );
                     },
                   ),
@@ -290,7 +315,9 @@ class _NutriHomeState extends State<NutriHome> {
                             children: [
                               Flexible(
                                 child: TextField(
-                                  onChanged: (value) {},
+                                  onChanged: (value) {
+                                    _onTextChanged(value);
+                                  },
                                   cursorColor:
                                       const Color.fromARGB(255, 155, 155, 155),
                                   style: TextStyle(
@@ -341,7 +368,10 @@ class _NutriHomeState extends State<NutriHome> {
                                   onPressed: () {
                                     modalBuilderBottomAnimation(
                                       context,
-                                      const NewPatientPopup(),
+                                      NewPatientPopup(
+                                        emailController: emailController,
+                                        addPatient: _linkNewPatient,
+                                      ),
                                     );
                                   },
                                   icon: Icon(
@@ -357,7 +387,7 @@ class _NutriHomeState extends State<NutriHome> {
                             child: ListView.builder(
                               itemCount: patients.length,
                               itemBuilder: (context, index) {
-                                UserModel client = patients[index];
+                                PatientUserModel client = patients[index];
 
                                 return ClientCard(
                                   user: client,
@@ -374,5 +404,17 @@ class _NutriHomeState extends State<NutriHome> {
               ),
       ),
     );
+  }
+
+  void _onTextChanged(String value) {
+    _debounceTimer?.cancel();
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+      List<PatientUserModel> resultName =
+          await getPatientsByNameAPI(context, value);
+      setState(() {
+        patients = resultName;
+      });
+    });
   }
 }

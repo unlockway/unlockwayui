@@ -27,7 +27,9 @@ Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
     // Agora, você pode decodificar o JSON
     List<dynamic> historyList = json.decode(responseBody);
     // Mapeia os dados para a lista de objetos HistoryModel
+
     List<HistoryModel> history = historyList.map((history) {
+      print(history);
       return HistoryModel.fromMap(history);
     }).toList();
 
@@ -44,7 +46,7 @@ Future<void> getHistoryIngestedAPI(
   String ingestedMealId,
 ) async {
   String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/history/ingested';
+      'https://unlockwayapi.azurewebsites.net/api/v2/history/ingested';
 
   final response = await http.put(
     Uri.parse(apiUrl).replace(queryParameters: {

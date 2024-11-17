@@ -90,6 +90,7 @@ Future<void> registerAPI(
       );
     });
   } catch (error) {
+    print(error);
     modalBuilderBottomAnimation(
       context,
       SimplePopup(

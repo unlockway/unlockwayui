@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/patient.dart';
 import 'package:unlockway/models/user.dart';
 
 class ClientCard extends StatelessWidget {
@@ -10,7 +11,7 @@ class ClientCard extends StatelessWidget {
     required this.onTap,
   });
 
-  final UserModel user;
+  final PatientUserModel user;
   final VoidCallback onTap;
 
   @override

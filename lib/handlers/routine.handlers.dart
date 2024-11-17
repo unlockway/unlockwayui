@@ -55,7 +55,7 @@ Future<dynamic> getRoutineOnUseAPI(BuildContext context) async {
   //const String apiUrl = 'http://localhost:8080/routines/getOnUse';
 
   final uri =
-      Uri.parse(apiUrl).replace(queryParameters: {'userId': userData.id});
+      Uri.parse(apiUrl).replace(queryParameters: {'patientId': userData.id});
 
   final response = await http.get(
     uri,
@@ -88,7 +88,7 @@ Future<void> createRoutineAPI(
   List<bool> weekRepetitions,
 ) async {
   const String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines';
+      'https://unlockwayapi.azurewebsites.net/api/v2/routines';
 
   List<Map<String, dynamic>> jsonList =
       meals.map((meal) => meal.toJson()).toList();
@@ -156,7 +156,7 @@ Future<void> editRoutineAPI(
   String routineID,
 ) async {
   const String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines';
+      'https://unlockwayapi.azurewebsites.net/api/v2/routines';
 
   List<Map<String, dynamic>> jsonList = meals.map((meal) {
     if (meal.notifyAt!.length == 5) meal.notifyAt = "${meal.notifyAt}:00";
@@ -222,7 +222,7 @@ Future<void> deleteRoutineAPI(
   String routineID,
 ) async {
   String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/$routineID';
+      'https://unlockwayapi.azurewebsites.net/api/v2/routines/$routineID';
 
   final response = await http.delete(
     Uri.parse(apiUrl),
@@ -259,11 +259,11 @@ Future<void> deleteRoutineAPI(
 
 Future<void> changeUsedRoutine(BuildContext context, String routineId) async {
   const String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/use';
+      'https://unlockwayapi.azurewebsites.net/api/v2/routines/use';
 
   final response = await http.put(
       Uri.parse(apiUrl).replace(queryParameters: {
-        "user": userData.id,
+        "patientId": userData.id,
         "routine": routineId,
       }),
       headers: {
@@ -278,49 +278,11 @@ Future<List<RoutineModel>> getRoutineByNameAPI(
   String name,
 ) async {
   const String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/findByName';
+      'https://unlockwayapi.azurewebsites.net/api/v2/routines/findByName';
 
   final uri = Uri.parse(apiUrl).replace(queryParameters: {
-    'userId': userData.id,
+    'patientId': userData.id,
     'name': name,
-  });
-
-  final response = await http.get(
-    uri,
-    headers: {
-      'Authorization': 'Bearer ${userData.token}',
-      'Accept-Charset': 'UTF-8', // Adicionado Accept-Charset
-    },
-  );
-
-  if (response.statusCode == 200) {
-    // Use o utf8.decode para garantir que a codificação seja interpretada corretamente
-    String responseBody = utf8.decode(response.bodyBytes);
-
-    // Agora, você pode decodificar o JSON
-    List<dynamic> routineList = json.decode(responseBody);
-
-    // Mapeia os dados para a lista de objetos RoutineModel
-    List<RoutineModel> routines = routineList.map((routine) {
-      return RoutineModel.fromMap(routine);
-    }).toList();
-
-    return routines;
-  } else {
-    // Se a solicitação não foi bem-sucedida, trate o erro (por exemplo, lançar uma exceção)
-    throw Exception('Falha na solicitação: ${response.statusCode}');
-  }
-}
-
-Future<List<RoutineModel>> getPatientRoutinesAPI(
-    BuildContext context, UserModel patient) async {
-  //const String apiUrl =
-  //    'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/userId';
-
-  const String apiUrl = 'http://localhost:8080/routines/get';
-
-  final uri = Uri.parse(apiUrl).replace(queryParameters: {
-    'id': patient.id,
   });
 
   final response = await http.get(

@@ -4,6 +4,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/patient_bottom_navigator.dart';
 import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/models/history.dart';
+import 'package:unlockway/models/patient.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/history/components/history_card.dart';
 import 'package:unlockway/screens/recommendations/recommendations.dart';
@@ -14,7 +15,7 @@ class PatientHistory extends StatefulWidget {
     required this.patient,
   });
 
-  final UserModel patient;
+  final PatientUserModel patient;
 
   @override
   State<PatientHistory> createState() => _PatientHistoryState();

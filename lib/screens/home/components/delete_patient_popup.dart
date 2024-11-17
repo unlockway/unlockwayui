@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
+import 'package:unlockway/handlers/nutri.handlers.dart';
 
 class DeletePatientPopup extends StatelessWidget {
-  const DeletePatientPopup({super.key});
+  const DeletePatientPopup({
+    super.key,
+    required this.deleteFunction,
+  });
+
+  final VoidCallback deleteFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +56,7 @@ class DeletePatientPopup extends StatelessWidget {
                       text: "Desvincular",
                       height: 48.0,
                       width: 200,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
+                      onTap: deleteFunction,
                     ),
                   ),
                 ],

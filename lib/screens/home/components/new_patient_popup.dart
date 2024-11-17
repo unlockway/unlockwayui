@@ -3,12 +3,17 @@ import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
 
 class NewPatientPopup extends StatelessWidget {
-  const NewPatientPopup({super.key});
+  const NewPatientPopup({
+    super.key,
+    required this.emailController,
+    required this.addPatient,
+  });
+
+  final TextEditingController emailController;
+  final VoidCallback addPatient;
 
   @override
   Widget build(BuildContext context) {
-    final emailController = TextEditingController();
-
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -59,7 +64,7 @@ class NewPatientPopup extends StatelessWidget {
                       text: "Adicionar Paciente",
                       height: 48.0,
                       width: 200,
-                      onTap: () {},
+                      onTap: addPatient,
                     ),
                   ),
                 ],

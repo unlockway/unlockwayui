@@ -10,12 +10,15 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
+import 'package:unlockway/models/home_data.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
+import 'package:unlockway/models/patient.dart';
+import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/meals.dart';
 
-Future<List<UserModel>> getPatientsAPI(BuildContext context) async {
+Future<List<PatientUserModel>> getPatientsAPI(BuildContext context) async {
   String apiUrl =
       'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/${userData.id}/patients';
 
@@ -34,15 +37,227 @@ Future<List<UserModel>> getPatientsAPI(BuildContext context) async {
 
   if (response.statusCode == 200) {
     String responseBody = utf8.decode(response.bodyBytes);
+    print(responseBody);
 
     List<dynamic> patientList = json.decode(responseBody);
 
-    List<UserModel> meals = patientList.map((patient) {
-      return UserModel.fromMap(patient);
+    List<PatientUserModel> meals = patientList.map((patient) {
+      return PatientUserModel.fromMap(patient);
     }).toList();
 
     return meals;
   } else {
     throw Exception('Falha na solicitação: ${response.statusCode}');
+  }
+}
+
+Future<List<PatientUserModel>> getPatientsByNameAPI(
+  BuildContext context,
+  String name,
+) async {
+  String baseUrl = 'unlockwayapi.azurewebsites.net';
+  String path = '/api/v2/nutritionist/${userData.id}/patients/findByName';
+
+  // Cria a URI com o parâmetro de consulta "name"
+  final uri = Uri.https(baseUrl, path, {'name': name});
+
+  final response = await http.get(
+    uri,
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Accept-Charset': 'UTF-8',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    String responseBody = utf8.decode(response.bodyBytes);
+    print(responseBody);
+
+    List<dynamic> patientList = json.decode(responseBody);
+
+    List<PatientUserModel> patients = patientList.map((patient) {
+      return PatientUserModel.fromMap(patient);
+    }).toList();
+
+    return patients;
+  } else {
+    throw Exception('Falha na solicitação: ${response.statusCode}');
+  }
+}
+
+Future<List<MealsModel>> getPatientMealsAPI(
+  BuildContext context,
+  String patientId,
+) async {
+  const String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/meals/findByPatientId';
+
+  //const String apiUrl = 'http://localhost:8080/dishes/get';
+
+  final uri =
+      Uri.parse(apiUrl).replace(queryParameters: {'patientId': patientId});
+
+  final response = await http.get(
+    uri,
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Accept-Charset': 'UTF-8',
+    },
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    List<dynamic> mealList = json.decode(responseBody);
+
+    List<MealsModel> meals = mealList.map((meal) {
+      return MealsModel.fromMap(meal);
+    }).toList();
+
+    return meals;
+  } else {
+    throw Exception('Falha na solicitação: ${response.statusCode}');
+  }
+}
+
+Future<List<RoutineModel>> getPatientRoutinesAPI(
+    BuildContext context, UserModel patient) async {
+  //const String apiUrl =
+  //    'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/userId';
+
+  const String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/routines/patientId';
+
+  final uri = Uri.parse(apiUrl).replace(queryParameters: {
+    'id': patient.id,
+  });
+
+  final response = await http.get(
+    uri,
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Accept-Charset': 'UTF-8', // Adicionado Accept-Charset
+    },
+  );
+
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    // Use o utf8.decode para garantir que a codificação seja interpretada corretamente
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    // Agora, você pode decodificar o JSON
+    List<dynamic> routineList = json.decode(responseBody);
+
+    // Mapeia os dados para a lista de objetos RoutineModel
+    List<RoutineModel> routines = routineList.map((routine) {
+      return RoutineModel.fromMap(routine);
+    }).toList();
+
+    return routines;
+  } else {
+    // Se a solicitação não foi bem-sucedida, trate o erro (por exemplo, lançar uma exceção)
+    throw Exception('Falha na solicitação: ${response.statusCode}');
+  }
+}
+
+Future<HomeDataModel> getPatientHomeAnalysysAPI(
+    BuildContext context, String patientId) async {
+  String baseUrl = 'https://unlockwayapi.azurewebsites.net/api/v2/analysis';
+
+  // Cria o Uri com o id como um parâmetro
+  Uri apiUri = Uri.parse(baseUrl).replace(
+    queryParameters: {'patientId': patientId},
+  );
+
+  final response = await http.get(
+    apiUri,
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Accept-Charset': 'UTF-8',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    Map<String, dynamic> responseData = json.decode(responseBody);
+
+    return HomeDataModel.fromMap(responseData);
+  } else {
+    throw Exception(
+      'Falha na solicitação: ${response.statusCode}, ${userData.id}, ${userData.token}',
+    );
+  }
+}
+
+Future<void> deletePatientAPI(
+    BuildContext context, String patientRelationId) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/remove-patient/$patientRelationId';
+
+  final response = await http.delete(
+    Uri.parse(apiUrl),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+    },
+  );
+
+  print(response.statusCode);
+  if (response.statusCode == 200) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Paciente desvinculado com sucesso",
+      ),
+    );
+  }
+
+  if (response.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Erro ao desvincular paciente",
+      ),
+    );
+  }
+}
+
+Future<void> linkNewPatientAPI(
+  BuildContext context,
+  String email,
+) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/${userData.id}/new-patient';
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Content-Type': 'application/json', // Define o tipo do conteúdo como JSON
+    },
+    body: jsonEncode({
+      'email': email, // Payload com o email
+    }),
+  );
+
+  print(response.statusCode);
+  print(response.body);
+  if (response.statusCode == 200) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Paciente vinculado com sucesso",
+      ),
+    );
+  } else {
+    modalBuilderBottomAnimation(
+      context,
+      SimplePopup(
+        message: response.body,
+      ),
+    );
   }
 }

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/patient_bottom_navigator.dart';
+import 'package:unlockway/handlers/nutri.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
+import 'package:unlockway/models/patient.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
@@ -17,7 +19,7 @@ class PatientRoutine extends StatefulWidget {
     required this.patient,
   });
 
-  final UserModel patient;
+  final PatientUserModel patient;
 
   @override
   State<PatientRoutine> createState() => _PatientRoutineState();
