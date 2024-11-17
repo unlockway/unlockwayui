@@ -113,21 +113,6 @@ class ClientCard extends StatelessWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      "|",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.outline,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      user.getGoalsAsText(user.goals)[0],
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.outline,
-                      ),
-                    ),
                   ],
                 ),
               ],

@@ -21,8 +21,8 @@ Future<List<UserModel>> getPatientsAPI(BuildContext context) async {
 
   //const String apiUrl = 'http://localhost:8080/dishes/get';
 
-  final uri =
-      Uri.parse(apiUrl).replace(queryParameters: {'patientId': userData.id});
+  final uri = Uri.parse(
+      apiUrl); //.replace(queryParameters: {'patientId': userData.id});
 
   final response = await http.get(
     uri,
@@ -37,8 +37,8 @@ Future<List<UserModel>> getPatientsAPI(BuildContext context) async {
 
     List<dynamic> patientList = json.decode(responseBody);
 
-    List<UserModel> meals = patientList.map((meal) {
-      return MealsModel.fromMap(meal);
+    List<UserModel> meals = patientList.map((patient) {
+      return UserModel.fromMap(patient);
     }).toList();
 
     return meals;

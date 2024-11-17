@@ -50,8 +50,11 @@ class _ClientInfoState extends State<ClientInfo> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
+          ? SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
             )
           : Column(
               children: [
