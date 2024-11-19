@@ -15,7 +15,6 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
-import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
 
 class MealForm extends StatefulWidget {

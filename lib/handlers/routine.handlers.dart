@@ -10,7 +10,6 @@ import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
-import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/routine/routine.dart';
 
 Future<List<RoutineModel>> getRoutinesAPI(BuildContext context) async {

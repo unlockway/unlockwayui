@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/patient.dart';
-import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/history/patient_history.dart';
 import 'package:unlockway/screens/meals/patient_meals.dart';
 import 'package:unlockway/screens/routine/patient_routines.dart';

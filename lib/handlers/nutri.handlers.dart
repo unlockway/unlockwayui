@@ -1,22 +1,17 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/home_data.dart';
-import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/patient.dart';
 import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
-import 'package:unlockway/screens/meals/meals.dart';
 
 Future<List<PatientUserModel>> getPatientsAPI(BuildContext context) async {
   String apiUrl =

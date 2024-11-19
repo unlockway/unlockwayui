@@ -9,7 +9,6 @@ import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/patient.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
-import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/recommendations/recommendations.dart';
 import 'package:unlockway/screens/routine/components/routine_card.dart';
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/handlers/nutri.handlers.dart';
 
 class DeletePatientPopup extends StatelessWidget {
   const DeletePatientPopup({

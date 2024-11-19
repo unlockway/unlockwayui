@@ -20,6 +20,7 @@ class ClientInfoCard extends StatelessWidget {
         color: Theme.of(context).colorScheme.onSurface,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           user.photo != null
               ? ClipRRect(
@@ -60,7 +61,6 @@ class ClientInfoCard extends StatelessWidget {
                     ),
                   ),
                 ),
-          const SizedBox(width: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

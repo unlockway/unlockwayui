@@ -141,7 +141,11 @@ class _RecommendationsState extends State<Recommendations> {
               height: 16,
             ),
             _isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
                 : Expanded(
                     child: ListView.builder(
                       shrinkWrap: true,

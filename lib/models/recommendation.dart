@@ -35,12 +35,12 @@ class RecommendationModel {
       patientComment: map['patientComment'],
       status: map['status'],
       mealSuggestions: List<MealSuggestion>.from(
-        map['mealSuggestions'].map(
+        map['mealsSuggetions'].map(
           (mealSuggestion) => MealSuggestion.fromMap(mealSuggestion),
         ),
       ),
       routineSuggestions: List<RoutineSuggestion>.from(
-        map['routineSuggestions'].map(
+        map['routineSuggetions'].map(
           (routineSuggestion) => RoutineSuggestion.fromMap(routineSuggestion),
         ),
       ),
