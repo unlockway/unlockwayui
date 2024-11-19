@@ -19,7 +19,7 @@ class RecommendationModel {
   final String idNutritionist;
   final String idPatient;
   final String description;
-  final String patientComment;
+  final String? patientComment;
   final String status;
   final List<MealSuggestion> mealSuggestions;
   final List<RoutineSuggestion> routineSuggestions;

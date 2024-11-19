@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
+import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/meal_card.dart';
 
@@ -13,11 +14,12 @@ class RecommendationMeals extends StatefulWidget {
     super.key,
     required this.meals,
     required this.addMealFunc,
+    required this.recommendation,
   });
 
   final Function() addMealFunc;
   final List<MealsModel> meals;
-
+  final RecommendationModel? recommendation;
   @override
   State<RecommendationMeals> createState() => _RecommendationMealsState();
 }
@@ -110,6 +112,7 @@ class _RecommendationMealsState extends State<RecommendationMeals> {
                               preparationMethod: actualMeal.preparationMethod,
                               onEdit: () {},
                               onRecommendation: widget.addMealFunc,
+                              recommendation: widget.recommendation,
                             );
                           },
                         ),

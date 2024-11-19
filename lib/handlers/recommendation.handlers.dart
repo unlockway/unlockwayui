@@ -113,7 +113,9 @@ Future<List<RecommendationModel>> getPatientRecommendationByDescriptionAPI(
 }
 
 Future<RecommendationModel> createInitialRecommendationAPI(
-    String idPatient, String description) async {
+  String idPatient,
+  String description,
+) async {
   String apiUrl =
       'https://unlockwayapi.azurewebsites.net/api/v2/recommendations';
 
@@ -152,10 +154,68 @@ Future<void> deleteInitialRecommendationAPI(
   String apiUrl =
       'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/$recommendationID';
 
-  await http.delete(
+  final response = await http.delete(
     Uri.parse(apiUrl),
     headers: {
       'Authorization': 'Bearer ${userData.token}',
     },
   );
+
+  print(response.statusCode);
+  print(response.body);
+
+  Navigator.of(context).pop();
+}
+
+Future<void> editCreateRecommendationAPI(
+  BuildContext context,
+  String idRecommendation,
+  String description,
+  String idPatient,
+  String operation,
+) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/$idRecommendation';
+
+  var payload = {
+    "idNutritionist": userData.id,
+    "idPatient": idPatient,
+    "description": description,
+    "status": "SENT"
+  };
+
+  var payloadEncoded = json.encode(payload);
+
+  final response = await http.put(
+    Uri.parse(apiUrl),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      "Content-type": "application/json",
+    },
+    body: payloadEncoded,
+  );
+
+  if (response.statusCode == 200) {
+    modalBuilderBottomAnimation(
+      context,
+      SimplePopup(
+        message: operation == "edit"
+            ? "Recomendação editada com sucesso"
+            : "Recomendação criada com sucesso",
+      ),
+    ).then(
+      (value) {
+        Navigator.pop(context);
+      },
+    );
+  } else if (response.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      SimplePopup(
+        message: operation == "edit"
+            ? "Erro ao editar recomendação"
+            : "Erro ao criar recomendação",
+      ),
+    );
+  }
 }

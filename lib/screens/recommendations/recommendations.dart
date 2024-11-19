@@ -25,9 +25,13 @@ class _RecommendationsState extends State<Recommendations> {
   Timer? _debounceTimer;
 
   void fetchRecommendations() {
+    setState(() {
+      _isLoading = true;
+    });
     getPatientRecommendationAPI(context, widget.patient.id!).then((result) {
       setState(() {
         recommendations = result;
+        print(recommendations.length);
         _isLoading = false;
       });
     });
@@ -156,6 +160,7 @@ class _RecommendationsState extends State<Recommendations> {
                           child: RecommendationCard(
                             patient: widget.patient,
                             recommendation: recommendations[index],
+                            onTap: fetchRecommendations,
                           ),
                         );
                       },

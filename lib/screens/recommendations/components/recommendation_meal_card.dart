@@ -14,7 +14,6 @@ class RecommendationMealCard extends StatelessWidget {
     return InkWell(
       onTap: () {},
       child: Container(
-        margin: const EdgeInsets.only(right: 10),
         height: 100,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.onSurface,
@@ -31,7 +30,10 @@ class RecommendationMealCard extends StatelessWidget {
           children: [
             // Imagem com border-radius ou ícone de "sem imagem"
             ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+              ),
               child:
                   mealSuggestion.photo == null || mealSuggestion.photo!.isEmpty
                       ? Container(

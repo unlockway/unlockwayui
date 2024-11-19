@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
+import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/meals/components/meal_form.dart';
+import 'package:unlockway/screens/recommendations/recommendation.dart';
 
 class MealCard extends StatelessWidget {
   const MealCard({
@@ -18,6 +20,7 @@ class MealCard extends StatelessWidget {
     required this.preparationMethod,
     required this.onEdit,
     this.onRecommendation,
+    this.recommendation,
   });
 
   final String description;
@@ -30,6 +33,7 @@ class MealCard extends StatelessWidget {
   final List<SelectedFood> ingredients;
   final VoidCallback onEdit;
   final Function? onRecommendation;
+  final RecommendationModel? recommendation;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +61,7 @@ class MealCard extends StatelessWidget {
                     preparationMethod: preparationMethod,
                     ingredientsSelected: ingredients,
                     img: imageURL,
+                    recommendation: recommendation,
                     onSave: onEdit,
                   ),
           ),

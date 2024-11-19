@@ -10,10 +10,12 @@ class RecommendationCard extends StatelessWidget {
     super.key,
     required this.recommendation,
     required this.patient,
+    required this.onTap,
   });
 
   final RecommendationModel recommendation;
   final UserModel patient;
+  final VoidCallback onTap;
 
   String formatDate(DateTime date) {
     return DateFormat('dd/MM/yyyy').format(date);
@@ -25,14 +27,18 @@ class RecommendationCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
+        Navigator.of(context)
+            .push(
           navigationPageRightAnimation(
             Recommendation(
               recommendation: recommendation,
               patient: patient,
             ),
           ),
-        );
+        )
+            .then((value) {
+          onTap();
+        });
       },
       child: Container(
         padding: const EdgeInsets.all(16.0),

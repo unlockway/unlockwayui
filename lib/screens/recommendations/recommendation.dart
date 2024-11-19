@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
@@ -14,6 +15,7 @@ import 'package:unlockway/models/routine_suggestion.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/meal_form.dart';
 import 'package:unlockway/screens/recommendations/components/recommendation_meal_card.dart';
+import 'package:unlockway/screens/recommendations/components/recommendation_routine_card.dart';
 import 'package:unlockway/screens/recommendations/recommendation_meals.dart';
 import 'package:unlockway/screens/recommendations/recommendation_routines.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
@@ -52,11 +54,14 @@ class _RecommendationState extends State<Recommendation> {
       widget.patient,
     );
 
-    recommendation =
-        await createInitialRecommendationAPI(widget.patient.id!, "");
+    widget.recommendation != null
+        ? recommendation = widget.recommendation!
+        : recommendation =
+            await createInitialRecommendationAPI(widget.patient.id!, "");
 
     setState(() {
       mealsList = resultMeals;
+
       routineList = resultRoutines;
       _isLoading = false;
     });
@@ -79,7 +84,11 @@ class _RecommendationState extends State<Recommendation> {
 
     setState(() {
       recommendation = recommendationAPI;
-      print(recommendation.mealSuggestions);
+      for (var element in recommendationAPI.mealSuggestions) {
+        mealsList.add(element);
+      }
+
+      print(recommendation.routineSuggestions);
       _isLoading = false;
     });
   }
@@ -126,9 +135,9 @@ class _RecommendationState extends State<Recommendation> {
           icon: const Icon(Icons.arrow_back),
           color: Theme.of(context).colorScheme.outline,
           onPressed: selectedPage == 0
-              ? () {
-                  deleteInitialRecommendationAPI(context, recommendation.id);
-                  Navigator.of(context).pop();
+              ? () async {
+                  await deleteInitialRecommendationAPI(
+                      context, recommendation.id);
                 }
               : () {
                   changePage(0);
@@ -292,7 +301,21 @@ class _RecommendationState extends State<Recommendation> {
                                       ),
                                     ],
                                   ),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 15),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: recommendation.mealSuggestions.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                  child: RecommendationRoutineCard(
+                                    routineSuggestion: recommendation
+                                        .routineSuggestions[index],
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 15),
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -317,6 +340,7 @@ class _RecommendationState extends State<Recommendation> {
               )
             : selectedPage == 1
                 ? RecommendationMeals(
+                    recommendation: recommendation,
                     key: const ValueKey(1),
                     meals: mealsList,
                     addMealFunc: fetchRecommendation,
@@ -338,7 +362,10 @@ class _RecommendationState extends State<Recommendation> {
                     height: 50,
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await deleteInitialRecommendationAPI(
+                            context, recommendation.id);
+                      },
                       style: ButtonStyle(
                         padding: WidgetStateProperty.all(
                           const EdgeInsets.all(16),
@@ -402,7 +429,15 @@ class _RecommendationState extends State<Recommendation> {
                         ),
                       ),
                       OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          editCreateRecommendationAPI(
+                            context,
+                            recommendation.id,
+                            descriptionController.text,
+                            recommendation.idPatient,
+                            "CREATE",
+                          );
+                        },
                         style: ButtonStyle(
                           padding: WidgetStateProperty.all(
                             const EdgeInsets.all(16),
@@ -474,6 +509,8 @@ class _RecommendationState extends State<Recommendation> {
                           meals: const [],
                           name: null,
                           weekRepetitions: null,
+                          onRecommendation: fetchRecommendation,
+                          recommendation: recommendation,
                         ),
                       ),
                     );

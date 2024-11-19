@@ -7,7 +7,9 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
+import 'package:unlockway/handlers/suggestions.handlers.dart';
 import 'package:unlockway/models/meals.dart';
+import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/routine/components/routine_meal_card.dart';
@@ -22,6 +24,8 @@ class NewRoutine extends StatefulWidget {
     required this.weekRepetitions,
     required this.routineId,
     required this.patientMeals,
+    this.onRecommendation,
+    this.recommendation,
   });
 
   final String? name;
@@ -30,6 +34,8 @@ class NewRoutine extends StatefulWidget {
   final List<bool>? weekRepetitions;
   final String? routineId;
   final List<MealsModel>? patientMeals;
+  final Function? onRecommendation;
+  final RecommendationModel? recommendation;
 
   @override
   State<NewRoutine> createState() => _NewRoutineState();
@@ -145,14 +151,27 @@ class _NewRoutineState extends State<NewRoutine> {
                         height: 48,
                         width: double.infinity,
                         onTap: () {
-                          editRoutineAPI(
-                            context,
-                            nameController.text,
-                            widget.inUsage!,
-                            mealsSelectedToRoutine,
-                            daysSelected,
-                            widget.routineId!,
-                          );
+                          widget.onRecommendation != null
+                              ? createRoutineSuggestionsAPI(
+                                  context,
+                                  nameController.text,
+                                  widget.inUsage!,
+                                  widget.recommendation!.id,
+                                  widget.recommendation!.idPatient,
+                                  widget.routineId!,
+                                  mealsSelectedToRoutine,
+                                  daysSelected,
+                                ).then((value) {
+                                  widget.onRecommendation!();
+                                })
+                              : editRoutineAPI(
+                                  context,
+                                  nameController.text,
+                                  widget.inUsage!,
+                                  mealsSelectedToRoutine,
+                                  daysSelected,
+                                  widget.routineId!,
+                                );
                         },
                       ),
                     ),
@@ -166,15 +185,28 @@ class _NewRoutineState extends State<NewRoutine> {
                         height: 48,
                         width: double.infinity,
                         onTap: () {
-                          createRoutineAPI(
-                            context,
-                            user.id!,
-                            user.token!,
-                            nameController.text,
-                            false,
-                            mealsSelectedToRoutine,
-                            daysSelected,
-                          );
+                          widget.onRecommendation != null
+                              ? createRoutineSuggestionsAPI(
+                                  context,
+                                  nameController.text,
+                                  false,
+                                  widget.recommendation!.id,
+                                  widget.recommendation!.idPatient,
+                                  "",
+                                  mealsSelectedToRoutine,
+                                  daysSelected,
+                                ).then((value) {
+                                  widget.onRecommendation!();
+                                })
+                              : createRoutineAPI(
+                                  context,
+                                  user.id!,
+                                  user.token!,
+                                  nameController.text,
+                                  false,
+                                  mealsSelectedToRoutine,
+                                  daysSelected,
+                                );
                         },
                       ),
                     ),

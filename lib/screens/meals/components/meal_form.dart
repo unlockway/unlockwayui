@@ -113,22 +113,39 @@ class _MealFormState extends State<MealForm> {
                       height: 48,
                       width: double.infinity,
                       onTap: () {
-                        editMealsAPI(
-                          context,
-                          userData.token!,
-                          userData.id!,
-                          widget.id,
-                          nameController.text,
-                          category!,
-                          descriptionController.text,
-                          preparationMethodController.text,
-                          ingredientsSelected,
-                          selectedImagePath != ''
-                              ? File(selectedImagePath)
-                              : null,
-                        ).then((value) {
-                          widget.onSave();
-                        });
+                        widget.onRecommendation == null
+                            ? editMealsAPI(
+                                context,
+                                userData.token!,
+                                userData.id!,
+                                widget.id,
+                                nameController.text,
+                                category!,
+                                descriptionController.text,
+                                preparationMethodController.text,
+                                ingredientsSelected,
+                                selectedImagePath != ''
+                                    ? File(selectedImagePath)
+                                    : null,
+                              ).then((value) {
+                                widget.onSave();
+                              })
+                            : createMealSuggestionAPI(
+                                    context,
+                                    widget.recommendation!.id,
+                                    widget.recommendation!.idPatient,
+                                    widget.id,
+                                    nameController.text,
+                                    category!,
+                                    descriptionController.text,
+                                    preparationMethodController.text,
+                                    ingredientsSelected,
+                                    selectedImagePath != ''
+                                        ? File(selectedImagePath)
+                                        : null)
+                                .then((onValue) {
+                                widget.onRecommendation!();
+                              });
                       },
                     ),
                   )
