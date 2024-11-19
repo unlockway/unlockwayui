@@ -47,9 +47,8 @@ class _NutriHomeState extends State<NutriHome> {
 
   @override
   void initState() {
-    super.initState();
-
     fetchClients();
+    super.initState();
   }
 
   @override

@@ -13,8 +13,10 @@ import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
+import 'package:unlockway/handlers/suggestions.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
+import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
 
 class MealForm extends StatefulWidget {
@@ -29,6 +31,7 @@ class MealForm extends StatefulWidget {
     required this.ingredientsSelected,
     required this.onSave,
     this.onRecommendation,
+    this.recommendation,
   });
 
   final String id;
@@ -39,7 +42,8 @@ class MealForm extends StatefulWidget {
   final String preparationMethod;
   final List<SelectedFood> ingredientsSelected;
   final VoidCallback onSave;
-  final Function(MealsModel)? onRecommendation;
+  final Function? onRecommendation;
+  final RecommendationModel? recommendation;
 
   @override
   State<MealForm> createState() => _MealFormState();
@@ -146,21 +150,38 @@ class _MealFormState extends State<MealForm> {
                             ),
                           );
                         } else {
-                          createMealsAPI(
-                            context,
-                            userData.token!,
-                            userData.id!,
-                            nameController.text,
-                            category!,
-                            descriptionController.text,
-                            preparationMethodController.text,
-                            ingredientsSelected,
-                            selectedImagePath != ''
-                                ? File(selectedImagePath)
-                                : null,
-                          ).then((value) {
-                            widget.onSave();
-                          });
+                          widget.onRecommendation == null
+                              ? createMealsAPI(
+                                  context,
+                                  userData.token!,
+                                  userData.id!,
+                                  nameController.text,
+                                  category!,
+                                  descriptionController.text,
+                                  preparationMethodController.text,
+                                  ingredientsSelected,
+                                  selectedImagePath != ''
+                                      ? File(selectedImagePath)
+                                      : null,
+                                ).then((value) {
+                                  widget.onSave();
+                                })
+                              : createMealSuggestionAPI(
+                                      context,
+                                      widget.recommendation!.id,
+                                      widget.recommendation!.idPatient,
+                                      widget.id,
+                                      nameController.text,
+                                      category!,
+                                      descriptionController.text,
+                                      preparationMethodController.text,
+                                      ingredientsSelected,
+                                      selectedImagePath != ''
+                                          ? File(selectedImagePath)
+                                          : null)
+                                  .then((onValue) {
+                                  widget.onRecommendation!();
+                                });
                         }
                       },
                     ),

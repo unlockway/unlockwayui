@@ -29,7 +29,7 @@ class MealCard extends StatelessWidget {
   final String preparationMethod;
   final List<SelectedFood> ingredients;
   final VoidCallback onEdit;
-  final Function(MealsModel)? onRecommendation;
+  final Function? onRecommendation;
 
   @override
   Widget build(BuildContext context) {

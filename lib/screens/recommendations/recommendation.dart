@@ -5,6 +5,7 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/nutri.handlers.dart';
 import 'package:unlockway/handlers/recommendation.handlers.dart';
+import 'package:unlockway/handlers/suggestions.handlers.dart';
 import 'package:unlockway/models/meal_suggestion.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
@@ -12,6 +13,7 @@ import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/routine_suggestion.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/meal_form.dart';
+import 'package:unlockway/screens/recommendations/components/recommendation_meal_card.dart';
 import 'package:unlockway/screens/recommendations/recommendation_meals.dart';
 import 'package:unlockway/screens/recommendations/recommendation_routines.dart';
 import 'package:unlockway/screens/routine/components/new_routine_page.dart';
@@ -35,8 +37,7 @@ class _RecommendationState extends State<Recommendation> {
   List<MealsModel> mealsList = [];
   List<RoutineModel> routineList = [];
   int selectedPage = 0;
-  late List<MealSuggestion> mealSuggestions;
-  late List<RoutineSuggestion> routineSuggestions;
+
   final descriptionController = TextEditingController();
   bool _isLoading = true;
 
@@ -67,10 +68,19 @@ class _RecommendationState extends State<Recommendation> {
     });
   }
 
-  void addMealtoList(MealsModel meal) {
+  void fetchRecommendation() async {
     setState(() {
-      mealsList.add(meal);
       selectedPage = 0;
+      _isLoading = true;
+    });
+
+    RecommendationModel recommendationAPI =
+        await getRecommendationByIdAPI(context, recommendation.id);
+
+    setState(() {
+      recommendation = recommendationAPI;
+      print(recommendation.mealSuggestions);
+      _isLoading = false;
     });
   }
 
@@ -115,14 +125,14 @@ class _RecommendationState extends State<Recommendation> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           color: Theme.of(context).colorScheme.outline,
-          onPressed: () {
-            selectedPage == 0
-                ? () {
-                    deleteInitialRecommendationAPI(context, recommendation.id);
-                    Navigator.of(context).pop();
-                  }
-                : changePage(0);
-          },
+          onPressed: selectedPage == 0
+              ? () {
+                  deleteInitialRecommendationAPI(context, recommendation.id);
+                  Navigator.of(context).pop();
+                }
+              : () {
+                  changePage(0);
+                },
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -220,7 +230,20 @@ class _RecommendationState extends State<Recommendation> {
                                       ),
                                     ],
                                   ),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 15),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: recommendation.mealSuggestions.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                    padding: const EdgeInsets.only(bottom: 5.0),
+                                    child: RecommendationMealCard(
+                                      mealSuggestion:
+                                          recommendation.mealSuggestions[index],
+                                    ));
+                              },
+                            ),
+                            const SizedBox(height: 15),
                             widget.recommendation == null
                                 ? Row(
                                     mainAxisAlignment:
@@ -296,7 +319,7 @@ class _RecommendationState extends State<Recommendation> {
                 ? RecommendationMeals(
                     key: const ValueKey(1),
                     meals: mealsList,
-                    addMealFunc: addMealtoList,
+                    addMealFunc: fetchRecommendation,
                   )
                 : RecommendationRoutines(
                     patientMeals: mealsList,
@@ -412,23 +435,22 @@ class _RecommendationState extends State<Recommendation> {
       floatingActionButton: selectedPage == 1
           ? IconButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(
-                      navigationPageRightAnimation(
-                        MealForm(
-                          id: '',
-                          category: '',
-                          description: '',
-                          ingredientsSelected: const [],
-                          name: '',
-                          preparationMethod: '',
-                          img: null,
-                          onSave: () {},
-                          onRecommendation: addMealtoList,
-                        ),
-                      ),
-                    )
-                    .then((value) => addMealSuggestion(value));
+                Navigator.of(context).push(
+                  navigationPageRightAnimation(
+                    MealForm(
+                      id: '',
+                      category: '',
+                      description: '',
+                      ingredientsSelected: const [],
+                      name: '',
+                      preparationMethod: '',
+                      img: null,
+                      onSave: () {},
+                      onRecommendation: fetchRecommendation,
+                      recommendation: recommendation,
+                    ),
+                  ),
+                );
               },
               style: ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(
@@ -443,8 +465,7 @@ class _RecommendationState extends State<Recommendation> {
           : selectedPage == 2
               ? IconButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .push(
+                    Navigator.of(context).push(
                       navigationPageRightAnimation(
                         NewRoutine(
                           patientMeals: mealsList,
@@ -455,11 +476,6 @@ class _RecommendationState extends State<Recommendation> {
                           weekRepetitions: null,
                         ),
                       ),
-                    )
-                        .then(
-                      (value) {
-                        addMealSuggestion(value);
-                      },
                     );
                   },
                   style: ButtonStyle(
@@ -474,41 +490,6 @@ class _RecommendationState extends State<Recommendation> {
                 )
               : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-    );
-  }
-
-  void addMealSuggestion(MealsModel meal) {
-    String idPatient = widget.patient.id!;
-    String idNutritionist = userData.id!;
-
-    MealSuggestion suggestion =
-        convertToMealSuggestion(meal, idPatient, idNutritionist, "");
-
-    // Adiciona a sugestão à lista de mealSuggestions
-    mealSuggestions.add(suggestion);
-
-    // Atualiza o estado da página
-    setState(() {
-      selectedPage = 0;
-    });
-  }
-
-  MealSuggestion convertToMealSuggestion(MealsModel meal, String idPatient,
-      String idNutritionist, String idRecommendation) {
-    return MealSuggestion(
-      id: meal.id,
-      name: meal.name,
-      photo: meal.photo,
-      description: meal.description,
-      category: meal.category,
-      preparationMethod: meal.preparationMethod,
-      ingredients: meal.ingredients,
-      totalCalories: meal.totalCalories,
-      createdAt: meal.createdAt,
-      updatedAt: meal.updatedAt,
-      idPatient: idPatient,
-      idNutritionist: idNutritionist,
-      idRecommendation: idRecommendation,
     );
   }
 }
