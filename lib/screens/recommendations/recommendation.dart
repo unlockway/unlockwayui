@@ -4,6 +4,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/nutri.handlers.dart';
+import 'package:unlockway/handlers/recommendation.handlers.dart';
 import 'package:unlockway/models/meal_suggestion.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
@@ -30,6 +31,7 @@ class Recommendation extends StatefulWidget {
 }
 
 class _RecommendationState extends State<Recommendation> {
+  late RecommendationModel recommendation;
   List<MealsModel> mealsList = [];
   List<RoutineModel> routineList = [];
   int selectedPage = 0;
@@ -38,7 +40,7 @@ class _RecommendationState extends State<Recommendation> {
   final descriptionController = TextEditingController();
   bool _isLoading = true;
 
-  Future<void> fetchMealsAndRoutines() async {
+  Future<void> initialOperation() async {
     List<MealsModel> resultMeals = await getPatientMealsAPI(
       context,
       widget.patient.id!,
@@ -48,6 +50,9 @@ class _RecommendationState extends State<Recommendation> {
       context,
       widget.patient,
     );
+
+    recommendation =
+        await createInitialRecommendationAPI(widget.patient.id!, "");
 
     setState(() {
       mealsList = resultMeals;
@@ -82,7 +87,7 @@ class _RecommendationState extends State<Recommendation> {
     widget.recommendation != null
         ? descriptionController.text = widget.recommendation!.description
         : null;
-    fetchMealsAndRoutines();
+    initialOperation();
   }
 
   @override
@@ -111,7 +116,12 @@ class _RecommendationState extends State<Recommendation> {
           icon: const Icon(Icons.arrow_back),
           color: Theme.of(context).colorScheme.outline,
           onPressed: () {
-            selectedPage == 0 ? Navigator.of(context).pop() : changePage(0);
+            selectedPage == 0
+                ? () {
+                    deleteInitialRecommendationAPI(context, recommendation.id);
+                    Navigator.of(context).pop();
+                  }
+                : changePage(0);
           },
         ),
         backgroundColor: Colors.transparent,
