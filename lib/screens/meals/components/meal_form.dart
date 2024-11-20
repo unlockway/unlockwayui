@@ -15,6 +15,7 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/handlers/suggestions.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
+import 'package:unlockway/models/meal_suggestion.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
@@ -32,6 +33,7 @@ class MealForm extends StatefulWidget {
     required this.onSave,
     this.onRecommendation,
     this.recommendation,
+    this.mealSuggestion,
   });
 
   final String id;
@@ -44,6 +46,7 @@ class MealForm extends StatefulWidget {
   final VoidCallback onSave;
   final Function? onRecommendation;
   final RecommendationModel? recommendation;
+  final MealSuggestion? mealSuggestion;
 
   @override
   State<MealForm> createState() => _MealFormState();
@@ -65,6 +68,7 @@ class _MealFormState extends State<MealForm> {
       preparationMethodController.text = widget.preparationMethod;
       category = widget.category;
       ingredientsSelected = widget.ingredientsSelected;
+      print("Dentro de meal Form, id recebido: " + widget.id);
     }
     super.initState();
   }
@@ -92,17 +96,33 @@ class _MealFormState extends State<MealForm> {
                       },
                     ),
                   )
-                : Flexible(
-                    child: ButtonOutlined(
-                      color: Theme.of(context).colorScheme.primary,
-                      text: "CANCELAR",
-                      height: 48,
-                      width: double.infinity,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
+                : widget.mealSuggestion == null
+                    ? Flexible(
+                        child: ButtonOutlined(
+                          color: Theme.of(context).colorScheme.primary,
+                          text: "CANCELAR",
+                          height: 48,
+                          width: double.infinity,
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      )
+                    : Flexible(
+                        child: ButtonOutlined(
+                          color: Color(danger),
+                          text: "EXCLUIR",
+                          height: 48,
+                          width: double.infinity,
+                          onTap: () {
+                            deleteMealSuggestionAPI(
+                                    context, widget.mealSuggestion!.id)
+                                .then((onValue) {
+                              widget.onRecommendation!();
+                            });
+                          },
+                        ),
+                      ),
             const SizedBox(
               width: 15,
             ),
@@ -130,7 +150,23 @@ class _MealFormState extends State<MealForm> {
                               ).then((value) {
                                 widget.onSave();
                               })
-                            : createMealSuggestionAPI(
+                            : widget.mealSuggestion != null
+                                ? editMealSuggestionAPI(
+                                    context,
+                                    widget.mealSuggestion!.id,
+                                    widget.mealSuggestion!.originalMealId,
+                                    nameController.text,
+                                    category!,
+                                    descriptionController.text,
+                                    preparationMethodController.text,
+                                    ingredientsSelected,
+                                    selectedImagePath != ''
+                                        ? File(selectedImagePath)
+                                        : null,
+                                  ).then((onValue) {
+                                    widget.onRecommendation!();
+                                  })
+                                : createMealSuggestionAPI(
                                     context,
                                     widget.recommendation!.id,
                                     widget.recommendation!.idPatient,
@@ -142,10 +178,10 @@ class _MealFormState extends State<MealForm> {
                                     ingredientsSelected,
                                     selectedImagePath != ''
                                         ? File(selectedImagePath)
-                                        : null)
-                                .then((onValue) {
-                                widget.onRecommendation!();
-                              });
+                                        : null,
+                                  ).then((onValue) {
+                                    widget.onRecommendation!();
+                                  });
                       },
                     ),
                   )

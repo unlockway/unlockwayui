@@ -17,17 +17,20 @@ class MealSuggestion extends MealsModel {
     required this.idPatient,
     required this.idNutritionist,
     required this.idRecommendation,
+    required this.originalMealId,
   });
 
   final String idPatient;
   final String idNutritionist;
   final String idRecommendation;
+  final String? originalMealId;
 
   @override
   factory MealSuggestion.fromMap(Map<String, dynamic> map) {
     List mealIngredients = map["ingredients"];
     return MealSuggestion(
       id: map['id'],
+      originalMealId: map["originalMealId"],
       name: map['name'],
       description: map['description'],
       photo: map["photo"],

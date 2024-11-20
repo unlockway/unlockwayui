@@ -3,11 +3,17 @@ import 'package:unlockway/components/buttons.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/handlers/login.handlers.dart';
 
-class LoginPopup extends StatelessWidget {
+class LoginPopup extends StatefulWidget {
   const LoginPopup({super.key});
 
   @override
+  State<LoginPopup> createState() => _LoginPopupState();
+}
+
+class _LoginPopupState extends State<LoginPopup> {
+  @override
   Widget build(BuildContext context) {
+    bool onRequest = false;
     final emailController = TextEditingController();
     final senhaController = TextEditingController();
 
@@ -45,6 +51,7 @@ class LoginPopup extends StatelessWidget {
                 children: [
                   Flexible(
                     child: ButtonOutlined(
+                      onRequest: onRequest,
                       text: "Cancelar",
                       height: 48.0,
                       width: 200,
@@ -61,15 +68,17 @@ class LoginPopup extends StatelessWidget {
                       height: 48.0,
                       width: 200,
                       onTap: () {
-                        //  navigatePage(
-                        //     context,
-                        //    const NutriHome(),
-                        //   );
+                        setState(() {
+                          onRequest = true;
+                        });
                         loginAPI(
                           context,
                           emailController.text,
                           senhaController.text,
                         );
+                        setState(() {
+                          onRequest = false;
+                        });
                       },
                     ),
                   ),

@@ -15,11 +15,13 @@ class RoutineSuggestion extends RoutineModel {
     required this.idPatient,
     required this.idNutritionist,
     required this.idRecommendation,
+    required this.originalRoutineId,
   });
 
   final String idPatient;
   final String idNutritionist;
   final String idRecommendation;
+  final String? originalRoutineId;
 
   @override
   factory RoutineSuggestion.fromMap(Map<String, dynamic> map) {
@@ -30,6 +32,7 @@ class RoutineSuggestion extends RoutineModel {
 
     return RoutineSuggestion(
       id: map['id'],
+      originalRoutineId: map["originalRoutineId"],
       name: map['name'],
       inUsage: map['inUsage'],
       meals: routineMeals.map((e) {

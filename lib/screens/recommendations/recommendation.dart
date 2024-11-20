@@ -82,13 +82,18 @@ class _RecommendationState extends State<Recommendation> {
     RecommendationModel recommendationAPI =
         await getRecommendationByIdAPI(context, recommendation.id);
 
+    List<MealsModel> resultMeals = await getPatientMealsAPI(
+      context,
+      widget.patient.id!,
+    );
+
     setState(() {
+      mealsList = resultMeals;
       recommendation = recommendationAPI;
       for (var element in recommendationAPI.mealSuggestions) {
         mealsList.add(element);
       }
 
-      print(recommendation.routineSuggestions);
       _isLoading = false;
     });
   }
@@ -136,8 +141,10 @@ class _RecommendationState extends State<Recommendation> {
           color: Theme.of(context).colorScheme.outline,
           onPressed: selectedPage == 0
               ? () async {
-                  await deleteInitialRecommendationAPI(
-                      context, recommendation.id);
+                  widget.recommendation != null
+                      ? Navigator.of(context).pop()
+                      : await deleteInitialRecommendationAPI(
+                          context, recommendation.id);
                 }
               : () {
                   changePage(0);
@@ -247,6 +254,8 @@ class _RecommendationState extends State<Recommendation> {
                                 return Padding(
                                     padding: const EdgeInsets.only(bottom: 5.0),
                                     child: RecommendationMealCard(
+                                      onRecommendation: fetchRecommendation,
+                                      recommendation: recommendation,
                                       mealSuggestion:
                                           recommendation.mealSuggestions[index],
                                     ));
@@ -304,11 +313,15 @@ class _RecommendationState extends State<Recommendation> {
                             const SizedBox(height: 15),
                             ListView.builder(
                               shrinkWrap: true,
-                              itemCount: recommendation.mealSuggestions.length,
+                              itemCount:
+                                  recommendation.routineSuggestions.length,
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 5.0),
                                   child: RecommendationRoutineCard(
+                                    patientMeals: mealsList,
+                                    onRecommendation: fetchRecommendation,
+                                    recommendation: recommendation,
                                     routineSuggestion: recommendation
                                         .routineSuggestions[index],
                                   ),

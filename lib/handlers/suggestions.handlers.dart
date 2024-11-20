@@ -126,6 +126,13 @@ Future<void> createRoutineSuggestionsAPI(
     body: payloadEncoded,
   );
 
+  print("Token: ${userData.token}");
+
+  print(response.statusCode);
+  print(response.body);
+  print("Payload:");
+  print(payload);
+
   if (response.statusCode == 201) {
     Navigator.pop(context);
   }
@@ -170,4 +177,143 @@ Future<List<MealSuggestion>> getMealSuggestionsByIdAPI(
   } else {
     throw Exception('Falha na solicitação: ${response.statusCode}');
   }
+}
+
+Future<void> deleteMealSuggestionAPI(
+  BuildContext context,
+  String mealSuggestionId,
+) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/meal-suggestions/$mealSuggestionId';
+
+  try {
+    final response = await http.delete(
+      Uri.parse(apiUrl),
+      headers: {
+        'Authorization': 'Bearer ${userData.token}',
+      },
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      Navigator.pop(context);
+    } else if (response.statusCode == 400) {
+      modalBuilderBottomAnimation(
+        context,
+        const SimplePopup(
+          message: "Erro ao excluir Sugestão",
+        ),
+      );
+    }
+  } catch (e) {
+    modalBuilderBottomAnimation(
+      context,
+      SimplePopup(
+        message: "Erro ao excluir Sugestão: $e",
+      ),
+    );
+  }
+}
+
+Future<void> deleteRoutineSuggestionAPI(
+  BuildContext context,
+  String routineSuggestionId,
+) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/routine-suggestions/$routineSuggestionId';
+
+  try {
+    final response = await http.delete(
+      Uri.parse(apiUrl),
+      headers: {
+        'Authorization': 'Bearer ${userData.token}',
+      },
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      Navigator.pop(context);
+    } else if (response.statusCode == 400) {
+      modalBuilderBottomAnimation(
+        context,
+        const SimplePopup(
+          message: "Erro ao excluir Sugestão",
+        ),
+      );
+    }
+  } catch (e) {
+    modalBuilderBottomAnimation(
+      context,
+      SimplePopup(
+        message: "Erro ao excluir Sugestão: $e",
+      ),
+    );
+  }
+}
+
+Future<void> editMealSuggestionAPI(
+  BuildContext context,
+  String mealSuggestionId,
+  String? originalMealId,
+  String name,
+  String category,
+  String description,
+  String preparationMethod,
+  List<SelectedFood> ingredients,
+  File? imageFile,
+) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/meal-suggestions/$mealSuggestionId';
+
+  var request = http.MultipartRequest(
+    'PUT',
+    Uri.parse(apiUrl),
+  )..headers['Authorization'] = 'Bearer ${userData.token}';
+
+  var payload = {
+    "id": mealSuggestionId,
+    "originalMealId": originalMealId,
+    "name": name,
+    "category": category,
+    "description": description,
+    "preparationMethod": preparationMethod,
+    "ingredients": ingredients.map((e) => e.toJson()).toList()
+  };
+
+  String payloadEncoded = json.encode(payload);
+
+  request.fields["payload"] = payloadEncoded;
+
+  if (imageFile != null) {
+    var imageStream = http.ByteStream(imageFile.openRead());
+    var length = await imageFile.length();
+    var multipartFile = http.MultipartFile(
+      'photo',
+      imageStream,
+      length,
+      filename: imageFile.path.split('/').last,
+      contentType: MediaType(
+        "image",
+        imageFile.path.split(".").last,
+      ),
+    );
+
+    request.files.add(multipartFile);
+  }
+
+  await request.send().then(
+    (response) {
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        Navigator.pop(context);
+      }
+
+      if (response.statusCode == 400) {
+        modalBuilderBottomAnimation(
+          context,
+          const SimplePopup(
+            message: "Erro ao editar refeição",
+          ),
+        );
+      }
+    },
+  );
 }

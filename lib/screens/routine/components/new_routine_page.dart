@@ -11,6 +11,7 @@ import 'package:unlockway/handlers/suggestions.handlers.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
+import 'package:unlockway/models/routine_suggestion.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/routine/components/routine_meal_card.dart';
 import 'package:unlockway/screens/routine/components/routine_meal_popup.dart';
@@ -26,6 +27,7 @@ class NewRoutine extends StatefulWidget {
     required this.patientMeals,
     this.onRecommendation,
     this.recommendation,
+    this.routineSuggestion,
   });
 
   final String? name;
@@ -36,6 +38,7 @@ class NewRoutine extends StatefulWidget {
   final List<MealsModel>? patientMeals;
   final Function? onRecommendation;
   final RecommendationModel? recommendation;
+  final RoutineSuggestion? routineSuggestion;
 
   @override
   State<NewRoutine> createState() => _NewRoutineState();

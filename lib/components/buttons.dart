@@ -3,18 +3,19 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/home.dart';
 
 class ButtonFilled extends StatelessWidget {
-  const ButtonFilled({
-    super.key,
-    required this.text,
-    required this.height,
-    required this.width,
-    required this.onTap,
-  });
+  const ButtonFilled(
+      {super.key,
+      required this.text,
+      required this.height,
+      required this.width,
+      required this.onTap,
+      this.onRequest});
 
   final String text;
   final double height;
   final double width;
   final void Function() onTap;
+  final bool? onRequest;
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +38,21 @@ class ButtonFilled extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onTap,
+          onTap: onRequest == true ? () {} : onTap,
           child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                color: Color(darkBgdark),
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                fontFamily: "Inter",
-              ),
-            ),
+            child: onRequest == true
+                ? CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.outline,
+                  )
+                : Text(
+                    text,
+                    style: TextStyle(
+                      color: Color(darkBgdark),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Inter",
+                    ),
+                  ),
           ),
         ),
       ),
@@ -107,6 +112,7 @@ class ButtonOutlined extends StatelessWidget {
     required this.width,
     required this.onTap,
     required this.color,
+    this.onRequest,
   });
 
   final Color color;
@@ -114,6 +120,7 @@ class ButtonOutlined extends StatelessWidget {
   final double height;
   final double width;
   final void Function() onTap;
+  final bool? onRequest;
 
   @override
   Widget build(BuildContext context) {
@@ -131,17 +138,21 @@ class ButtonOutlined extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onTap,
+          onTap: onRequest == true ? () {} : onTap,
           child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: color,
-                fontFamily: "Inter",
-              ),
-            ),
+            child: onRequest == true
+                ? CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.outline,
+                  )
+                : Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: color,
+                      fontFamily: "Inter",
+                    ),
+                  ),
           ),
         ),
       ),
