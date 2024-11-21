@@ -103,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       sex,
       cfnController.text,
     );
-    setState(() => isFetching = true);
+    setState(() => isFetching = false);
   }
 
   @override
@@ -206,19 +206,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         if (currentStep == 3)
                                           {
                                             registerAPI(
-                                                context,
-                                                firstNameController.text,
-                                                lastNameController.text,
-                                                emailController.text,
-                                                passwordController.text,
-                                                double.parse(
-                                                    heightController.text),
-                                                double.parse(
-                                                    weightController.text),
-                                                goals,
-                                                biotype,
-                                                sex,
-                                                cfnController.text)
+                                              context,
+                                              firstNameController.text,
+                                              lastNameController.text,
+                                              emailController.text,
+                                              passwordController.text,
+                                              double.parse(
+                                                  heightController.text),
+                                              double.parse(
+                                                  weightController.text),
+                                              goals,
+                                              biotype,
+                                              sex,
+                                              cfnController.text,
+                                            )
                                           }
                                         else
                                           {

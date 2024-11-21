@@ -62,13 +62,12 @@ class _MealFormState extends State<MealForm> {
 
   @override
   void initState() {
-    if (widget.id.isNotEmpty) {
+    if (widget.id.isNotEmpty || widget.mealSuggestion != null) {
       nameController.text = widget.name;
       descriptionController.text = widget.description;
       preparationMethodController.text = widget.preparationMethod;
       category = widget.category;
       ingredientsSelected = widget.ingredientsSelected;
-      print("Dentro de meal Form, id recebido: " + widget.id);
     }
     super.initState();
   }

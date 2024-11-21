@@ -178,7 +178,7 @@ class RegisterStep1 extends StatelessWidget {
             focusColor: Theme.of(context).colorScheme.onSurface,
           ),
           enabled: true,
-          selected_values_style: TextStyle(
+          selectedValuesStyle: TextStyle(
             color: Theme.of(context).colorScheme.outline,
           ),
           onChanged: onChangeGoals,

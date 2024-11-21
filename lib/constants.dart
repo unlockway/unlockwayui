@@ -28,4 +28,4 @@ var success = 0xFF52CC83;
 var blue = 0xFF457B9D;
 
 UserModel userData = UserModel(); // keep
-String? fcmToken;
+String? fcmToken = "23123123123";

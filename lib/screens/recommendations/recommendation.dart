@@ -372,12 +372,14 @@ class _RecommendationState extends State<Recommendation> {
                     horizontal: 16,
                   ),
                   child: SizedBox(
-                    height: 50,
+                    height: 60,
                     width: double.infinity,
                     child: OutlinedButton(
                       onPressed: () async {
                         await deleteInitialRecommendationAPI(
-                            context, recommendation.id);
+                          context,
+                          recommendation.id,
+                        );
                       },
                       style: ButtonStyle(
                         padding: WidgetStateProperty.all(

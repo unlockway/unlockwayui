@@ -29,6 +29,8 @@ Future<void> registerAPI(
       ? "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-nutritionist"
       : "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-patient";
 
+  print(apiUrl);
+
   bool mMass = false;
   bool mHealth = false;
   bool lWeight = false;
@@ -47,7 +49,19 @@ Future<void> registerAPI(
     "loseWeight": lWeight,
   };
 
-  var payload = cfnToken != ""
+  print("CFN:" + cfnToken);
+  print("height:" + height.toString());
+  print("weight:" + weight.toString());
+  print("goals:" + goalsObject.toString());
+  print("biotype:" + biotype);
+  print("firstname:" + firstname);
+  print("lastname:" + lastname);
+  print("email:" + email);
+  print("password:" + password);
+  print("sex" + sex);
+  print("deviceToken" + fcmToken!);
+
+  var payload = cfnToken.isEmpty
       ? {
           "firstname": firstname,
           "lastname": lastname,
@@ -58,20 +72,21 @@ Future<void> registerAPI(
           "goals": goalsObject,
           "biotype": biotype,
           "sex": sex,
-          "deviceToken": fcmToken
+          "deviceToken": fcmToken,
         }
       : {
           "firstname": firstname,
           "lastname": lastname,
           "photo": "",
-          "email": "string",
-          "password": "string",
-          "cfn": "string",
-          "deviceToken": "string"
+          "email": email,
+          "password": password,
+          "cfn": cfnToken,
+          "deviceToken": fcmToken,
         };
 
   var bodyApi = json.encode(payload);
 
+  print(bodyApi);
   try {
     await http
         .post(
@@ -80,17 +95,33 @@ Future<void> registerAPI(
       body: bodyApi,
     )
         .then((response) {
-      var user = json.decode(response.body);
+      print(response.statusCode);
+      print(response.body);
+      // Decode response body
+      var decodedResponse = json.decode(utf8.decode(response.bodyBytes));
 
-      userData = UserModel.fromMap(user);
-
-      navigatePage(
-        context,
-        const AboutPage(),
-      );
+      if (decodedResponse is Map) {
+        // Resposta esperada como Map
+        userData = UserModel.fromMap(decodedResponse);
+        navigatePage(
+          context,
+          const AboutPage(),
+        );
+      } else if (decodedResponse is List) {
+        // Lidar com resposta como List
+        print("Resposta da API é uma lista: $decodedResponse");
+        modalBuilderBottomAnimation(
+          context,
+          SimplePopup(message: "Erro inesperado: resposta da API é uma lista."),
+        );
+      } else {
+        // Tipo de resposta não esperado
+        throw Exception("Formato de resposta desconhecido");
+      }
     });
   } catch (error) {
     print(error);
+
     modalBuilderBottomAnimation(
       context,
       SimplePopup(

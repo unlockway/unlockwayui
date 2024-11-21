@@ -156,7 +156,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
             fillColor: Theme.of(context).colorScheme.onSurface,
           ),
           enabled: true,
-          selected_values_style: TextStyle(
+          selectedValuesStyle: TextStyle(
             color: Theme.of(context).colorScheme.outline,
           ),
           onChanged: widget.onChangeGoals,

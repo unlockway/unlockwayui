@@ -68,7 +68,7 @@ Future<dynamic> getRoutineOnUseAPI(BuildContext context) async {
 
   String responseBody = utf8.decode(response.bodyBytes);
 
-  if (responseBody == "") {
+  if (responseBody == "Não há rotinas em uso") {
     routineList = null;
   } else {
     routineList = json.decode(responseBody);
