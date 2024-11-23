@@ -125,6 +125,7 @@ class _NewRoutineState extends State<NewRoutine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: Container(
           margin: const EdgeInsets.all(10),
           child: widget.name != null
@@ -136,11 +137,18 @@ class _NewRoutineState extends State<NewRoutine> {
                         height: 48,
                         width: double.infinity,
                         onTap: () {
-                          deleteRoutineAPI(
-                            context,
-                            user.token!,
-                            widget.routineId!,
-                          );
+                          widget.recommendation != null
+                              ? deleteRoutineSuggestionAPI(
+                                  context,
+                                  widget.routineSuggestion!.id,
+                                ).then((onValue) {
+                                  widget.onRecommendation!();
+                                })
+                              : deleteRoutineAPI(
+                                  context,
+                                  user.token!,
+                                  widget.routineId!,
+                                );
                         },
                         color: Color(danger),
                       ),
@@ -154,16 +162,16 @@ class _NewRoutineState extends State<NewRoutine> {
                         height: 48,
                         width: double.infinity,
                         onTap: () {
-                          widget.onRecommendation != null
-                              ? createRoutineSuggestionsAPI(
+                          widget.recommendation != null
+                              ? editRoutineSuggestionAPI(
                                   context,
+                                  widget.recommendation!.id,
                                   nameController.text,
                                   widget.inUsage!,
-                                  widget.recommendation!.id,
-                                  widget.recommendation!.idPatient,
-                                  widget.routineId!,
                                   mealsSelectedToRoutine,
                                   daysSelected,
+                                  widget.routineId,
+                                  widget.routineSuggestion!.id,
                                 ).then((value) {
                                   widget.onRecommendation!();
                                 })
@@ -194,7 +202,6 @@ class _NewRoutineState extends State<NewRoutine> {
                                   nameController.text,
                                   false,
                                   widget.recommendation!.id,
-                                  widget.recommendation!.idPatient,
                                   "",
                                   mealsSelectedToRoutine,
                                   daysSelected,
@@ -290,7 +297,7 @@ class _NewRoutineState extends State<NewRoutine> {
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 1,
                                   childAspectRatio: constraints.maxWidth /
-                                      (constraints.maxHeight / 3.5),
+                                      (constraints.maxHeight / 2.8),
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10,
                                 ),

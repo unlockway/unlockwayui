@@ -61,99 +61,105 @@ class ClientInfoCard extends StatelessWidget {
                     ),
                   ),
                 ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "${user.firstName!} ${user.lastName!}".toUpperCase(),
-                style: TextStyle(
-                  fontFamily: "Inter",
-                  fontSize: 20.0,
-                  color: Theme.of(context).colorScheme.outline,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text.rich(
-                TextSpan(
-                  text: "Biótipo: ",
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${user.firstName!} ${user.lastName!}".toUpperCase(),
                   style: TextStyle(
                     fontFamily: "Inter",
-                    fontSize: 14.0,
+                    fontSize: 20.0,
                     color: Theme.of(context).colorScheme.outline,
-                    fontWeight: FontWeight.normal,
+                    fontWeight: FontWeight.bold,
                   ),
-                  children: [
-                    TextSpan(
-                      text: user.biotype != null
-                          ? user.getBiotypeAsText(user.biotype)
-                          : "Não informado",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              Text.rich(
-                TextSpan(
-                  text: "Sexo: ",
-                  style: TextStyle(
-                    fontFamily: "Inter",
-                    fontSize: 14.0,
-                    color: Theme.of(context).colorScheme.outline,
-                    fontWeight: FontWeight.normal,
+                Text.rich(
+                  TextSpan(
+                    text: "Biótipo: ",
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 14.0,
+                      color: Theme.of(context).colorScheme.outline,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: user.biotype != null
+                            ? user.getBiotypeAsText(user.biotype)
+                            : "Não informado",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                  children: [
-                    TextSpan(
-                      text: user.sex == "MALE" ? "Homem" : "Mulher",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-              Text.rich(
-                TextSpan(
-                  text: "Altura: ",
-                  style: TextStyle(
-                    fontFamily: "Inter",
-                    fontSize: 14.0,
-                    color: Theme.of(context).colorScheme.outline,
-                    fontWeight: FontWeight.normal,
+                Text.rich(
+                  TextSpan(
+                    text: "Sexo: ",
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 14.0,
+                      color: Theme.of(context).colorScheme.outline,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: user.sex == "MALE" ? "Homem" : "Mulher",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                  children: [
-                    TextSpan(
-                      text: user.height != null
-                          ? "${(user.height! / 100).toStringAsFixed(2)}m"
-                          : "0.00m",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-              Text.rich(
-                TextSpan(
-                  text: "Peso: ",
-                  style: TextStyle(
-                    fontFamily: "Inter",
-                    fontSize: 14.0,
-                    color: Theme.of(context).colorScheme.outline,
-                    fontWeight: FontWeight.normal,
+                Text.rich(
+                  TextSpan(
+                    text: "Altura: ",
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 14.0,
+                      color: Theme.of(context).colorScheme.outline,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: user.height != null
+                            ? "${(user.height! / 100).toStringAsFixed(2)}m"
+                            : "0.00m",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                  children: [
-                    TextSpan(
-                      text: "${user.weight}kg",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-            ],
+                Text.rich(
+                  TextSpan(
+                    text: "Peso: ",
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 14.0,
+                      color: Theme.of(context).colorScheme.outline,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "${user.weight}kg",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

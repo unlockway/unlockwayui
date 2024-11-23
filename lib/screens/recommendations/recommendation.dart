@@ -451,7 +451,9 @@ class _RecommendationState extends State<Recommendation> {
                             descriptionController.text,
                             recommendation.idPatient,
                             "CREATE",
-                          );
+                          ).then((value) {
+                            fetchRecommendation();
+                          });
                         },
                         style: ButtonStyle(
                           padding: WidgetStateProperty.all(
@@ -470,7 +472,7 @@ class _RecommendationState extends State<Recommendation> {
                           ),
                         ),
                         child: Text(
-                          "Criar Sugestão",
+                          "Criar Recomendação",
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                             fontSize: 20,

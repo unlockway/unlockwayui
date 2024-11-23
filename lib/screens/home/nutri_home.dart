@@ -381,17 +381,31 @@ class _NutriHomeState extends State<NutriHome> {
                             ],
                           ),
                           Expanded(
-                            child: ListView.builder(
-                              itemCount: patients.length,
-                              itemBuilder: (context, index) {
-                                PatientUserModel client = patients[index];
+                            child: patients.isEmpty
+                                ? Center(
+                                    child: Text(
+                                      "Nenhum paciente encontrado. Adicione um novo paciente.",
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .outline,
+                                        fontFamily: "Inter",
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    itemCount: patients.length,
+                                    itemBuilder: (context, index) {
+                                      PatientUserModel client = patients[index];
 
-                                return ClientCard(
-                                  user: client,
-                                  onTap: () => _onClientCardTap(client),
-                                );
-                              },
-                            ),
+                                      return ClientCard(
+                                        user: client,
+                                        onTap: () => _onClientCardTap(client),
+                                      );
+                                    },
+                                  ),
                           ),
                           const SizedBox(
                             height: 32,

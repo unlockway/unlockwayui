@@ -197,27 +197,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
           ),
         ),
         const SizedBox(height: 20),
-        Row(
-          children: [
-            Switch(
-              value: isNutritionist,
-              onChanged: (bool value) {
-                setState(() {
-                  if (value == false) {
-                    widget.cfnController.clear();
-                  }
-                  isNutritionist = value;
-                });
-              },
-            ),
-            const Text(
-              "Nutricionista?",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
+       
         if (isNutritionist)
           Column(
             children: [

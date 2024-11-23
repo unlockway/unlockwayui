@@ -168,7 +168,6 @@ class _MealFormState extends State<MealForm> {
                                 : createMealSuggestionAPI(
                                     context,
                                     widget.recommendation!.id,
-                                    widget.recommendation!.idPatient,
                                     widget.id,
                                     nameController.text,
                                     category!,
@@ -221,7 +220,6 @@ class _MealFormState extends State<MealForm> {
                               : createMealSuggestionAPI(
                                       context,
                                       widget.recommendation!.id,
-                                      widget.recommendation!.idPatient,
                                       widget.id,
                                       nameController.text,
                                       category!,

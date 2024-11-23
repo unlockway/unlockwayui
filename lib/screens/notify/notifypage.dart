@@ -13,8 +13,10 @@ class NotifyPage extends StatefulWidget {
 
 class _NotifyPageState extends State<NotifyPage> {
   List<NotifyModel> notify = [];
+  List<NotifyModel> recommendations = []; // Lista para recomendações
   int notifyLenght = 0;
   bool _isLoading = true;
+  String _currentView = "Notificações"; // Estado atual da tela
 
   Future<void> fetchNotify() async {
     List<NotifyModel> result = await getNotifyAPI(context);
@@ -26,19 +28,29 @@ class _NotifyPageState extends State<NotifyPage> {
     });
   }
 
+  // Exemplo de carregamento de recomendações (pode ser substituído pela lógica real)
+  Future<void> fetchRecommendations() async {
+    // Simula uma lista de recomendações
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() {
+      recommendations = List.generate(
+        5,
+        (index) => NotifyModel(
+          id: "rec-$index",
+          title: "Recomendação $index",
+          description: "Descrição da Recomendação $index",
+          date: "2024-11-23T00:00:00",
+          read: false,
+        ),
+      );
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     fetchNotify();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _isLoading = false;
-    notify = [];
-    notifyLenght = 0;
+    fetchRecommendations(); // Carregar recomendações
   }
 
   @override
@@ -55,12 +67,13 @@ class _NotifyPageState extends State<NotifyPage> {
         ),
         backgroundColor: Theme.of(context).colorScheme.onSurface,
         title: Text(
-          "NOTIFICAÇÕES($notifyLenght)",
+          _currentView.toUpperCase(), // Atualiza com base na visualização atual
           style: TextStyle(
-              color: Theme.of(context).colorScheme.outline,
-              fontFamily: "Inter",
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
+            color: Theme.of(context).colorScheme.outline,
+            fontFamily: "Inter",
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
@@ -68,143 +81,108 @@ class _NotifyPageState extends State<NotifyPage> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                return CustomScrollView(
-                  slivers: <Widget>[
-                    const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 15,
-                        width: double.infinity,
-                      ),
+          : Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _currentView = "Notificações";
+                        });
+                      },
+                      child: const Text("Notificações"),
                     ),
-                    SliverToBoxAdapter(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: constraints.maxHeight - 15,
-                        ),
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            childAspectRatio: 5,
-                          ),
-                          shrinkWrap: true,
-                          itemCount: notify.length,
-                          itemBuilder: (context, index) {
-                            NotifyModel actualNotification = notify[index];
-                            List<String> date =
-                                actualNotification.date.split("T");
-
-                            return actualNotification.read == false
-                                ? Dismissible(
-                                    key: Key(actualNotification.id),
-                                    onDismissed: (direction) {
-                                      setState(() {
-                                        notify.removeAt(index);
-                                        notifyLenght = notify.length;
-                                      });
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                        content: Text(
-                                            '${actualNotification.title} dismissed'),
-                                      ));
-                                    },
-                                    background: Container(
-                                      color: Colors.red,
-                                      alignment: Alignment.centerRight,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: const Icon(
-                                        Icons.delete,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    child: NotifyCard(
-                                      read: actualNotification.read,
-                                      id: actualNotification.id,
-                                      description:
-                                          actualNotification.description,
-                                      date: date[0],
-                                      func: () {
-                                        Navigator.of(context).push(
-                                          _createRouteTwo(
-                                            actualNotification.description,
-                                            actualNotification.title,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  )
-                                : Dismissible(
-                                    key: Key(actualNotification.id),
-                                    onDismissed: (direction) {
-                                      setState(() {
-                                        notify.removeAt(index);
-                                        notifyLenght = notify.length;
-                                      });
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                        content: Text(
-                                            '${actualNotification.title} dismissed'),
-                                      ));
-                                    },
-                                    background: Container(
-                                      color: Colors.red,
-                                      alignment: Alignment.centerRight,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: const Icon(
-                                        Icons.delete,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    child: NotifyCard(
-                                      read: actualNotification.read,
-                                      id: actualNotification.id,
-                                      description:
-                                          actualNotification.description,
-                                      date: date[0],
-                                      func: () {
-                                        Navigator.of(context).push(
-                                          _createRouteTwo(
-                                            actualNotification.description,
-                                            actualNotification.title,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                          },
-                        ),
-                      ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _currentView = "Recomendações";
+                        });
+                      },
+                      child: const Text("Recomendações"),
                     ),
                   ],
-                );
-              },
+                ),
+                Expanded(
+                  child: _currentView == "Notificações"
+                      ? buildGridView(notify)
+                      : buildGridView(recommendations),
+                ),
+              ],
             ),
     );
   }
-}
 
-Route _createRouteTwo(String text, String title) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) =>
-        NotifyDetails(text: text, title: title),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(
-        1.0,
-        0.0,
-      );
-      const end = Offset.zero;
-      const curve = Curves.ease;
+  Widget buildGridView(List<NotifyModel> items) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 1,
+        childAspectRatio: 5,
+      ),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        NotifyModel item = items[index];
+        List<String> date = item.date.split("T");
 
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return Dismissible(
+          key: Key(item.id),
+          onDismissed: (direction) {
+            setState(() {
+              items.removeAt(index);
+              if (_currentView == "Notificações") {
+                notifyLenght = notify.length;
+              }
+            });
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('${item.title} dismissed'),
+            ));
+          },
+          background: Container(
+            color: Colors.red,
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: const Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+          ),
+          child: NotifyCard(
+            read: item.read,
+            id: item.id,
+            description: item.description,
+            date: date[0],
+            func: () {
+              Navigator.of(context).push(
+                _createRouteTwo(
+                  item.description,
+                  item.title,
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
 
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
+  Route _createRouteTwo(String text, String title) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          NotifyDetails(text: text, title: title),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
 }

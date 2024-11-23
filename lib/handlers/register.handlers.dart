@@ -10,20 +10,21 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/user.dart';
+import 'package:unlockway/screens/home/nutri_home.dart';
 import 'package:unlockway/screens/login/components/about.dart';
 
 Future<void> registerAPI(
   BuildContext context,
-  String firstname,
-  String lastname,
-  String email,
-  String password,
-  double height,
-  double weight,
-  List<String> goals,
-  String biotype,
-  String sex,
-  String cfnToken,
+  String? firstname,
+  String? lastname,
+  String? email,
+  String? password,
+  double? height,
+  double? weight,
+  List<String>? goals,
+  String? biotype,
+  String? sex,
+  String? cfnToken,
 ) async {
   String apiUrl = cfnToken != ""
       ? "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-nutritionist"
@@ -35,11 +36,11 @@ Future<void> registerAPI(
   bool mHealth = false;
   bool lWeight = false;
 
-  if (goals.contains('Ganhar músculo')) {
+  if (goals != null && goals.contains('Ganhar músculo')) {
     mMass = true;
-  } else if (goals.contains('Manter saúde')) {
+  } else if (goals != null && goals.contains('Manter saúde')) {
     mHealth = true;
-  } else if (goals.contains('Perder peso')) {
+  } else if (goals != null && goals.contains('Perder peso')) {
     lWeight = true;
   }
 
@@ -49,19 +50,7 @@ Future<void> registerAPI(
     "loseWeight": lWeight,
   };
 
-  print("CFN:" + cfnToken);
-  print("height:" + height.toString());
-  print("weight:" + weight.toString());
-  print("goals:" + goalsObject.toString());
-  print("biotype:" + biotype);
-  print("firstname:" + firstname);
-  print("lastname:" + lastname);
-  print("email:" + email);
-  print("password:" + password);
-  print("sex" + sex);
-  print("deviceToken" + fcmToken!);
-
-  var payload = cfnToken.isEmpty
+  var payload = cfnToken!.isEmpty
       ? {
           "firstname": firstname,
           "lastname": lastname,
@@ -99,25 +88,14 @@ Future<void> registerAPI(
       print(response.body);
       // Decode response body
       var decodedResponse = json.decode(utf8.decode(response.bodyBytes));
-
-      if (decodedResponse is Map) {
-        // Resposta esperada como Map
-        userData = UserModel.fromMap(decodedResponse);
-        navigatePage(
-          context,
-          const AboutPage(),
-        );
-      } else if (decodedResponse is List) {
-        // Lidar com resposta como List
-        print("Resposta da API é uma lista: $decodedResponse");
-        modalBuilderBottomAnimation(
-          context,
-          SimplePopup(message: "Erro inesperado: resposta da API é uma lista."),
-        );
-      } else {
-        // Tipo de resposta não esperado
-        throw Exception("Formato de resposta desconhecido");
-      }
+      print(decodedResponse);
+      cfnToken!.isEmpty
+          ? userData = UserModel.fromMap(decodedResponse)
+          : userData = UserModel.fromMapSimple(decodedResponse);
+      navigatePage(
+        context,
+        const NutriHome(),
+      );
     });
   } catch (error) {
     print(error);

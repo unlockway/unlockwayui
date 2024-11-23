@@ -15,7 +15,6 @@ import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 Future<void> createMealSuggestionAPI(
   BuildContext context,
   String idRecommendation,
-  String idPatient,
   String originalMealId,
   String name,
   String category,
@@ -32,8 +31,6 @@ Future<void> createMealSuggestionAPI(
 
   var payload = {
     "idRecommendation": idRecommendation,
-    "idNutritionist": userData.id,
-    "idPatient": idPatient,
     "originalMealId": originalMealId == "" ? null : originalMealId,
     "name": name,
     "category": category,
@@ -45,6 +42,7 @@ Future<void> createMealSuggestionAPI(
   String payloadEncoded = json.encode(payload);
 
   request.fields["payload"] = payloadEncoded;
+  print(payloadEncoded);
 
   if (imageFile != null) {
     var imageStream = http.ByteStream(imageFile.openRead());
@@ -62,6 +60,12 @@ Future<void> createMealSuggestionAPI(
   await request.send().then(
     (response) {
       print(response.statusCode);
+      print(response.reasonPhrase);
+      print(response.request);
+      print(response.stream);
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+      });
       if (response.statusCode == 201) {
         Navigator.pop(context);
       }
@@ -83,7 +87,6 @@ Future<void> createRoutineSuggestionsAPI(
   String routineName,
   bool inUsage,
   String idRecommendation,
-  String idPatient,
   String originalRoutineId,
   List<RoutineMealOnCreation> meals,
   List<bool> weekRepetitions,
@@ -106,8 +109,6 @@ Future<void> createRoutineSuggestionsAPI(
 
   var payload = {
     "idRecommendation": idRecommendation,
-    "idNutritionist": userData.id,
-    "idPatient": idPatient,
     "originalRoutineId": originalRoutineId == "" ? null : originalRoutineId,
     "name": routineName,
     "inUsage": inUsage,
@@ -229,6 +230,11 @@ Future<void> deleteRoutineSuggestionAPI(
       },
     );
 
+    print(routineSuggestionId);
+
+    print(response.statusCode);
+    print(response.body);
+
     if (response.statusCode == 200 || response.statusCode == 204) {
       Navigator.pop(context);
     } else if (response.statusCode == 400) {
@@ -316,4 +322,71 @@ Future<void> editMealSuggestionAPI(
       }
     },
   );
+}
+
+Future<void> editRoutineSuggestionAPI(
+  BuildContext context,
+  String idRecommendation,
+  String routineName,
+  bool inUsage,
+  List<RoutineMealOnCreation> meals,
+  List<bool> weekRepetitions,
+  String? routineID,
+  String? routineSuggestionId,
+) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/routine-suggestions/$routineSuggestionId';
+
+  List<Map<String, dynamic>> jsonList = meals.map((meal) {
+    if (meal.notifyAt!.length == 5) meal.notifyAt = "${meal.notifyAt}:00";
+    return meal.toJson();
+  }).toList();
+
+  var finalWeekRepetitions = {
+    "monday": weekRepetitions[0],
+    "tuesday": weekRepetitions[1],
+    "wednesday": weekRepetitions[2],
+    "thursday": weekRepetitions[3],
+    "friday": weekRepetitions[4],
+    "saturday": weekRepetitions[5],
+    "sunday": weekRepetitions[6]
+  };
+
+  var payload = {
+    "idRecommendation": idRecommendation,
+    "originalRoutineId": routineID,
+    "id": routineSuggestionId,
+    "name": routineName,
+    "inUsage": inUsage,
+    "meals": jsonList,
+    "weekRepetitions": finalWeekRepetitions,
+  };
+
+  var payloadEncoded = json.encode(payload);
+
+  print(payloadEncoded);
+
+  final response = await http.put(
+    Uri.parse(apiUrl),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      "Content-type": "application/json",
+    },
+    body: payloadEncoded,
+  );
+
+  print(response.statusCode);
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    print("Foi");
+    Navigator.pop(context);
+  } else if (response.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Erro ao editar rotina",
+      ),
+    );
+  }
 }
