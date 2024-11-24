@@ -26,9 +26,10 @@ Future<void> registerAPI(
   String? sex,
   String? cfnToken,
 ) async {
-  String apiUrl = cfnToken != ""
-      ? "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-nutritionist"
-      : "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-patient";
+  print(cfnToken);
+  String apiUrl = cfnToken == "" || cfnToken == null
+      ? "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-patient"
+      : "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-nutritionist";
 
   print(apiUrl);
 
@@ -50,7 +51,7 @@ Future<void> registerAPI(
     "loseWeight": lWeight,
   };
 
-  var payload = cfnToken!.isEmpty
+  var payload = cfnToken == null
       ? {
           "firstname": firstname,
           "lastname": lastname,
@@ -89,13 +90,18 @@ Future<void> registerAPI(
       // Decode response body
       var decodedResponse = json.decode(utf8.decode(response.bodyBytes));
       print(decodedResponse);
-      cfnToken!.isEmpty
+      cfnToken == null
           ? userData = UserModel.fromMap(decodedResponse)
           : userData = UserModel.fromMapSimple(decodedResponse);
-      navigatePage(
-        context,
-        const NutriHome(),
-      );
+      cfnToken == null
+          ? navigatePage(
+              context,
+              const AboutPage(),
+            )
+          : navigatePage(
+              context,
+              const NutriHome(),
+            );
     });
   } catch (error) {
     print(error);

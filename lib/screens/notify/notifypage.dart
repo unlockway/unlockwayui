@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/notify.handlers.dart';
+import 'package:unlockway/handlers/recommendation.handlers.dart';
 import 'package:unlockway/models/notify.dart';
+import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/notify/components/notify_card.dart';
 import 'package:unlockway/screens/notify/components/notifydetails.dart';
+import 'package:unlockway/screens/notify/components/recommendation_notify_card.dart';
 
 class NotifyPage extends StatefulWidget {
   const NotifyPage({super.key});
@@ -13,7 +17,7 @@ class NotifyPage extends StatefulWidget {
 
 class _NotifyPageState extends State<NotifyPage> {
   List<NotifyModel> notify = [];
-  List<NotifyModel> recommendations = []; // Lista para recomendações
+  List<RecommendationModel> recommendations = []; // Lista para recomendações
   int notifyLenght = 0;
   bool _isLoading = true;
   String _currentView = "Notificações"; // Estado atual da tela
@@ -29,20 +33,16 @@ class _NotifyPageState extends State<NotifyPage> {
   }
 
   // Exemplo de carregamento de recomendações (pode ser substituído pela lógica real)
-  Future<void> fetchRecommendations() async {
-    // Simula uma lista de recomendações
-    await Future.delayed(const Duration(seconds: 1));
+  void fetchRecommendations() {
     setState(() {
-      recommendations = List.generate(
-        5,
-        (index) => NotifyModel(
-          id: "rec-$index",
-          title: "Recomendação $index",
-          description: "Descrição da Recomendação $index",
-          date: "2024-11-23T00:00:00",
-          read: false,
-        ),
-      );
+      _isLoading = true;
+    });
+    getPatientRecommendationAPI(context, userData.id!).then((result) {
+      setState(() {
+        recommendations = result;
+        print(recommendations.length);
+        _isLoading = false;
+      });
     });
   }
 
@@ -106,15 +106,15 @@ class _NotifyPageState extends State<NotifyPage> {
                 ),
                 Expanded(
                   child: _currentView == "Notificações"
-                      ? buildGridView(notify)
-                      : buildGridView(recommendations),
+                      ? buildGridViewNotify(notify)
+                      : buildGridViewRecommendation(recommendations),
                 ),
               ],
             ),
     );
   }
 
-  Widget buildGridView(List<NotifyModel> items) {
+  Widget buildGridViewNotify(List<NotifyModel> items) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
@@ -161,6 +161,24 @@ class _NotifyPageState extends State<NotifyPage> {
               );
             },
           ),
+        );
+      },
+    );
+  }
+
+  Widget buildGridViewRecommendation(List<RecommendationModel> items) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 1,
+        childAspectRatio: 5,
+      ),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        RecommendationModel item = items[index];
+
+        return RecommendationNotifyCard(
+          recommendation: item,
+          setStateFunc: fetchRecommendations,
         );
       },
     );

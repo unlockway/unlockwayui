@@ -96,8 +96,8 @@ Future<void> loginAPI(
     } catch (e) {
       modalBuilderBottomAnimation(
         context,
-        SimplePopup(
-          message: "Email ou senha incorretos, $e",
+        const SimplePopup(
+          message: "Email ou senha incorretos",
         ),
       );
     }

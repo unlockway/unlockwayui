@@ -117,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             goals,
             biotype,
             sex,
-            cfnController.text,
+            null,
           );
     setState(() => isFetching = false);
   }

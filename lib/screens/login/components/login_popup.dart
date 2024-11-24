@@ -11,12 +11,12 @@ class LoginPopup extends StatefulWidget {
 }
 
 class _LoginPopupState extends State<LoginPopup> {
+  bool onRequest = false;
+  final emailController = TextEditingController();
+  final senhaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    bool onRequest = false;
-    final emailController = TextEditingController();
-    final senhaController = TextEditingController();
-
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -67,11 +67,11 @@ class _LoginPopupState extends State<LoginPopup> {
                       text: "Entrar",
                       height: 48.0,
                       width: 200,
-                      onTap: () {
+                      onTap: () async {
                         setState(() {
                           onRequest = true;
                         });
-                        loginAPI(
+                        await loginAPI(
                           context,
                           emailController.text,
                           senhaController.text,
