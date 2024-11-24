@@ -270,15 +270,18 @@ class TextFieldSimpleMultline extends StatelessWidget {
     required this.title,
     required this.width,
     required this.controller,
+    this.enabled,
   });
 
   final String title;
   final double width;
   final TextEditingController controller;
+  final bool? enabled;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled == false ? false : true,
       controller: controller,
       minLines: 8,
       maxLines: 20,

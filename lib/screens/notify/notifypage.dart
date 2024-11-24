@@ -56,66 +56,120 @@ class _NotifyPageState extends State<NotifyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Theme.of(context).colorScheme.outline,
-        ),
-        backgroundColor: Theme.of(context).colorScheme.onSurface,
-        title: Text(
-          _currentView.toUpperCase(), // Atualiza com base na visualização atual
-          style: TextStyle(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_ios),
             color: Theme.of(context).colorScheme.outline,
-            fontFamily: "Inter",
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
           ),
+          backgroundColor: Theme.of(context).colorScheme.onSurface,
+          title: Text(
+            _currentView
+                .toUpperCase(), // Atualiza com base na visualização atual
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.outline,
+              fontFamily: "Inter",
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          child: _isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _currentView = "Notificações";
-                        });
-                      },
-                      child: const Text("Notificações"),
+                    const SizedBox(
+                      height: 15,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _currentView = "Recomendações";
-                        });
-                      },
-                      child: const Text("Recomendações"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              backgroundColor: _currentView == "Notificações"
+                                  ? Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.3)
+                                  : Theme.of(context).colorScheme.onSurface,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _currentView = "Notificações";
+                              });
+                            },
+                            child: Text(
+                              "Notificações",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              backgroundColor: _currentView == "Recomendações"
+                                  ? Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.3)
+                                  : Theme.of(context).colorScheme.onSurface,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _currentView = "Recomendações";
+                              });
+                            },
+                            child: Text(
+                              "Recomendações",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: _currentView == "Notificações"
+                          ? buildGridViewNotify(notify)
+                          : buildGridViewRecommendation(recommendations),
                     ),
                   ],
                 ),
-                Expanded(
-                  child: _currentView == "Notificações"
-                      ? buildGridViewNotify(notify)
-                      : buildGridViewRecommendation(recommendations),
-                ),
-              ],
-            ),
-    );
+        ));
   }
 
   Widget buildGridViewNotify(List<NotifyModel> items) {
     return GridView.builder(
+      shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
         childAspectRatio: 5,
@@ -168,6 +222,7 @@ class _NotifyPageState extends State<NotifyPage> {
 
   Widget buildGridViewRecommendation(List<RecommendationModel> items) {
     return GridView.builder(
+      shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
         childAspectRatio: 5,

@@ -87,7 +87,7 @@ class ClientCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "${(user.height! / 100).toStringAsFixed(2)}m",
+                      "${user.height!}m",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.outline,
                       ),
