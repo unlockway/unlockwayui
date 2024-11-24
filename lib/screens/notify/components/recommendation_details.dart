@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/text_field.dart';
+import 'package:unlockway/handlers/recommendation.handlers.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/notify/components/recommendation_meal_notify_card.dart';
+import 'package:unlockway/screens/notify/components/recommendation_notify_popup.dart';
 import 'package:unlockway/screens/notify/components/recommendation_routine_notify_card.dart';
 import 'package:unlockway/screens/recommendations/components/recommendation_meal_card.dart';
 
@@ -19,6 +22,7 @@ class RecommendationDetails extends StatefulWidget {
 
 class _RecommendationDetailsState extends State<RecommendationDetails> {
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController patientCommentController = TextEditingController();
 
   @override
   void initState() {
@@ -29,10 +33,81 @@ class _RecommendationDetailsState extends State<RecommendationDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: Container(
-          margin: const EdgeInsets.all(16),
+        bottomNavigationBar: SizedBox(
+          height: 80,
           child: Row(
-            children: [],
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  modalBuilderBottomAnimation(
+                    context,
+                    RecommendationNotifyPopup(
+                      recommendation: widget.recommendation,
+                      patientCommentController: patientCommentController,
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  padding: WidgetStateProperty.all(
+                    const EdgeInsets.all(16),
+                  ),
+                  side: WidgetStateProperty.all(
+                    BorderSide(
+                      color: Theme.of(context).colorScheme.error,
+                      width: 2,
+                    ),
+                  ),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                child: Text(
+                  "NEGAR",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.error,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  acceptRecommendationAPI(
+                    context,
+                    widget.recommendation.id,
+                    "",
+                  );
+                },
+                style: ButtonStyle(
+                  padding: WidgetStateProperty.all(
+                    const EdgeInsets.all(16),
+                  ),
+                  side: WidgetStateProperty.all(
+                    BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2,
+                    ),
+                  ),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                child: Text(
+                  "ACEITAR",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         backgroundColor: Theme.of(context).colorScheme.surface,

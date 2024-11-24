@@ -31,6 +31,10 @@ class _RecommendationNotifyCardState extends State<RecommendationNotifyCard> {
               recommendation: widget.recommendation,
             ),
           ),
+        ).then(
+          (onValue) {
+            widget.setStateFunc();
+          },
         );
       },
       child: ClipRRect(
@@ -39,7 +43,6 @@ class _RecommendationNotifyCardState extends State<RecommendationNotifyCard> {
           margin: const EdgeInsets.only(bottom: 1),
           padding: const EdgeInsets.all(16),
           width: double.infinity,
-          height: 74,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.onSurface,
           ),
@@ -60,7 +63,7 @@ class _RecommendationNotifyCardState extends State<RecommendationNotifyCard> {
               Expanded(
                 child: Text(
                   widget.recommendation.description,
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.outline,
@@ -75,7 +78,7 @@ class _RecommendationNotifyCardState extends State<RecommendationNotifyCard> {
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  widget.recommendation.createdAt.toString(),
+                  widget.recommendation.createdAt.toString().split(" ")[0],
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.outline,
                     fontFamily: "Inter",

@@ -96,7 +96,7 @@ class _NotifyPageState extends State<NotifyPage> {
                         Expanded(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -127,7 +127,7 @@ class _NotifyPageState extends State<NotifyPage> {
                         Expanded(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -230,6 +230,9 @@ class _NotifyPageState extends State<NotifyPage> {
       itemCount: items.length,
       itemBuilder: (context, index) {
         RecommendationModel item = items[index];
+        if (item.status == "APPROVED" || item.status == "DENIED") {
+          return const SizedBox.shrink(); // Do not render the card
+        }
 
         return RecommendationNotifyCard(
           recommendation: item,

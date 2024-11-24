@@ -20,7 +20,7 @@ class ClientInfoCard extends StatelessWidget {
         color: Theme.of(context).colorScheme.onSurface,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           user.photo != null
               ? ClipRRect(
@@ -47,17 +47,22 @@ class ClientInfoCard extends StatelessWidget {
                     ),
                   ),
                 )
-              : CircleAvatar(
-                  backgroundColor: Color(primary),
-                  child: Text(
-                    (user.firstName!.substring(0, 1) +
-                            user.lastName!.substring(0, 1))
-                        .toUpperCase(),
-                    style: TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 44.0,
-                      color: Theme.of(context).colorScheme.outline,
-                      fontWeight: FontWeight.bold,
+              : Expanded(
+                  child: CircleAvatar(
+                    radius: 60, // Define o raio do CircleAvatar
+                    backgroundColor: Color(primary),
+                    child: FittedBox(
+                      child: Text(
+                        (user.firstName!.substring(0, 1) +
+                                user.lastName!.substring(0, 1))
+                            .toUpperCase(),
+                        style: TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: 44.0,
+                          color: Theme.of(context).colorScheme.outline,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -129,9 +134,7 @@ class ClientInfoCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: user.height != null
-                            ? "${(user.height! / 100).toStringAsFixed(2)}m"
-                            : "0.00m",
+                        text: user.height != null ? "${user.height}m" : "0.00m",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                         ),

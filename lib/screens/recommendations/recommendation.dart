@@ -450,7 +450,7 @@ class _RecommendationState extends State<Recommendation> {
                             recommendation.id,
                             descriptionController.text,
                             recommendation.idPatient,
-                            "CREATE",
+                            "edit",
                           ).then((value) {
                             fetchRecommendation();
                           });

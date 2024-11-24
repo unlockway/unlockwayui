@@ -219,3 +219,84 @@ Future<void> editCreateRecommendationAPI(
     );
   }
 }
+
+Future<void> acceptRecommendationAPI(
+  BuildContext context,
+  String recommendationId,
+  String patientComment,
+) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/accept/$recommendationId';
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Content-Type': 'application/json', // Define o tipo do conteúdo como JSON
+    },
+    body: jsonEncode({
+      "patientComment": patientComment,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Recomendação aceita com sucesso",
+      ),
+    ).then(
+      (value) {
+        Navigator.pop(context);
+      },
+    );
+  } else if (response.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Erro ao aceitar recomendação",
+      ),
+    );
+  }
+}
+
+Future<void> denyRecommendationAPI(
+  BuildContext context,
+  String recommendationId,
+  String patientComment,
+) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/deny/$recommendationId';
+
+  final response = await http.post(
+    Uri.parse(apiUrl),
+    headers: {
+      'Authorization': 'Bearer ${userData.token}',
+      'Content-Type': 'application/json', // Define o tipo do conteúdo como JSON
+    },
+    body: jsonEncode({
+      "patientComment": patientComment,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Recomendação negada com sucesso",
+      ),
+    ).then(
+      (value) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      },
+    );
+  } else if (response.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Erro ao negar recomendação",
+      ),
+    );
+  }
+}
