@@ -141,3 +141,110 @@ Future<void> applyUserPhotoHandler(
     );
   }
 }
+
+Future<void> updateNutritionistDataHandler(
+  BuildContext? context,
+  String firstname,
+  String lastname,
+  String email,
+  String password,
+  String cfnToken,
+) async {
+  String apiUrl =
+      'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/${userData.id}';
+
+  var payload = {
+    "firstname": firstname,
+    "lastname": lastname,
+    "email": email,
+    "cfn": cfnToken,
+    "deviceToken": fcmToken
+  };
+
+  if (password.isNotEmpty) {
+    payload["password"] = password;
+  }
+
+  var bodyApi = json.encode(payload);
+
+  try {
+    await http
+        .put(
+      Uri.parse(apiUrl),
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": "Bearer ${userData.token}"
+      },
+      body: bodyApi,
+    )
+        .then((response) {
+      var user = json.decode(response.body);
+
+      userData = UserModel.fromMap(user);
+
+      if (context != null) {
+        modalBuilderBottomAnimation(
+          context,
+          const SimplePopup(message: "Usuário atualizado"),
+        );
+      }
+    });
+  } catch (error) {
+    if (context != null) {
+      modalBuilderBottomAnimation(
+        context,
+        SimplePopup(
+          message: error
+              .toString()
+              .replaceAll(
+                  "FormatException: Unexpected character (at character 1)", "")
+              .replaceAll("^", ""),
+        ),
+      );
+    }
+  }
+}
+
+Future<void> applyNutritionistPhotoHandler(
+  BuildContext context,
+  File photo,
+  String userId,
+  String sessionToken,
+) async {
+  String apiUrl =
+      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/user/photo/$userId';
+
+  var request = http.MultipartRequest(
+    'PUT',
+    Uri.parse(apiUrl),
+  )..headers['Authorization'] = 'Bearer ${userData.token}';
+
+  var imageStream = http.ByteStream(photo.openRead());
+  var length = await photo.length();
+  var multipartFile = http.MultipartFile(
+    'photo',
+    imageStream,
+    length,
+    filename: photo.path.split('/').last,
+    contentType: MediaType(
+      "image",
+      photo.path.split(".").last,
+    ),
+  );
+
+  request.files.add(multipartFile);
+
+  var stream = await request.send();
+
+  if (stream.statusCode == 200) {
+    var response = await http.Response.fromStream(stream);
+    userData.photo = response.body;
+  } else if (stream.statusCode == 400) {
+    modalBuilderBottomAnimation(
+      context,
+      const SimplePopup(
+        message: "Erro ao aplicar foto",
+      ),
+    );
+  }
+}

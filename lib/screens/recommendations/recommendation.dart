@@ -437,8 +437,9 @@ class _RecommendationState extends State<Recommendation> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           OutlinedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
+                            onPressed: () async {
+                              await deleteInitialRecommendationAPI(
+                                  context, recommendation.id);
                             },
                             style: ButtonStyle(
                               padding: WidgetStateProperty.all(

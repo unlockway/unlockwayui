@@ -14,24 +14,14 @@ class NutriProfile extends StatefulWidget {
     super.key,
     required this.firstname,
     required this.lastname,
-    required this.weight,
-    required this.height,
-    required this.goals,
     required this.email,
-    required this.biotype,
     required this.password,
-    required this.sex,
     required this.userPhoto,
   });
 
   final String firstname;
   final String lastname;
-  final double weight;
-  final double height;
-  final String sex;
-  final List<String> goals;
   final String email;
-  final String biotype;
   final String password;
   final String? userPhoto;
 
@@ -44,10 +34,9 @@ class _UserProfileState extends State<NutriProfile> {
 
   final firstnameController = TextEditingController();
   final lastnameController = TextEditingController();
-  final pesoController = TextEditingController();
-  final alturaController = TextEditingController();
   final emailController = TextEditingController();
   final senhaController = TextEditingController();
+  final cfnController = TextEditingController();
 
   List<String> goals = [];
   String sex = "MALE";
@@ -58,14 +47,10 @@ class _UserProfileState extends State<NutriProfile> {
   @override
   void initState() {
     super.initState();
-    biotype = widget.biotype;
-    sex = widget.sex;
     firstnameController.text = widget.firstname;
     lastnameController.text = widget.lastname;
     emailController.text = widget.email;
-    alturaController.text = widget.height.toString();
-    pesoController.text = widget.weight.toString();
-    goals = widget.goals;
+    cfnController.text = user.cfnToken ?? '';
   }
 
   void onBiotypeChange(String? newBiotype) {
@@ -113,22 +98,16 @@ class _UserProfileState extends State<NutriProfile> {
         actions: [
           TextButton(
             onPressed: () {
-              updateUserDataHandler(
-                context,
-                userData.id!,
-                userData.token!,
-                firstnameController.text,
-                lastnameController.text,
-                emailController.text,
-                senhaController.text,
-                double.parse(alturaController.text),
-                double.parse(pesoController.text),
-                goals,
-                biotype,
-                sex,
-              ).then((value) {
+              updateNutritionistDataHandler(
+                      context,
+                      firstnameController.text,
+                      lastnameController.text,
+                      emailController.text,
+                      senhaController.text,
+                      cfnController.text)
+                  .then((value) {
                 if (selectedImagePath.isNotEmpty) {
-                  applyUserPhotoHandler(
+                  applyNutritionistPhotoHandler(
                     context,
                     File(selectedImagePath),
                     user.id!,
@@ -202,9 +181,7 @@ class _UserProfileState extends State<NutriProfile> {
                         ],
                       )
                     : widget.userPhoto!.isNotEmpty
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            clipBehavior: Clip.hardEdge,
+                        ? Expanded(
                             child: CachedNetworkImage(
                               imageUrl: widget.userPhoto!,
                               fit: BoxFit.cover,
@@ -269,190 +246,19 @@ class _UserProfileState extends State<NutriProfile> {
                       number: false,
                     ),
                     const SizedBox(height: 16.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GenericTextField(
-                            title: "Peso",
-                            placeholder: "KG",
-                            width: double.infinity,
-                            controller: pesoController,
-                            number: true,
-                          ),
-                        ),
-                        const SizedBox(width: 16.0),
-                        Expanded(
-                          child: GenericTextField(
-                            title: "Altura",
-                            placeholder: "0,00",
-                            width: double.infinity,
-                            controller: alturaController,
-                            number: true,
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 12.0),
-                    Text(
-                      "Sexo",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.outline,
-                        fontSize: 16,
-                        fontFamily: "Inter",
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 4,
-                        horizontal: 8,
-                      ),
-                      child: DropdownButton<String>(
-                        dropdownColor: Theme.of(context).colorScheme.onSurface,
-                        borderRadius: BorderRadius.circular(6),
-                        isExpanded: true,
-                        value: sex,
-                        icon: const Icon(Icons.arrow_drop_down),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.outline,
-                          fontSize: 16,
-                          fontFamily: "Inter",
-                        ),
-                        onChanged: onSexChange,
-                        underline: Container(
-                          color: Colors.transparent,
-                        ),
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'MALE',
-                            child: Text('Homem'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'FEMALE',
-                            child: Text('Mulher'),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 12.0),
-                    Text(
-                      "Meta",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.outline,
-                        fontSize: 16,
-                        fontFamily: "Inter",
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    DropDownMultiSelect(
-                      decoration: InputDecoration(
-                        hintStyle: const TextStyle(
-                          color: Color(0xFF616B7C),
-                          fontFamily: "Inter",
-                          fontSize: 16,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            width: 2,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(darkBgdark),
-                          ),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        enabled: true,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(primarydark),
-                          ),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        filled: true,
-                        fillColor: Theme.of(context).colorScheme.onSurface,
-                        focusColor: Theme.of(context).colorScheme.onSurface,
-                      ),
-                      enabled: true,
-                      selectedValuesStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.outline,
-                      ),
-                      onChanged: onGoalsChange,
-                      options: const [
-                        'Manter saúde',
-                        'Perder peso',
-                        'Ganhar músculo',
-                      ],
-                      selectedValues: goals,
-                      whenEmpty: 'Diga-nos qual seu objetivo',
-                    ),
-                    const SizedBox(height: 12.0),
-                    Text(
-                      "Biotipo",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.outline,
-                        fontSize: 16,
-                        fontFamily: "Inter",
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 4,
-                        horizontal: 8,
-                      ),
-                      child: DropdownButton<String>(
-                          dropdownColor:
-                              Theme.of(context).colorScheme.onSurface,
-                          hint: const Text("EX: Endomorfo"),
-                          borderRadius: BorderRadius.circular(6),
-                          isExpanded: true,
-                          icon: const Icon(Icons.arrow_drop_down),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.outline,
-                            fontSize: 16,
-                            fontFamily: "Inter",
-                          ),
-                          value: biotype,
-                          onChanged: onBiotypeChange,
-                          underline: Container(
-                            color: Colors.transparent,
-                          ),
-                          items: const [
-                            DropdownMenuItem(
-                              value: 'ECTOMORPH',
-                              child: Text('Ectomorfo'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'ENDOMORPH',
-                              child: Text('Endomorfo'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'MESOMORPH',
-                              child: Text('Mesomorfo'),
-                            ),
-                          ]),
-                    ),
-                    const SizedBox(height: 24.0),
                     GenericTextField(
                       title: "E-mail",
                       placeholder: "Insira seu E-mail aqui",
                       width: double.infinity,
                       controller: emailController,
+                      number: false,
+                    ),
+                    const SizedBox(height: 16.0),
+                    GenericTextField(
+                      title: "cfn",
+                      placeholder: "Insira seu cfn aqui",
+                      width: double.infinity,
+                      controller: cfnController,
                       number: false,
                     ),
                     const SizedBox(height: 16.0),
