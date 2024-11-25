@@ -26,6 +26,19 @@ class RecommendationModel {
   final DateTime createdAt;
   final DateTime updatedAt;
 
+  String get formattedStatus {
+    switch (status) {
+      case "SENT":
+        return "ENVIADA";
+      case "DENIED":
+        return "NEGADA";
+      case "APPROVED":
+        return "ACEITA";
+      default:
+        return "DESCONHECIDO"; // Para valores inesperados
+    }
+  }
+
   factory RecommendationModel.fromMap(Map<String, dynamic> map) {
     return RecommendationModel(
       id: map['id'],

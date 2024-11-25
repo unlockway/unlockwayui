@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
+import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:intl/intl.dart';
 import 'package:unlockway/models/user.dart';
@@ -69,10 +70,14 @@ class RecommendationCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: recommendation.status,
+                        text: recommendation.formattedStatus,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: colorScheme.primary,
+                          color: recommendation.status == "DENIED"
+                              ? Color(danger)
+                              : recommendation.status == "SENT"
+                                  ? colorScheme.surface
+                                  : colorScheme.primary,
                         ),
                       ),
                     ],
