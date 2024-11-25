@@ -35,7 +35,19 @@ class Recommendation extends StatefulWidget {
 }
 
 class _RecommendationState extends State<Recommendation> {
-  late RecommendationModel recommendation;
+  RecommendationModel recommendation = RecommendationModel(
+    id: "",
+    idPatient: "",
+    status: "",
+    description: "",
+    mealSuggestions: [],
+    routineSuggestions: [],
+    idNutritionist: '',
+    patientComment: '',
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    nutritionistPhoto: "",
+  );
   List<MealsModel> mealsList = [];
   List<RoutineModel> routineList = [];
   int selectedPage = 0;
@@ -116,6 +128,7 @@ class _RecommendationState extends State<Recommendation> {
 
   @override
   void dispose() {
+    descriptionController.dispose();
     super.dispose();
   }
 
@@ -254,6 +267,9 @@ class _RecommendationState extends State<Recommendation> {
                                 return Padding(
                                     padding: const EdgeInsets.only(bottom: 5.0),
                                     child: RecommendationMealCard(
+                                      enabled: recommendation.status == "SENT"
+                                          ? true
+                                          : false,
                                       onRecommendation: fetchRecommendation,
                                       recommendation: recommendation,
                                       mealSuggestion:
@@ -319,6 +335,9 @@ class _RecommendationState extends State<Recommendation> {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 5.0),
                                   child: RecommendationRoutineCard(
+                                    enabled: recommendation.status == "SENT"
+                                        ? true
+                                        : false,
                                     patientMeals: mealsList,
                                     onRecommendation: fetchRecommendation,
                                     recommendation: recommendation,

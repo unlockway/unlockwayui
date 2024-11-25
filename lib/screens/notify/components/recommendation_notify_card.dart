@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/navigation.dart';
@@ -51,18 +52,32 @@ class _RecommendationNotifyCardState extends State<RecommendationNotifyCard> {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child: SvgPicture.asset(
-                  "assets/svgs/logo_mini.svg",
-                  width: 28,
-                  height: 28,
-                ),
+                child: widget.recommendation.nutritionistPhoto != null &&
+                        widget.recommendation.nutritionistPhoto!.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: widget.recommendation.nutritionistPhoto!,
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                        width: 28,
+                        height: 28,
+                        fit: BoxFit.cover,
+                      )
+                    : SvgPicture.asset(
+                        "assets/svgs/logo_mini.svg",
+                        width: 28,
+                        height: 28,
+                      ),
               ),
               const SizedBox(
                 width: 15,
               ),
               Expanded(
                 child: Text(
-                  widget.recommendation.description,
+                  widget.recommendation.description.isNotEmpty
+                      ? widget.recommendation.description
+                      : "Sem descrição disponível", // Texto padrão
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(

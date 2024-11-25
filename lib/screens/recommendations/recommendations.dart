@@ -30,7 +30,7 @@ class _RecommendationsState extends State<Recommendations> {
     });
     getPatientRecommendationAPI(context, widget.patient.id!).then((result) {
       setState(() {
-        recommendations = result;
+        recommendations = result.reversed.toList();
         print(recommendations.length);
         _isLoading = false;
       });
@@ -131,7 +131,9 @@ class _RecommendationsState extends State<Recommendations> {
                             patient: widget.patient,
                           ),
                         ),
-                      );
+                      ).then((onValue) {
+                        fetchRecommendations();
+                      });
                     },
                     icon: Icon(
                       Icons.add,

@@ -5,8 +5,9 @@ class RecommendationModel {
   const RecommendationModel({
     required this.id,
     required this.idNutritionist,
+    this.nutritionistPhoto,
     required this.idPatient,
-    required this.patientComment,
+    this.patientComment,
     required this.status,
     required this.createdAt,
     required this.updatedAt,
@@ -17,6 +18,7 @@ class RecommendationModel {
 
   final String id;
   final String idNutritionist;
+  final String? nutritionistPhoto;
   final String idPatient;
   final String description;
   final String? patientComment;
@@ -41,24 +43,36 @@ class RecommendationModel {
 
   factory RecommendationModel.fromMap(Map<String, dynamic> map) {
     return RecommendationModel(
-      id: map['id'],
-      idNutritionist: map['idNutritionist'],
-      idPatient: map['idPatient'],
-      description: map['description'],
-      patientComment: map['patientComment'],
-      status: map['status'],
-      mealSuggestions: List<MealSuggestion>.from(
-        map['mealsSuggetions'].map(
-          (mealSuggestion) => MealSuggestion.fromMap(mealSuggestion),
-        ),
-      ),
-      routineSuggestions: List<RoutineSuggestion>.from(
-        map['routineSuggetions'].map(
-          (routineSuggestion) => RoutineSuggestion.fromMap(routineSuggestion),
-        ),
-      ),
-      createdAt: DateTime.parse(map['createdAt'].toString()),
-      updatedAt: DateTime.parse(map['updatedAt'].toString()),
+      id: map['id'] ?? '', // Valor padrão vazio para campos obrigatórios
+      idNutritionist: map['idNutritionist'] ?? '',
+      nutritionistPhoto: map['nutritionistPhoto'], // Permitir nulo
+      idPatient: map['idPatient'] ?? '',
+      description:
+          map['description'] ?? 'Sem descrição', // Valor padrão para texto
+      patientComment: map['patientComment'], // Permitir nulo
+      status:
+          map['status'] ?? 'UNKNOWN', // Valor padrão para status desconhecido
+      mealSuggestions: map['mealsSuggetions'] != null
+          ? List<MealSuggestion>.from(
+              map['mealsSuggetions'].map(
+                (mealSuggestion) => MealSuggestion.fromMap(mealSuggestion),
+              ),
+            )
+          : [], // Lista vazia como fallback
+      routineSuggestions: map['routineSuggetions'] != null
+          ? List<RoutineSuggestion>.from(
+              map['routineSuggetions'].map(
+                (routineSuggestion) =>
+                    RoutineSuggestion.fromMap(routineSuggestion),
+              ),
+            )
+          : [], // Lista vazia como fallback
+      createdAt: map['createdAt'] != null
+          ? DateTime.parse(map['createdAt'].toString())
+          : DateTime.now(), // Data atual como fallback
+      updatedAt: map['updatedAt'] != null
+          ? DateTime.parse(map['updatedAt'].toString())
+          : DateTime.now(), // Data atual como fallback
     );
   }
 }

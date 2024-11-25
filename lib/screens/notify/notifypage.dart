@@ -221,19 +221,22 @@ class _NotifyPageState extends State<NotifyPage> {
   }
 
   Widget buildGridViewRecommendation(List<RecommendationModel> items) {
+    // Filtrar e inverter os itens
+    List<RecommendationModel> filteredItems = items
+        .where((item) => item.status != "APPROVED" && item.status != "DENIED")
+        .toList()
+        .reversed
+        .toList(); // Inverte a ordem
+
     return GridView.builder(
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
         childAspectRatio: 5,
       ),
-      itemCount: items.length,
+      itemCount: filteredItems.length,
       itemBuilder: (context, index) {
-        RecommendationModel item = items[index];
-        if (item.status == "APPROVED" || item.status == "DENIED") {
-          return const SizedBox.shrink(); // Do not render the card
-        }
-
+        RecommendationModel item = filteredItems[index];
         return RecommendationNotifyCard(
           recommendation: item,
           setStateFunc: fetchRecommendations,

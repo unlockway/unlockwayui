@@ -13,12 +13,14 @@ import 'package:unlockway/screens/routine/components/new_routine_page.dart';
 class RecommendationRoutineCard extends StatelessWidget {
   const RecommendationRoutineCard({
     super.key,
+    required this.enabled,
     required this.routineSuggestion,
     required this.onRecommendation,
     required this.recommendation,
     required this.patientMeals,
   });
 
+  final bool enabled;
   final RoutineSuggestion routineSuggestion;
   final VoidCallback onRecommendation;
   final RecommendationModel recommendation;
@@ -29,33 +31,35 @@ class RecommendationRoutineCard extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: InkWell(
-        onTap: () {
-          List<RoutineMealOnCreation> filteredMeals = [];
-          for (var element in routineSuggestion.meals) {
-            filteredMeals.add(
-              RoutineMealOnCreation(
-                idMeal: element.mealId,
-                notifyAt: element.notifyAt,
-              ),
-            );
-          }
-          Navigator.push(
-            context,
-            navigationPageRightAnimation(
-              NewRoutine(
-                onRecommendation: onRecommendation,
-                recommendation: recommendation,
-                routineSuggestion: routineSuggestion,
-                patientMeals: patientMeals,
-                routineId: routineSuggestion.originalRoutineId,
-                name: routineSuggestion.name,
-                meals: filteredMeals,
-                inUsage: routineSuggestion.inUsage,
-                weekRepetitions: routineSuggestion.weekRepetitions,
-              ),
-            ),
-          );
-        },
+        onTap: !enabled
+            ? () {}
+            : () {
+                List<RoutineMealOnCreation> filteredMeals = [];
+                for (var element in routineSuggestion.meals) {
+                  filteredMeals.add(
+                    RoutineMealOnCreation(
+                      idMeal: element.mealId,
+                      notifyAt: element.notifyAt,
+                    ),
+                  );
+                }
+                Navigator.push(
+                  context,
+                  navigationPageRightAnimation(
+                    NewRoutine(
+                      onRecommendation: onRecommendation,
+                      recommendation: recommendation,
+                      routineSuggestion: routineSuggestion,
+                      patientMeals: patientMeals,
+                      routineId: routineSuggestion.originalRoutineId,
+                      name: routineSuggestion.name,
+                      meals: filteredMeals,
+                      inUsage: routineSuggestion.inUsage,
+                      weekRepetitions: routineSuggestion.weekRepetitions,
+                    ),
+                  ),
+                );
+              },
         child: Container(
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.onSurface,

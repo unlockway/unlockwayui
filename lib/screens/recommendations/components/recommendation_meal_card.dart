@@ -9,11 +9,13 @@ import 'package:unlockway/screens/meals/components/meal_form.dart';
 class RecommendationMealCard extends StatelessWidget {
   const RecommendationMealCard({
     super.key,
+    required this.enabled,
     required this.mealSuggestion,
     required this.onRecommendation,
     required this.recommendation,
   });
 
+  final bool enabled;
   final MealSuggestion mealSuggestion;
   final VoidCallback onRecommendation;
   final RecommendationModel recommendation;
@@ -21,35 +23,37 @@ class RecommendationMealCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        List<SelectedFood> selectedingredients =
-            mealSuggestion.ingredients.map((e) {
-          return SelectedFood(
-            e.id,
-            e.amount,
-          );
-        }).toList();
+      onTap: !enabled
+          ? () {}
+          : () {
+              List<SelectedFood> selectedingredients =
+                  mealSuggestion.ingredients.map((e) {
+                return SelectedFood(
+                  e.id,
+                  e.amount,
+                );
+              }).toList();
 
-        Navigator.of(context).push(
-          navigationPageRightAnimation(
-            MealForm(
-              mealSuggestion: mealSuggestion,
-              onRecommendation: onRecommendation,
-              id: mealSuggestion.originalMealId == null
-                  ? ""
-                  : mealSuggestion.originalMealId!,
-              name: mealSuggestion.name,
-              category: mealSuggestion.category,
-              description: mealSuggestion.description,
-              preparationMethod: mealSuggestion.preparationMethod,
-              ingredientsSelected: selectedingredients,
-              img: mealSuggestion.photo,
-              recommendation: recommendation,
-              onSave: () {},
-            ),
-          ),
-        );
-      },
+              Navigator.of(context).push(
+                navigationPageRightAnimation(
+                  MealForm(
+                    mealSuggestion: mealSuggestion,
+                    onRecommendation: onRecommendation,
+                    id: mealSuggestion.originalMealId == null
+                        ? ""
+                        : mealSuggestion.originalMealId!,
+                    name: mealSuggestion.name,
+                    category: mealSuggestion.category,
+                    description: mealSuggestion.description,
+                    preparationMethod: mealSuggestion.preparationMethod,
+                    ingredientsSelected: selectedingredients,
+                    img: mealSuggestion.photo,
+                    recommendation: recommendation,
+                    onSave: () {},
+                  ),
+                ),
+              );
+            },
       child: Container(
         height: 100,
         decoration: BoxDecoration(
