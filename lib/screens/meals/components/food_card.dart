@@ -145,15 +145,20 @@ class _IngredientCardState extends State<IngredientCard> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          widget.food.name,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.outline,
-                            fontSize: 19,
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            widget.food.name,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.outline,
+                              fontSize: 19,
+                              fontFamily: "Inter",
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1, // Limita o texto a uma linha
+                            overflow: TextOverflow
+                                .ellipsis, // Adiciona reticências (...) se o texto for muito longo
                           ),
                         ),
                       ),

@@ -105,7 +105,7 @@ Future<void> applyUserPhotoHandler(
   String sessionToken,
 ) async {
   String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/user/photo/$userId';
+      'https://unlockwayapi.azurewebsites.net/api/v2/user/photo/$userId';
 
   var request = http.MultipartRequest(
     'PUT',
@@ -179,8 +179,9 @@ Future<void> updateNutritionistDataHandler(
     )
         .then((response) {
       var user = json.decode(response.body);
+      print(user);
 
-      userData = UserModel.fromMap(user);
+      userData = UserModel.fromMapSimple(user);
 
       if (context != null) {
         modalBuilderBottomAnimation(
@@ -212,7 +213,7 @@ Future<void> applyNutritionistPhotoHandler(
   String sessionToken,
 ) async {
   String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/user/photo/$userId';
+      'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/photo/$userId';
 
   var request = http.MultipartRequest(
     'PUT',

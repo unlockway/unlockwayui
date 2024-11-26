@@ -163,17 +163,44 @@ class _UserProfileState extends State<UserProfile> {
                 child: selectedImagePath.isNotEmpty
                     ? Stack(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            clipBehavior: Clip.hardEdge,
-                            child: Positioned(
-                              child: Image.file(
-                                File(selectedImagePath),
-                                fit: BoxFit.cover,
-                                width: 180,
-                                height: 180,
+                          Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                clipBehavior: Clip.hardEdge,
+                                child: Image.file(
+                                  File(selectedImagePath),
+                                  fit: BoxFit.cover,
+                                  width: 180,
+                                  height: 180,
+                                ),
                               ),
-                            ),
+                              Positioned(
+                                bottom: 0,
+                                right: 5,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
+                                  child: IconButton(
+                                    iconSize: 34.0,
+                                    onPressed: () {
+                                      setState(() {
+                                        selectedImagePath = '';
+                                      });
+                                    },
+                                    icon: Icon(
+                                      PhosphorIcons.trash(
+                                        PhosphorIconsStyle.duotone,
+                                      ),
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           Positioned(
                             bottom: 0,

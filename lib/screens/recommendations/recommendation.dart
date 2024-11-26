@@ -366,6 +366,7 @@ class _RecommendationState extends State<Recommendation> {
                               width: double.infinity,
                               controller: descriptionController,
                             ),
+                            const SizedBox(height: 15),
                           ],
                         ),
                       ),

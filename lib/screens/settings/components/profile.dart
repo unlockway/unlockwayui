@@ -34,7 +34,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           Navigator.of(context)
               .push(
             navigationPageRightAnimation(
-              user.cfnToken != null || user.cfnToken!.isNotEmpty
+              user.cfnToken != null
                   ? NutriProfile(
                       firstname: user.firstName!,
                       lastname: user.lastName!,

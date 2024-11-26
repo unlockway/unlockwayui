@@ -76,7 +76,7 @@ class RecommendationCard extends StatelessWidget {
                           color: recommendation.status == "DENIED"
                               ? Color(danger)
                               : recommendation.status == "SENT"
-                                  ? colorScheme.surface
+                                  ? const Color(0xFFc1c1c1)
                                   : colorScheme.primary,
                         ),
                       ),
