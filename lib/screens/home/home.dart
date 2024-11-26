@@ -42,7 +42,6 @@ class _HomeState extends State<Home> {
     HomeDataModel result = await getHomeAnalysysAPI(context);
     dynamic resultRoutine = await getRoutineOnUseAPI(context);
     setState(() {
-      print(result.routines);
       homeData = result;
       actualRoutine = resultRoutine;
       _isLoading = false;

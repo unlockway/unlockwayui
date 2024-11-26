@@ -29,7 +29,6 @@ Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
     // Mapeia os dados para a lista de objetos HistoryModel
 
     List<HistoryModel> history = historyList.map((history) {
-      print(history);
       return HistoryModel.fromMap(history);
     }).toList();
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:unlockway/models/patient.dart';
 
 class PatientBottomNavigator extends StatelessWidget {
   const PatientBottomNavigator({

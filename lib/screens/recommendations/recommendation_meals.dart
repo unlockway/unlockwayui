@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
@@ -153,16 +152,5 @@ class _RecommendationMealsState extends State<RecommendationMeals> {
               ],
             ),
     );
-  }
-
-  void _onTextChanged(String value) {
-    _debounceTimer?.cancel();
-
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
-      List<MealsModel> resultName = await getMealsByNameAPI(context, value);
-      setState(() {
-        meals = resultName;
-      });
-    });
   }
 }

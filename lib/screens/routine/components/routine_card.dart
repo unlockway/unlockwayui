@@ -36,7 +36,7 @@ class RoutineCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: InkWell(
         onTap: () {
@@ -50,6 +50,7 @@ class RoutineCard extends StatelessWidget {
                 meals: meals,
                 inUsage: using,
                 weekRepetitions: weekRepetitions,
+                noEdit: true,
               ),
             ),
           ).then(

@@ -179,7 +179,6 @@ Future<void> updateNutritionistDataHandler(
     )
         .then((response) {
       var user = json.decode(response.body);
-      print(user);
 
       userData = UserModel.fromMapSimple(user);
 

@@ -2,10 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/ingredients.dart';
-import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/meals/components/meal_form.dart';
-import 'package:unlockway/screens/recommendations/recommendation.dart';
 
 class MealCard extends StatelessWidget {
   const MealCard({
@@ -53,6 +51,7 @@ class MealCard extends StatelessWidget {
                     ingredientsSelected: ingredients,
                     img: imageURL,
                     onSave: onEdit,
+                    noEdit: noEdit,
                   )
                 : MealForm(
                     onRecommendation: onRecommendation,

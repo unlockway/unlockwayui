@@ -1,17 +1,9 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/screens/patient/components/patient_bottom_navigator.dart';
-import 'package:unlockway/handlers/meals.handlers.dart';
-import 'package:unlockway/handlers/nutri.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meals.dart';
-import 'package:unlockway/models/patient.dart';
-import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/meal_card.dart';
-import 'package:unlockway/screens/recommendations/recommendations.dart';
 
 class PatientMeals extends StatelessWidget {
   const PatientMeals({

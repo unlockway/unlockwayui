@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multiselect/multiselect.dart';
 import 'package:unlockway/components/text_field.dart';
 
 typedef SexCallback = void Function(String? sex);

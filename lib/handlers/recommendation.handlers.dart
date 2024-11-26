@@ -1,14 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
-import 'package:unlockway/models/meal_suggestion.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:http/http.dart' as http;
-import 'package:unlockway/screens/recommendations/recommendation.dart';
 
 Future<List<RecommendationModel>> getPatientRecommendationAPI(
     BuildContext context, String patientId) async {
@@ -30,7 +29,6 @@ Future<List<RecommendationModel>> getPatientRecommendationAPI(
 
   if (response.statusCode == 200) {
     String responseBody = utf8.decode(response.bodyBytes);
-    print(responseBody);
 
     List<dynamic> patientList = json.decode(responseBody);
 
@@ -97,7 +95,6 @@ Future<List<RecommendationModel>> getPatientRecommendationByDescriptionAPI(
 
   if (response.statusCode == 200) {
     String responseBody = utf8.decode(response.bodyBytes);
-    print(responseBody);
 
     List<dynamic> patientList = json.decode(responseBody);
 
@@ -133,11 +130,7 @@ Future<RecommendationModel> createInitialRecommendationAPI(
     }),
   );
 
-  print(response.statusCode);
-  print(response.body);
-
   String responseBody = utf8.decode(response.bodyBytes);
-  print(responseBody);
 
   Map<String, dynamic> recommendation = json.decode(responseBody);
 
@@ -154,15 +147,12 @@ Future<void> deleteInitialRecommendationAPI(
   String apiUrl =
       'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/$recommendationID';
 
-  final response = await http.delete(
+  await http.delete(
     Uri.parse(apiUrl),
     headers: {
       'Authorization': 'Bearer ${userData.token}',
     },
   );
-
-  print(response.statusCode);
-  print(response.body);
 
   Navigator.of(context).pop();
 }

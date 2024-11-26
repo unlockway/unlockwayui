@@ -16,7 +16,6 @@ import 'package:unlockway/handlers/meals.handlers.dart';
 import 'package:unlockway/handlers/suggestions.handlers.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meal_suggestion.dart';
-import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/meals/components/foods_selection_page.dart';
 
@@ -61,6 +60,8 @@ class _MealFormState extends State<MealForm> {
   String selectedImagePath = '';
   List<SelectedFood> ingredientsSelected = [];
   String? category;
+  bool onSaveRequest = false;
+  bool onDeleteRequest = false;
 
   @override
   void initState() {
@@ -86,16 +87,23 @@ class _MealFormState extends State<MealForm> {
                   (widget.name.isNotEmpty && widget.onRecommendation == null)
                       ? Flexible(
                           child: ButtonOutlined(
+                            onRequest: onDeleteRequest,
                             color: Color(danger),
                             text: "EXCLUIR",
                             height: 48,
                             width: double.infinity,
                             onTap: () {
+                              setState(() {
+                                onDeleteRequest = true;
+                              });
                               deleteMealAPI(
                                 context,
                                 userData.token!,
                                 widget.id,
                               );
+                              setState(() {
+                                onDeleteRequest = false;
+                              });
                             },
                           ),
                         )
@@ -113,15 +121,22 @@ class _MealFormState extends State<MealForm> {
                             )
                           : Flexible(
                               child: ButtonOutlined(
+                                onRequest: onDeleteRequest,
                                 color: Color(danger),
                                 text: "EXCLUIR",
                                 height: 48,
                                 width: double.infinity,
                                 onTap: () {
+                                  setState(() {
+                                    onDeleteRequest = true;
+                                  });
                                   deleteMealSuggestionAPI(
                                           context, widget.mealSuggestion!.id)
                                       .then((onValue) {
                                     widget.onRecommendation!();
+                                  });
+                                  setState(() {
+                                    onDeleteRequest = false;
                                   });
                                 },
                               ),
@@ -132,10 +147,14 @@ class _MealFormState extends State<MealForm> {
                   widget.name.isNotEmpty
                       ? Flexible(
                           child: ButtonFilled(
+                            onRequest: onSaveRequest,
                             text: "EDITAR",
                             height: 48,
                             width: double.infinity,
                             onTap: () {
+                              setState(() {
+                                onSaveRequest = true;
+                              });
                               widget.onRecommendation == null
                                   ? editMealsAPI(
                                       context,
@@ -184,15 +203,22 @@ class _MealFormState extends State<MealForm> {
                                         ).then((onValue) {
                                           widget.onRecommendation!();
                                         });
+                              setState(() {
+                                onSaveRequest = false;
+                              });
                             },
                           ),
                         )
                       : Flexible(
                           child: ButtonFilled(
+                            onRequest: onSaveRequest,
                             text: "SALVAR",
                             height: 48,
                             width: double.infinity,
                             onTap: () {
+                              setState(() {
+                                onSaveRequest = true;
+                              });
                               if (nameController.text == "" ||
                                   descriptionController.text == "" ||
                                   preparationMethodController.text == "" ||
@@ -233,10 +259,15 @@ class _MealFormState extends State<MealForm> {
                                             selectedImagePath != ''
                                                 ? File(selectedImagePath)
                                                 : null)
-                                        .then((onValue) {
-                                        widget.onRecommendation!();
-                                      });
+                                        .then(
+                                        (onValue) {
+                                          widget.onRecommendation!();
+                                        },
+                                      );
                               }
+                              setState(() {
+                                onSaveRequest = false;
+                              });
                             },
                           ),
                         ),

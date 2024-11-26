@@ -26,12 +26,9 @@ Future<void> registerAPI(
   String? sex,
   String? cfnToken,
 ) async {
-  print(cfnToken);
   String apiUrl = cfnToken == "" || cfnToken == null
       ? "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-patient"
       : "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-nutritionist";
-
-  print(apiUrl);
 
   bool mMass = false;
   bool mHealth = false;
@@ -76,7 +73,6 @@ Future<void> registerAPI(
 
   var bodyApi = json.encode(payload);
 
-  print(bodyApi);
   try {
     await http
         .post(
@@ -85,11 +81,9 @@ Future<void> registerAPI(
       body: bodyApi,
     )
         .then((response) {
-      print(response.statusCode);
-      print(response.body);
       // Decode response body
       var decodedResponse = json.decode(utf8.decode(response.bodyBytes));
-      print(decodedResponse);
+
       cfnToken == null
           ? userData = UserModel.fromMap(decodedResponse)
           : userData = UserModel.fromMapSimple(decodedResponse);
@@ -104,8 +98,6 @@ Future<void> registerAPI(
             );
     });
   } catch (error) {
-    print(error);
-
     modalBuilderBottomAnimation(
       context,
       SimplePopup(

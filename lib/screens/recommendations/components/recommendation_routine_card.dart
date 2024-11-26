@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/days_list.dart';
 import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/constants.dart';
-import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';

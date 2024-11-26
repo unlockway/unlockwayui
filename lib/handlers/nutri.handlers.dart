@@ -32,7 +32,6 @@ Future<List<PatientUserModel>> getPatientsAPI(BuildContext context) async {
 
   if (response.statusCode == 200) {
     String responseBody = utf8.decode(response.bodyBytes);
-    print(responseBody);
 
     List<dynamic> patientList = json.decode(responseBody);
 
@@ -66,7 +65,6 @@ Future<List<PatientUserModel>> getPatientsByNameAPI(
 
   if (response.statusCode == 200) {
     String responseBody = utf8.decode(response.bodyBytes);
-    print(responseBody);
 
     List<dynamic> patientList = json.decode(responseBody);
 
@@ -99,8 +97,6 @@ Future<List<MealsModel>> getPatientMealsAPI(
       'Accept-Charset': 'UTF-8',
     },
   );
-
-  print(response.statusCode);
 
   if (response.statusCode == 200) {
     String responseBody = utf8.decode(response.bodyBytes);
@@ -136,8 +132,6 @@ Future<List<RoutineModel>> getPatientRoutinesAPI(
       'Accept-Charset': 'UTF-8', // Adicionado Accept-Charset
     },
   );
-
-  print(response.statusCode);
 
   if (response.statusCode == 200) {
     // Use o utf8.decode para garantir que a codificação seja interpretada corretamente
@@ -200,7 +194,6 @@ Future<void> deletePatientAPI(
     },
   );
 
-  print(response.statusCode);
   if (response.statusCode == 200) {
     modalBuilderBottomAnimation(
       context,
@@ -238,8 +231,6 @@ Future<void> linkNewPatientAPI(
     }),
   );
 
-  print(response.statusCode);
-  print(response.body);
   if (response.statusCode == 200) {
     modalBuilderBottomAnimation(
       context,

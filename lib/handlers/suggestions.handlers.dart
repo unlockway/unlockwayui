@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
@@ -42,7 +44,6 @@ Future<void> createMealSuggestionAPI(
   String payloadEncoded = json.encode(payload);
 
   request.fields["payload"] = payloadEncoded;
-  print(payloadEncoded);
 
   if (imageFile != null) {
     var imageStream = http.ByteStream(imageFile.openRead());
@@ -59,13 +60,7 @@ Future<void> createMealSuggestionAPI(
 
   await request.send().then(
     (response) {
-      print(response.statusCode);
-      print(response.reasonPhrase);
-      print(response.request);
-      print(response.stream);
-      response.stream.transform(utf8.decoder).listen((value) {
-        print(value);
-      });
+      response.stream.transform(utf8.decoder).listen((value) {});
       if (response.statusCode == 201) {
         Navigator.pop(context);
       }
@@ -126,13 +121,6 @@ Future<void> createRoutineSuggestionsAPI(
     },
     body: payloadEncoded,
   );
-
-  print("Token: ${userData.token}");
-
-  print(response.statusCode);
-  print(response.body);
-  print("Payload:");
-  print(payload);
 
   if (response.statusCode == 201) {
     Navigator.pop(context);
@@ -229,11 +217,6 @@ Future<void> deleteRoutineSuggestionAPI(
         'Authorization': 'Bearer ${userData.token}',
       },
     );
-
-    print(routineSuggestionId);
-
-    print(response.statusCode);
-    print(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 204) {
       Navigator.pop(context);
@@ -364,8 +347,6 @@ Future<void> editRoutineSuggestionAPI(
 
   var payloadEncoded = json.encode(payload);
 
-  print(payloadEncoded);
-
   final response = await http.put(
     Uri.parse(apiUrl),
     headers: {
@@ -375,11 +356,7 @@ Future<void> editRoutineSuggestionAPI(
     body: payloadEncoded,
   );
 
-  print(response.statusCode);
-  print(response.body);
-
   if (response.statusCode == 200) {
-    print("Foi");
     Navigator.pop(context);
   } else if (response.statusCode == 400) {
     modalBuilderBottomAnimation(

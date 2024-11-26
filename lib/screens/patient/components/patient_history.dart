@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:unlockway/components/navigation.dart';
-import 'package:unlockway/screens/patient/components/patient_bottom_navigator.dart';
-import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/models/history.dart';
-import 'package:unlockway/models/patient.dart';
 import 'package:unlockway/screens/history/components/history_card.dart';
-import 'package:unlockway/screens/recommendations/recommendations.dart';
 
 class PatientHistory extends StatelessWidget {
   const PatientHistory({

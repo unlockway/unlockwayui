@@ -40,7 +40,7 @@ class _NotifyPageState extends State<NotifyPage> {
     getPatientRecommendationAPI(context, userData.id!).then((result) {
       setState(() {
         recommendations = result;
-        print(recommendations.length);
+
         _isLoading = false;
       });
     });

@@ -1,17 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/nutri.handlers.dart';
 import 'package:unlockway/handlers/recommendation.handlers.dart';
-import 'package:unlockway/handlers/suggestions.handlers.dart';
-import 'package:unlockway/models/meal_suggestion.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/models/routine.dart';
-import 'package:unlockway/models/routine_suggestion.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/meals/components/meal_form.dart';
 import 'package:unlockway/screens/recommendations/components/recommendation_meal_card.dart';
@@ -51,6 +47,8 @@ class _RecommendationState extends State<Recommendation> {
   List<MealsModel> mealsList = [];
   List<RoutineModel> routineList = [];
   int selectedPage = 0;
+  bool onCreateRequest = false;
+  bool onDeleteRequest = false;
 
   final descriptionController = TextEditingController();
   bool _isLoading = true;
@@ -399,10 +397,16 @@ class _RecommendationState extends State<Recommendation> {
                         width: double.infinity,
                         child: OutlinedButton(
                           onPressed: () async {
+                            setState(() {
+                              onDeleteRequest = true;
+                            });
                             await deleteInitialRecommendationAPI(
                               context,
                               recommendation.id,
                             );
+                            setState(() {
+                              onDeleteRequest = false;
+                            });
                           },
                           style: ButtonStyle(
                             padding: WidgetStateProperty.all(
@@ -420,14 +424,19 @@ class _RecommendationState extends State<Recommendation> {
                               ),
                             ),
                           ),
-                          child: Text(
-                            "Excluir Sugestão",
-                            style: TextStyle(
-                              color: Color(danger),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          child: onDeleteRequest
+                              ? CircularProgressIndicator(
+                                  strokeCap: StrokeCap.round,
+                                  color: Theme.of(context).colorScheme.outline,
+                                )
+                              : Text(
+                                  "Excluir Sugestão",
+                                  style: TextStyle(
+                                    color: Color(danger),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                         ),
                       ),
                     )
@@ -439,8 +448,14 @@ class _RecommendationState extends State<Recommendation> {
                         children: [
                           OutlinedButton(
                             onPressed: () async {
+                              setState(() {
+                                onDeleteRequest = true;
+                              });
                               await deleteInitialRecommendationAPI(
                                   context, recommendation.id);
+                              setState(() {
+                                onDeleteRequest = false;
+                              });
                             },
                             style: ButtonStyle(
                               padding: WidgetStateProperty.all(
@@ -458,17 +473,27 @@ class _RecommendationState extends State<Recommendation> {
                                 ),
                               ),
                             ),
-                            child: Text(
-                              "Cancelar",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.error,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: onDeleteRequest
+                                ? CircularProgressIndicator(
+                                    strokeCap: StrokeCap.round,
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                  )
+                                : Text(
+                                    "Cancelar",
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.error,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
                           OutlinedButton(
                             onPressed: () {
+                              setState(() {
+                                onCreateRequest = true;
+                              });
                               editCreateRecommendationAPI(
                                 context,
                                 recommendation.id,
@@ -477,6 +502,9 @@ class _RecommendationState extends State<Recommendation> {
                                 "edit",
                               ).then((value) {
                                 fetchRecommendation();
+                              });
+                              setState(() {
+                                onCreateRequest = false;
                               });
                             },
                             style: ButtonStyle(
@@ -495,14 +523,21 @@ class _RecommendationState extends State<Recommendation> {
                                 ),
                               ),
                             ),
-                            child: Text(
-                              "Criar Recomendação",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: onDeleteRequest
+                                ? CircularProgressIndicator(
+                                    strokeCap: StrokeCap.round,
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                  )
+                                : Text(
+                                    "Criar Recomendação",
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ),
                         ],
                       ),

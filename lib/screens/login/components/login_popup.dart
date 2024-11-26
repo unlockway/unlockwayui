@@ -51,7 +51,6 @@ class _LoginPopupState extends State<LoginPopup> {
                 children: [
                   Flexible(
                     child: ButtonOutlined(
-                      onRequest: onRequest,
                       text: "Cancelar",
                       height: 48.0,
                       width: 200,
@@ -64,6 +63,7 @@ class _LoginPopupState extends State<LoginPopup> {
                   const SizedBox(width: 10),
                   Flexible(
                     child: ButtonFilled(
+                      onRequest: onRequest,
                       text: "Entrar",
                       height: 48.0,
                       width: 200,

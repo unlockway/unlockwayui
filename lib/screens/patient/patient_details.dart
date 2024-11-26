@@ -71,7 +71,7 @@ class _PatientDetailsState extends State<PatientDetails> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          atual == " Meal"
+          atual == "Meal"
               ? "Refeições"
               : atual == "Routine"
                   ? "Rotinas"
@@ -112,6 +112,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                   )
                 : atual == "Routine"
                     ? PatientRoutine(
+                        patientMeals: mealList,
                         patientRoutines: routineList,
                       )
                     : PatientHistory(

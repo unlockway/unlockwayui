@@ -48,6 +48,8 @@ class NewRoutine extends StatefulWidget {
 
 class _NewRoutineState extends State<NewRoutine> {
   UserModel user = userData;
+  bool onSaveRequest = false;
+  bool onDeleteRequest = false;
 
   List<MealsModel> mealsList = [];
   bool _isLoading = true;
@@ -116,7 +118,6 @@ class _NewRoutineState extends State<NewRoutine> {
       nameController.text = widget.name!;
       daysSelected = widget.weekRepetitions!;
       mealsSelectedToRoutine = widget.meals;
-      print(mealsSelectedToRoutine);
     }
   }
 
@@ -138,10 +139,14 @@ class _NewRoutineState extends State<NewRoutine> {
                       children: [
                         Flexible(
                           child: ButtonOutlined(
+                            onRequest: onDeleteRequest,
                             text: "EXCLUIR ROTINA",
                             height: 48,
                             width: double.infinity,
                             onTap: () {
+                              setState(() {
+                                onDeleteRequest = true;
+                              });
                               widget.recommendation != null
                                   ? deleteRoutineSuggestionAPI(
                                       context,
@@ -154,6 +159,9 @@ class _NewRoutineState extends State<NewRoutine> {
                                       user.token!,
                                       widget.routineId!,
                                     );
+                              setState(() {
+                                onDeleteRequest = false;
+                              });
                             },
                             color: Color(danger),
                           ),
@@ -163,10 +171,14 @@ class _NewRoutineState extends State<NewRoutine> {
                         ),
                         Flexible(
                           child: ButtonFilled(
+                            onRequest: onSaveRequest,
                             text: "EDITAR ROTINA",
                             height: 48,
                             width: double.infinity,
                             onTap: () {
+                              setState(() {
+                                onSaveRequest = true;
+                              });
                               widget.recommendation != null
                                   ? editRoutineSuggestionAPI(
                                       context,
@@ -188,6 +200,9 @@ class _NewRoutineState extends State<NewRoutine> {
                                       daysSelected,
                                       widget.routineId!,
                                     );
+                              setState(() {
+                                onSaveRequest = false;
+                              });
                             },
                           ),
                         ),
@@ -197,10 +212,14 @@ class _NewRoutineState extends State<NewRoutine> {
                       children: [
                         Flexible(
                           child: ButtonFilled(
+                            onRequest: onSaveRequest,
                             text: "CRIAR ROTINA",
                             height: 48,
                             width: double.infinity,
                             onTap: () {
+                              setState(() {
+                                onSaveRequest = true;
+                              });
                               widget.onRecommendation != null
                                   ? createRoutineSuggestionsAPI(
                                       context,
@@ -222,6 +241,9 @@ class _NewRoutineState extends State<NewRoutine> {
                                       mealsSelectedToRoutine,
                                       daysSelected,
                                     );
+                              setState(() {
+                                onSaveRequest = false;
+                              });
                             },
                           ),
                         ),
@@ -349,36 +371,38 @@ class _NewRoutineState extends State<NewRoutine> {
                     alignment: Alignment.centerRight,
                     child: TextButton.icon(
                       onPressed: () {
-                        modalBuilderBottomAnimation(
-                          context,
-                          RoutineMealPopup(
-                            index: null,
-                            mealId: null,
-                            category: '',
-                            hour: TimeOfDay.now(),
-                            selectedMeal: '',
-                            mealsList: mealsList,
-                            editMethod:
-                                (String idMeal, String notifyAt, int index) {
-                              editFromRoutineMeals(
-                                idMeal,
-                                notifyAt,
-                                index,
+                        widget.noEdit == true
+                            ? null
+                            : modalBuilderBottomAnimation(
+                                context,
+                                RoutineMealPopup(
+                                  index: null,
+                                  mealId: null,
+                                  category: '',
+                                  hour: TimeOfDay.now(),
+                                  selectedMeal: '',
+                                  mealsList: mealsList,
+                                  editMethod: (String idMeal, String notifyAt,
+                                      int index) {
+                                    editFromRoutineMeals(
+                                      idMeal,
+                                      notifyAt,
+                                      index,
+                                    );
+                                  },
+                                  saveMethod: (String idMeal, String notifyAt) {
+                                    saveToRoutineMeals(
+                                      idMeal,
+                                      notifyAt,
+                                    );
+                                  },
+                                  removeMethod: (int index) {
+                                    removeFromRoutineMeals(
+                                      index,
+                                    );
+                                  },
+                                ),
                               );
-                            },
-                            saveMethod: (String idMeal, String notifyAt) {
-                              saveToRoutineMeals(
-                                idMeal,
-                                notifyAt,
-                              );
-                            },
-                            removeMethod: (int index) {
-                              removeFromRoutineMeals(
-                                index,
-                              );
-                            },
-                          ),
-                        );
                       },
                       icon: const Icon(Icons.add),
                       label: Text(

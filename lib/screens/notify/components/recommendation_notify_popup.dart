@@ -4,7 +4,7 @@ import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/handlers/recommendation.handlers.dart';
 import 'package:unlockway/models/recommendation.dart';
 
-class RecommendationNotifyPopup extends StatelessWidget {
+class RecommendationNotifyPopup extends StatefulWidget {
   const RecommendationNotifyPopup({
     super.key,
     required this.patientCommentController,
@@ -13,6 +13,14 @@ class RecommendationNotifyPopup extends StatelessWidget {
 
   final TextEditingController patientCommentController;
   final RecommendationModel recommendation;
+
+  @override
+  State<RecommendationNotifyPopup> createState() =>
+      _RecommendationNotifyPopupState();
+}
+
+class _RecommendationNotifyPopupState extends State<RecommendationNotifyPopup> {
+  bool onDenyRequest = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,7 @@ class RecommendationNotifyPopup extends StatelessWidget {
             height: 20,
           ),
           TextFieldSimpleMultline(
-            controller: patientCommentController,
+            controller: widget.patientCommentController,
             width: double.infinity,
             title: "",
           ),
@@ -45,15 +53,22 @@ class RecommendationNotifyPopup extends StatelessWidget {
             height: 20,
           ),
           ButtonFilledDanger(
+            onRequest: onDenyRequest,
             text: "NEGAR",
             height: 50,
             width: double.infinity,
             onTap: () {
+              setState(() {
+                onDenyRequest = true;
+              });
               denyRecommendationAPI(
                 context,
-                recommendation.id,
-                patientCommentController.text,
+                widget.recommendation.id,
+                widget.patientCommentController.text,
               );
+              setState(() {
+                onDenyRequest = false;
+              });
             },
           ),
         ],

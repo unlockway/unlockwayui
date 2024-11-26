@@ -6,7 +6,6 @@ import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/notify/components/recommendation_meal_notify_card.dart';
 import 'package:unlockway/screens/notify/components/recommendation_notify_popup.dart';
 import 'package:unlockway/screens/notify/components/recommendation_routine_notify_card.dart';
-import 'package:unlockway/screens/recommendations/components/recommendation_meal_card.dart';
 
 class RecommendationDetails extends StatefulWidget {
   const RecommendationDetails({

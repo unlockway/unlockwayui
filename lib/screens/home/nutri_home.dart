@@ -62,8 +62,6 @@ class _NutriHomeState extends State<NutriHome> {
     setState(() {
       showClientInfo = true;
       selectedUser = user;
-      print(selectedUser);
-      print(selectedUser!.relationId);
     });
   }
 

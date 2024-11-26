@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/ingredients.dart';
 import 'package:unlockway/models/meal_suggestion.dart';
-import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/meals/components/meal_form.dart';
 

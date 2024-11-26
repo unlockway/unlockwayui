@@ -3,13 +3,14 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/screens/home/home.dart';
 
 class ButtonFilled extends StatelessWidget {
-  const ButtonFilled(
-      {super.key,
-      required this.text,
-      required this.height,
-      required this.width,
-      required this.onTap,
-      this.onRequest});
+  const ButtonFilled({
+    super.key,
+    required this.text,
+    required this.height,
+    required this.width,
+    required this.onTap,
+    this.onRequest,
+  });
 
   final String text;
   final double height;
@@ -42,6 +43,7 @@ class ButtonFilled extends StatelessWidget {
           child: Center(
             child: onRequest == true
                 ? CircularProgressIndicator(
+                    strokeCap: StrokeCap.round,
                     color: Theme.of(context).colorScheme.outline,
                   )
                 : Text(
@@ -67,12 +69,14 @@ class ButtonFilledDanger extends StatelessWidget {
     required this.height,
     required this.width,
     required this.onTap,
+    this.onRequest,
   });
 
   final String text;
   final double height;
   final double width;
   final void Function() onTap;
+  final bool? onRequest;
 
   @override
   Widget build(BuildContext context) {
@@ -88,15 +92,20 @@ class ButtonFilledDanger extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Center(
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                fontFamily: "Inter",
-              ),
-            ),
+            child: onRequest == true
+                ? CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.outline,
+                    strokeCap: StrokeCap.round,
+                  )
+                : Text(
+                    text,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Inter",
+                    ),
+                  ),
           ),
         ),
       ),
@@ -143,6 +152,7 @@ class ButtonOutlined extends StatelessWidget {
             child: onRequest == true
                 ? CircularProgressIndicator(
                     color: Theme.of(context).colorScheme.outline,
+                    strokeCap: StrokeCap.round,
                   )
                 : Text(
                     text,

@@ -31,7 +31,7 @@ class _RecommendationsState extends State<Recommendations> {
     getPatientRecommendationAPI(context, widget.patient.id!).then((result) {
       setState(() {
         recommendations = result.reversed.toList();
-        print(recommendations.length);
+
         _isLoading = false;
       });
     });
