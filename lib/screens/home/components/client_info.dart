@@ -27,7 +27,12 @@ class _ClientInfoState extends State<ClientInfo> {
   List<RoutineModel> userRoutines = [];
   List<MealsModel> userMeals = [];
   HomeDataModel userHomeData = const HomeDataModel(
-      meals: 0, routines: 0, notifications: 0, weekCalories: []);
+    recommendations: 0,
+    meals: 0,
+    routines: 0,
+    notifications: 0,
+    weekCalories: [],
+  );
   bool _isLoading = true;
 
   Future<void> fetchClientInfo() async {

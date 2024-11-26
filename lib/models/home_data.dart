@@ -6,12 +6,14 @@ class HomeDataModel {
     required this.routines,
     required this.notifications,
     required this.weekCalories,
+    required this.recommendations,
   });
 
   final int meals;
   final int routines;
   final int notifications;
   final List<double?> weekCalories;
+  final int recommendations;
 
   factory HomeDataModel.fromMap(Map<String, dynamic> map) {
     // Converting the dynamic list to List<double?>
@@ -28,6 +30,7 @@ class HomeDataModel {
       meals: map['meals'],
       routines: map['routines'],
       notifications: map['notifications'],
+      recommendations: map['recommendations'],
       weekCalories: weekCaloriesList,
     );
   }

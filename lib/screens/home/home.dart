@@ -30,6 +30,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late HomeDataModel homeData = const HomeDataModel(
+    recommendations: 0,
     meals: 0,
     routines: 0,
     notifications: 0,
@@ -170,7 +171,8 @@ class _HomeState extends State<Home> {
                     onTap: () {},
                     badgeStyle: badges.BadgeStyle(
                       shape: badges.BadgeShape.circle,
-                      badgeColor: homeData.notifications > 0
+                      badgeColor: homeData.notifications > 0 ||
+                              homeData.recommendations > 0
                           ? Color(danger)
                           : Colors.transparent,
                       padding: const EdgeInsets.all(5),
