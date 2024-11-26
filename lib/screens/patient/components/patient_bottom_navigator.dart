@@ -1,22 +1,19 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/patient.dart';
-import 'package:unlockway/screens/history/patient_history.dart';
-import 'package:unlockway/screens/meals/patient_meals.dart';
-import 'package:unlockway/screens/routine/patient_routines.dart';
 
 class PatientBottomNavigator extends StatelessWidget {
-  const PatientBottomNavigator(this.atual, {super.key, required this.patient});
-
-  final PatientUserModel patient;
-
+  const PatientBottomNavigator({
+    super.key,
+    required this.atual,
+    required this.onPageChange,
+  });
   final String atual;
+  final Function(int) onPageChange; // Função para alternar páginas
 
   @override
   Widget build(BuildContext context) {
+    // Define as cores para os ícones com base na página atual
     Color meal = Theme.of(context).colorScheme.outline;
     Color routine = Theme.of(context).colorScheme.outline;
     Color history = Theme.of(context).colorScheme.outline;
@@ -47,12 +44,7 @@ class PatientBottomNavigator extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              onPressed: () {
-                navigatePage(
-                  context,
-                  PatientMeals(patient: patient),
-                );
-              },
+              onPressed: () => onPageChange(1), // Chama a função com o índice 1
               icon: Icon(
                 PhosphorIcons.bowlFood(PhosphorIconsStyle.regular),
                 size: 28,
@@ -60,12 +52,7 @@ class PatientBottomNavigator extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () async {
-                navigatePage(
-                  context,
-                  PatientRoutine(patient: patient),
-                );
-              },
+              onPressed: () => onPageChange(2), // Chama a função com o índice 2
               icon: Icon(
                 PhosphorIcons.timer(PhosphorIconsStyle.regular),
                 size: 28,
@@ -73,14 +60,7 @@ class PatientBottomNavigator extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {
-                navigatePage(
-                  context,
-                  PatientHistory(
-                    patient: patient,
-                  ),
-                );
-              },
+              onPressed: () => onPageChange(3), // Chama a função com o índice 3
               icon: Icon(
                 PhosphorIcons.scroll(PhosphorIconsStyle.regular),
                 size: 28,

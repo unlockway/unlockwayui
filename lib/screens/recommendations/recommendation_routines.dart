@@ -58,7 +58,8 @@ class _RecommendationRoutinesState extends State<RecommendationRoutines> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: SizedBox(
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         height: MediaQuery.of(context).size.height,
         child: routineList.isNotEmpty
             ? LayoutBuilder(

@@ -82,7 +82,7 @@ Future<List<HistoryModel>> getPatientHistoryAPI(
     BuildContext context, UserModel patient) async {
   var sessionToken = userData.token;
   String apiUrl =
-      'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/history/${patient.id}';
+      'https://unlockwayapi.azurewebsites.net/api/v2/history/${patient.id}';
 
   final response = await http.get(Uri.parse(apiUrl), headers: {
     'Authorization': 'Bearer $sessionToken',

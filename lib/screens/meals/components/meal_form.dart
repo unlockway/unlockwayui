@@ -34,6 +34,7 @@ class MealForm extends StatefulWidget {
     this.onRecommendation,
     this.recommendation,
     this.mealSuggestion,
+    this.noEdit,
   });
 
   final String id;
@@ -47,6 +48,7 @@ class MealForm extends StatefulWidget {
   final Function? onRecommendation;
   final RecommendationModel? recommendation;
   final MealSuggestion? mealSuggestion;
+  final bool? noEdit;
 
   @override
   State<MealForm> createState() => _MealFormState();
@@ -75,151 +77,70 @@ class _MealFormState extends State<MealForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            (widget.name.isNotEmpty && widget.onRecommendation == null)
-                ? Flexible(
-                    child: ButtonOutlined(
-                      color: Color(danger),
-                      text: "EXCLUIR",
-                      height: 48,
-                      width: double.infinity,
-                      onTap: () {
-                        deleteMealAPI(
-                          context,
-                          userData.token!,
-                          widget.id,
-                        );
-                      },
-                    ),
-                  )
-                : widget.mealSuggestion == null
-                    ? Flexible(
-                        child: ButtonOutlined(
-                          color: Theme.of(context).colorScheme.primary,
-                          text: "CANCELAR",
-                          height: 48,
-                          width: double.infinity,
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      )
-                    : Flexible(
-                        child: ButtonOutlined(
-                          color: Color(danger),
-                          text: "EXCLUIR",
-                          height: 48,
-                          width: double.infinity,
-                          onTap: () {
-                            deleteMealSuggestionAPI(
-                                    context, widget.mealSuggestion!.id)
-                                .then((onValue) {
-                              widget.onRecommendation!();
-                            });
-                          },
-                        ),
-                      ),
-            const SizedBox(
-              width: 15,
-            ),
-            widget.name.isNotEmpty
-                ? Flexible(
-                    child: ButtonFilled(
-                      text: "EDITAR",
-                      height: 48,
-                      width: double.infinity,
-                      onTap: () {
-                        widget.onRecommendation == null
-                            ? editMealsAPI(
+      bottomNavigationBar: widget.noEdit == true
+          ? null
+          : Container(
+              margin: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  (widget.name.isNotEmpty && widget.onRecommendation == null)
+                      ? Flexible(
+                          child: ButtonOutlined(
+                            color: Color(danger),
+                            text: "EXCLUIR",
+                            height: 48,
+                            width: double.infinity,
+                            onTap: () {
+                              deleteMealAPI(
                                 context,
                                 userData.token!,
-                                userData.id!,
                                 widget.id,
-                                nameController.text,
-                                category!,
-                                descriptionController.text,
-                                preparationMethodController.text,
-                                ingredientsSelected,
-                                selectedImagePath != ''
-                                    ? File(selectedImagePath)
-                                    : null,
-                              ).then((value) {
-                                widget.onSave();
-                              })
-                            : widget.mealSuggestion != null
-                                ? editMealSuggestionAPI(
-                                    context,
-                                    widget.mealSuggestion!.id,
-                                    widget.mealSuggestion!.originalMealId,
-                                    nameController.text,
-                                    category!,
-                                    descriptionController.text,
-                                    preparationMethodController.text,
-                                    ingredientsSelected,
-                                    selectedImagePath != ''
-                                        ? File(selectedImagePath)
-                                        : null,
-                                  ).then((onValue) {
-                                    widget.onRecommendation!();
-                                  })
-                                : createMealSuggestionAPI(
-                                    context,
-                                    widget.recommendation!.id,
-                                    widget.id,
-                                    nameController.text,
-                                    category!,
-                                    descriptionController.text,
-                                    preparationMethodController.text,
-                                    ingredientsSelected,
-                                    selectedImagePath != ''
-                                        ? File(selectedImagePath)
-                                        : null,
-                                  ).then((onValue) {
+                              );
+                            },
+                          ),
+                        )
+                      : widget.mealSuggestion == null
+                          ? Flexible(
+                              child: ButtonOutlined(
+                                color: Theme.of(context).colorScheme.primary,
+                                text: "CANCELAR",
+                                height: 48,
+                                width: double.infinity,
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            )
+                          : Flexible(
+                              child: ButtonOutlined(
+                                color: Color(danger),
+                                text: "EXCLUIR",
+                                height: 48,
+                                width: double.infinity,
+                                onTap: () {
+                                  deleteMealSuggestionAPI(
+                                          context, widget.mealSuggestion!.id)
+                                      .then((onValue) {
                                     widget.onRecommendation!();
                                   });
-                      },
-                    ),
-                  )
-                : Flexible(
-                    child: ButtonFilled(
-                      text: "SALVAR",
-                      height: 48,
-                      width: double.infinity,
-                      onTap: () {
-                        if (nameController.text == "" ||
-                            descriptionController.text == "" ||
-                            preparationMethodController.text == "" ||
-                            category == null ||
-                            ingredientsSelected.isEmpty) {
-                          modalBuilderBottomAnimation(
-                            context,
-                            const SimplePopup(
-                              message: "Preencha todos os campos",
+                                },
+                              ),
                             ),
-                          );
-                        } else {
-                          widget.onRecommendation == null
-                              ? createMealsAPI(
-                                  context,
-                                  userData.token!,
-                                  userData.id!,
-                                  nameController.text,
-                                  category!,
-                                  descriptionController.text,
-                                  preparationMethodController.text,
-                                  ingredientsSelected,
-                                  selectedImagePath != ''
-                                      ? File(selectedImagePath)
-                                      : null,
-                                ).then((value) {
-                                  widget.onSave();
-                                })
-                              : createMealSuggestionAPI(
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  widget.name.isNotEmpty
+                      ? Flexible(
+                          child: ButtonFilled(
+                            text: "EDITAR",
+                            height: 48,
+                            width: double.infinity,
+                            onTap: () {
+                              widget.onRecommendation == null
+                                  ? editMealsAPI(
                                       context,
-                                      widget.recommendation!.id,
+                                      userData.token!,
+                                      userData.id!,
                                       widget.id,
                                       nameController.text,
                                       category!,
@@ -228,17 +149,100 @@ class _MealFormState extends State<MealForm> {
                                       ingredientsSelected,
                                       selectedImagePath != ''
                                           ? File(selectedImagePath)
-                                          : null)
-                                  .then((onValue) {
-                                  widget.onRecommendation!();
-                                });
-                        }
-                      },
-                    ),
-                  ),
-          ],
-        ),
-      ),
+                                          : null,
+                                    ).then((value) {
+                                      widget.onSave();
+                                    })
+                                  : widget.mealSuggestion != null
+                                      ? editMealSuggestionAPI(
+                                          context,
+                                          widget.mealSuggestion!.id,
+                                          widget.mealSuggestion!.originalMealId,
+                                          nameController.text,
+                                          category!,
+                                          descriptionController.text,
+                                          preparationMethodController.text,
+                                          ingredientsSelected,
+                                          selectedImagePath != ''
+                                              ? File(selectedImagePath)
+                                              : null,
+                                        ).then((onValue) {
+                                          widget.onRecommendation!();
+                                        })
+                                      : createMealSuggestionAPI(
+                                          context,
+                                          widget.recommendation!.id,
+                                          widget.id,
+                                          nameController.text,
+                                          category!,
+                                          descriptionController.text,
+                                          preparationMethodController.text,
+                                          ingredientsSelected,
+                                          selectedImagePath != ''
+                                              ? File(selectedImagePath)
+                                              : null,
+                                        ).then((onValue) {
+                                          widget.onRecommendation!();
+                                        });
+                            },
+                          ),
+                        )
+                      : Flexible(
+                          child: ButtonFilled(
+                            text: "SALVAR",
+                            height: 48,
+                            width: double.infinity,
+                            onTap: () {
+                              if (nameController.text == "" ||
+                                  descriptionController.text == "" ||
+                                  preparationMethodController.text == "" ||
+                                  category == null ||
+                                  ingredientsSelected.isEmpty) {
+                                modalBuilderBottomAnimation(
+                                  context,
+                                  const SimplePopup(
+                                    message: "Preencha todos os campos",
+                                  ),
+                                );
+                              } else {
+                                widget.onRecommendation == null
+                                    ? createMealsAPI(
+                                        context,
+                                        userData.token!,
+                                        userData.id!,
+                                        nameController.text,
+                                        category!,
+                                        descriptionController.text,
+                                        preparationMethodController.text,
+                                        ingredientsSelected,
+                                        selectedImagePath != ''
+                                            ? File(selectedImagePath)
+                                            : null,
+                                      ).then((value) {
+                                        widget.onSave();
+                                      })
+                                    : createMealSuggestionAPI(
+                                            context,
+                                            widget.recommendation!.id,
+                                            widget.id,
+                                            nameController.text,
+                                            category!,
+                                            descriptionController.text,
+                                            preparationMethodController.text,
+                                            ingredientsSelected,
+                                            selectedImagePath != ''
+                                                ? File(selectedImagePath)
+                                                : null)
+                                        .then((onValue) {
+                                        widget.onRecommendation!();
+                                      });
+                              }
+                            },
+                          ),
+                        ),
+                ],
+              ),
+            ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: registerAppBar(context),
       body: Container(

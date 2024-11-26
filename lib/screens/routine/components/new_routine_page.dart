@@ -28,6 +28,7 @@ class NewRoutine extends StatefulWidget {
     this.onRecommendation,
     this.recommendation,
     this.routineSuggestion,
+    this.noEdit,
   });
 
   final String? name;
@@ -39,6 +40,7 @@ class NewRoutine extends StatefulWidget {
   final Function? onRecommendation;
   final RecommendationModel? recommendation;
   final RoutineSuggestion? routineSuggestion;
+  final bool? noEdit;
 
   @override
   State<NewRoutine> createState() => _NewRoutineState();
@@ -114,6 +116,7 @@ class _NewRoutineState extends State<NewRoutine> {
       nameController.text = widget.name!;
       daysSelected = widget.weekRepetitions!;
       mealsSelectedToRoutine = widget.meals;
+      print(mealsSelectedToRoutine);
     }
   }
 
@@ -126,102 +129,104 @@ class _NewRoutineState extends State<NewRoutine> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: Container(
-          margin: const EdgeInsets.all(10),
-          child: widget.name != null
-              ? Row(
-                  children: [
-                    Flexible(
-                      child: ButtonOutlined(
-                        text: "EXCLUIR ROTINA",
-                        height: 48,
-                        width: double.infinity,
-                        onTap: () {
-                          widget.recommendation != null
-                              ? deleteRoutineSuggestionAPI(
-                                  context,
-                                  widget.routineSuggestion!.id,
-                                ).then((onValue) {
-                                  widget.onRecommendation!();
-                                })
-                              : deleteRoutineAPI(
-                                  context,
-                                  user.token!,
-                                  widget.routineId!,
-                                );
-                        },
-                        color: Color(danger),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Flexible(
-                      child: ButtonFilled(
-                        text: "EDITAR ROTINA",
-                        height: 48,
-                        width: double.infinity,
-                        onTap: () {
-                          widget.recommendation != null
-                              ? editRoutineSuggestionAPI(
-                                  context,
-                                  widget.recommendation!.id,
-                                  nameController.text,
-                                  widget.inUsage!,
-                                  mealsSelectedToRoutine,
-                                  daysSelected,
-                                  widget.routineId,
-                                  widget.routineSuggestion!.id,
-                                ).then((value) {
-                                  widget.onRecommendation!();
-                                })
-                              : editRoutineAPI(
-                                  context,
-                                  nameController.text,
-                                  widget.inUsage!,
-                                  mealsSelectedToRoutine,
-                                  daysSelected,
-                                  widget.routineId!,
-                                );
-                        },
-                      ),
-                    ),
-                  ],
-                )
-              : Row(
-                  children: [
-                    Flexible(
-                      child: ButtonFilled(
-                        text: "CRIAR ROTINA",
-                        height: 48,
-                        width: double.infinity,
-                        onTap: () {
-                          widget.onRecommendation != null
-                              ? createRoutineSuggestionsAPI(
-                                  context,
-                                  nameController.text,
-                                  false,
-                                  widget.recommendation!.id,
-                                  "",
-                                  mealsSelectedToRoutine,
-                                  daysSelected,
-                                ).then((value) {
-                                  widget.onRecommendation!();
-                                })
-                              : createRoutineAPI(
-                                  context,
-                                  user.id!,
-                                  user.token!,
-                                  nameController.text,
-                                  false,
-                                  mealsSelectedToRoutine,
-                                  daysSelected,
-                                );
-                        },
-                      ),
-                    ),
-                  ],
-                )),
+      bottomNavigationBar: widget.noEdit == true
+          ? null
+          : Container(
+              margin: const EdgeInsets.all(10),
+              child: widget.name != null
+                  ? Row(
+                      children: [
+                        Flexible(
+                          child: ButtonOutlined(
+                            text: "EXCLUIR ROTINA",
+                            height: 48,
+                            width: double.infinity,
+                            onTap: () {
+                              widget.recommendation != null
+                                  ? deleteRoutineSuggestionAPI(
+                                      context,
+                                      widget.routineSuggestion!.id,
+                                    ).then((onValue) {
+                                      widget.onRecommendation!();
+                                    })
+                                  : deleteRoutineAPI(
+                                      context,
+                                      user.token!,
+                                      widget.routineId!,
+                                    );
+                            },
+                            color: Color(danger),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Flexible(
+                          child: ButtonFilled(
+                            text: "EDITAR ROTINA",
+                            height: 48,
+                            width: double.infinity,
+                            onTap: () {
+                              widget.recommendation != null
+                                  ? editRoutineSuggestionAPI(
+                                      context,
+                                      widget.recommendation!.id,
+                                      nameController.text,
+                                      widget.inUsage!,
+                                      mealsSelectedToRoutine,
+                                      daysSelected,
+                                      widget.routineId,
+                                      widget.routineSuggestion!.id,
+                                    ).then((value) {
+                                      widget.onRecommendation!();
+                                    })
+                                  : editRoutineAPI(
+                                      context,
+                                      nameController.text,
+                                      widget.inUsage!,
+                                      mealsSelectedToRoutine,
+                                      daysSelected,
+                                      widget.routineId!,
+                                    );
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Flexible(
+                          child: ButtonFilled(
+                            text: "CRIAR ROTINA",
+                            height: 48,
+                            width: double.infinity,
+                            onTap: () {
+                              widget.onRecommendation != null
+                                  ? createRoutineSuggestionsAPI(
+                                      context,
+                                      nameController.text,
+                                      false,
+                                      widget.recommendation!.id,
+                                      "",
+                                      mealsSelectedToRoutine,
+                                      daysSelected,
+                                    ).then((value) {
+                                      widget.onRecommendation!();
+                                    })
+                                  : createRoutineAPI(
+                                      context,
+                                      user.id!,
+                                      user.token!,
+                                      nameController.text,
+                                      false,
+                                      mealsSelectedToRoutine,
+                                      daysSelected,
+                                    );
+                            },
+                          ),
+                        ),
+                      ],
+                    )),
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: registerAppBar(context),
       body: Container(
@@ -312,7 +317,7 @@ class _NewRoutineState extends State<NewRoutine> {
 
                                   return RoutineMealCard(
                                     index: index,
-                                    mealId: filteredMeal[0].id,
+                                    mealId: filteredMeal[index].id,
                                     editMethod: (String idMeal, String notifyAt,
                                         int index) {
                                       editFromRoutineMeals(
@@ -321,15 +326,15 @@ class _NewRoutineState extends State<NewRoutine> {
                                     removeMethod: (int index) {
                                       removeFromRoutineMeals(index);
                                     },
-                                    category: filteredMeal[0].category,
-                                    meal: filteredMeal[0].name,
+                                    category: filteredMeal[index].category,
+                                    meal: filteredMeal[index].name,
                                     hour: mealsSelectedToRoutine[index]
                                         .notifyAt
                                         .toString(),
                                     mealsList: mealsList,
-                                    calories: filteredMeal[0].totalCalories,
-                                    imgURL: filteredMeal[0].photo != null
-                                        ? filteredMeal[0].photo as String
+                                    calories: filteredMeal[index].totalCalories,
+                                    imgURL: filteredMeal[index].photo != null
+                                        ? filteredMeal[index].photo as String
                                         : "",
                                   );
                                 },

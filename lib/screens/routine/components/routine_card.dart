@@ -20,6 +20,7 @@ class RoutineCard extends StatelessWidget {
     required this.routineId,
     required this.fetchRoutine,
     required this.patientMeals,
+    this.noEdit,
   });
 
   final Function() fetchRoutine;
@@ -31,12 +32,12 @@ class RoutineCard extends StatelessWidget {
   final bool using;
   final String routineId;
   final List<MealsModel>? patientMeals;
+  final bool? noEdit;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
       child: InkWell(
         onTap: () {
           Navigator.push(

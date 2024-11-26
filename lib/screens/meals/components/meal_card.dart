@@ -21,6 +21,7 @@ class MealCard extends StatelessWidget {
     required this.onEdit,
     this.onRecommendation,
     this.recommendation,
+    this.noEdit,
   });
 
   final String description;
@@ -34,6 +35,7 @@ class MealCard extends StatelessWidget {
   final VoidCallback onEdit;
   final Function? onRecommendation;
   final RecommendationModel? recommendation;
+  final bool? noEdit;
 
   @override
   Widget build(BuildContext context) {
