@@ -305,8 +305,7 @@ class _NewRoutineState extends State<NewRoutine> {
                         ? Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: GridView.builder(
-                              key: Key(
-                                  'meal-grid-view'), // Adiciona uma chave única para o GridView
+                              // Adiciona uma chave única para o GridView
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount:

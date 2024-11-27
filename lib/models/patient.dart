@@ -26,7 +26,6 @@ class PatientUserModel extends UserModel {
   // Você pode adicionar métodos ou funcionalidades específicas para PatientUserModel aqui, se necessário.
 
   factory PatientUserModel.fromMap(Map<Object?, Object?> map) {
-    print(map["height"]);
     return PatientUserModel(
       id: map['id'] as String?,
       firstName: map['firstname'] as String?,

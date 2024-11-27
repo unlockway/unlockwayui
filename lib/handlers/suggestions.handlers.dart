@@ -290,7 +290,6 @@ Future<void> editMealSuggestionAPI(
 
   await request.send().then(
     (response) {
-      print(response.statusCode);
       if (response.statusCode == 200) {
         Navigator.pop(context);
       }

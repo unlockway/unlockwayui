@@ -18,8 +18,6 @@ class HistoryModel {
   final Map days;
 
   factory HistoryModel.fromMap(Map<String, dynamic> map) {
-    print(map['date']);
-    print(map['idRoutineMeal']);
     List historyMeals = map['meals'];
     return HistoryModel(
       idRoutine: map['idRoutine'],

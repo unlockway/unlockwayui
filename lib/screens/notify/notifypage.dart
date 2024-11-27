@@ -26,11 +26,8 @@ class _NotifyPageState extends State<NotifyPage> {
     List<NotifyModel> result = await getNotifyAPI(context);
 
     setState(() {
-      print(userData.id);
-      print(userData.token);
       notify = result;
       notifyLenght = notify.length;
-      print(notify);
       _isLoading = false;
     });
   }

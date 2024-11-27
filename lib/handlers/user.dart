@@ -129,9 +129,6 @@ Future<void> applyUserPhotoHandler(
 
   var stream = await request.send();
 
-  print(stream.statusCode);
-  print(stream.reasonPhrase);
-
   if (stream.statusCode == 200) {
     var response = await http.Response.fromStream(stream);
     userData.photo = response.body;

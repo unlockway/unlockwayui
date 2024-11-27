@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:unlockway/handlers/routine.handlers.dart';
 import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/models/relations/routine_meal_on_creation.dart';
 import 'package:unlockway/models/routine.dart';
@@ -24,7 +21,6 @@ class RecommendationRoutines extends StatefulWidget {
 
 class _RecommendationRoutinesState extends State<RecommendationRoutines> {
   List<RoutineModel> routineList = [];
-  Timer? _debounceTimer;
 
   // void fetchAllRoutines() async {
   //   var result = await getPatientRoutinesAPI(context, widget.patient);
@@ -144,16 +140,5 @@ class _RecommendationRoutinesState extends State<RecommendationRoutines> {
               ),
       ),
     );
-  }
-
-  void _onTextChanged(String value) {
-    _debounceTimer?.cancel();
-
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
-      List<RoutineModel> resultName = await getRoutineByNameAPI(context, value);
-      setState(() {
-        routineList = resultName;
-      });
-    });
   }
 }

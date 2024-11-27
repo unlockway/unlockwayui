@@ -58,9 +58,6 @@ Future<void> getHistoryIngestedAPI(
     },
   );
 
-  print(routineId);
-  print(ingestedMealId);
-
   if (response.statusCode == 200) {
     modalBuilderBottomAnimation(
       context,
