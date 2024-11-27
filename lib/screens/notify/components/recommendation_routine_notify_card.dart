@@ -45,25 +45,36 @@ class RecommendationRoutineNotifyCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                )
+                ),
               ],
             ),
+            const SizedBox(height: 8), // Espaço entre os elementos
             DaysList(
               function: null,
               days: routineSuggestion.weekRepetitions,
               enable: false,
             ),
+            const SizedBox(height: 8), // Espaço entre os elementos
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SvgPicture.asset("assets/svgs/Fire.svg"),
-                Text(
-                  routineSuggestion.totalCaloriesInTheDay.toString(),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFE96016),
+                SvgPicture.asset(
+                  "assets/svgs/Fire.svg",
+                  width: 20,
+                  height: 20,
+                ),
+                const SizedBox(width: 4), // Espaço entre o ícone e o texto
+                Expanded(
+                  child: Text(
+                    routineSuggestion.totalCaloriesInTheDay.toString(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFE96016),
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

@@ -25,7 +25,7 @@ class RecommendationMealCard extends StatelessWidget {
       onTap: !enabled
           ? () {}
           : () {
-              List<SelectedFood> selectedingredients =
+              List<SelectedFood> selectedIngredients =
                   mealSuggestion.ingredients.map((e) {
                 return SelectedFood(
                   e.id,
@@ -45,7 +45,7 @@ class RecommendationMealCard extends StatelessWidget {
                     category: mealSuggestion.category,
                     description: mealSuggestion.description,
                     preparationMethod: mealSuggestion.preparationMethod,
-                    ingredientsSelected: selectedingredients,
+                    ingredientsSelected: selectedIngredients,
                     img: mealSuggestion.photo,
                     recommendation: recommendation,
                     onSave: () {},
@@ -95,31 +95,36 @@ class RecommendationMealCard extends StatelessWidget {
             ),
             const SizedBox(width: 10), // Espaço entre a imagem e o texto
             // Column com título e descrição
-            SizedBox(
-              height: 80,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    mealSuggestion.name,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.outline,
+            Expanded(
+              child: SizedBox(
+                height: 80,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      mealSuggestion.name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  const SizedBox(height: 4), // Espaço entre título e descrição
-                  Text(
-                    mealSuggestion.description,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Theme.of(context).colorScheme.outline,
+                    const SizedBox(
+                        height: 4), // Espaço entre título e descrição
+                    Text(
+                      mealSuggestion.description,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

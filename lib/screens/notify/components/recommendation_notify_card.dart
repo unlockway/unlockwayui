@@ -23,23 +23,23 @@ class RecommendationNotifyCard extends StatefulWidget {
 class _RecommendationNotifyCardState extends State<RecommendationNotifyCard> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          navigationPageRightAnimation(
-            RecommendationDetails(
-              recommendation: widget.recommendation,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            navigationPageRightAnimation(
+              RecommendationDetails(
+                recommendation: widget.recommendation,
+              ),
             ),
-          ),
-        ).then(
-          (onValue) {
-            widget.setStateFunc();
-          },
-        );
-      },
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
+          ).then(
+            (onValue) {
+              widget.setStateFunc();
+            },
+          );
+        },
         child: Container(
           margin: const EdgeInsets.only(bottom: 1),
           padding: const EdgeInsets.all(16),
@@ -54,15 +54,18 @@ class _RecommendationNotifyCardState extends State<RecommendationNotifyCard> {
                 alignment: Alignment.centerLeft,
                 child: widget.recommendation.nutritionistPhoto != null &&
                         widget.recommendation.nutritionistPhoto!.isNotEmpty
-                    ? CachedNetworkImage(
-                        imageUrl: widget.recommendation.nutritionistPhoto!,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                        width: 28,
-                        height: 28,
-                        fit: BoxFit.cover,
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.recommendation.nutritionistPhoto!,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                          width: 28,
+                          height: 28,
+                          fit: BoxFit.cover,
+                        ),
                       )
                     : SvgPicture.asset(
                         "assets/svgs/logo_mini.svg",
