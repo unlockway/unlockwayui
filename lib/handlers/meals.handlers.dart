@@ -53,11 +53,11 @@ Future<List<MealsModel>> getMealsByNameAPI(
   String name,
 ) async {
   const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/meals/findByName';
+      'https://unlockwayapi.azurewebsites.net/api/v2/meals/findByName';
 
   final response = await http.get(
     Uri.parse(apiUrl).replace(queryParameters: {
-      'userId': userData.id,
+      'patientId': userData.id,
       'name': name,
     }),
     headers: {
