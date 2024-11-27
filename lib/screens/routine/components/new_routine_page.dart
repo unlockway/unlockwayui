@@ -262,45 +262,42 @@ class _NewRoutineState extends State<NewRoutine> {
         builder: (context, constraints) {
           return Column(
             children: [
-              // Parte superior: Nome e Dias
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 5),
-                      // Campo de Nome
-                      GenericTextField(
-                        title: "Nome",
-                        placeholder: "Insira um nome para a rotina",
-                        width: double.infinity,
-                        controller: nameController,
-                        number: false,
-                      ),
-                      const SizedBox(height: 20),
-                      // Selecione os dias
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Selecione os dias que a rotina deve ocorrer",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 12,
-                            color: Theme.of(context).colorScheme.outline,
-                          ),
+              // Parte superior: Nome e seleção de dias
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 5),
+                    GenericTextField(
+                      title: "Nome",
+                      placeholder: "Insira um nome para a rotina",
+                      width: double.infinity,
+                      controller: nameController,
+                      number: false,
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Selecione os dias que a rotina deve ocorrer",
+                        style: TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.outline,
                         ),
                       ),
-                      DaysList(
-                        days: daysSelected,
-                        enable: true,
-                        function: (int dayID) => changeDays(dayID),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                    ),
+                    DaysList(
+                      days: daysSelected,
+                      enable: true,
+                      function: (int dayID) => changeDays(dayID),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
                 ),
               ),
-              // Parte inferior: GridView com refeições
+              // Parte inferior: GridView com scroll independente
               Expanded(
                 child: _isLoading
                     ? const Center(child: CircularProgressIndicator())
@@ -308,6 +305,8 @@ class _NewRoutineState extends State<NewRoutine> {
                         ? Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: GridView.builder(
+                              key: Key(
+                                  'meal-grid-view'), // Adiciona uma chave única para o GridView
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount:
@@ -353,58 +352,62 @@ class _NewRoutineState extends State<NewRoutine> {
                             child: Text("Nenhuma refeição selecionada."),
                           ),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton.icon(
-                  onPressed: () {
-                    widget.noEdit == true
-                        ? null
-                        : modalBuilderBottomAnimation(
-                            context,
-                            RoutineMealPopup(
-                              index: null,
-                              mealId: null,
-                              category: '',
-                              hour: TimeOfDay.now(),
-                              selectedMeal: '',
-                              mealsList: mealsList,
-                              editMethod:
-                                  (String idMeal, String notifyAt, int index) {
-                                editFromRoutineMeals(
-                                  idMeal,
-                                  notifyAt,
-                                  index,
-                                );
-                              },
-                              saveMethod: (String idMeal, String notifyAt) {
-                                saveToRoutineMeals(
-                                  idMeal,
-                                  notifyAt,
-                                );
-                              },
-                              removeMethod: (int index) {
-                                removeFromRoutineMeals(
-                                  index,
-                                );
-                              },
-                            ),
-                          );
-                  },
-                  icon: const Icon(Icons.add),
-                  label: Text(
-                    "Novo",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+              // Botão "Novo" alinhado ao final
+              Padding(
+                padding: const EdgeInsets.only(right: 15),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton.icon(
+                    onPressed: () {
+                      widget.noEdit == true
+                          ? null
+                          : modalBuilderBottomAnimation(
+                              context,
+                              RoutineMealPopup(
+                                index: null,
+                                mealId: null,
+                                category: '',
+                                hour: TimeOfDay.now(),
+                                selectedMeal: '',
+                                mealsList: mealsList,
+                                editMethod: (String idMeal, String notifyAt,
+                                    int index) {
+                                  editFromRoutineMeals(
+                                    idMeal,
+                                    notifyAt,
+                                    index,
+                                  );
+                                },
+                                saveMethod: (String idMeal, String notifyAt) {
+                                  saveToRoutineMeals(
+                                    idMeal,
+                                    notifyAt,
+                                  );
+                                },
+                                removeMethod: (int index) {
+                                  removeFromRoutineMeals(
+                                    index,
+                                  );
+                                },
+                              ),
+                            );
+                    },
+                    icon: const Icon(Icons.add),
+                    label: Text(
+                      "Novo",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  style: ButtonStyle(
-                    iconColor: WidgetStatePropertyAll(
-                      Theme.of(context).colorScheme.primary,
+                    style: ButtonStyle(
+                      iconColor: WidgetStatePropertyAll(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                      iconSize: const WidgetStatePropertyAll(16),
                     ),
-                    iconSize: const WidgetStatePropertyAll(16),
                   ),
                 ),
               ),

@@ -297,8 +297,7 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
   }
 
   String _timeOfDayToString(TimeOfDay timeOfDay) {
-    var time = timeOfDay.toString().substring(10);
-    var finalTime = time.split(")");
-    return finalTime[0];
+    // Retorna a hora e os minutos como uma string formatada (hh:mm)
+    return '${timeOfDay.hour.toString().padLeft(2, '0')}:${timeOfDay.minute.toString().padLeft(2, '0')}';
   }
 }
