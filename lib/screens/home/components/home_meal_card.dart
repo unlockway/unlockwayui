@@ -44,7 +44,7 @@ class HomeMealCard extends StatelessWidget {
       actualCategory = 'Lanche';
       cardColor = const Color(0xFF565536);
     }
-    List actualHour = hour!.split(":00");
+    String formattedHour = hour?.replaceFirst(RegExp(r':00$'), '') ?? '00:00';
 
     return InkWell(
       onTap: () {
@@ -98,7 +98,7 @@ class HomeMealCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    actualHour[0],
+                    formattedHour,
                     style: TextStyle(
                       fontFamily: "Signika",
                       fontWeight: FontWeight.bold,

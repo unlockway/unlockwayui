@@ -199,17 +199,15 @@ class RoutineMealCard extends StatelessWidget {
                       const SizedBox(
                         width: 6,
                       ),
-                      Expanded(
-                        child: Text(
-                          hour,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.outline,
-                            fontFamily: "Inter",
-                            fontSize: 19.2,
-                          ),
-                          maxLines: 1,
+                      Text(
+                        hour,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.outline,
+                          fontFamily: "Inter",
+                          fontSize: 19.2,
                         ),
+                        maxLines: 1,
                       ),
                       const Spacer(),
                       Row(

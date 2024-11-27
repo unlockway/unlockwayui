@@ -105,7 +105,7 @@ Future<void> applyUserPhotoHandler(
   String sessionToken,
 ) async {
   String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/user/photo/$userId';
+      'https://unlockwayapi.azurewebsites.net/api/v2/patient/photo/$userId';
 
   var request = http.MultipartRequest(
     'PUT',
@@ -128,6 +128,9 @@ Future<void> applyUserPhotoHandler(
   request.files.add(multipartFile);
 
   var stream = await request.send();
+
+  print(stream.statusCode);
+  print(stream.reasonPhrase);
 
   if (stream.statusCode == 200) {
     var response = await http.Response.fromStream(stream);
