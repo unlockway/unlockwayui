@@ -523,7 +523,7 @@ class _RecommendationState extends State<Recommendation> {
                                 ),
                               ),
                             ),
-                            child: onDeleteRequest
+                            child: onCreateRequest
                                 ? CircularProgressIndicator(
                                     strokeCap: StrokeCap.round,
                                     color:
