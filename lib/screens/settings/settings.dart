@@ -22,8 +22,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  final Uri _url =
-      Uri.parse('https://thaylanfe.github.io/thaylanfeh.github.io/');
+  final Uri _url = Uri.parse('https://thaylanfe.github.io/termos-de-uso/');
   bool isAlertsAccepted = true;
 
   void onToggleAlert() {

@@ -109,13 +109,6 @@ class _NewRoutineState extends State<NewRoutine> {
     });
   }
 
-  String formatTimeOfDay(TimeOfDay time) {
-    final now = DateTime.now();
-    final dateTime =
-        DateTime(now.year, now.month, now.day, time.hour, time.minute);
-    return "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
-  }
-
   @override
   void initState() {
     super.initState();
@@ -136,6 +129,7 @@ class _NewRoutineState extends State<NewRoutine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: widget.noEdit == true
           ? null
           : Container(
@@ -255,21 +249,22 @@ class _NewRoutineState extends State<NewRoutine> {
                         ),
                       ],
                     )),
-      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: registerAppBar(context),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Column(
-            children: [
-              // Parte superior: Nome e Dias
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+      body: Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 15,
+        ),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      const SizedBox(height: 5),
-                      // Campo de Nome
+                      const SizedBox(
+                        height: 5,
+                      ),
                       GenericTextField(
                         title: "Nome",
                         placeholder: "Insira um nome para a rotina",
@@ -277,140 +272,161 @@ class _NewRoutineState extends State<NewRoutine> {
                         controller: nameController,
                         number: false,
                       ),
-                      const SizedBox(height: 20),
-                      // Selecione os dias
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Selecione os dias que a rotina deve ocorrer",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 12,
-                            color: Theme.of(context).colorScheme.outline,
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 20,
                           ),
-                        ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Selecione os dias que a rotina deve ocorrer",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 12,
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                            ),
+                          ),
+                          DaysList(
+                            days: daysSelected,
+                            enable: true,
+                            function: (int dayID) {
+                              changeDays(dayID);
+                            },
+                          ),
+                        ],
                       ),
-                      DaysList(
-                        days: daysSelected,
-                        enable: true,
-                        function: (int dayID) => changeDays(dayID),
-                      ),
-                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
-              ),
-              // Parte inferior: GridView com refeições
-              Expanded(
-                child: _isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : mealsSelectedToRoutine.isNotEmpty
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount:
-                                    constraints.maxWidth > 600 ? 2 : 1,
-                                childAspectRatio: constraints.maxWidth /
-                                    (constraints.maxHeight / 3),
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
+                (() {
+                  if (_isLoading) {
+                    return SliverToBoxAdapter(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: constraints.maxHeight - 20,
+                        ),
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return SliverToBoxAdapter(
+                      child: mealsSelectedToRoutine.isNotEmpty
+                          ? ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxHeight: constraints.maxHeight - 20,
                               ),
-                              itemCount: mealsSelectedToRoutine.length,
-                              itemBuilder: (context, index) {
-                                List<MealsModel> filteredMeal = mealsList
-                                    .where((meal) =>
-                                        meal.id ==
-                                        mealsSelectedToRoutine[index].idMeal)
-                                    .toList();
+                              child: GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 1,
+                                  childAspectRatio: constraints.maxWidth /
+                                      (constraints.maxHeight / 2.8),
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                ),
+                                shrinkWrap: true,
+                                itemCount: mealsSelectedToRoutine.length,
+                                itemBuilder: (context, index) {
+                                  List<MealsModel> filteredMeal = mealsList
+                                      .where((element) =>
+                                          element.id ==
+                                          mealsSelectedToRoutine[index].idMeal)
+                                      .toList();
 
-                                return RoutineMealCard(
-                                  index: index,
-                                  mealId: filteredMeal[0].id,
-                                  editMethod: editFromRoutineMeals,
-                                  removeMethod: removeFromRoutineMeals,
-                                  category: filteredMeal[0].category,
-                                  meal: filteredMeal[0].name,
-                                  hour: formatTimeOfDay(TimeOfDay(
-                                    hour: int.parse(
-                                        mealsSelectedToRoutine[index]
-                                            .notifyAt!
-                                            .split(":")[0]),
-                                    minute: int.parse(
-                                        mealsSelectedToRoutine[index]
-                                            .notifyAt!
-                                            .split(":")[1]),
-                                  )),
+                                  return RoutineMealCard(
+                                    index: index,
+                                    mealId: filteredMeal[index].id,
+                                    editMethod: (String idMeal, String notifyAt,
+                                        int index) {
+                                      editFromRoutineMeals(
+                                          idMeal, notifyAt, index);
+                                    },
+                                    removeMethod: (int index) {
+                                      removeFromRoutineMeals(index);
+                                    },
+                                    category: filteredMeal[index].category,
+                                    meal: filteredMeal[index].name,
+                                    hour: mealsSelectedToRoutine[index]
+                                        .notifyAt
+                                        .toString(),
+                                    mealsList: mealsList,
+                                    calories: filteredMeal[index].totalCalories,
+                                    imgURL: filteredMeal[index].photo != null
+                                        ? filteredMeal[index].photo as String
+                                        : "",
+                                  );
+                                },
+                              ),
+                            )
+                          : const Text(""),
+                    );
+                  }
+                })(),
+                SliverToBoxAdapter(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton.icon(
+                      onPressed: () {
+                        widget.noEdit == true
+                            ? null
+                            : modalBuilderBottomAnimation(
+                                context,
+                                RoutineMealPopup(
+                                  index: null,
+                                  mealId: null,
+                                  category: '',
+                                  hour: TimeOfDay.now(),
+                                  selectedMeal: '',
                                   mealsList: mealsList,
-                                  calories: filteredMeal[0].totalCalories,
-                                  imgURL: filteredMeal[0].photo ?? "",
-                                );
-                              },
-                            ),
-                          )
-                        : const Center(
-                            child: Text("Nenhuma refeição selecionada."),
-                          ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton.icon(
-                  onPressed: () {
-                    widget.noEdit == true
-                        ? null
-                        : modalBuilderBottomAnimation(
-                            context,
-                            RoutineMealPopup(
-                              index: null,
-                              mealId: null,
-                              category: '',
-                              hour: TimeOfDay.now(),
-                              selectedMeal: '',
-                              mealsList: mealsList,
-                              editMethod:
-                                  (String idMeal, String notifyAt, int index) {
-                                editFromRoutineMeals(
-                                  idMeal,
-                                  notifyAt,
-                                  index,
-                                );
-                              },
-                              saveMethod: (String idMeal, String notifyAt) {
-                                saveToRoutineMeals(
-                                  idMeal,
-                                  notifyAt,
-                                );
-                              },
-                              removeMethod: (int index) {
-                                removeFromRoutineMeals(
-                                  index,
-                                );
-                              },
-                            ),
-                          );
-                  },
-                  icon: const Icon(Icons.add),
-                  label: Text(
-                    "Novo",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                                  editMethod: (String idMeal, String notifyAt,
+                                      int index) {
+                                    editFromRoutineMeals(
+                                      idMeal,
+                                      notifyAt,
+                                      index,
+                                    );
+                                  },
+                                  saveMethod: (String idMeal, String notifyAt) {
+                                    saveToRoutineMeals(
+                                      idMeal,
+                                      notifyAt,
+                                    );
+                                  },
+                                  removeMethod: (int index) {
+                                    removeFromRoutineMeals(
+                                      index,
+                                    );
+                                  },
+                                ),
+                              );
+                      },
+                      icon: const Icon(Icons.add),
+                      label: Text(
+                        "Novo",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      style: ButtonStyle(
+                        iconColor: WidgetStatePropertyAll(
+                          Theme.of(context).colorScheme.primary,
+                        ),
+                        iconSize: const WidgetStatePropertyAll(16),
+                      ),
                     ),
-                  ),
-                  style: ButtonStyle(
-                    iconColor: WidgetStatePropertyAll(
-                      Theme.of(context).colorScheme.primary,
-                    ),
-                    iconSize: const WidgetStatePropertyAll(16),
                   ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

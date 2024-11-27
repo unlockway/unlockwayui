@@ -9,6 +9,7 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
+import 'package:unlockway/models/history.dart';
 import 'package:unlockway/models/home_data.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
@@ -37,12 +38,15 @@ class _HomeState extends State<Home> {
     weekCalories: [],
   );
   dynamic actualRoutine;
+  List<HistoryModel> history = [];
   bool _isLoading = true;
 
   Future<void> fetchAnalysis() async {
     HomeDataModel result = await getHomeAnalysysAPI(context);
     dynamic resultRoutine = await getRoutineOnUseAPI(context);
+    List<HistoryModel> historyReturned = await getHistoryAPI(context);
     setState(() {
+      history = historyReturned;
       homeData = result;
       actualRoutine = resultRoutine;
       _isLoading = false;
@@ -57,13 +61,14 @@ class _HomeState extends State<Home> {
       context,
       routineId,
       mealId,
-    ).then((value) => fetchAnalysis());
+    ).then(
+      (value) => fetchAnalysis(),
+    );
   }
 
   @override
   void initState() {
     super.initState();
-
     fetchAnalysis();
   }
 
@@ -287,6 +292,9 @@ class _HomeState extends State<Home> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                    ),
+                    const SizedBox(
+                      height: 32,
                     ),
                     WeeklyBarChart(weeklyValues: homeData.weekCalories),
                     //  HomeGraph(

@@ -158,7 +158,8 @@ class _RoutineState extends State<Routine> {
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: const UBottomNavigator("Routine"),
-      body: SizedBox(
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8),
         height: MediaQuery.of(context).size.height,
         child: _isLoading
             ? const Center(child: CircularProgressIndicator())
@@ -171,7 +172,7 @@ class _RoutineState extends State<Routine> {
                           SliverToBoxAdapter(
                             child: ConstrainedBox(
                               constraints: BoxConstraints(
-                                  maxHeight: constraints.maxHeight),
+                                  maxHeight: constraints.maxHeight - 30),
                               child: GridView.builder(
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(

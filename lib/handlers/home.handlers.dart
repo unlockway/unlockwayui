@@ -27,7 +27,7 @@ Future<HomeDataModel> getHomeAnalysysAPI(BuildContext context) async {
     String responseBody = utf8.decode(response.bodyBytes);
 
     Map<String, dynamic> responseData = json.decode(responseBody);
-
+    print(HomeDataModel.fromMap(responseData).weekCalories);
     return HomeDataModel.fromMap(responseData);
   } else {
     throw Exception(

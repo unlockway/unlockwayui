@@ -50,7 +50,7 @@ class RoutineCard extends StatelessWidget {
                 meals: meals,
                 inUsage: using,
                 weekRepetitions: weekRepetitions,
-                noEdit: true,
+                noEdit: noEdit,
               ),
             ),
           ).then(

@@ -14,29 +14,26 @@ class PatientHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return patientHistory.isNotEmpty
-        ? Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: 1.6,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              shrinkWrap: true,
-              itemCount: patientHistory.length,
-              itemBuilder: (context, index) {
-                HistoryModel actualHistory = patientHistory[index];
-                return HistoryCard(
-                  name: actualHistory.routineName,
-                  weekRepetitions: actualHistory.days,
-                  calories: actualHistory.calories,
-                  date: actualHistory.date,
-                  meals: actualHistory.ingestedMeals,
-                  color: Theme.of(context).colorScheme.onSurface,
-                );
-              },
+        ? GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 1,
+              childAspectRatio: 1.6,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
             ),
+            shrinkWrap: true,
+            itemCount: patientHistory.length,
+            itemBuilder: (context, index) {
+              HistoryModel actualHistory = patientHistory[index];
+              return HistoryCard(
+                name: actualHistory.routineName,
+                weekRepetitions: actualHistory.days,
+                calories: actualHistory.calories,
+                date: actualHistory.date,
+                meals: actualHistory.ingestedMeals,
+                color: Theme.of(context).colorScheme.onSurface,
+              );
+            },
           )
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,

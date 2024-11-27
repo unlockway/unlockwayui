@@ -22,8 +22,7 @@ class NutriSettings extends StatefulWidget {
 }
 
 class _NutriSettingsState extends State<NutriSettings> {
-  final Uri _url =
-      Uri.parse('https://thaylanfe.github.io/thaylanfeh.github.io/');
+  final Uri _url = Uri.parse('https://thaylanfe.github.io/termos-de-uso/');
   bool isAlertsAccepted = true;
 
   void onToggleAlert() {
