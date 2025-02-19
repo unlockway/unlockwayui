@@ -5,8 +5,9 @@ import 'package:unlockway/components/form_progress.dart';
 import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/handlers/register.handlers.dart';
-import 'package:unlockway/screens/register/inputs/step1.dart';
-import 'package:unlockway/screens/register/inputs/step2.dart';
+import 'package:unlockway/screens/register/components/nutritionist_register_step.dart';
+import 'package:unlockway/screens/register/components/step1.dart';
+import 'package:unlockway/screens/register/components/step2.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({
@@ -23,6 +24,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  bool isNutritionist = false;
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();
@@ -30,6 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var lastNameController = TextEditingController();
   var weightController = TextEditingController();
   var heightController = TextEditingController();
+  var cfnController = TextEditingController();
   bool isFetching = false;
 
   String biotype = "ECTOMORPH";
@@ -89,19 +92,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   fetching() async {
     setState(() => isFetching = true);
-    registerAPI(
-      context,
-      firstNameController.text,
-      lastNameController.text,
-      emailController.text,
-      passwordController.text,
-      double.parse(heightController.text),
-      double.parse(weightController.text),
-      goals,
-      biotype,
-      sex,
-    );
-    setState(() => isFetching = true);
+    isNutritionist
+        ? registerAPI(
+            context,
+            firstNameController.text,
+            lastNameController.text,
+            emailController.text,
+            passwordController.text,
+            0,
+            0,
+            goals,
+            biotype,
+            sex,
+            cfnController.text,
+          )
+        : registerAPI(
+            context,
+            firstNameController.text,
+            lastNameController.text,
+            emailController.text,
+            passwordController.text,
+            double.parse(heightController.text),
+            double.parse(weightController.text),
+            goals,
+            biotype,
+            sex,
+            null,
+          );
+    setState(() => isFetching = false);
   }
 
   @override
@@ -129,34 +147,73 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FormProgress(now: currentStep, steps: 2),
+                      Row(
+                        children: [
+                          Switch(
+                            value: isNutritionist,
+                            onChanged: (bool value) {
+                              setState(() {
+                                isNutritionist = value;
+
+                                if (value == false) {
+                                  cfnController.clear();
+                                }
+                              });
+                            },
+                          ),
+                          Text(
+                            "Nutricionista?",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.outline,
+                            ),
+                          ),
+                        ],
+                      ),
+                      FormProgress(
+                          now: isNutritionist == true ? 1 : currentStep,
+                          steps: isNutritionist == true ? 1 : 2),
                       const SizedBox(
                         height: 20,
                       ),
                       (() {
-                        if (currentStep == 1) {
-                          return RegisterStep1(
+                        if (isNutritionist) {
+                          return NutritionistRegisterStep(
                             firstNameController: firstNameController,
                             lastNameController: lastNameController,
-                            weightController: weightController,
-                            heightController: heightController,
-                            biotype: biotype,
-                            goals: goals,
-                            sex: sex,
-                            onChangeBiotype: onBiotypeChange,
-                            onChangeGoals: onGoalsChange,
-                            onChangeSex: onSexChange,
-                          );
-                        }
-                        if (currentStep == 2) {
-                          return RegisterStep2(
                             emailController: emailController,
                             passwordController: passwordController,
+                            cfnController: cfnController,
                             confirmPasswordController:
                                 confirmPasswordController,
                           );
+                        } else {
+                          if (currentStep == 1) {
+                            return RegisterStep1(
+                              cfnController: cfnController,
+                              firstNameController: firstNameController,
+                              lastNameController: lastNameController,
+                              weightController: weightController,
+                              heightController: heightController,
+                              biotype: biotype,
+                              goals: goals,
+                              sex: sex,
+                              onChangeBiotype: onBiotypeChange,
+                              onChangeGoals: onGoalsChange,
+                              onChangeSex: onSexChange,
+                            );
+                          }
+                          if (currentStep == 2) {
+                            return RegisterStep2(
+                              emailController: emailController,
+                              passwordController: passwordController,
+                              confirmPasswordController:
+                                  confirmPasswordController,
+                            );
+                          }
                         }
+
                         return RegisterStep1(
+                          cfnController: cfnController,
                           firstNameController: firstNameController,
                           lastNameController: lastNameController,
                           weightController: weightController,
@@ -214,11 +271,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               goals,
                                               biotype,
                                               sex,
+                                              cfnController.text,
                                             )
                                           }
                                         else
                                           {
-                                            if (currentStep == 1)
+                                            if (currentStep == 1 &&
+                                                isNutritionist == false)
                                               {goToNextStep()}
                                             else
                                               {

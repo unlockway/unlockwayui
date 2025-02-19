@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -15,12 +16,10 @@ import 'package:unlockway/models/meals.dart';
 import 'package:unlockway/screens/meals/meals.dart';
 
 Future<List<MealsModel>> getMealsAPI(BuildContext context) async {
-  //const String apiUrl =
-  //    'https://unlockway.azurewebsites.net/api/v1/meals/findByUserId';
+  String apiUrl = '${apiKey}meals/findByPatientId';
 
-  const String apiUrl = 'http://localhost:8080/dishes/get';
-
-  final uri = Uri.parse(apiUrl).replace(queryParameters: {'id': userData.id});
+  final uri =
+      Uri.parse(apiUrl).replace(queryParameters: {'patientId': userData.id});
 
   final response = await http.get(
     uri,
@@ -32,6 +31,7 @@ Future<List<MealsModel>> getMealsAPI(BuildContext context) async {
 
   if (response.statusCode == 200) {
     String responseBody = utf8.decode(response.bodyBytes);
+    log(responseBody);
 
     List<dynamic> mealList = json.decode(responseBody);
 
@@ -49,12 +49,11 @@ Future<List<MealsModel>> getMealsByNameAPI(
   BuildContext context,
   String name,
 ) async {
-  const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/meals/findByName';
+  String apiUrl = '${apiKey}meals/findByName';
 
   final response = await http.get(
     Uri.parse(apiUrl).replace(queryParameters: {
-      'userId': userData.id,
+      'patientId': userData.id,
       'name': name,
     }),
     headers: {
@@ -89,13 +88,13 @@ Future<void> createMealsAPI(
   List<SelectedFood> ingredients,
   File? imageFile,
 ) async {
-  const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals';
+  String apiUrl = '${apiKey}meals';
 
   var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
     ..headers['Authorization'] = 'Bearer $sessionToken';
 
   var payload = {
-    "userId": userID,
+    "patientId": userID,
     "name": name,
     "category": category,
     "description": description,
@@ -162,7 +161,7 @@ Future<void> editMealsAPI(
   List<SelectedFood> ingredients,
   File? imageFile,
 ) async {
-  const String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals';
+  String apiUrl = '${apiKey}meals';
 
   var request = http.MultipartRequest(
     'PUT',
@@ -171,7 +170,7 @@ Future<void> editMealsAPI(
 
   var payload = {
     "id": mealID,
-    "userId": userID,
+    "patientId": userID,
     "name": name,
     "category": category,
     "description": description,
@@ -235,7 +234,7 @@ Future<void> deleteMealAPI(
   String sessionToken,
   String mealID,
 ) async {
-  String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/meals/$mealID';
+  String apiUrl = '${apiKey}meals/$mealID';
 
   final response = await http.delete(
     Uri.parse(apiUrl),

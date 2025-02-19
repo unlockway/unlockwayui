@@ -109,6 +109,7 @@ class _CreateButtonsState extends State<CreateButtons> {
               Navigator.of(context).push(
                 navigationPageRightAnimation(
                   const NewRoutine(
+                    patientMeals: null,
                     routineId: null,
                     inUsage: null,
                     meals: [],

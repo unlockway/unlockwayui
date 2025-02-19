@@ -11,6 +11,7 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/user.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/home.dart';
+import 'package:unlockway/screens/home/nutri_home.dart';
 
 Future<void> loginAPI(
   BuildContext context,
@@ -25,9 +26,7 @@ Future<void> loginAPI(
       ),
     );
   } else {
-    //const String apiUrl =
-    //  'https://unlockway.azurewebsites.net/api/v1/auth/authenticate';
-    const String apiUrl = 'http://localhost:8080/user/login';
+    String apiUrl = '${apiKey}auth/authenticate';
 
     Map payload = {
       "email": email,
@@ -45,9 +44,12 @@ Future<void> loginAPI(
           body: body);
 
       Map<Object?, Object?> user = json.decode(response.body);
-      print(user);
 
-      userData = UserModel.fromMap(user);
+      if (user['cfn'] == null || user['cfn'] == '') {
+        userData = UserModel.fromMap(user);
+      } else {
+        userData = UserModel.fromMapSimple(user);
+      }
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('Email', userData.email!);
@@ -55,36 +57,40 @@ Future<void> loginAPI(
 
       navigatePage(
         context,
-        const Home(),
+        userData.cfnToken != null ? const NutriHome() : const Home(),
       );
 
-      if (userData.id != null) {
-        String? mMass;
-        String? mHealth;
-        String? lWeight;
+      if (user['cfn'] == null || user['cfn'] == '') {
+        if (userData.id != null) {
+          String? mMass;
+          String? mHealth;
+          String? lWeight;
 
-        if (userData.goals?.gainMuscularMass == true) mMass = 'Ganhar músculo';
-        if (userData.goals?.maintainHealth == true) mHealth = "Manter saúde";
-        if (userData.goals?.loseWeight == true) lWeight = 'Perder peso';
+          if (userData.goals?.gainMuscularMass == true) {
+            mMass = 'Ganhar músculo';
+          }
+          if (userData.goals?.maintainHealth == true) mHealth = "Manter saúde";
+          if (userData.goals?.loseWeight == true) lWeight = 'Perder peso';
 
-        updateUserDataHandler(
-          null,
-          userData.id!,
-          userData.token!,
-          userData.firstName!,
-          userData.lastName!,
-          userData.email!,
-          '',
-          userData.height!,
-          userData.weight!,
-          [mMass, mHealth, lWeight]
-              .where((e) => e != null)
-              .map((e) => e!)
-              .toList(),
-          userData.biotype!,
-          userData.sex!,
-        );
-      }
+          updateUserDataHandler(
+            null,
+            userData.id!,
+            userData.token!,
+            userData.firstName!,
+            userData.lastName!,
+            userData.email!,
+            '',
+            userData.height!,
+            userData.weight!,
+            [mMass, mHealth, lWeight]
+                .where((e) => e != null)
+                .map((e) => e!)
+                .toList(),
+            userData.biotype!,
+            userData.sex!,
+          );
+        }
+      } else {}
     } catch (e) {
       modalBuilderBottomAnimation(
         context,

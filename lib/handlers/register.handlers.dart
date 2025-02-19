@@ -10,32 +10,35 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/user.dart';
+import 'package:unlockway/screens/home/nutri_home.dart';
 import 'package:unlockway/screens/login/components/about.dart';
 
 Future<void> registerAPI(
   BuildContext context,
-  String firstname,
-  String lastname,
-  String email,
-  String password,
-  double height,
-  double weight,
-  List<String> goals,
-  String biotype,
-  String sex,
+  String? firstname,
+  String? lastname,
+  String? email,
+  String? password,
+  double? height,
+  double? weight,
+  List<String>? goals,
+  String? biotype,
+  String? sex,
+  String? cfnToken,
 ) async {
-  const String apiUrl =
-      'https://unlockway.azurewebsites.net/api/v1/auth/register';
+  String apiUrl = cfnToken == "" || cfnToken == null
+      ? "${apiKey}auth/register-patient"
+      : "${apiKey}auth/register-nutritionist";
 
   bool mMass = false;
   bool mHealth = false;
   bool lWeight = false;
 
-  if (goals.contains('Ganhar músculo')) {
+  if (goals != null && goals.contains('Ganhar músculo')) {
     mMass = true;
-  } else if (goals.contains('Manter saúde')) {
+  } else if (goals != null && goals.contains('Manter saúde')) {
     mHealth = true;
-  } else if (goals.contains('Perder peso')) {
+  } else if (goals != null && goals.contains('Perder peso')) {
     lWeight = true;
   }
 
@@ -45,18 +48,28 @@ Future<void> registerAPI(
     "loseWeight": lWeight,
   };
 
-  var payload = {
-    "firstname": firstname,
-    "lastname": lastname,
-    "email": email,
-    "password": password,
-    "height": height,
-    "weight": weight,
-    "goals": goalsObject,
-    "biotype": biotype,
-    "sex": sex,
-    "deviceToken": fcmToken
-  };
+  var payload = cfnToken == null
+      ? {
+          "firstname": firstname,
+          "lastname": lastname,
+          "email": email,
+          "password": password,
+          "height": height,
+          "weight": weight,
+          "goals": goalsObject,
+          "biotype": biotype,
+          "sex": sex,
+          "deviceToken": fcmToken,
+        }
+      : {
+          "firstname": firstname,
+          "lastname": lastname,
+          "photo": "",
+          "email": email,
+          "password": password,
+          "cfn": cfnToken,
+          "deviceToken": fcmToken,
+        };
 
   var bodyApi = json.encode(payload);
 
@@ -68,14 +81,21 @@ Future<void> registerAPI(
       body: bodyApi,
     )
         .then((response) {
-      var user = json.decode(response.body);
+      // Decode response body
+      var decodedResponse = json.decode(utf8.decode(response.bodyBytes));
 
-      userData = UserModel.fromMap(user);
-
-      navigatePage(
-        context,
-        const AboutPage(),
-      );
+      cfnToken == null
+          ? userData = UserModel.fromMap(decodedResponse)
+          : userData = UserModel.fromMapSimple(decodedResponse);
+      cfnToken == null
+          ? navigatePage(
+              context,
+              const AboutPage(),
+            )
+          : navigatePage(
+              context,
+              const NutriHome(),
+            );
     });
   } catch (error) {
     modalBuilderBottomAnimation(

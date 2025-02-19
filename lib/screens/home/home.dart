@@ -9,13 +9,14 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/handlers/history.handlers.dart';
 import 'package:unlockway/handlers/home.handlers.dart';
 import 'package:unlockway/handlers/routine.handlers.dart';
-import 'package:unlockway/models/homeData.dart';
+import 'package:unlockway/models/history.dart';
+import 'package:unlockway/models/home_data.dart';
 import 'package:unlockway/models/user.dart';
 import 'package:unlockway/screens/home/components/create_buttons.dart';
-import 'package:unlockway/screens/home/components/home_graph.dart';
 import 'package:unlockway/screens/home/components/next_meals.dart';
 import 'package:unlockway/screens/home/components/no_routine.dart';
 import 'package:unlockway/screens/home/components/pending_actions.dart';
+import 'package:unlockway/screens/home/components/weekly_bar_chart.dart';
 import 'package:unlockway/screens/notify/notifypage.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -30,18 +31,22 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late HomeDataModel homeData = const HomeDataModel(
+    recommendations: 0,
     meals: 0,
     routines: 0,
     notifications: 0,
     weekCalories: [],
   );
   dynamic actualRoutine;
+  List<HistoryModel> history = [];
   bool _isLoading = true;
 
   Future<void> fetchAnalysis() async {
     HomeDataModel result = await getHomeAnalysysAPI(context);
     dynamic resultRoutine = await getRoutineOnUseAPI(context);
+    List<HistoryModel> historyReturned = await getHistoryAPI(context);
     setState(() {
+      history = historyReturned;
       homeData = result;
       actualRoutine = resultRoutine;
       _isLoading = false;
@@ -56,13 +61,14 @@ class _HomeState extends State<Home> {
       context,
       routineId,
       mealId,
-    ).then((value) => fetchAnalysis());
+    ).then(
+      (value) => fetchAnalysis(),
+    );
   }
 
   @override
   void initState() {
     super.initState();
-
     fetchAnalysis();
   }
 
@@ -170,7 +176,8 @@ class _HomeState extends State<Home> {
                     onTap: () {},
                     badgeStyle: badges.BadgeStyle(
                       shape: badges.BadgeShape.circle,
-                      badgeColor: homeData.notifications > 0
+                      badgeColor: homeData.notifications > 0 ||
+                              homeData.recommendations > 0
                           ? Color(danger)
                           : Colors.transparent,
                       padding: const EdgeInsets.all(5),
@@ -286,9 +293,13 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    HomeGraph(
-                      data: homeData.weekCalories,
+                    const SizedBox(
+                      height: 32,
                     ),
+                    WeeklyBarChart(weeklyValues: homeData.weekCalories),
+                    //  HomeGraph(
+                    //    data: homeData.weekCalories,
+                    // ),
                     SizedBox(
                       child: Row(
                         children: [

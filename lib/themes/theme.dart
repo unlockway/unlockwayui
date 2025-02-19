@@ -20,6 +20,7 @@ ThemeData lightMode = ThemeData(
     onSurface: Color(lightBgdark),
     onSurfaceVariant: Color(lightBglight2),
     outline: Color(darkBglight),
+    onSecondary: Color(lightBgContrast),
   ),
 );
 
@@ -39,5 +40,6 @@ ThemeData darkMode = ThemeData(
     onSurface: Color(darkBglight),
     onSurfaceVariant: Color(darkBglight2),
     outline: Colors.white,
+    onSecondary: Color(darkBgContrast),
   ),
 );

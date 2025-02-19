@@ -221,64 +221,72 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ButtonOutlined(
-                        text: "EXCLUIR",
-                        height: 48,
-                        width: double.infinity,
-                        onTap: () {
-                          widget.removeMethod(widget.index!);
-                          Navigator.pop(
-                            context,
-                          );
-                        },
-                        color: Color(danger),
+                      Flexible(
+                        child: ButtonOutlined(
+                          text: "EXCLUIR",
+                          height: 48,
+                          width: double.infinity,
+                          onTap: () {
+                            widget.removeMethod(widget.index!);
+                            Navigator.pop(
+                              context,
+                            );
+                          },
+                          color: Color(danger),
+                        ),
                       ),
                       const SizedBox(
                         width: 20,
                       ),
-                      ButtonFilled(
-                        text: "EDITAR",
-                        height: 48,
-                        width: double.infinity,
-                        onTap: () {
-                          widget.editMethod(
-                            selectedMeal!,
-                            _timeOfDayToString(selectedTime),
-                            widget.index!,
-                          );
-                          Navigator.pop(context);
-                        },
+                      Flexible(
+                        child: ButtonFilled(
+                          text: "EDITAR",
+                          height: 48,
+                          width: double.infinity,
+                          onTap: () {
+                            widget.editMethod(
+                              selectedMeal!,
+                              _timeOfDayToString(selectedTime),
+                              widget.index!,
+                            );
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
                     ],
                   )
                 : Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ButtonOutlined(
-                        text: "CANCELAR",
-                        height: 48,
-                        width: double.infinity,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        color: Theme.of(context).colorScheme.primary,
+                      Flexible(
+                        child: ButtonOutlined(
+                          text: "CANCELAR",
+                          height: 48,
+                          width: double.infinity,
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                       const SizedBox(
                         width: 20,
                       ),
-                      ButtonFilled(
-                        text: "SALVAR",
-                        height: 48,
-                        width: double.infinity,
-                        onTap: () {
-                          widget.saveMethod!(
-                            selectedMeal,
-                            _timeOfDayToString(selectedTime),
-                          );
-                          Navigator.pop(
-                            context,
-                          );
-                        },
+                      Flexible(
+                        child: ButtonFilled(
+                          text: "SALVAR",
+                          height: 48,
+                          width: double.infinity,
+                          onTap: () {
+                            widget.saveMethod!(
+                              selectedMeal,
+                              _timeOfDayToString(selectedTime),
+                            );
+                            Navigator.pop(
+                              context,
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -289,8 +297,7 @@ class _RoutineMealPopupState extends State<RoutineMealPopup> {
   }
 
   String _timeOfDayToString(TimeOfDay timeOfDay) {
-    var time = timeOfDay.toString().substring(10);
-    var finalTime = time.split(")");
-    return finalTime[0];
+    // Retorna a hora e os minutos como uma string formatada (hh:mm)
+    return '${timeOfDay.hour.toString().padLeft(2, '0')}:${timeOfDay.minute.toString().padLeft(2, '0')}';
   }
 }

@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/buttons.dart';
-import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/components/text_field.dart';
 import 'package:unlockway/handlers/login.handlers.dart';
-import 'package:unlockway/screens/home/home.dart';
 
-class LoginPopup extends StatelessWidget {
+class LoginPopup extends StatefulWidget {
   const LoginPopup({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final emailController = TextEditingController();
-    final senhaController = TextEditingController();
+  State<LoginPopup> createState() => _LoginPopupState();
+}
 
+class _LoginPopupState extends State<LoginPopup> {
+  bool onRequest = false;
+  final emailController = TextEditingController();
+  final senhaController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -45,31 +49,38 @@ class LoginPopup extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ButtonOutlined(
-                    text: "Cancelar",
-                    height: 48.0,
-                    width: 600.0,
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    color: Theme.of(context).colorScheme.primary,
+                  Flexible(
+                    child: ButtonOutlined(
+                      text: "Cancelar",
+                      height: 48.0,
+                      width: 200,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                   const SizedBox(width: 10),
-                  ButtonFilled(
-                    text: "Entrar",
-                    height: 48.0,
-                    width: 600.0,
-                    onTap: () {
-                      //navigatePage(
-                      //   context,
-                      //   const Home(),
-                      // );
-                      loginAPI(
-                        context,
-                        emailController.text,
-                        senhaController.text,
-                      );
-                    },
+                  Flexible(
+                    child: ButtonFilled(
+                      onRequest: onRequest,
+                      text: "Entrar",
+                      height: 48.0,
+                      width: 200,
+                      onTap: () async {
+                        setState(() {
+                          onRequest = true;
+                        });
+                        await loginAPI(
+                          context,
+                          emailController.text,
+                          senhaController.text,
+                        );
+                        setState(() {
+                          onRequest = false;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),

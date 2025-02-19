@@ -26,56 +26,59 @@ class _NotifyCardState extends State<NotifyCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: widget.func,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 1),
-        padding: const EdgeInsets.all(16),
-        width: double.infinity,
-        height: 74,
-        decoration: BoxDecoration(
-          color: widget.read
-              ? Theme.of(context).colorScheme.onSurfaceVariant
-              : Theme.of(context).colorScheme.onSurface,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: SvgPicture.asset(
-                "assets/svgs/logo_mini.svg",
-                width: 28,
-                height: 28,
-              ),
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Expanded(
-              child: Text(
-                widget.description,
-                maxLines: 2,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.outline,
-                  fontFamily: "Inter",
-                  fontSize: 12,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 1),
+          padding: const EdgeInsets.all(16),
+          width: double.infinity,
+          height: 74,
+          decoration: BoxDecoration(
+            color: widget.read
+                ? Theme.of(context).colorScheme.onSurfaceVariant
+                : Theme.of(context).colorScheme.onSurface,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: SvgPicture.asset(
+                  "assets/svgs/logo_mini.svg",
+                  width: 28,
+                  height: 28,
                 ),
               ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                widget.date,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.outline,
-                  fontFamily: "Inter",
-                  fontSize: 12,
+              const SizedBox(
+                width: 15,
+              ),
+              Expanded(
+                child: Text(
+                  widget.description,
+                  maxLines: 2,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                    fontFamily: "Inter",
+                    fontSize: 12,
+                  ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(
+                width: 10,
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  widget.date,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                    fontFamily: "Inter",
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

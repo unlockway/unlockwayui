@@ -163,17 +163,44 @@ class _UserProfileState extends State<UserProfile> {
                 child: selectedImagePath.isNotEmpty
                     ? Stack(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            clipBehavior: Clip.hardEdge,
-                            child: Positioned(
-                              child: Image.file(
-                                File(selectedImagePath),
-                                fit: BoxFit.cover,
-                                width: 180,
-                                height: 180,
+                          Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                clipBehavior: Clip.hardEdge,
+                                child: Image.file(
+                                  File(selectedImagePath),
+                                  fit: BoxFit.cover,
+                                  width: 180,
+                                  height: 180,
+                                ),
                               ),
-                            ),
+                              Positioned(
+                                bottom: 0,
+                                right: 5,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
+                                  child: IconButton(
+                                    iconSize: 34.0,
+                                    onPressed: () {
+                                      setState(() {
+                                        selectedImagePath = '';
+                                      });
+                                    },
+                                    icon: Icon(
+                                      PhosphorIcons.trash(
+                                        PhosphorIconsStyle.duotone,
+                                      ),
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           Positioned(
                             bottom: 0,
@@ -352,8 +379,8 @@ class _UserProfileState extends State<UserProfile> {
                     const SizedBox(height: 5),
                     DropDownMultiSelect(
                       decoration: InputDecoration(
-                        hintStyle: const TextStyle(
-                          color: Color(0xFF616B7C),
+                        hintStyle: TextStyle(
+                          color: Color(primary),
                           fontFamily: "Inter",
                           fontSize: 16,
                         ),
@@ -382,7 +409,7 @@ class _UserProfileState extends State<UserProfile> {
                         focusColor: Theme.of(context).colorScheme.onSurface,
                       ),
                       enabled: true,
-                      selected_values_style: TextStyle(
+                      selectedValuesStyle: TextStyle(
                         color: Theme.of(context).colorScheme.outline,
                       ),
                       onChanged: onGoalsChange,

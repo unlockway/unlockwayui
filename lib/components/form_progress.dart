@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:unlockway/constants.dart';
 
-class FormProgress extends StatelessWidget {
-  const FormProgress({super.key, required this.steps, required this.now});
+class FormProgress extends StatefulWidget {
+  const FormProgress({
+    super.key,
+    required this.steps,
+    required this.now,
+  });
 
   final int steps;
   final int now;
 
+  @override
+  State<FormProgress> createState() => _FormProgressState();
+}
+
+class _FormProgressState extends State<FormProgress> {
+  bool isNutritionist = false;
+
   stepBuilder(BuildContext context) {
-    int teste = now;
+    int teste = widget.now;
     List<Widget> bars = [];
-    for (var i = 0; i < steps; i++) {
+    for (var i = 0; i < widget.steps; i++) {
       if (teste > 0) {
         teste -= 1;
         bars.add(
@@ -47,7 +58,7 @@ class FormProgress extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Etapa $now de $steps",
+            "Etapa ${widget.now} de ${widget.steps}",
             style: const TextStyle(
               color: Color(0xFF616B7C),
             ),
@@ -58,7 +69,7 @@ class FormProgress extends StatelessWidget {
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 20,
-            crossAxisCount: steps,
+            crossAxisCount: widget.steps,
             crossAxisSpacing: 5,
           ),
           children: stepBuilder(context),

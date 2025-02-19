@@ -100,16 +100,18 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
         ),
         child: Row(
           children: [
-            ButtonFilled(
-              text: "ESCOLHER",
-              height: 48,
-              width: double.infinity,
-              onTap: () {
-                Navigator.pop(
-                  context,
-                  selectedIngredients,
-                );
-              },
+            Flexible(
+              child: ButtonFilled(
+                text: "ESCOLHER",
+                height: 48,
+                width: double.infinity,
+                onTap: () {
+                  Navigator.pop(
+                    context,
+                    selectedIngredients,
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -207,8 +209,9 @@ class _FoodSelectionPageState extends State<FoodSelectionPage> {
                           child: GridView.builder(
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisSpacing: 16,
                               crossAxisCount: 1,
-                              childAspectRatio: 2.3,
+                              childAspectRatio: 3,
                             ),
                             shrinkWrap: true,
                             itemCount: ingredientsList.length,

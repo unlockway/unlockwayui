@@ -112,76 +112,76 @@ class _InitialLoginState extends State<InitialLogin> {
                   },
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 80.0, right: 20.0),
-                        child: Divider(
-                          color: Theme.of(context).colorScheme.outline,
-                          height: 36,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      "Ou",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.outline,
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 20.0, right: 80.0),
-                        child: Divider(
-                          color: Theme.of(context).colorScheme.outline,
-                          height: 36,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                InkWell(
-                  onTap: () {}, //handleGoogleSignIn,
-                  child: Container(
-                    width: 240,
-                    height: 48.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).colorScheme.outline,
-                          spreadRadius: 0.5,
-                          blurRadius: 1,
-                          offset: const Offset(0, 1),
-                        )
-                      ],
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/imgs/google.png",
-                            height: 30,
-                            width: 30,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "Entrar com Google",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Row(
+                //   children: <Widget>[
+                //     Expanded(
+                //       child: Container(
+                //         margin: const EdgeInsets.only(left: 80.0, right: 20.0),
+                //         child: Divider(
+                //           color: Theme.of(context).colorScheme.outline,
+                //           height: 36,
+                //         ),
+                //       ),
+                //     ),
+                //     // Text(
+                //     //   "Ou",
+                //     //   style: TextStyle(
+                //     //     color: Theme.of(context).colorScheme.outline,
+                //     //   ),
+                //     // ),
+                //     // Expanded(
+                //     //   child: Container(
+                //     //     margin: const EdgeInsets.only(left: 20.0, right: 80.0),
+                //     //     child: Divider(
+                //     //       color: Theme.of(context).colorScheme.outline,
+                //     //       height: 36,
+                //     //     ),
+                //     //   ),
+                //     // ),
+                //   ],
+                // ),
+                // InkWell(
+                //   onTap: () {}, //handleGoogleSignIn,
+                //   child: Container(
+                //     width: 240,
+                //     height: 48.0,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(5),
+                //       color: Colors.white,
+                //       boxShadow: [
+                //         BoxShadow(
+                //           color: Theme.of(context).colorScheme.outline,
+                //           spreadRadius: 0.5,
+                //           blurRadius: 1,
+                //           offset: const Offset(0, 1),
+                //         )
+                //       ],
+                //     ),
+                //     child: Material(
+                //       color: Colors.transparent,
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Image.asset(
+                //             "assets/imgs/google.png",
+                //             height: 30,
+                //             width: 30,
+                //           ),
+                //           const SizedBox(
+                //             width: 10,
+                //           ),
+                //           const Text(
+                //             "Entrar com Google",
+                //             style: TextStyle(
+                //               color: Colors.black,
+                //               fontSize: 18.0,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

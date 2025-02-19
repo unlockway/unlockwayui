@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/models/ingredients.dart';
+import 'package:unlockway/models/recommendation.dart';
 import 'package:unlockway/screens/meals/components/meal_form.dart';
 
-class UCard extends StatelessWidget {
-  const UCard({
+class MealCard extends StatelessWidget {
+  const MealCard({
     super.key,
     required this.description,
     required this.title,
@@ -16,6 +17,9 @@ class UCard extends StatelessWidget {
     required this.category,
     required this.preparationMethod,
     required this.onEdit,
+    this.onRecommendation,
+    this.recommendation,
+    this.noEdit,
   });
 
   final String description;
@@ -27,6 +31,9 @@ class UCard extends StatelessWidget {
   final String preparationMethod;
   final List<SelectedFood> ingredients;
   final VoidCallback onEdit;
+  final Function? onRecommendation;
+  final RecommendationModel? recommendation;
+  final bool? noEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +41,30 @@ class UCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           navigationPageRightAnimation(
-            MealForm(
-              id: idMeal,
-              name: title,
-              category: category,
-              description: description,
-              preparationMethod: preparationMethod,
-              ingredientsSelected: ingredients,
-              img: imageURL,
-              onSave: onEdit,
-            ),
+            onRecommendation == null
+                ? MealForm(
+                    id: idMeal,
+                    name: title,
+                    category: category,
+                    description: description,
+                    preparationMethod: preparationMethod,
+                    ingredientsSelected: ingredients,
+                    img: imageURL,
+                    onSave: onEdit,
+                    noEdit: noEdit,
+                  )
+                : MealForm(
+                    onRecommendation: onRecommendation,
+                    id: idMeal,
+                    name: title,
+                    category: category,
+                    description: description,
+                    preparationMethod: preparationMethod,
+                    ingredientsSelected: ingredients,
+                    img: imageURL,
+                    recommendation: recommendation,
+                    onSave: onEdit,
+                  ),
           ),
         );
       },

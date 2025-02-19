@@ -141,12 +141,16 @@ class RoutineMealCard extends StatelessWidget {
                       const SizedBox(
                         width: 6,
                       ),
-                      Text(
-                        categoryText,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.outline,
-                          fontFamily: "Inter",
-                          fontSize: 19.2,
+                      Expanded(
+                        child: Text(
+                          categoryText,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
+                            fontFamily: "Inter",
+                            fontSize: 19.2,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
@@ -203,6 +207,7 @@ class RoutineMealCard extends StatelessWidget {
                           fontFamily: "Inter",
                           fontSize: 19.2,
                         ),
+                        maxLines: 1,
                       ),
                       const Spacer(),
                       Row(
@@ -216,6 +221,8 @@ class RoutineMealCard extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Color(0xFFE96016),
                             ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),

@@ -194,7 +194,7 @@ class _MealsState extends State<Meals> {
                                       e.amount,
                                     );
                                   }).toList();
-                                  return UCard(
+                                  return MealCard(
                                     description: actualMeal.description,
                                     title: actualMeal.name,
                                     imageURL: actualMeal.photo,

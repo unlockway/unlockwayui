@@ -16,7 +16,7 @@ class HomeMealCard extends StatelessWidget {
   });
 
   final String description;
-  final String imageUrl;
+  final String? imageUrl;
   final String? hour;
   final String category;
   final String mealId;
@@ -44,7 +44,7 @@ class HomeMealCard extends StatelessWidget {
       actualCategory = 'Lanche';
       cardColor = const Color(0xFF565536);
     }
-    List actualHour = hour!.split(":00");
+    String formattedHour = hour?.replaceFirst(RegExp(r':00$'), '') ?? '00:00';
 
     return InkWell(
       onTap: () {
@@ -73,12 +73,23 @@ class HomeMealCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(6)),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 130,
-              ),
+              child: imageUrl != null
+                  ? Image.network(
+                      imageUrl!,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 130,
+                    )
+                  : Container(
+                      width: double.infinity,
+                      height: 130,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      child: Icon(
+                        Icons.image_not_supported,
+                        size: 50,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                    ),
             ),
             Container(
               margin: const EdgeInsets.only(top: 13.00),
@@ -87,7 +98,7 @@ class HomeMealCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    actualHour[0],
+                    formattedHour,
                     style: TextStyle(
                       fontFamily: "Signika",
                       fontWeight: FontWeight.bold,
@@ -175,29 +186,33 @@ class ConsumeMealDialog extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ButtonOutlined(
-                text: "NÃO",
-                height: 48,
-                width: double.infinity,
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                color: Color(danger),
+              Flexible(
+                child: ButtonOutlined(
+                  text: "NÃO",
+                  height: 48,
+                  width: double.infinity,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  color: Color(danger),
+                ),
               ),
               const SizedBox(
                 width: 20,
               ),
-              ButtonFilled(
-                  text: "SIM",
-                  height: 48,
-                  width: double.infinity,
-                  onTap: () {
-                    method(
-                      routineId,
-                      mealId,
-                    );
-                    Navigator.pop(context);
-                  }),
+              Flexible(
+                child: ButtonFilled(
+                    text: "SIM",
+                    height: 48,
+                    width: double.infinity,
+                    onTap: () {
+                      method(
+                        routineId,
+                        mealId,
+                      );
+                      Navigator.pop(context);
+                    }),
+              ),
             ],
           )
         ],

@@ -61,6 +61,7 @@ class _RoutineState extends State<Routine> {
               .push(
                 navigationPageRightAnimation(
                   const NewRoutine(
+                    patientMeals: null,
                     routineId: null,
                     inUsage: false,
                     meals: [],
@@ -157,7 +158,8 @@ class _RoutineState extends State<Routine> {
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: const UBottomNavigator("Routine"),
-      body: SizedBox(
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8),
         height: MediaQuery.of(context).size.height,
         child: _isLoading
             ? const Center(child: CircularProgressIndicator())
@@ -170,12 +172,13 @@ class _RoutineState extends State<Routine> {
                           SliverToBoxAdapter(
                             child: ConstrainedBox(
                               constraints: BoxConstraints(
-                                  maxHeight: constraints.maxHeight),
+                                  maxHeight: constraints.maxHeight - 30),
                               child: GridView.builder(
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                    SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 1,
-                                  childAspectRatio: 1.6,
+                                  childAspectRatio: constraints.maxWidth /
+                                      (constraints.maxHeight / 2.5),
                                   crossAxisSpacing: 10,
                                   mainAxisSpacing: 10,
                                 ),
@@ -196,6 +199,7 @@ class _RoutineState extends State<Routine> {
                                   }
 
                                   return RoutineCard(
+                                    patientMeals: null,
                                     fetchRoutine: fetchAllRoutines,
                                     routineId: routineIndex.id,
                                     name: routineIndex.name,
@@ -229,18 +233,14 @@ class _RoutineState extends State<Routine> {
                         height: 16,
                       ),
                       Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 28,
-                        ),
-                        child: Expanded(
-                          child: Text(
-                            textAlign: TextAlign.center,
-                            "Não há rotinas criadas, crie sua primeira rotina para que ela seja listada aqui.",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.outline,
-                              fontFamily: "Inter",
-                              fontSize: 18,
-                            ),
+                        margin: const EdgeInsets.symmetric(horizontal: 28),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "Não há rotinas criadas, crie sua primeira rotina para que ela seja listada aqui.",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
+                            fontFamily: "Inter",
+                            fontSize: 18,
                           ),
                         ),
                       ),

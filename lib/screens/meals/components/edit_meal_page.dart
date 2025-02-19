@@ -38,6 +38,9 @@ class NewMeal extends StatefulWidget {
 }
 
 class _NewMealState extends State<NewMeal> {
+  bool onSaveRequest = false;
+  bool onDeleteRequest = false;
+
   @override
   void initState() {
     super.initState();
@@ -64,38 +67,54 @@ class _NewMealState extends State<NewMeal> {
         child: Row(
           children: [
             ButtonOutlined(
+              onRequest: onDeleteRequest,
               color: Color(danger),
               text: "EXCLUIR",
               height: 48,
               width: double.infinity,
               onTap: () {
+                setState(() {
+                  onDeleteRequest = true;
+                });
                 deleteMealAPI(
                   context,
                   user.token!,
                   widget.id,
                 );
+                setState(() {
+                  onDeleteRequest = false;
+                });
               },
             ),
             const SizedBox(
               width: 15,
             ),
-            ButtonFilled(
-              text: "SALVAR",
-              height: 48,
-              width: double.infinity,
-              onTap: () {
-                createMealsAPI(
-                  context,
-                  user.token!,
-                  user.id!,
-                  nomeController.text,
-                  category!,
-                  descriptionController.text,
-                  preparationMethodController.text,
-                  ingredientsSelected,
-                  selectedImagePath != '' ? File(selectedImagePath) : null,
-                );
-              },
+            Flexible(
+              child: ButtonFilled(
+                onRequest: onSaveRequest,
+                text: "SALVAR",
+                height: 48,
+                width: double.infinity,
+                onTap: () {
+                  setState(() {
+                    onSaveRequest = true;
+                  });
+                  createMealsAPI(
+                    context,
+                    user.token!,
+                    user.id!,
+                    nomeController.text,
+                    category!,
+                    descriptionController.text,
+                    preparationMethodController.text,
+                    ingredientsSelected,
+                    selectedImagePath != '' ? File(selectedImagePath) : null,
+                  );
+                  setState(() {
+                    onSaveRequest = false;
+                  });
+                },
+              ),
             ),
           ],
         ),

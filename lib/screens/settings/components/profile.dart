@@ -4,6 +4,7 @@ import 'package:unlockway/components/navigation.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/goals.dart';
 import 'package:unlockway/models/user.dart';
+import 'package:unlockway/screens/profile/nutri_profile.dart';
 import 'package:unlockway/screens/profile/profile.dart';
 
 class ProfileSettings extends StatefulWidget {
@@ -33,18 +34,26 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           Navigator.of(context)
               .push(
             navigationPageRightAnimation(
-              UserProfile(
-                email: user.email!,
-                biotype: user.biotype!,
-                goals: setGoals(user.goals!),
-                firstname: user.firstName!,
-                lastname: user.lastName!,
-                height: user.height!,
-                sex: user.sex!,
-                weight: user.weight!,
-                password: "",
-                userPhoto: user.photo == null ? "" : user.photo as String,
-              ),
+              user.cfnToken != null
+                  ? NutriProfile(
+                      firstname: user.firstName!,
+                      lastname: user.lastName!,
+                      email: user.email!,
+                      password: "",
+                      userPhoto: user.photo == null ? "" : user.photo as String,
+                    )
+                  : UserProfile(
+                      email: user.email!,
+                      biotype: user.biotype!,
+                      goals: setGoals(user.goals!),
+                      firstname: user.firstName!,
+                      lastname: user.lastName!,
+                      height: user.height!,
+                      sex: user.sex!,
+                      weight: user.weight!,
+                      password: "",
+                      userPhoto: user.photo == null ? "" : user.photo as String,
+                    ),
             ),
           )
               .then((value) {

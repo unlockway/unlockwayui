@@ -8,14 +8,15 @@ import 'package:unlockway/components/popups.dart';
 import 'package:unlockway/components/simple_popup.dart';
 import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/history.dart';
+import 'package:unlockway/models/user.dart';
 
 Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
-  // var sessionToken = userData.token;
-  String apiUrl = 'http://localhost:8080/history/get';
+  var sessionToken = userData.token;
+  String apiUrl = '${apiKey}history/${userData.id}';
 
   final response = await http.get(Uri.parse(apiUrl), headers: {
-    //  'Authorization': 'Bearer $sessionToken',
-    //  'Accept-Charset': 'UTF-8', // Adicionado Accept-Charset
+    'Authorization': 'Bearer $sessionToken',
+    'Accept-Charset': 'UTF-8', // Adicionado Accept-Charset
   });
 
   if (response.statusCode == 200) {
@@ -25,6 +26,7 @@ Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
     // Agora, você pode decodificar o JSON
     List<dynamic> historyList = json.decode(responseBody);
     // Mapeia os dados para a lista de objetos HistoryModel
+
     List<HistoryModel> history = historyList.map((history) {
       return HistoryModel.fromMap(history);
     }).toList();
@@ -41,7 +43,7 @@ Future<void> getHistoryIngestedAPI(
   String routineId,
   String ingestedMealId,
 ) async {
-  String apiUrl = 'https://unlockway.azurewebsites.net/api/v1/history/ingested';
+  String apiUrl = '${apiKey}history/ingested';
 
   final response = await http.put(
     Uri.parse(apiUrl).replace(queryParameters: {
@@ -70,5 +72,33 @@ Future<void> getHistoryIngestedAPI(
         message: "Ocorreu um erro",
       ),
     );
+  }
+}
+
+Future<List<HistoryModel>> getPatientHistoryAPI(
+    BuildContext context, UserModel patient) async {
+  var sessionToken = userData.token;
+  String apiUrl = '${apiKey}history/${patient.id}';
+
+  final response = await http.get(Uri.parse(apiUrl), headers: {
+    'Authorization': 'Bearer $sessionToken',
+    'Accept-Charset': 'UTF-8', // Adicionado Accept-Charset
+  });
+
+  if (response.statusCode == 200) {
+    // Use o utf8.decode para garantir que a codificação seja interpretada corretamente
+    String responseBody = utf8.decode(response.bodyBytes);
+
+    // Agora, você pode decodificar o JSON
+    List<dynamic> historyList = json.decode(responseBody);
+    // Mapeia os dados para a lista de objetos HistoryModel
+    List<HistoryModel> history = historyList.map((history) {
+      return HistoryModel.fromMap(history);
+    }).toList();
+
+    return history;
+  } else {
+    // Se a solicitação não foi bem-sucedida, trate o erro (por exemplo, lançar uma exceção)
+    throw Exception('Falha na solicitação: ${response.statusCode}');
   }
 }
