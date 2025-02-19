@@ -11,10 +11,7 @@ import 'package:http/http.dart' as http;
 
 Future<List<RecommendationModel>> getPatientRecommendationAPI(
     BuildContext context, String patientId) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/patient/$patientId';
-
-  //const String apiUrl = 'http://localhost:8080/dishes/get';
+  String apiUrl = '${apiKey}recommendations/patient/$patientId';
 
   final uri = Uri.parse(
       apiUrl); //.replace(queryParameters: {'patientId': userData.id});
@@ -45,10 +42,7 @@ Future<List<RecommendationModel>> getPatientRecommendationAPI(
 
 Future<RecommendationModel> getRecommendationByIdAPI(
     BuildContext context, String recommendationId) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/$recommendationId';
-
-  //const String apiUrl = 'http://localhost:8080/dishes/get';
+  String apiUrl = '${apiKey}recommendations/$recommendationId';
 
   final uri = Uri.parse(apiUrl);
 
@@ -76,8 +70,7 @@ Future<RecommendationModel> getRecommendationByIdAPI(
 
 Future<List<RecommendationModel>> getPatientRecommendationByDescriptionAPI(
     BuildContext context, String patientId, String description) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/search';
+  String apiUrl = '${apiKey}recommendations/search';
 
   // Construindo a URI com parâmetros de consulta
   final uri = Uri.parse(apiUrl).replace(queryParameters: {
@@ -113,8 +106,7 @@ Future<RecommendationModel> createInitialRecommendationAPI(
   String idPatient,
   String description,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations';
+  String apiUrl = '${apiKey}recommendations';
 
   final response = await http.post(
     Uri.parse(apiUrl),
@@ -144,8 +136,7 @@ Future<void> deleteInitialRecommendationAPI(
   BuildContext context,
   String recommendationID,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/$recommendationID';
+  String apiUrl = '${apiKey}recommendations/$recommendationID';
 
   await http.delete(
     Uri.parse(apiUrl),
@@ -164,8 +155,7 @@ Future<void> editCreateRecommendationAPI(
   String idPatient,
   String operation,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/$idRecommendation';
+  String apiUrl = '${apiKey}recommendations/$idRecommendation';
 
   var payload = {
     "idNutritionist": userData.id,
@@ -215,8 +205,7 @@ Future<void> acceptRecommendationAPI(
   String recommendationId,
   String patientComment,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/accept/$recommendationId';
+  String apiUrl = '${apiKey}recommendations/accept/$recommendationId';
 
   final response = await http.post(
     Uri.parse(apiUrl),
@@ -255,8 +244,7 @@ Future<void> denyRecommendationAPI(
   String recommendationId,
   String patientComment,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/recommendations/deny/$recommendationId';
+  String apiUrl = '${apiKey}recommendations/deny/$recommendationId';
 
   final response = await http.post(
     Uri.parse(apiUrl),

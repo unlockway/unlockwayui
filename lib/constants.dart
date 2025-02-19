@@ -29,3 +29,4 @@ var blue = 0xFF457B9D;
 
 UserModel userData = UserModel(); // keep
 String? fcmToken = "23123123123";
+var apiKey = "Your-Key-Here";

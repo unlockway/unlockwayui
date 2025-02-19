@@ -25,8 +25,7 @@ Future<void> createMealSuggestionAPI(
   List<SelectedFood> ingredients,
   File? imageFile,
 ) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/meal-suggestions';
+  String apiUrl = '${apiKey}meal-suggestions';
 
   var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
     ..headers['Authorization'] = 'Bearer ${userData.token}';
@@ -86,8 +85,7 @@ Future<void> createRoutineSuggestionsAPI(
   List<RoutineMealOnCreation> meals,
   List<bool> weekRepetitions,
 ) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routine-suggestions';
+  String apiUrl = '${apiKey}routine-suggestions';
 
   List<Map<String, dynamic>> jsonList =
       meals.map((meal) => meal.toJson()).toList();
@@ -138,10 +136,7 @@ Future<void> createRoutineSuggestionsAPI(
 
 Future<List<MealSuggestion>> getMealSuggestionsByIdAPI(
     BuildContext context, String recommendationId) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/meal-suggestions/$recommendationId';
-
-  //const String apiUrl = 'http://localhost:8080/dishes/get';
+  String apiUrl = '${apiKey}meal-suggestions/$recommendationId';
 
   final uri = Uri.parse(apiUrl);
 
@@ -172,8 +167,7 @@ Future<void> deleteMealSuggestionAPI(
   BuildContext context,
   String mealSuggestionId,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/meal-suggestions/$mealSuggestionId';
+  String apiUrl = '${apiKey}meal-suggestions/$mealSuggestionId';
 
   try {
     final response = await http.delete(
@@ -207,8 +201,7 @@ Future<void> deleteRoutineSuggestionAPI(
   BuildContext context,
   String routineSuggestionId,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routine-suggestions/$routineSuggestionId';
+  String apiUrl = '${apiKey}routine-suggestions/$routineSuggestionId';
 
   try {
     final response = await http.delete(
@@ -249,8 +242,7 @@ Future<void> editMealSuggestionAPI(
   List<SelectedFood> ingredients,
   File? imageFile,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/meal-suggestions/$mealSuggestionId';
+  String apiUrl = '${apiKey}meal-suggestions/$mealSuggestionId';
 
   var request = http.MultipartRequest(
     'PUT',
@@ -316,8 +308,7 @@ Future<void> editRoutineSuggestionAPI(
   String? routineID,
   String? routineSuggestionId,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routine-suggestions/$routineSuggestionId';
+  String apiUrl = '${apiKey}routine-suggestions/$routineSuggestionId';
 
   List<Map<String, dynamic>> jsonList = meals.map((meal) {
     if (meal.notifyAt!.length == 5) meal.notifyAt = "${meal.notifyAt}:00";

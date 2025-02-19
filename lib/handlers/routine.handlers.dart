@@ -13,10 +13,7 @@ import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/screens/routine/routine.dart';
 
 Future<List<RoutineModel>> getRoutinesAPI(BuildContext context) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routines/patientId';
-
-  //const String apiUrl = 'http://localhost:8080/routines/get';
+  String apiUrl = '${apiKey}routines/patientId';
 
   final uri = Uri.parse(apiUrl).replace(queryParameters: {'id': userData.id});
 
@@ -48,10 +45,7 @@ Future<List<RoutineModel>> getRoutinesAPI(BuildContext context) async {
 }
 
 Future<dynamic> getRoutineOnUseAPI(BuildContext context) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routines/inusage';
-
-  //const String apiUrl = 'http://localhost:8080/routines/getOnUse';
+  String apiUrl = '${apiKey}routines/inusage';
 
   final uri =
       Uri.parse(apiUrl).replace(queryParameters: {'patientId': userData.id});
@@ -86,8 +80,7 @@ Future<void> createRoutineAPI(
   List<RoutineMealOnCreation> meals,
   List<bool> weekRepetitions,
 ) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routines';
+  String apiUrl = '${apiKey}routines';
 
   List<Map<String, dynamic>> jsonList =
       meals.map((meal) => meal.toJson()).toList();
@@ -154,8 +147,7 @@ Future<void> editRoutineAPI(
   List<bool> weekRepetitions,
   String routineID,
 ) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routines';
+  String apiUrl = '${apiKey}routines';
 
   List<Map<String, dynamic>> jsonList = meals.map((meal) {
     if (meal.notifyAt!.length == 5) meal.notifyAt = "${meal.notifyAt}:00";
@@ -220,8 +212,7 @@ Future<void> deleteRoutineAPI(
   String sessionToken,
   String routineID,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routines/$routineID';
+  String apiUrl = '${apiKey}routines/$routineID';
 
   final response = await http.delete(
     Uri.parse(apiUrl),
@@ -257,8 +248,7 @@ Future<void> deleteRoutineAPI(
 }
 
 Future<void> changeUsedRoutine(BuildContext context, String routineId) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routines/use';
+  String apiUrl = '${apiKey}routines/use';
 
   final response = await http.put(
       Uri.parse(apiUrl).replace(queryParameters: {
@@ -276,8 +266,7 @@ Future<List<RoutineModel>> getRoutineByNameAPI(
   BuildContext context,
   String name,
 ) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routines/findByName';
+  String apiUrl = '${apiKey}routines/findByName';
 
   final uri = Uri.parse(apiUrl).replace(queryParameters: {
     'patientId': userData.id,

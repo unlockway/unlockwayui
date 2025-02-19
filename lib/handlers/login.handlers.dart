@@ -26,9 +26,7 @@ Future<void> loginAPI(
       ),
     );
   } else {
-    const String apiUrl =
-        'https://unlockwayapi.azurewebsites.net/api/v2/auth/authenticate';
-    //const String apiUrl = 'http://localhost:8080/user/login';
+    String apiUrl = '${apiKey}auth/authenticate';
 
     Map payload = {
       "email": email,

@@ -25,8 +25,7 @@ Future<void> updateUserDataHandler(
   String biotype,
   String sex,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/patient/$userId';
+  String apiUrl = '${apiKey}patient/$userId';
 
   bool mMass = false;
   bool mHealth = false;
@@ -104,8 +103,7 @@ Future<void> applyUserPhotoHandler(
   String userId,
   String sessionToken,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/patient/photo/$userId';
+  String apiUrl = '${apiKey}patient/photo/$userId';
 
   var request = http.MultipartRequest(
     'PUT',
@@ -150,8 +148,7 @@ Future<void> updateNutritionistDataHandler(
   String password,
   String cfnToken,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/${userData.id}';
+  String apiUrl = '${apiKey}nutritionist/${userData.id}';
 
   var payload = {
     "firstname": firstname,
@@ -211,8 +208,7 @@ Future<void> applyNutritionistPhotoHandler(
   String userId,
   String sessionToken,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/photo/$userId';
+  String apiUrl = '${apiKey}nutritionist/photo/$userId';
 
   var request = http.MultipartRequest(
     'PUT',

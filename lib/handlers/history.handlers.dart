@@ -12,8 +12,7 @@ import 'package:unlockway/models/user.dart';
 
 Future<List<HistoryModel>> getHistoryAPI(BuildContext context) async {
   var sessionToken = userData.token;
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/history/${userData.id}';
+  String apiUrl = '${apiKey}history/${userData.id}';
 
   final response = await http.get(Uri.parse(apiUrl), headers: {
     'Authorization': 'Bearer $sessionToken',
@@ -44,8 +43,7 @@ Future<void> getHistoryIngestedAPI(
   String routineId,
   String ingestedMealId,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/history/ingested';
+  String apiUrl = '${apiKey}history/ingested';
 
   final response = await http.put(
     Uri.parse(apiUrl).replace(queryParameters: {
@@ -80,8 +78,7 @@ Future<void> getHistoryIngestedAPI(
 Future<List<HistoryModel>> getPatientHistoryAPI(
     BuildContext context, UserModel patient) async {
   var sessionToken = userData.token;
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/history/${patient.id}';
+  String apiUrl = '${apiKey}history/${patient.id}';
 
   final response = await http.get(Uri.parse(apiUrl), headers: {
     'Authorization': 'Bearer $sessionToken',

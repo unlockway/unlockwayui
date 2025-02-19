@@ -14,10 +14,7 @@ import 'package:unlockway/models/routine.dart';
 import 'package:unlockway/models/user.dart';
 
 Future<List<PatientUserModel>> getPatientsAPI(BuildContext context) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/${userData.id}/patients';
-
-  //const String apiUrl = 'http://localhost:8080/dishes/get';
+  String apiUrl = '${apiKey}nutritionist/${userData.id}/patients';
 
   final uri = Uri.parse(
       apiUrl); //.replace(queryParameters: {'patientId': userData.id});
@@ -82,10 +79,7 @@ Future<List<MealsModel>> getPatientMealsAPI(
   BuildContext context,
   String patientId,
 ) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/meals/findByPatientId';
-
-  //const String apiUrl = 'http://localhost:8080/dishes/get';
+  String apiUrl = '${apiKey}meals/findByPatientId';
 
   final uri =
       Uri.parse(apiUrl).replace(queryParameters: {'patientId': patientId});
@@ -115,11 +109,7 @@ Future<List<MealsModel>> getPatientMealsAPI(
 
 Future<List<RoutineModel>> getPatientRoutinesAPI(
     BuildContext context, UserModel patient) async {
-  //const String apiUrl =
-  //    'https://unlockwayappservice-dxfzdga6d0h7e8f3.brazilsouth-01.azurewebsites.net/api/v2/routines/userId';
-
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/routines/patientId';
+  String apiUrl = '${apiKey}routines/patientId';
 
   final uri = Uri.parse(apiUrl).replace(queryParameters: {
     'id': patient.id,
@@ -154,7 +144,7 @@ Future<List<RoutineModel>> getPatientRoutinesAPI(
 
 Future<HomeDataModel> getPatientHomeAnalysysAPI(
     BuildContext context, String patientId) async {
-  String baseUrl = 'https://unlockwayapi.azurewebsites.net/api/v2/analysis';
+  String baseUrl = '${apiKey}analysis';
 
   // Cria o Uri com o id como um parâmetro
   Uri apiUri = Uri.parse(baseUrl).replace(
@@ -184,8 +174,7 @@ Future<HomeDataModel> getPatientHomeAnalysysAPI(
 
 Future<void> deletePatientAPI(
     BuildContext context, String patientRelationId) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/remove-patient/$patientRelationId';
+  String apiUrl = '${apiKey}nutritionist/remove-patient/$patientRelationId';
 
   final response = await http.delete(
     Uri.parse(apiUrl),
@@ -217,8 +206,7 @@ Future<void> linkNewPatientAPI(
   BuildContext context,
   String email,
 ) async {
-  String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/nutritionist/${userData.id}/new-patient';
+  String apiUrl = '${apiKey}nutritionist/${userData.id}/new-patient';
 
   final response = await http.post(
     Uri.parse(apiUrl),

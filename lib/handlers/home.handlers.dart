@@ -8,7 +8,7 @@ import 'package:unlockway/constants.dart';
 import 'package:unlockway/models/home_data.dart';
 
 Future<HomeDataModel> getHomeAnalysysAPI(BuildContext context) async {
-  String baseUrl = 'https://unlockwayapi.azurewebsites.net/api/v2/analysis';
+  String baseUrl = '${apiKey}analysis';
 
   // Cria o Uri com o id como um parâmetro
   Uri apiUri = Uri.parse(baseUrl).replace(

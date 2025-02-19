@@ -9,9 +9,7 @@ import 'package:unlockway/models/ingredients.dart';
 
 Future<List<IngredientModel>> getIngredientsAPI(BuildContext context) async {
   var sessionToken = userData.token;
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/ingredients';
-  // const String apiUrl = 'http://localhost:8080/dishes/get/ingredients';
+  String apiUrl = '${apiKey}ingredients';
 
   final response = await http.get(Uri.parse(apiUrl), headers: {
     'Authorization': 'Bearer $sessionToken',
@@ -41,8 +39,7 @@ Future<List<IngredientModel>> getIngredientsByNameAPI(
   BuildContext context,
   String name,
 ) async {
-  const String apiUrl =
-      'https://unlockwayapi.azurewebsites.net/api/v2/ingredients/findByName';
+  String apiUrl = '${apiKey}ingredients/findByName';
 
   final uri = Uri.parse(apiUrl).replace(queryParameters: {
     'userId': userData.id,

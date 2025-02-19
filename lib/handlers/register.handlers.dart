@@ -27,8 +27,8 @@ Future<void> registerAPI(
   String? cfnToken,
 ) async {
   String apiUrl = cfnToken == "" || cfnToken == null
-      ? "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-patient"
-      : "https://unlockwayapi.azurewebsites.net/api/v2/auth/register-nutritionist";
+      ? "${apiKey}auth/register-patient"
+      : "${apiKey}auth/register-nutritionist";
 
   bool mMass = false;
   bool mHealth = false;
