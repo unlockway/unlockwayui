@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unlockway/components/buttons.dart';
@@ -20,21 +19,12 @@ class InitialLogin extends StatefulWidget {
 }
 
 class _InitialLoginState extends State<InitialLogin> {
-  //final FirebaseAuth auth = FirebaseAuth.instance;
-  User? user;
-
   final email = TextEditingController();
   final password = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // auth.authStateChanges().listen((event) {
-    //   setState(() {
-    //     user = event;
-    //   });
-    // });
-    // getUserLogged();
   }
 
   getUserLogged() async {

@@ -29,4 +29,5 @@ var blue = 0xFF457B9D;
 
 UserModel userData = UserModel(); // keep
 String? fcmToken = "23123123123";
-var apiKey = "Your-Key-Here";
+var apiKey =
+    "https://unlockway-api-h0fmewdjf8hrckc3.brazilsouth-01.azurewebsites.net/api/v2/";

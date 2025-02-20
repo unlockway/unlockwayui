@@ -1,0 +1,2 @@
+D:/Projetos/unlockwayui/android/app/.cxx/Debug/2a2u5z4j/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Projetos/unlockwayui/android/app/.cxx/Debug/2a2u5z4j/armeabi-v7a/CMakeFiles/rebuild_cache.dir
